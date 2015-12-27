@@ -1,18 +1,20 @@
-At least Qt 5.4 is needed.
+Little Logbook is a view and extraction program for the FSX logbook. It allows fast and intuitive search and grouping of logbook entries based on several parameters, as well as export to HTML and CSV documents.
+Additional information about airports can be shown together with the MakeRunways Utility by Peter Dowson.
 
-/home/alex/Projekte/atools/release
-qmake: qmake atools.pro -r -spec linux-g++
-Make:  make in /home/alex/Projekte/atools/release
+See the Little Logbook help for more information.
 
-/home/alex/Projekte/littlelogbook/release
-qmake littlelogbook.pro -r -spec linux-g++
-Make:  make in /home/alex/Projekte/littlelogbook/release
+Little Logbook has not been tested with Prepare3d or FSX SE but might work.
 
+An installer or setup program is not available.
 
-/home/alex/Projekte/atools/debug
-qmake: qmake atools.pro -r -spec linux-g++ CONFIG+=debug
-Make: make in /home/alex/Projekte/atools/debug
+Do not extract the archive into the folder "c:\Program Files\" or "c:\Program Files (x86)\" since you will need administrative privileges in some Windows versions. Since Windows keeps control on these folders other problems might occur, like replaced or deleted files.
+Extract the Zip archive into a folder, like "c:\Own Programs\Little Logbook". Then start the program by double-clicking "littlelogbook.exe".
 
-/home/alex/Projekte/littlelogbook/debug
-qmake: qmake littlelogbook.pro -r -spec linux-g++ CONFIG+=debug
-Make: make in /home/alex/Projekte/littlelogbook/debug
+Little Logbook is a 32-bit application and was tested with Windows XP, Windows 7 64-bit and Windows 8.1 64-bit.
+
+This software is licensed under GPL3 or any later version.
+
+The source code for this application is available at Github.
+
+Copyright 2015 Alexander Barthel (albar965@mailbox.org).
+
