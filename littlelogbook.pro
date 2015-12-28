@@ -1,3 +1,20 @@
+#*****************************************************************************
+# Copyright 2015 Alexander Barthel albar965@mailbox.org
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#****************************************************************************
+
 #-------------------------------------------------
 #
 # Project created by QtCreator 2015-08-22T16:32:20
@@ -8,6 +25,7 @@ QT       += core gui sql xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+# Adapt these variables to compile on Windows
 win32 {
   QT_BIN=C:\\Qt\\5.5\\mingw492_32\\bin
   GIT_BIN='C:\\Git\\bin\\git'
@@ -18,11 +36,14 @@ CONFIG *= debug_and_release debug_and_release_target
 TARGET = littlelogbook
 TEMPLATE = app
 
+# C++ standard 11 used here
 QMAKE_CXXFLAGS += -std=c++11
 
+# Get the current GIT revision to include it into the code
 win32:DEFINES += GIT_REVISION='\\"$$system($${GIT_BIN} rev-parse --short HEAD)\\"'
 unix:DEFINES += GIT_REVISION='\\"$$system(git rev-parse --short HEAD)\\"'
 
+# Add dependencies to atools project and its static library to ensure relinking on changes
 DEPENDPATH += $$PWD/../atools/src
 INCLUDEPATH += $$PWD/../atools/src $$PWD/src
 
@@ -114,15 +135,17 @@ DISTFILES += \
     uncrustify.cfg \
     htmltidy.cfg
 
-
+# Create additional makefile targets to copy help files
 unix {
   copydata.commands = cp -avfu $$PWD/help $$OUT_PWD
   cleandata.commands = rm -Rvf $$OUT_PWD/help
 }
 
+# Windows specific stuff
 win32 {
   RC_ICONS = resources/icons/littlelogbook.ico
 
+  # Create backslashed path
   WINPWD=$${PWD}
   WINPWD ~= s,/,\\,g
   WINOUT_PWD=$${OUT_PWD}
@@ -142,7 +165,10 @@ win32 {
   deploy.commands += copy $${QT_BIN}\\libgcc*.dll $${DEPLOY_DIR} &&
   deploy.commands += copy $${QT_BIN}\\libstdc*.dll $${DEPLOY_DIR} &&
   deploy.commands += copy $${QT_BIN}\\libwinpthread*.dll $${DEPLOY_DIR} &&
-  deploy.commands += $${QT_BIN}\\windeployqt --compiler-runtime $${DEPLOY_DIR}
+  deploy.commands += $${QT_BIN}\\windeployqt --compiler-runtime $${DEPLOY_DIR} &&
+  # Delete some unneeded files copied by windeployqt
+  deploy.commands += del /s /q $${DEPLOY_DIR}\\imageformats\\qdds.dll $${DEPLOY_DIR}\\imageformats\\qjp2.dll $${DEPLOY_DIR}\\imageformats\\qtga.dll $${DEPLOY_DIR}\\imageformats\\qtiff.dll &&
+  deploy.commands += del /s /q $${DEPLOY_DIR}\\sqldrivers\qsqlmysql.dll $${DEPLOY_DIR}\\sqldrivers\qsqlodbc.dll $${DEPLOY_DIR}\\sqldrivers\qsqlpsql.dll
 }
 
 QMAKE_EXTRA_TARGETS += deploy

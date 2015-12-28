@@ -10,7 +10,17 @@ Additionally my atools static library is needed.
 Windows
 ------------------------------------------------------
 
-Get Qt Creator from http://www.qt.io.
+- Get and install Qt Creator from http://www.qt.io.
+- Import atools and littlelogbook into the workspace.
+- Configure the projects and enable shadow build for release or debug versions.
+-- For atools use the build directory of e.g.: "C:\Projects\atools\release"
+-- For littlelogbook use the build directory of e.g.: "C:\Projects\littlelogbook\release"
+- Adapt the QT_BIN and GIT_BIN variables in "littlelogbook.pro".
+- Build and run.
+
+It is important that the shadow build directories reside within the project directories and are
+named "release" and "debug" depending on desired build. Do not use the default shadow names, this will
+break project dependencies.
 
 Linux
 ------------------------------------------------------
