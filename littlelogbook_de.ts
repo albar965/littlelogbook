@@ -240,12 +240,12 @@ Flights</source>
 <context>
     <name>CsvExporter</name>
     <message>
-        <location filename="src/export/csvexporter.cpp" line="48"/>
+        <location filename="src/export/csvexporter.cpp" line="49"/>
         <source>Export CSV Document</source>
         <translation>CSV-Datei exportieren</translation>
     </message>
     <message>
-        <location filename="src/export/csvexporter.cpp" line="49"/>
+        <location filename="src/export/csvexporter.cpp" line="50"/>
         <source>CSV Documents (*.csv);;All Files (*)</source>
         <translation>CSV-Dateien (*.csv);;Alle Dateien (*)</translation>
     </message>
@@ -291,7 +291,7 @@ Flights</source>
         <translation type="vanished">FSX Logbuch</translation>
     </message>
     <message>
-        <location filename="src/export/exporter.cpp" line="92"/>
+        <location filename="src/export/exporter.cpp" line="90"/>
         <source>Cannot open file &lt;i&gt;%1&lt;/i&gt;</source>
         <translation>Kann &lt;i&gt;%1&lt;/i&gt; nicht öffnen</translation>
     </message>
@@ -482,37 +482,41 @@ Flights</source>
 <context>
     <name>HelpHandler</name>
     <message>
-        <location filename="src/gui/helphandler.cpp" line="42"/>
+        <location filename="src/gui/helphandler.cpp" line="59"/>
         <source>About %1</source>
         <translation>Über %1</translation>
     </message>
     <message>
-        <location filename="src/gui/helphandler.cpp" line="43"/>
         <source>&lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;is a logbook viewer and search tool for FSX.&lt;br/&gt;&lt;br/&gt;This software is licensed under &lt;a href=&quot;http://www.gnu.org/licenses/gpl-3.0&quot;&gt;GPL3&lt;/a&gt; or any later version.&lt;br/&gt;&lt;br/&gt;The source code for this application is available at &lt;a href=&quot;https://github.com/abarthel9&quot;&gt;Github&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Copyright 2015 Alexander Barthel (abarthel@mailbox.org).&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;Version %2 (revision %3)&lt;br/&gt;atools Version %4 (revision %5)&lt;br/&gt;&lt;hr/&gt;%6:&lt;br/&gt;&lt;i&gt;%7&lt;/i&gt;</source>
+        <translation type="vanished">&lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;ist ein Ansichts- und Abfragewerkzeug für FSX.&lt;br/&gt;&lt;br/&gt;Diese Software steht unter der &lt;a href=&quot;http://www.gnu.org/licenses/gpl-3.0&quot;&gt;GPL3&lt;/a&gt; Lizenz oder späteren Versionen.&lt;br/&gt;&lt;br/&gt;Der Quellcode dieser Software ist auf &lt;a href=&quot;https://github.com/abarthel9&quot;&gt;Github&lt;/a&gt; verfügbar.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Copyright 2015 Alexander Barthel (abarthel@mailbox.org).&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;Version %2 (Revision %3)&lt;br/&gt;atools Version %4 (Revision %5)&lt;br/&gt;&lt;hr/&gt;%6:&lt;br/&gt;&lt;i&gt;%7&lt;/i&gt;</translation>
+    </message>
+    <message>
+        <location filename="src/gui/helphandler.cpp" line="60"/>
+        <source>&lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;is a logbook viewer and search tool for FSX.&lt;br/&gt;&lt;br/&gt;This software is licensed under &lt;a href=&quot;http://www.gnu.org/licenses/gpl-3.0&quot;&gt;GPL3&lt;/a&gt; or any later version.&lt;br/&gt;&lt;br/&gt;The source code for this application is available at &lt;a href=&quot;https://github.com/abarthel9&quot;&gt;Github&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Copyright 2015 Alexander Barthel (albar965@mailbox.org).&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;Version %2 (revision %3)&lt;br/&gt;atools Version %4 (revision %5)&lt;br/&gt;&lt;hr/&gt;%6:&lt;br/&gt;&lt;i&gt;%7&lt;/i&gt;</source>
         <translation>&lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;ist ein Ansichts- und Abfragewerkzeug für FSX.&lt;br/&gt;&lt;br/&gt;Diese Software steht unter der &lt;a href=&quot;http://www.gnu.org/licenses/gpl-3.0&quot;&gt;GPL3&lt;/a&gt; Lizenz oder späteren Versionen.&lt;br/&gt;&lt;br/&gt;Der Quellcode dieser Software ist auf &lt;a href=&quot;https://github.com/abarthel9&quot;&gt;Github&lt;/a&gt; verfügbar.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Copyright 2015 Alexander Barthel (abarthel@mailbox.org).&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;Version %2 (Revision %3)&lt;br/&gt;atools Version %4 (Revision %5)&lt;br/&gt;&lt;hr/&gt;%6:&lt;br/&gt;&lt;i&gt;%7&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="src/gui/helphandler.cpp" line="58"/>
+        <location filename="src/gui/helphandler.cpp" line="75"/>
         <source>Logfiles</source>
         <translation>Logdateien</translation>
     </message>
     <message>
-        <location filename="src/gui/helphandler.cpp" line="58"/>
+        <location filename="src/gui/helphandler.cpp" line="75"/>
         <source>Logfile</source>
         <translation>Logdatei</translation>
     </message>
     <message>
-        <location filename="src/gui/helphandler.cpp" line="64"/>
+        <location filename="src/gui/helphandler.cpp" line="81"/>
         <source>About Qt</source>
         <translation>Über Qt</translation>
     </message>
     <message>
-        <location filename="src/gui/helphandler.cpp" line="94"/>
+        <location filename="src/gui/helphandler.cpp" line="111"/>
         <source>Help file &lt;i&gt;%1&lt;/i&gt; not found</source>
         <translation>Hilfedatei &lt;i&gt;%1&lt;/i&gt; nicht gefunden</translation>
     </message>
     <message>
-        <location filename="src/gui/helphandler.cpp" line="101"/>
+        <location filename="src/gui/helphandler.cpp" line="118"/>
         <source>Error opening help URL &lt;i&gt;%1&lt;/i&gt;</source>
         <translation>Fehler beim Öffnen der Hilfe-URL &lt;i&gt;%1&lt;/i&gt;</translation>
     </message>
