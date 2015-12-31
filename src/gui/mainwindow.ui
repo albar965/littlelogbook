@@ -1,0 +1,972 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1280</width>
+    <height>768</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Little Logbook</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../../littlelogbook.qrc">
+    <normaloff>:/littlelogbook/resources/icons/logbook.svg</normaloff>:/littlelogbook/resources/icons/logbook.svg</iconset>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <layout class="QGridLayout" name="gridLayoutSearch">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="fromAirportLineEdit">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Start airport ICAO code</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="frame">
+         <bool>true</bool>
+        </property>
+        <property name="placeholderText">
+         <string>ICAO Code</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLineEdit" name="toCityLineEdit">
+        <property name="toolTip">
+         <string>Destination airport city name</string>
+        </property>
+        <property name="placeholderText">
+         <string>CIty</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="5">
+       <widget class="QLineEdit" name="toCountryLineEdit">
+        <property name="toolTip">
+         <string>Destination airport country name</string>
+        </property>
+        <property name="placeholderText">
+         <string>Country</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLineEdit" name="toAirportNameLineEdit">
+        <property name="toolTip">
+         <string>Destination airport name</string>
+        </property>
+        <property name="placeholderText">
+         <string>Airport Name</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QLineEdit" name="fromCityLineEdit">
+        <property name="toolTip">
+         <string>Start airport city name</string>
+        </property>
+        <property name="placeholderText">
+         <string>City</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QLineEdit" name="fromStateLineEdit">
+        <property name="toolTip">
+         <string>Start airport state or province name</string>
+        </property>
+        <property name="placeholderText">
+         <string>State</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <widget class="QLineEdit" name="fromCountryLineEdit">
+        <property name="toolTip">
+         <string>Start airport country name</string>
+        </property>
+        <property name="placeholderText">
+         <string>Country</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="toAirportLineEdit">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Destination airport ICAO code</string>
+        </property>
+        <property name="placeholderText">
+         <string>ICAO Code</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLineEdit" name="fromAirportNameLineEdit">
+        <property name="toolTip">
+         <string>Start airport name</string>
+        </property>
+        <property name="placeholderText">
+         <string>Airport Name</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="4">
+       <widget class="QLineEdit" name="toStateLineEdit">
+        <property name="toolTip">
+         <string>Destination airport state or province name</string>
+        </property>
+        <property name="placeholderText">
+         <string>State</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="fromLabel">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;
+&lt;p&gt;Search tips: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Default is search for entries that start with text.&lt;/li&gt;
+&lt;li&gt;Use &amp;quot;*&amp;quot; as a placeholder for any text. &lt;/li&gt;
+&lt;li&gt;Prefix with &amp;quot;-&amp;quot; as first character to negate search.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>F&amp;rom:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+        <property name="buddy">
+         <cstring>fromAirportLineEdit</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="toLabel">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;
+&lt;p&gt;Search tips: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Default is search for entries that start with text.&lt;/li&gt;
+&lt;li&gt;Use &amp;quot;*&amp;quot; as a placeholder for any text. &lt;/li&gt;
+&lt;li&gt;Prefix with &amp;quot;-&amp;quot; as first character to negate search.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>&amp;To:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+        <property name="buddy">
+         <cstring>toAirportLineEdit</cstring>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QGridLayout" name="gridLayoutSearch2">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <item row="0" column="4">
+       <widget class="QComboBox" name="aircraftInfoComboBox">
+        <property name="toolTip">
+         <string>Other aircraft information</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>Aircraft Information</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Multi-engine</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="0" column="6">
+       <widget class="QComboBox" name="conditionComboBox">
+        <property name="toolTip">
+         <string>Filter by all matching conditions or any matching condition</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>All Conditions</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Any Condition</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QComboBox" name="aircraftTypeComboBox">
+        <property name="toolTip">
+         <string>Type of aircraft used for a flight</string>
+        </property>
+        <property name="currentText">
+         <string>Aircraft Type</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>Aircraft Type</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Glider</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Fixed wing</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Amphibious</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Rotary</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLineEdit" name="aircraftDescrLineEdit">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>1</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Name or description of the aircraft used for a flight</string>
+        </property>
+        <property name="placeholderText">
+         <string>Aircraft Description</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="aircraftRegLineEdit">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>1</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Registration of the aircraft used for a flight</string>
+        </property>
+        <property name="placeholderText">
+         <string>Aircraft Registration</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLineEdit" name="descriptionLineEdit">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>1</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Short comment or descritption of a flight</string>
+        </property>
+        <property name="placeholderText">
+         <string>Flight Description</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QTableView" name="tableView">
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::CustomContextMenu</enum>
+      </property>
+      <property name="lineWidth">
+       <number>1</number>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="tabKeyNavigation">
+       <bool>false</bool>
+      </property>
+      <property name="showDropIndicator" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="dragDropOverwriteMode">
+       <bool>false</bool>
+      </property>
+      <property name="alternatingRowColors">
+       <bool>true</bool>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::ExtendedSelection</enum>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+      <property name="horizontalScrollMode">
+       <enum>QAbstractItemView::ScrollPerPixel</enum>
+      </property>
+      <property name="sortingEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="wordWrap">
+       <bool>false</bool>
+      </property>
+      <attribute name="horizontalHeaderMinimumSectionSize">
+       <number>5</number>
+      </attribute>
+      <attribute name="horizontalHeaderStretchLastSection">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderCascadingSectionResizes">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="verticalHeaderDefaultSectionSize">
+       <number>18</number>
+      </attribute>
+      <attribute name="verticalHeaderMinimumSectionSize">
+       <number>18</number>
+      </attribute>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1280</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="actionOpenLogbook"/>
+    <addaction name="actionReloadLogbook"/>
+    <addaction name="separator"/>
+    <addaction name="actionQuit"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+    <addaction name="actionShowToolbar"/>
+    <addaction name="actionShowStatusbar"/>
+    <addaction name="actionShowStatistics"/>
+    <addaction name="actionShowSearch"/>
+    <addaction name="separator"/>
+    <addaction name="actionShowAll"/>
+    <addaction name="separator"/>
+    <addaction name="actionResetView"/>
+    <addaction name="actionResetSearch"/>
+    <addaction name="actionUngroup"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="actionHelp"/>
+    <addaction name="actionAbout"/>
+    <addaction name="actionAboutQt"/>
+   </widget>
+   <widget class="QMenu" name="menuExport">
+    <property name="title">
+     <string>&amp;Export</string>
+    </property>
+    <addaction name="actionOpenAfterExport"/>
+    <addaction name="separator"/>
+    <addaction name="actionExportAllCsv"/>
+    <addaction name="actionExportSelectedCsv"/>
+    <addaction name="separator"/>
+    <addaction name="actionExportAllHtml"/>
+    <addaction name="actionExportSelectedHtml"/>
+   </widget>
+   <widget class="QMenu" name="menuExtras">
+    <property name="title">
+     <string>E&amp;xtras</string>
+    </property>
+    <addaction name="actionResetMessages"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuView"/>
+   <addaction name="menuExport"/>
+   <addaction name="menuExtras"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="windowTitle">
+    <string>Toolbar</string>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <property name="floatable">
+    <bool>false</bool>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionOpenLogbook"/>
+   <addaction name="actionReloadLogbook"/>
+   <addaction name="actionShowAll"/>
+   <addaction name="separator"/>
+   <addaction name="actionResetView"/>
+   <addaction name="actionResetSearch"/>
+   <addaction name="actionUngroup"/>
+   <addaction name="separator"/>
+   <addaction name="actionShowSearch"/>
+   <addaction name="actionShowStatistics"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QDockWidget" name="dockWidget">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="windowTitle">
+    <string>Global Statistics</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QTextEdit" name="globalStatsTextEdit">
+       <property name="undoRedoEnabled">
+        <bool>false</bool>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+       <property name="html">
+        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <action name="actionQuit">
+   <property name="icon">
+    <iconset resource="../../littlelogbook.qrc">
+     <normaloff>:/littlelogbook/resources/icons/application-exit.svg</normaloff>:/littlelogbook/resources/icons/application-exit.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Quit</string>
+   </property>
+   <property name="toolTip">
+    <string>Quit the application</string>
+   </property>
+   <property name="statusTip">
+    <string>Quit the application</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionReloadLogbook">
+   <property name="icon">
+    <iconset resource="../../littlelogbook.qrc">
+     <normaloff>:/littlelogbook/resources/icons/revert.svg</normaloff>:/littlelogbook/resources/icons/revert.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Reload Logbook</string>
+   </property>
+   <property name="toolTip">
+    <string>Reload the current logbook</string>
+   </property>
+   <property name="statusTip">
+    <string>Reload the current logbook</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
+   </property>
+  </action>
+  <action name="actionFilterIncluding">
+   <property name="icon">
+    <iconset resource="../../littlelogbook.qrc">
+     <normaloff>:/littlelogbook/resources/icons/filter-add.svg</normaloff>:/littlelogbook/resources/icons/filter-add.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Filter by Entries &amp;including &quot;%1&quot;</string>
+   </property>
+   <property name="toolTip">
+    <string>Filter by logbook entries including text</string>
+   </property>
+   <property name="statusTip">
+    <string>Filter by logbook entries including text</string>
+   </property>
+  </action>
+  <action name="actionFilterExcluding">
+   <property name="icon">
+    <iconset resource="../../littlelogbook.qrc">
+     <normaloff>:/littlelogbook/resources/icons/filter-remove.svg</normaloff>:/littlelogbook/resources/icons/filter-remove.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Filter by Entries e&amp;xcluding &quot;%1&quot;</string>
+   </property>
+   <property name="toolTip">
+    <string>Filter by logbook entries excluding text</string>
+   </property>
+   <property name="statusTip">
+    <string>Filter by logbook entries excluding text</string>
+   </property>
+  </action>
+  <action name="actionResetView">
+   <property name="icon">
+    <iconset resource="../../littlelogbook.qrc">
+     <normaloff>:/littlelogbook/resources/icons/cleartable.svg</normaloff>:/littlelogbook/resources/icons/cleartable.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Reset View</string>
+   </property>
+   <property name="toolTip">
+    <string>Reset sort order, column order and column sizes to default</string>
+   </property>
+   <property name="statusTip">
+    <string>Reset sort order, column order and column sizes to default</string>
+   </property>
+  </action>
+  <action name="actionGroupByCol">
+   <property name="icon">
+    <iconset resource="../../littlelogbook.qrc">
+     <normaloff>:/littlelogbook/resources/icons/group-by.svg</normaloff>:/littlelogbook/resources/icons/group-by.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Group by Column  &quot;%1&quot;</string>
+   </property>
+   <property name="toolTip">
+    <string>Group by column and show summary for others</string>
+   </property>
+   <property name="statusTip">
+    <string>Group by column and show summary for others</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="../../littlelogbook.qrc">
+     <normaloff>:/littlelogbook/resources/icons/about.svg</normaloff>:/littlelogbook/resources/icons/about.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;About</string>
+   </property>
+   <property name="toolTip">
+    <string>About this application</string>
+   </property>
+   <property name="statusTip">
+    <string>About this application</string>
+   </property>
+  </action>
+  <action name="actionAboutQt">
+   <property name="icon">
+    <iconset resource="../../littlelogbook.qrc">
+     <normaloff>:/littlelogbook/resources/icons/about.svg</normaloff>:/littlelogbook/resources/icons/about.svg</iconset>
+   </property>
+   <property name="text">
+    <string>About &amp;Qt</string>
+   </property>
+   <property name="toolTip">
+    <string>About the Qt toolkit</string>
+   </property>
+   <property name="statusTip">
+    <string>About the Qt toolkit</string>
+   </property>
+  </action>
+  <action name="actionShowToolbar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Toolbar</string>
+   </property>
+   <property name="toolTip">
+    <string>Show or hide the toolbar</string>
+   </property>
+   <property name="statusTip">
+    <string>Show or hide the toolbar</string>
+   </property>
+  </action>
+  <action name="actionShowStatusbar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Stat&amp;usbar</string>
+   </property>
+   <property name="toolTip">
+    <string>Show or hide the statusbar</string>
+   </property>
+   <property name="statusTip">
+    <string>Show or hide the statusbar</string>
+   </property>
+  </action>
+  <action name="actionOpenLogbook">
+   <property name="icon">
+    <iconset resource="../../littlelogbook.qrc">
+     <normaloff>:/littlelogbook/resources/icons/fileopen.svg</normaloff>:/littlelogbook/resources/icons/fileopen.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Open Logbook ...</string>
+   </property>
+   <property name="toolTip">
+    <string>Open a new logbook file (Logbook.BIN)</string>
+   </property>
+   <property name="statusTip">
+    <string>Open a new logbook file (Logbook.BIN)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionShowSearch">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../littlelogbook.qrc">
+     <normaloff>:/littlelogbook/resources/icons/search.svg</normaloff>:/littlelogbook/resources/icons/search.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Search</string>
+   </property>
+   <property name="toolTip">
+    <string>Show or hide the search filter bar</string>
+   </property>
+   <property name="statusTip">
+    <string>Show or hide the search filter bar</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="icon">
+    <iconset resource="../../littlelogbook.qrc">
+     <normaloff>:/littlelogbook/resources/icons/help.svg</normaloff>:/littlelogbook/resources/icons/help.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Contents</string>
+   </property>
+   <property name="toolTip">
+    <string>Show help</string>
+   </property>
+   <property name="statusTip">
+    <string>Show help</string>
+   </property>
+  </action>
+  <action name="actionExportAllCsv">
+   <property name="text">
+    <string>Export All as &amp;CSV ...</string>
+   </property>
+   <property name="toolTip">
+    <string>Export all logbook entries to a CSV document</string>
+   </property>
+   <property name="statusTip">
+    <string>Export all logbook entries to a CSV document</string>
+   </property>
+  </action>
+  <action name="actionExportAllHtml">
+   <property name="text">
+    <string>Export All as &amp;HTML ...</string>
+   </property>
+   <property name="toolTip">
+    <string>Export all logbook entries to a HTML document</string>
+   </property>
+   <property name="statusTip">
+    <string>Export all logbook entries to a HTML document</string>
+   </property>
+  </action>
+  <action name="actionExportSelectedCsv">
+   <property name="text">
+    <string>Export Selected as &amp;CSV ...</string>
+   </property>
+   <property name="toolTip">
+    <string>Export selected logbook entries to a CSV document</string>
+   </property>
+   <property name="statusTip">
+    <string>Export selected logbook entries to a CSV document</string>
+   </property>
+  </action>
+  <action name="actionExportSelectedHtml">
+   <property name="text">
+    <string>Export Selected as &amp;HTML ...</string>
+   </property>
+   <property name="toolTip">
+    <string>Export selected logbook entries to a HTML document</string>
+   </property>
+   <property name="statusTip">
+    <string>Export selected logbook entries to a HTML document</string>
+   </property>
+  </action>
+  <action name="actionResetSearch">
+   <property name="icon">
+    <iconset resource="../../littlelogbook.qrc">
+     <normaloff>:/littlelogbook/resources/icons/clear.svg</normaloff>:/littlelogbook/resources/icons/clear.svg</iconset>
+   </property>
+   <property name="text">
+    <string>R&amp;eset Search</string>
+   </property>
+   <property name="toolTip">
+    <string>Clear all search filters</string>
+   </property>
+   <property name="statusTip">
+    <string>Clear all search filters</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionUngroup">
+   <property name="icon">
+    <iconset resource="../../littlelogbook.qrc">
+     <normaloff>:/littlelogbook/resources/icons/group-by.svg</normaloff>:/littlelogbook/resources/icons/group-by.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Un&amp;group</string>
+   </property>
+   <property name="toolTip">
+    <string>Release column grouping</string>
+   </property>
+   <property name="statusTip">
+    <string>Release column grouping</string>
+   </property>
+   <property name="whatsThis">
+    <string/>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+G</string>
+   </property>
+  </action>
+  <action name="actionShowAll">
+   <property name="icon">
+    <iconset resource="../../littlelogbook.qrc">
+     <normaloff>:/littlelogbook/resources/icons/load-all.svg</normaloff>:/littlelogbook/resources/icons/load-all.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Show &amp;All</string>
+   </property>
+   <property name="toolTip">
+    <string>Load all logbook entries into the view</string>
+   </property>
+   <property name="statusTip">
+    <string>Load all logbook entries into the view</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
+   </property>
+  </action>
+  <action name="actionResetMessages">
+   <property name="text">
+    <string>&amp;Reset all Messages</string>
+   </property>
+   <property name="toolTip">
+    <string>Shows all notification and question dialogs again</string>
+   </property>
+   <property name="statusTip">
+    <string>Shows all notification and question dialogs again</string>
+   </property>
+  </action>
+  <action name="actionShowStatistics">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../littlelogbook.qrc">
+     <normaloff>:/littlelogbook/resources/icons/globals.svg</normaloff>:/littlelogbook/resources/icons/globals.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Stat&amp;istics</string>
+   </property>
+   <property name="toolTip">
+    <string>Show or hide the statistics report window</string>
+   </property>
+   <property name="statusTip">
+    <string>Show or hide the statistics report window</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="actionOpenAfterExport">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Open Document after Export</string>
+   </property>
+   <property name="toolTip">
+    <string>Opens the document in a suitable application after export</string>
+   </property>
+   <property name="statusTip">
+    <string>Opens the document in a suitable application after export</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>tableView</tabstop>
+  <tabstop>fromAirportLineEdit</tabstop>
+  <tabstop>toAirportLineEdit</tabstop>
+  <tabstop>fromAirportNameLineEdit</tabstop>
+  <tabstop>toAirportNameLineEdit</tabstop>
+  <tabstop>fromCityLineEdit</tabstop>
+  <tabstop>toCityLineEdit</tabstop>
+  <tabstop>fromStateLineEdit</tabstop>
+  <tabstop>toStateLineEdit</tabstop>
+  <tabstop>fromCountryLineEdit</tabstop>
+  <tabstop>toCountryLineEdit</tabstop>
+  <tabstop>descriptionLineEdit</tabstop>
+  <tabstop>aircraftRegLineEdit</tabstop>
+  <tabstop>aircraftDescrLineEdit</tabstop>
+  <tabstop>aircraftTypeComboBox</tabstop>
+  <tabstop>aircraftInfoComboBox</tabstop>
+  <tabstop>conditionComboBox</tabstop>
+ </tabstops>
+ <resources>
+  <include location="../../littlelogbook.qrc"/>
+ </resources>
+ <connections/>
+</ui>

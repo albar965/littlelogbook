@@ -1,0 +1,161 @@
+/*****************************************************************************
+* Copyright 2015 Alexander Barthel albar965@mailbox.org
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*****************************************************************************/
+
+#include "table/columnlist.h"
+#include "logging/loggingdefs.h"
+
+#include <QLineEdit>
+#include <QComboBox>
+
+ColumnList::ColumnList(bool hasAirports)
+{
+  // Default view column descriptors
+  columns.append(Column("logbook_id", tr("Logbook-\nEntry")).
+                 canSort().defaultCol().defaultSort().defaultSortOrder(Qt::SortOrder::DescendingOrder));
+
+  columns.append(Column("startdate", tr("Start Time")).
+                 canSort().defaultCol());
+
+  columns.append(Column("airport_from_icao",
+                        tr("From\nICAO")).canFilter().canGroup().canSort().defaultCol());
+
+  if(hasAirports)
+  {
+    columns.append(Column("airport_from_name",
+                          tr("From Airport")).canFilter().canGroup().canSort().defaultCol());
+
+    columns.append(Column("airport_from_city",
+                          tr("From City")).canFilter().canGroup().canSort().defaultCol());
+
+    columns.append(Column("airport_from_state",
+                          tr("From State")).canFilter().canGroup().canSort().defaultCol());
+
+    columns.append(Column("airport_from_country",
+                          tr("From Country")).canFilter().canGroup().canSort().defaultCol());
+
+  }
+
+  columns.append(Column("airport_to_icao",
+                        tr("To\nICAO")).canFilter().canGroup().canSort().defaultCol());
+
+  if(hasAirports)
+  {
+    columns.append(Column("airport_to_name",
+                          tr("To Airport")).canFilter().canGroup().canSort().defaultCol());
+
+    columns.append(Column("airport_to_city",
+                          tr("To City")).canFilter().canGroup().canSort().defaultCol());
+
+    columns.append(Column("airport_to_state",
+                          tr("To State")).canFilter().canGroup().canSort().defaultCol());
+
+    columns.append(Column("airport_to_country",
+                          tr("To Country")).canFilter().canGroup().canSort().defaultCol());
+
+    columns.append(Column("distance",
+                          tr("Distance\nNM")).canSum().canSort().defaultCol());
+  }
+
+  columns.append(Column("description",
+                        tr("Flight\nDescription")).canFilter().canGroup().canSort().defaultCol());
+
+  columns.append(Column("total_time",
+                        tr("Total Time\nh:mm")).canSum().canSort().defaultCol());
+
+  columns.append(Column("night_time",
+                        tr("Night Time\nh:mm")).canSum().canSort().defaultCol());
+
+  columns.append(Column("instrument_time",
+                        tr("Instrument\nTime h:mm")).canSum().canSort().defaultCol());
+
+  columns.append(Column("aircraft_reg",
+                        tr("Aircraft\nRegistration")).canFilter().canGroup().canSort().defaultCol());
+
+  columns.append(Column("aircraft_descr",
+                        tr("Aircraft\nDescription")).canFilter().canGroup().canSort().defaultCol());
+
+  columns.append(Column("aircraft_type",
+                        tr("Aircraft\nType")).canFilter().canGroup().canSort().defaultCol());
+
+  columns.append(Column("aircraft_flags",
+                        tr("Aircraft\nInformation")).canFilter().canGroup().canSort().defaultCol());
+
+  columns.append(Column("visits", tr("Visits\nAirport/Landings, ...")).defaultCol());
+
+  // Column descriptors for grouped views
+  columns.append(Column("total_time_sum", tr("Total Time all\nh:mm")).canSort());
+  columns.append(Column("night_time_sum", tr("Night Time all\nh:mm")).canSort());
+  columns.append(Column("instrument_time_sum", tr("Instrument\nTime all h:mm")).canSort());
+  columns.append(Column("distance_sum", tr("Total Distance\nNM")).canSort());
+  columns.append(Column("num_flights", tr("Number of\nFlights")).canSort());
+
+  // Add names to the index
+  for(Column& cd : columns)
+    nameColumnMap.insert(cd.getColumnName(), &cd);
+}
+
+ColumnList::~ColumnList()
+{
+
+}
+
+const Column *ColumnList::getColumn(const QString& field) const
+{
+  if(nameColumnMap.contains(field))
+    return nameColumnMap.value(field);
+  else
+    return nullptr;
+}
+
+void ColumnList::assignLineEdit(const QString& field, QLineEdit *edit)
+{
+  if(nameColumnMap.contains(field))
+    nameColumnMap[field]->lineEdit(edit);
+  else
+    qWarning() << "Cannot assign line edit to" << field;
+}
+
+void ColumnList::assignComboBox(const QString& field, QComboBox *combo)
+{
+  if(nameColumnMap.contains(field))
+    nameColumnMap[field]->comboBox(combo);
+  else
+    qWarning() << "Cannot assign combo box to" << field;
+}
+
+void ColumnList::clearWidgets()
+{
+  for(Column& cd : columns)
+  {
+    if(cd.getLineEditWidget() != nullptr)
+      cd.getLineEditWidget()->setText("");
+    else if(cd.getComboBoxWidget() != nullptr)
+      cd.getComboBoxWidget()->setCurrentIndex(0);
+  }
+}
+
+void ColumnList::enableWidgets(bool enabled, const QStringList& exceptColNames)
+{
+  for(Column& cd : columns)
+    if(!exceptColNames.contains(cd.getColumnName()))
+    {
+      if(cd.getLineEditWidget() != nullptr)
+        cd.getLineEditWidget()->setEnabled(enabled);
+      else if(cd.getComboBoxWidget() != nullptr)
+        cd.getComboBoxWidget()->setEnabled(enabled);
+    }
+}

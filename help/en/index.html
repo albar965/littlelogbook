@@ -1,0 +1,612 @@
+<?xml version="1.0"?>
+<!--?xml version="1.0"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="language" content="EN" />
+    <meta name="generator" content="HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
+    <meta name="author" content="Alexander Barthel" />
+    <meta name="date" content="2015-12-01T22:35:00+01:00" />
+    <title>
+      Little Logbook Help
+    </title>
+    <style type="text/css" xml:space="preserve">
+/*<![CDATA[*/
+    BODY {
+    font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+    margin: 4em;
+    }
+    * {
+    font-size: 15px;
+    }
+    h1, h2, h3, h4, h5 {
+    color: #004703
+    }
+    h1, h2 {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    }
+    h3, h4 {
+    margin-top: 0.3em;
+    margin-bottom: 0.2em;
+    }
+    ul, ol {
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+    margin-left: 0.2em;
+    line-height: 1.5;
+    }
+    img {
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+    }
+    p {
+    margin-left: 1.5em;
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+    }
+    code {
+    font-size: 14px;
+    font-family: 'Andale Mono', 'Courier New', Courier, sans-serif;
+    font-weight: bold;
+    color: darkgreen;
+    }
+    em {
+    font-size: 14px;
+    font-weight: bold;
+    color: darkgreen;
+    }
+
+    h1 {
+    font-size: 28px;
+    border-bottom: 4px solid #004703;
+    width:80%;
+    }
+    h2 {
+    font-size: 24px;
+    border-bottom: 2px solid #004703;
+    width:70%;
+    }
+    h3 {
+    font-size: 20px;
+    border-bottom: 1px solid #004703;
+    width:60%;
+    }
+    h4 {
+    font-size: 16px;
+    }
+
+    .tabbed20 span {
+    width: 20em;
+    display: inline-block;
+    }
+    .tabbed17 span {
+    width: 17em;
+    display: inline-block;
+    }
+    .tabbed15 span {
+    width: 15em;
+    display: inline-block;
+    }
+    .tabbed12 span {
+    width: 12em;
+    display: inline-block;
+    }
+    /*]]>*/
+    </style>
+    <meta content="Alexander Barthel" name="author" />
+    <meta content="Little Logbook Help" name="description" />
+    <style type="text/css" xml:space="preserve">
+/*<![CDATA[*/
+    :link { color: #0000EE }
+    :visited { color: #551A8B }
+    :active { color: #EE0000 }
+    body.c3 { color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);}
+    img.c2 {width: 166px; height: 82px;}
+    span.c1 {font-weight: bold;}
+    /*]]>*/
+    </style>
+  </head>
+  <body class="c3">
+    <h1>
+      Little Logbook Help
+    </h1>
+    <p>
+      <img alt="Little Logbook" title="Little Logbook" src="images/logbook.png" />
+    </p>
+    <p>
+      <em>Little Logbook</em> is a view and extraction program for the FSX logbook. It allows fast and intuitive search and grouping of logbook entries based on several parameters, as well as export to HTML and CSV documents.
+    </p>
+    <p>
+      Additional information about airports can be shown together with the <a href="http://www.schiratti.com/dowson.html">MakeRunways Utility</a> by Peter Dowson.
+    </p>
+    <p>
+      <em>Little Logbook</em> has not been tested with Prepare3d or FSX SE.
+    </p>
+    <h2>
+      Installation
+    </h2>
+    <p>
+      An installer or setup program is not available.
+    </p>
+    <p>
+      <span class="c1">Do not extract the archive into the folder <code>c:\Program Files\</code> or <code>c:\Program Files (x86)\</code> since you will need administrative privileges in some Windows versions. Since Windows keeps control on these folders other problems might occur, like replaced or deleted files.</span>
+    </p>
+    <p>
+      Extract the Zip archive into a folder, like <code>c:\Own Programs\Little Logbook</code>. Then start the program by double-clicking <code>littlelogbook.exe</code>.
+    </p>
+    <p>
+      <em>Little Logbook</em> is a 32-bit application and was tested with Windows XP, Windows 7 64-bit and Windows 8.1 64-bit.
+    </p>
+    <h2>
+      First Start
+    </h2>
+    <p>
+      When started the first time the program tries to find the file <code>Logbook.BIN</code> and to load this file into an internal database. A file selection dialog will appear, if the file couldn't be found.
+    </p>
+    <p>
+      The program remembers the selected logbook file. If Little Logbook finds the file to be changed on startup, it will reload it into the internal database.
+    </p>
+    <h2>
+      MakeRunways Utility
+    </h2>
+    <p>
+      Optionally install and run the <em>MakeRunways</em> Utility by Peter Dowson to create the file <code>runways.xml</code> in the FSX base directory. This allows to show and search for additional airport information.
+    </p>
+    <p>
+      Additional information that can be shown in the table view, is airport name, city, state and country. More information is available as a tooltip in the from and to ICAO field.
+    </p>
+    <p>
+      <img alt="Airport Tooltip" title="Airport Tooltip" src="images/aptooltip.png" />
+    </p>
+    <p>
+      <span class="c1">Picture above:</span> Airport information that will be shown when <code>runways.xml</code> has been loaded.
+    </p>
+    <p>
+      If the file <code>runways.xml</code> was found and loaded, it will be checked for changes and reloaded on demand.
+    </p>
+    <p>
+      The <em>MakeRunways</em> utility can be downloaded from <a href="http://www.schiratti.com/dowson.html">Peter Dowsons page</a>. Follow the installation instructions in the included readme file.
+    </p>
+    <h2>
+      Menu
+    </h2>
+    <h3>
+      File
+    </h3>
+    <h4>
+      Open Logbook ...
+    </h4>
+    <p>
+      <img alt="Open Logbook" title="Open Logbook" src="images/open.png" />
+    </p>
+    <p>
+      Opens another <code>Logbook.BIN</code> file and loads it into the internal database. <em>Little Logbook</em> remembers the file and will reload it if it has changed.
+    </p>
+    <h4>
+      Reload Logbook
+    </h4>
+    <p>
+      <img alt="Reload Logbook" title="Reload Logbook" src="images/reload.png" />
+    </p>
+    <p>
+      Reloads the previously selected <code>Logbook.BIN</code> file into the internal database.
+    </p>
+    <h4>
+      Quit
+    </h4>
+    <p>
+      Exits the program after an question dialog which can be optionally disabled.
+    </p>
+    <h3>
+      View
+    </h3>
+    <h4>
+      Toolbar Statusbar, Statistics and Search
+    </h4>
+    <p>
+      Shows or hides the respective windows or bars. <em>Little Logbook</em> keeps track of these settings.
+    </p>
+    <h4>
+      Show All
+    </h4>
+    <p>
+      <img alt="Show All Entries" title="Show All Entries" src="images/showall.png" />
+    </p>
+    <p>
+      The table view does not show all logbook entries initially. This menu item allows to load and show all entries. Only a part of the entries is shown again after a search filter is modified or the sort order is changed.
+    </p>
+    <p>
+      The number of all, visible and selected entries is shown in the status bar.
+    </p>
+    <h4>
+      Reset View
+    </h4>
+    <p>
+      <img alt="Reset View" title="Reset View" src="images/resetview.png" />
+    </p>
+    <p>
+      Resets the sort order, the column order and column widths back to the default view after showing a question dialog.
+    </p>
+    <h4>
+      Reset Search
+    </h4>
+    <p>
+      <img alt="Reset Search" title="Reset Search" src="images/clearsearch.png" />
+    </p>
+    <p>
+      Deletes all search filters and shows all logbook entries again in the table view. See below for information about search filters.
+    </p>
+    <h4>
+      Ungroup
+    </h4>
+    <p>
+      <img alt="Ungroup" title="Ungroup" src="images/ungroup.png" />
+    </p>
+    <p>
+      A previously grouping is released and the tables view goes back to the normal view. See below about grouping.
+    </p>
+    <h3>
+      Export
+    </h3>
+    <p>
+      Either all or only the selected logbook entries can be exported.
+    </p>
+    <h4>
+      Open Document after Export
+    </h4>
+    <p>
+      All exported files will be opened in a suitable application, if this menu item is checked. A web browser is used for HTML documents and Excel or LibreOffice Calc for CSV documents.
+    </p>
+    <h4>
+      Export All as CSV ...
+    </h4>
+    <h4>
+      Export Selected as CSV ...
+    </h4>
+    <p>
+      The CSV export writes all columns in the same order independent of the view. This behavior differs from the HTML export.
+    </p>
+    <p>
+      The field separator is <code>;</code> and <code>"</code> is used to mark text. The used codepage depends on the operating system settings. For western European Windows it is often <code>Windows-1252</code>. For Mac and Linux <code>UTF-8</code>.
+    </p>
+    <h4>
+      Export All as HTML ...
+    </h4>
+    <h4>
+      Export All as HTML ...
+    </h4>
+    <p>
+      The HTML export creates the exported document with the same column order and sorting, as shown in the current table view. This also applies to grouped views.
+    </p>
+    <p>
+      Columns that are resized to the minimum width are not exported. This is a way to design the exported document to a limited extent.
+    </p>
+    <p>
+      Note that too large files can result in long loading times or can even crash the browser. Therefore, the number of entries should be limited below 5,000 log entries by a search filter or a selection.
+    </p>
+    <h3>
+      Extras
+    </h3>
+    <h4>
+      Reset all Messages
+    </h4>
+    <p>
+      All dialogs that have been turned off with <code>Do not show this Dialog again</code> check-box will be shown again.
+    </p>
+    <h3>
+      Help
+    </h3>
+    <h4>
+      Contents
+    </h4>
+    <p>
+      Shows this help.
+    </p>
+    <h4>
+      About
+    </h4>
+    <p>
+      Displays information about <em>Little Logbook</em>.
+    </p>
+    <h4>
+      About Qt
+    </h4>
+    <p>
+      Displays information about the <em>Qt Toolkit</em> used for programming.
+    </p>
+    <h2>
+      Search Filter
+    </h2>
+    <p>
+      All filters can be used in parallel. The search filters can be linked with an <code>and</code> and an <code>or</code> condition.
+    </p>
+    <p>
+      If the <code>runways.xml</code> of <em>MakeRunways</em> Utility file was not loaded, some search fields are hidden.
+    </p>
+    <p>
+      <img title="Searchbar" alt="Searchbar" src="images/searchbar.png" />
+    </p>
+    <p>
+      <span class="c1">Picture above:</span> filters that are displayed when the file <code>runways.xml</code> was found.
+    </p>
+    <p>
+      <img alt="Searchbar without runways.xml" title="Searchbar without runways.xml" src="images/searchbarsmall.png" />
+    </p>
+    <p>
+      <span class="c1">Picture above:</span> The reduced search bar when <code>runways.xml</code> was not found.
+    </p>
+    <h3>
+      Tooltip Help
+    </h3>
+    <p>
+      A short tooltip help about searching is available above the labels <code>From:</code> and <code>E</code><code>nd:</code>.
+    </p>
+    <p>
+      <img title="Tooltips" alt="Tooltips" src="images/searchtips.png" />
+    </p>
+    <h3>
+      Search Patterns
+    </h3>
+    <p>
+      The standard search filters for terms in the logbook that begin with the entered text.
+    </p>
+    <p>
+      The wildcard <code>*</code> stands for any text. Once a <code>*</code> is included in the term, the standard search is no longer used.
+    </p>
+    <p>
+      If the first character in a search box is a <code>-</code> that search is negated (find all entries , that do not match).
+    </p>
+    <h3>
+      Search Conditions
+    </h3>
+    <p>
+      The setting in this combo box defines how the the search filters are to be linked.
+    </p>
+    <div class="tabbed15">
+      <ul>
+        <li>
+          <span><code>All Conditions</code>:</span> All filters have to match to show entries in the table view (<code>and</code>-condition).
+        </li>
+        <li>
+          <span><code>Any Condition</code>:</span> At least one filter has to match to show entries in the table view (<code>or</code>-condition).
+        </li>
+      </ul>
+    </div>
+    <p>
+      <img alt="Conditions" title="Conditions" src="images/conditions.png" />
+    </p>
+    <h3>
+      Search Examples
+    </h3>
+    <ul>
+      <li>
+        <code>KEE</code> in <code>From: ICAO Code</code> finds KEED and KEEN.
+      </li>
+      <li>
+        <code>*EE</code> in <code>From: ICAO</code> <code>Code</code> finds UUEE.
+      </li>
+      <li>
+        <code>*</code><code>EE*</code> in <code>From: ICAO</code> <code>Code</code> finds EEK, KEED, UUEE, KEEN.
+      </li>
+      <li>
+        <code>PH</code> in <code>From: ICAO</code> <code>Code</code> and <code>PH</code> in <code>To: ICAO</code> <code>Code</code> in combination with the condition <code>All Conditions</code> finds all flights within Hawaii.
+      </li>
+      <li>
+        <code>PH</code> in <code>From: ICAO</code> <code>Code</code> und <code>PH</code> in <code>To: ICAO</code> <code>Code</code> in combination with the condition <code>Any Condition</code> finds all flights having Hawaii as start or destination.
+      </li>
+      <li>
+        <code>-*Beech*</code> in <code>Aircraft Description</code> finds all flights that were not carried out with a Beechcraft aircraft.
+      </li>
+    </ul>
+    <p>
+      <img alt="Complex Search" title="Complex Search" src="images/complexsearch.png" />
+    </p>
+    <p>
+      <span class="c1">Picture above:</span> Search for all flights with the Beech Duke starting in Bella Coola that do not have a destination in the USA (K-region).
+    </p>
+    <h2>
+      Table View
+    </h2>
+    <p>
+      The table view has two views:
+    </p>
+    <div class="tabbed12">
+      <ul>
+        <li>
+          <span class="c1">Normal view:</span> This view is displayed after the start of the program and displays all of the columns of the logbook.
+        </li>
+        <li>
+          <span class="c1">Grouped view:</span> If grouping by a column is enabled, sums of the respective values ​​for the remaining columns are displayed. Some columns are not displayed in the grouped view and all inappropriate filters are disabled.
+        </li>
+      </ul>
+    </div>
+    <p>
+      <img alt="Grouped View" title="Grouped View" src="images/grouped.png" />
+    </p>
+    <p>
+      <span class="c1">Picture above:</span> The table view is grouped by plane description and sorted by number of the flights in descending order to find the most flown aircraft.
+    </p>
+    <h3>
+      Header
+    </h3>
+    <p>
+      The header of the table view allows the following manipulations:
+    </p>
+    <div class="tabbed20">
+      <ul>
+        <li>
+          <span class="c1">Click on column header:</span> Sort ascending or descending.
+        </li>
+        <li>
+          <span class="c1">Click and drag on the column header:</span> Move column.
+        </li>
+        <li>
+          <span class="c1">Double click on column border:</span> Auto fit column size.
+        </li>
+        <li>
+          <span class="c1">Click and drag on column border:</span> Change column width.
+        </li>
+      </ul>
+    </div>
+    <p>
+      The program remembers the column widths and positions until <code>Reset View</code> is executed.
+    </p>
+    <p>
+      <img alt="Header" title="Header" src="images/header.png" />
+    </p>
+    <p>
+      <span class="c1">Picture above:</span> The gaps between from airport and from country were reduced to minimum size. They are therefore excluded from the HTML export.
+    </p>
+    <h3>
+      Columns
+    </h3>
+    <p>
+      The following columns are displayed in normal view:
+    </p>
+    <div class="tabbed17">
+      <ul>
+        <li>
+          <span><code>Logbook-Entry</code>:</span> The number of the logbook entry. Is the time sequence when the flight took place. The largest number is the last flight.
+        </li>
+        <li>
+          <span><code>Start Time</code>:</span> The date and time of the flight, which were set in the flight simulator. A tooltip displays a detailed date.
+        </li>
+        <li>
+          <span><code>From ICAO</code>:</span> The three- or four-digit ICAO code of the starting airfield. A tooltip displays more information about the airfield*.
+        </li>
+        <li>
+          <span><code>From Airport</code>*</span>
+        </li>
+        <li>
+          <span><code>From City</code>*</span>
+        </li>
+        <li>
+          <span><code>From State</code>*:</span> State or province, if available.
+        </li>
+        <li>
+          <span><code>From Country</code>*</span>
+        </li>
+        <li>
+          <span><code>To ICAO</code>:</span> The three- or four-digit code of the destination ICAO airfield code. A tooltip displays more information about the airfield*.
+        </li>
+        <li>
+          <span><code>To Airport</code>*</span>
+        </li>
+        <li>
+          <span><code>To City</code>*</span>
+        </li>
+        <li>
+          <span><code>To State</code>*:</span> State or province, if available.
+        </li>
+        <li>
+          <span><code>To Country</code>*</span>
+        </li>
+        <li>
+          <span><code>Distance</code>*:</span> Shortest Distance between start and destination airport in nautical miles. A tooltip shows the distance in kilometers. This is not the actually flown distance, but the straight line distance between start and finish.
+        </li>
+        <li>
+          <span><code>Flight Description</code>:</span> Comment on the flight, which can be set in the simulator.
+        </li>
+        <li>
+          <span><code>Total Time</code>:</span> Duration of the flight in hours and minutes.
+        </li>
+        <li>
+          <span><code>Night Time</code>:</span> The night share in hours and minutes.
+        </li>
+        <li>
+          <span><code>Instrument Time</code>:</span> The instrument share (or IFR) due to low visibility or clouds in hours and minutes.
+        </li>
+        <li>
+          <span><code>Aircraft Registration</code>:</span> The registration code of the aircraft, such as <code>N710DS</code>.
+        </li>
+        <li>
+          <span><code>Aircraft Description</code>:</span> Description of the aircraft, for example <code>Be</code><code>ech Duke</code>.
+        </li>
+        <li>
+          <span><code>Aircraft Type</code>:</span> Type of the aircraft, such as helicopter or fixed wing.
+        </li>
+        <li>
+          <span><code>Aircraft Information</code>:</span> Other information about the aircraft. Currently only shows whether the aircraft is multi-engine or not.
+        </li>
+        <li>
+          <code>Visits Airports/Landings</code>: Intermediate targets and number of landings.
+        </li>
+      </ul>
+    </div>
+    <p>
+      * These columns are only available when the <code>runways.xml</code> of <em>MakeRunways</em> Utility file has been loaded.
+    </p>
+    <h3>
+      Statusbar
+    </h3>
+    <p>
+      The status bar displays the total number of entries, the number of visible entries and selected logbook entries in the table view.
+    </p>
+    <p>
+      <img alt="Statusbar" title="Statusbar" src="images/statusbar.png" />
+    </p>
+    <h3>
+      Context Menu
+    </h3>
+    <p>
+      Certain items in the context menu of the table view are not always available. You cannot create any grouping by flight time for example, because no meaningful result can be expected.
+    </p>
+    <p>
+      <img alt="Context Menu" title="Context Menu" src="images/tableviewcontext.png" />
+    </p>
+    <h4>
+      Reset View, Reset Search und Show All
+    </h4>
+    <p>
+      The function of these menu items is identical to those on the <code>View</code> menu.
+    </p>
+    <h4>
+      Filter by Entries including / excluding Text
+    </h4>
+    <p>
+      Takes the text of the field under the cursor and sets the search filter for an including or an excluding search.
+    </p>
+    <h4>
+      Group by Column or Ungroup
+    </h4>
+    <p>
+      Allows grouping by a column. All the same values ​​in this column will be combined and the totals for other columns will be shown.
+    </p>
+    <p>
+      Thus, e.g. a grouping by aircraft description, the number of flights and total flight time will be displayed for each aircraft type.
+    </p>
+    <p>
+      To return to the normal view, select the menu item <code>Ungroup</code>.
+    </p>
+    <h2>
+      Statistics
+    </h2>
+    <p>
+      This displays information about the entire logbook. The contents of this view can be copied as formatted text and then inserted into documents or web pages.
+    </p>
+    <p>
+      The statistics window is a so-called dock window, which can be docked in the main window at different locations or even be removed from the main window.
+    </p>
+    <p>
+      <img alt="Statistics" title="Statistics" src="images/statistics.png" />
+    </p>
+    <h2>
+      License
+    </h2>
+    <p>
+      This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+    </p>
+    <p>
+      This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+    </p>
+    <p>
+      You should have received a copy of the GNU General Public License along with this program. If not, see &lt;<a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.
+    </p>
+    <p>
+      <img alt="GPL V3" title="GPL V3" class="c2" src="images/gpl-v3-logo.svg" />
+    </p>
+  </body>
+</html>
