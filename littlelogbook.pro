@@ -159,7 +159,7 @@ win32 {
 
   deploy.commands = rmdir /s /q $${DEPLOY_DIR} &
   deploy.commands += mkdir $${DEPLOY_DIR} &
-  deploy.commands += copy $${WINOUT_PWD}\\release\\littlelogbook.exe $${DEPLOY_DIR} &&
+  deploy.commands += copy $${WINOUT_PWD}\\littlelogbook.exe $${DEPLOY_DIR} &&
   deploy.commands += copy $${WINPWD}\\*.txt $${DEPLOY_DIR} &&
   deploy.commands += xcopy /i /s /e /f /y $${WINPWD}\\help $${DEPLOY_DIR}\\help &&
   deploy.commands += copy $${QT_BIN}\\libgcc*.dll $${DEPLOY_DIR} &&
@@ -167,7 +167,7 @@ win32 {
   deploy.commands += copy $${QT_BIN}\\libwinpthread*.dll $${DEPLOY_DIR} &&
   deploy.commands += $${QT_BIN}\\windeployqt --compiler-runtime $${DEPLOY_DIR} &&
   # Delete some unneeded files copied by windeployqt
-  deploy.commands += del /s /q $${DEPLOY_DIR}\\imageformats\\qdds.dll $${DEPLOY_DIR}\\imageformats\\qjp2.dll $${DEPLOY_DIR}\\imageformats\\qtga.dll $${DEPLOY_DIR}\\imageformats\\qtiff.dll &&
+  deploy.commands += del /s /q $${DEPLOY_DIR}\\imageformats\\qdds.dll $${DEPLOY_DIR}\\imageformats\\qjp2.dll $${DEPLOY_DIR}\\imageformats\\qtga.dll $${DEPLOY_DIR}\\imageformats\\qtiff.dll &
   deploy.commands += del /s /q $${DEPLOY_DIR}\\sqldrivers\qsqlmysql.dll $${DEPLOY_DIR}\\sqldrivers\qsqlodbc.dll $${DEPLOY_DIR}\\sqldrivers\qsqlpsql.dll
 }
 
