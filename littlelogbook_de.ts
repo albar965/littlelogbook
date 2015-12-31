@@ -58,11 +58,6 @@
 <context>
     <name>ColumnList</name>
     <message>
-        <source>Entry</source>
-        <translation type="vanished">Logbuch-
-eintrag</translation>
-    </message>
-    <message>
         <location filename="src/table/columnlist.cpp" line="27"/>
         <source>Logbook-
 Entry</source>
@@ -253,44 +248,6 @@ Flights</source>
 <context>
     <name>Exporter</name>
     <message>
-        <source>Save CSV Document</source>
-        <translation type="vanished">CSV-Datei exportieren</translation>
-    </message>
-    <message>
-        <source>Export CSV Document</source>
-        <oldsource>CSV Documents (*.csv)</oldsource>
-        <translation type="vanished">CSV-Datei exportieren</translation>
-    </message>
-    <message>
-        <source>Save HTML Document</source>
-        <translation type="vanished">HTML-Datei exportieren</translation>
-    </message>
-    <message>
-        <source>CSV Documents (*.csv);;All Files (*)</source>
-        <translation type="vanished">CSV-Dateien (*.csv);;Alle Dateien (*)</translation>
-    </message>
-    <message>
-        <source>Export HTML Document</source>
-        <oldsource>HTML Documents (*.htm *.html)</oldsource>
-        <translation type="vanished">HTML-Datei exportieren</translation>
-    </message>
-    <message>
-        <source>HTML Documents (*.htm *.html);;All Files (*)</source>
-        <translation type="vanished">HTML-Dateien (*.htm *.html);;Alle Dateien (*)</translation>
-    </message>
-    <message>
-        <source>HTML Documents (*.htm *.html;;All Files (*))</source>
-        <translation type="vanished">HTML-Dateien (*.htm *.html;;Alle Dateien (*))</translation>
-    </message>
-    <message>
-        <source>%1 Version %2 (revision %3) by Alexander Barthel. Exported on %4.</source>
-        <translation type="vanished">%1 Version %2 (revision %3) von Alexander Barthel, exportiert am %4.</translation>
-    </message>
-    <message>
-        <source>FSX Logbook</source>
-        <translation type="vanished">FSX Logbuch</translation>
-    </message>
-    <message>
         <location filename="src/export/exporter.cpp" line="90"/>
         <source>Cannot open file &lt;i&gt;%1&lt;/i&gt;</source>
         <translation>Kann &lt;i&gt;%1&lt;/i&gt; nicht öffnen</translation>
@@ -298,10 +255,6 @@ Flights</source>
 </context>
 <context>
     <name>GlobalStats</name>
-    <message>
-        <source>General</source>
-        <translation type="vanished">Allgemein</translation>
-    </message>
     <message>
         <location filename="src/gui/globalstats.cpp" line="79"/>
         <source>Number of flights:</source>
@@ -407,71 +360,15 @@ Flights</source>
         <translation>Flugzeugregistrierungen:</translation>
     </message>
     <message>
-        <source>Number of distinct start countries:</source>
-        <translation type="vanished">Anzahl der unterschiedlichen Startländer:</translation>
-    </message>
-    <message>
-        <source>Number of distinct destination airports:</source>
-        <translation type="vanished">Anzahl der unterschiedlichen Zielflugplätze:</translation>
-    </message>
-    <message>
-        <source>Number of distinct destination countries:</source>
-        <translation type="vanished">Anzahl der unterschiedlichen Zielländer:</translation>
-    </message>
-    <message>
-        <source>Time</source>
-        <translation type="vanished">Flugzeit</translation>
-    </message>
-    <message>
-        <source>Total flight time:</source>
-        <translation type="vanished">Gesamtflugzeit:</translation>
-    </message>
-    <message>
-        <source>Maximum flight time:</source>
-        <translation type="vanished">Maximale Flugzeit:</translation>
-    </message>
-    <message>
-        <source>Average flight time:</source>
-        <translation type="vanished">Durchschnittliche Flugzeit:</translation>
-    </message>
-    <message>
-        <source>Total night flight time:</source>
-        <translation type="vanished">Gesamte Nachtflugzeit:</translation>
-    </message>
-    <message>
-        <source>Maximum night flight time:</source>
-        <translation type="vanished">Maximale Nachtflugzeit:</translation>
-    </message>
-    <message>
         <location filename="src/gui/globalstats.cpp" line="139"/>
         <source>Night flight time</source>
         <oldsource>Average night flight time:</oldsource>
         <translation>Nachtflugzeit</translation>
     </message>
     <message>
-        <source>Total instrument flight time:</source>
-        <translation type="vanished">Gesamt-Instrumentenflugzeit:</translation>
-    </message>
-    <message>
-        <source>Maximum instrument flight time:</source>
-        <translation type="vanished">Maximale Instrumentenflugzeit:</translation>
-    </message>
-    <message>
-        <source>Average instrument flight time:</source>
-        <translation type="vanished">Durchschnittliche Instrumentenflugzeit:</translation>
-    </message>
-    <message>
         <location filename="src/gui/globalstats.cpp" line="161"/>
         <source>Aircraft</source>
         <translation>Flugzeug</translation>
-    </message>
-    <message>
-        <source>Number of distinct aircrafts:</source>
-        <translation type="vanished">Anzahl unterschiedlicher Flugzeuge:</translation>
-    </message>
-    <message>
-        <source>Number of distinct aircraft registirations:</source>
-        <translation type="vanished">Anzahl unterschiedlicher Flugzeugregistrierungen:</translation>
     </message>
     <message>
         <location filename="src/gui/globalstats.cpp" line="172"/>
@@ -487,13 +384,10 @@ Flights</source>
         <translation>Über %1</translation>
     </message>
     <message>
-        <source>&lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;is a logbook viewer and search tool for FSX.&lt;br/&gt;&lt;br/&gt;This software is licensed under &lt;a href=&quot;http://www.gnu.org/licenses/gpl-3.0&quot;&gt;GPL3&lt;/a&gt; or any later version.&lt;br/&gt;&lt;br/&gt;The source code for this application is available at &lt;a href=&quot;https://github.com/abarthel9&quot;&gt;Github&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Copyright 2015 Alexander Barthel (abarthel@mailbox.org).&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;Version %2 (revision %3)&lt;br/&gt;atools Version %4 (revision %5)&lt;br/&gt;&lt;hr/&gt;%6:&lt;br/&gt;&lt;i&gt;%7&lt;/i&gt;</source>
-        <translation type="vanished">&lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;ist ein Ansichts- und Abfragewerkzeug für FSX.&lt;br/&gt;&lt;br/&gt;Diese Software steht unter der &lt;a href=&quot;http://www.gnu.org/licenses/gpl-3.0&quot;&gt;GPL3&lt;/a&gt; Lizenz oder späteren Versionen.&lt;br/&gt;&lt;br/&gt;Der Quellcode dieser Software ist auf &lt;a href=&quot;https://github.com/abarthel9&quot;&gt;Github&lt;/a&gt; verfügbar.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Copyright 2015 Alexander Barthel (abarthel@mailbox.org).&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;Version %2 (Revision %3)&lt;br/&gt;atools Version %4 (Revision %5)&lt;br/&gt;&lt;hr/&gt;%6:&lt;br/&gt;&lt;i&gt;%7&lt;/i&gt;</translation>
-    </message>
-    <message>
         <location filename="src/gui/helphandler.cpp" line="60"/>
-        <source>&lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;is a logbook viewer and search tool for FSX.&lt;br/&gt;&lt;br/&gt;This software is licensed under &lt;a href=&quot;http://www.gnu.org/licenses/gpl-3.0&quot;&gt;GPL3&lt;/a&gt; or any later version.&lt;br/&gt;&lt;br/&gt;The source code for this application is available at &lt;a href=&quot;https://github.com/abarthel9&quot;&gt;Github&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Copyright 2015 Alexander Barthel (albar965@mailbox.org).&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;Version %2 (revision %3)&lt;br/&gt;atools Version %4 (revision %5)&lt;br/&gt;&lt;hr/&gt;%6:&lt;br/&gt;&lt;i&gt;%7&lt;/i&gt;</source>
-        <translation>&lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;ist ein Ansichts- und Abfragewerkzeug für FSX.&lt;br/&gt;&lt;br/&gt;Diese Software steht unter der &lt;a href=&quot;http://www.gnu.org/licenses/gpl-3.0&quot;&gt;GPL3&lt;/a&gt; Lizenz oder späteren Versionen.&lt;br/&gt;&lt;br/&gt;Der Quellcode dieser Software ist auf &lt;a href=&quot;https://github.com/abarthel9&quot;&gt;Github&lt;/a&gt; verfügbar.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Copyright 2015 Alexander Barthel (abarthel@mailbox.org).&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;Version %2 (Revision %3)&lt;br/&gt;atools Version %4 (Revision %5)&lt;br/&gt;&lt;hr/&gt;%6:&lt;br/&gt;&lt;i&gt;%7&lt;/i&gt;</translation>
+        <source>&lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;is a logbook viewer and search tool for FSX.&lt;br/&gt;&lt;br/&gt;This software is licensed under &lt;a href=&quot;http://www.gnu.org/licenses/gpl-3.0&quot;&gt;GPL3&lt;/a&gt; or any later version.&lt;br/&gt;&lt;br/&gt;The source code for this application is available at &lt;a href=&quot;https://github.com/albar965&quot;&gt;Github&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Copyright 2015-2016 Alexander Barthel (albar965@mailbox.org).&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;Version %2 (revision %3)&lt;br/&gt;atools Version %4 (revision %5)&lt;br/&gt;&lt;hr/&gt;%6:&lt;br/&gt;&lt;i&gt;%7&lt;/i&gt;</source>
+        <oldsource>&lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;is a logbook viewer and search tool for FSX.&lt;br/&gt;&lt;br/&gt;This software is licensed under &lt;a href=&quot;http://www.gnu.org/licenses/gpl-3.0&quot;&gt;GPL3&lt;/a&gt; or any later version.&lt;br/&gt;&lt;br/&gt;The source code for this application is available at &lt;a href=&quot;https://github.com/abarthel9&quot;&gt;Github&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Copyright 2015 Alexander Barthel (albar965@mailbox.org).&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;Version %2 (revision %3)&lt;br/&gt;atools Version %4 (revision %5)&lt;br/&gt;&lt;hr/&gt;%6:&lt;br/&gt;&lt;i&gt;%7&lt;/i&gt;</oldsource>
+        <translation>&lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;ist ein Ansichts- und Abfragewerkzeug für FSX.&lt;br/&gt;&lt;br/&gt;Diese Software steht unter der &lt;a href=&quot;http://www.gnu.org/licenses/gpl-3.0&quot;&gt;GPL3&lt;/a&gt; Lizenz oder späteren Versionen.&lt;br/&gt;&lt;br/&gt;Der Quellcode dieser Software ist auf &lt;a href=&quot;https://github.com/albar965&quot;&gt;Github&lt;/a&gt; verfügbar.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Copyright 2015-2016 Alexander Barthel (abarthel@mailbox.org).&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;Version %2 (Revision %3)&lt;br/&gt;atools Version %4 (Revision %5)&lt;br/&gt;&lt;hr/&gt;%6:&lt;br/&gt;&lt;i&gt;%7&lt;/i&gt;</translation>
     </message>
     <message>
         <location filename="src/gui/helphandler.cpp" line="75"/>
@@ -519,38 +413,6 @@ Flights</source>
         <location filename="src/gui/helphandler.cpp" line="118"/>
         <source>Error opening help URL &lt;i&gt;%1&lt;/i&gt;</source>
         <translation>Fehler beim Öffnen der Hilfe-URL &lt;i&gt;%1&lt;/i&gt;</translation>
-    </message>
-</context>
-<context>
-    <name>HelpMenuHandler</name>
-    <message>
-        <source>About %1</source>
-        <translation type="vanished">Über %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;is a logbook viewer and search tool for FSX.&lt;br/&gt;&lt;br/&gt;This software is licensed under &lt;a href=&quot;http://www.gnu.org/licenses/gpl-3.0&quot;&gt;GPL3&lt;/a&gt; or any later version.&lt;br/&gt;&lt;br/&gt;The source code for this application is available at &lt;a href=&quot;https://github.com/abarthel9&quot;&gt;Github&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Copyright 2015 Alexander Barthel (abarthel@mailbox.org).&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;Version %2 (revision %3)&lt;br/&gt;atools Version %4 (revision %5)&lt;br/&gt;&lt;hr/&gt;%6:&lt;br/&gt;&lt;i&gt;%7&lt;/i&gt;</source>
-        <oldsource>&lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;is a logbook viewer and search tool for FSX.&lt;br/&gt;&lt;br/&gt;This software is licensed under &lt;a href=&quot;http://www.gnu.org/licenses/gpl-3.0&quot;&gt;GPL3&lt;/a&gt; or any later version.&lt;br/&gt;&lt;br/&gt;The source code for this application is available at &lt;a href=&quot;https://github.com/abarthel9&quot;&gt;Github&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Copyright 2015 Alexander Barthel (abarthel@mailbox.org).&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;Version %2 (revision %3)&lt;br/&gt;atools Version %4 (revision %5)&lt;br/&gt;&lt;hr/&gt;Logfiles:&lt;br/&gt;&lt;i&gt;%6&lt;/i&gt;</oldsource>
-        <translation type="vanished">&lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;ist ein Ansichts- und Abfragewerkzeug für FSX.&lt;br/&gt;&lt;br/&gt;Diese Software steht unter der &lt;a href=&quot;http://www.gnu.org/licenses/gpl-3.0&quot;&gt;GPL3&lt;/a&gt; Lizenz oder späteren Versionen.&lt;br/&gt;&lt;br/&gt;Der Quellcode dieser Software ist auf &lt;a href=&quot;https://github.com/abarthel9&quot;&gt;Github&lt;/a&gt; verfügbar.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Copyright 2015 Alexander Barthel (abarthel@mailbox.org).&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;Version %2 (Revision %3)&lt;br/&gt;atools Version %4 (Revision %5)&lt;br/&gt;&lt;hr/&gt;%6:&lt;br/&gt;&lt;i&gt;%7&lt;/i&gt;</translation>
-    </message>
-    <message>
-        <source>Logfiles</source>
-        <translation type="vanished">Logdateien</translation>
-    </message>
-    <message>
-        <source>Logfile</source>
-        <translation type="vanished">Logdatei</translation>
-    </message>
-    <message>
-        <source>About Qt</source>
-        <translation type="vanished">Über Qt</translation>
-    </message>
-    <message>
-        <source>Help file &lt;i&gt;%1&lt;/i&gt; not found</source>
-        <translation type="vanished">Hilfedatei &lt;i&gt;%1&lt;/i&gt; nicht gefunden</translation>
-    </message>
-    <message>
-        <source>Error opening help URL &lt;i&gt;%1&lt;/i&gt;</source>
-        <translation type="vanished">Fehler beim Öffnen der Hilfe-URL &lt;i&gt;%1&lt;/i&gt;</translation>
     </message>
 </context>
 <context>
@@ -1029,10 +891,6 @@ p, li { white-space: pre-wrap; }
         <translation>Suchleiste anzeigen oder verstecken</translation>
     </message>
     <message>
-        <source>Contents</source>
-        <translation type="vanished">Inhalt</translation>
-    </message>
-    <message>
         <location filename="src/gui/mainwindow.ui" line="788"/>
         <location filename="src/gui/mainwindow.ui" line="791"/>
         <source>Show help</source>
@@ -1061,18 +919,10 @@ p, li { white-space: pre-wrap; }
         <translation>Alle Logbucheinträge in ein HTML-Dokument exportieren</translation>
     </message>
     <message>
-        <source>Export Selected as CSV ...</source>
-        <translation type="vanished">Ausgewählte Einträge als &amp;CSV exportieren ...</translation>
-    </message>
-    <message>
         <location filename="src/gui/mainwindow.ui" line="821"/>
         <location filename="src/gui/mainwindow.ui" line="824"/>
         <source>Export selected logbook entries to a CSV document</source>
         <translation>Ausgewählte Logbucheinträge in ein CSV-Dokument exportieren</translation>
-    </message>
-    <message>
-        <source>Export Selected as HTML ...</source>
-        <translation type="vanished">Ausgewählte Einträge als &amp;HTML exportieren ...</translation>
     </message>
     <message>
         <location filename="src/gui/mainwindow.ui" line="832"/>
@@ -1090,10 +940,6 @@ p, li { white-space: pre-wrap; }
         <location filename="src/gui/mainwindow.ui" line="850"/>
         <source>Clear all search filters</source>
         <translation>Alle Suchfilter löschen</translation>
-    </message>
-    <message>
-        <source>&amp;Ungroup</source>
-        <translation type="vanished">Gruppierung auflösen</translation>
     </message>
     <message>
         <location filename="src/gui/mainwindow.ui" line="865"/>
@@ -1132,10 +978,6 @@ p, li { white-space: pre-wrap; }
         <location filename="src/gui/mainwindow.ui" line="903"/>
         <source>Shows all notification and question dialogs again</source>
         <translation>Setzt alle Dialogeinstellungen zurück und zeigt alle Frage- und Informationsdialoge wieder an</translation>
-    </message>
-    <message>
-        <source>S&amp;tatistics</source>
-        <translation type="vanished">Gesamtstatistik</translation>
     </message>
     <message>
         <location filename="src/gui/mainwindow.ui" line="921"/>
@@ -1177,10 +1019,6 @@ p, li { white-space: pre-wrap; }
         <location filename="src/gui/mainwindow.cpp" line="262"/>
         <source>Reset sort order, column order and column sizes to default?</source>
         <translation>Sortierreihenfolge, Spaltenreihenfolge und Spaltengrößen auf Standard zurücksetzen?</translation>
-    </message>
-    <message>
-        <source>Do not show this dialog again.</source>
-        <translation type="vanished">Diesen Dialog nicht wieder anzeigen.</translation>
     </message>
     <message>
         <location filename="src/gui/mainwindow.cpp" line="263"/>
@@ -1227,22 +1065,6 @@ p, li { white-space: pre-wrap; }
         <translation>Logbuchdateien (*.bin *.BIN);;Alle Dateien (*)</translation>
     </message>
     <message>
-        <source>&lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;is a logbook viewer and search tool for FSX.&lt;br/&gt;&lt;br/&gt;This software is licensed under &lt;a href=&quot;http://www.gnu.org/licenses/gpl-3.0&quot;&gt;GPL3&lt;/a&gt; or any later version.&lt;br/&gt;&lt;br/&gt;The source code for this application is available at &lt;a href=&quot;https://github.com/abarthel9&quot;&gt;Github&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Copyright 2015 Alexander Barthel (abarthel@mailbox.org).&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;Version %2 (revision %3)&lt;br/&gt;atools Version %4 (revision %5)&lt;br/&gt;&lt;hr/&gt;Logfiles:&lt;br/&gt;&lt;i&gt;%6&lt;/i&gt;</source>
-        <translation type="vanished">&lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;ist ein Ansichts- und Abfragewerkzeug für FSX.&lt;br/&gt;&lt;br/&gt;Diese Software steht unter der &lt;a href=&quot;http://www.gnu.org/licenses/gpl-3.0&quot;&gt;GPL3&lt;/a&gt; Lizenz oder späteren Versionen.&lt;br/&gt;&lt;br/&gt;Der Quellcode dieser Software ist auf &lt;a href=&quot;https://github.com/abarthel9&quot;&gt;Github&lt;/a&gt; verfügbar.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Copyright 2015 Alexander Barthel (abarthel@mailbox.org).&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;Version %2 (Revision %3)&lt;br/&gt;atools Version %4 (Revision %5)&lt;br/&gt;&lt;hr/&gt;Logdateien:&lt;br/&gt;&lt;i&gt;%6&lt;/i&gt;</translation>
-    </message>
-    <message>
-        <source>Help file &lt;i&gt;%1&lt;/i&gt; not found</source>
-        <translation type="vanished">Hilfedatei &lt;i&gt;%1&lt;/i&gt; nicht gefunden</translation>
-    </message>
-    <message>
-        <source>Error opening help URL &lt;i&gt;%1&lt;/i&gt;</source>
-        <translation type="vanished">Fehler beim Öffnen der Hilfe-URL &lt;i&gt;%1&lt;/i&gt;</translation>
-    </message>
-    <message>
-        <source>Runways file&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt;not found.&lt;br/&gt;Get Peter Dowson&apos;s Make Runways utility and run it in your FSX folder to show airport, city, state and country names.&lt;br/&gt;&lt;a href=&quot;http://forum.simflight.com/topic/66136-useful-additional-programs/&quot;&gt;Download the Make Runways utility here.&lt;/a&gt;</source>
-        <translation type="vanished">Die-Datei&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt;wurde nicht gefunden.&lt;br/&gt;Hole Peter Dowsons Make Runways utility und führe es im FSX-Ordner aus, um Flugplatz-, Stadt-, Bundesstaat- und Landesnamen anzuzeigen.&lt;br/&gt;&lt;a href=&quot;http://forum.simflight.com/topic/66136-useful-additional-programs/&quot;&gt;Das Make Runways utility kann hier heruntergeladen werden.&lt;/a&gt;</translation>
-    </message>
-    <message>
         <location filename="src/gui/mainwindow.cpp" line="430"/>
         <source>Runways file&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt; is new or has changed.&lt;br/&gt;Will reload now.</source>
         <translation>Die Runways-Datei&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt; ist neu oder wurde geändert.&lt;br/&gt;Die Datei wird neu geladen.</translation>
@@ -1259,35 +1081,9 @@ p, li { white-space: pre-wrap; }
         <translation>Logbuchdatei auswählen (Logbook.BIN)</translation>
     </message>
     <message>
-        <source>Logbook Files (*.bin *.BIN;;All Files (*))</source>
-        <oldsource>Logbook Files (*.bin *.BIN)</oldsource>
-        <translation type="vanished">Logbuchdateien (*.bin *.BIN;;Alle Dateien (*))</translation>
-    </message>
-    <message>
         <location filename="src/gui/mainwindow.cpp" line="716"/>
         <source>Found logbook&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;.</source>
         <translation>Logbuchdatei &lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt;gefunden.</translation>
-    </message>
-    <message>
-        <source>About %1</source>
-        <translation type="vanished">Über %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;is a logbook viewer and search tool for FSX.&lt;br/&gt;&lt;br/&gt;This software is licensed under &lt;a href=&quot;http://www.gnu.org/licenses/gpl-3.0&quot;&gt;GPL3&lt;/a&gt; or any later version.&lt;br/&gt;&lt;br/&gt;The source code for this application is available at &lt;a href=&quot;https://github.com/abarthel9&quot;&gt;Github&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Copyright 2015 Alexander Barthel (abarthel@mailbox.org).&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Version %2 (revision %3)&lt;br/&gt;atools Version %4 (revision %5)</source>
-        <oldsource>&lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;is a logbook viewer and search tool for FSX.&lt;br/&gt;&lt;br/&gt;This software is licensed under &lt;a href=&quot;http://www.gnu.org/licenses/gpl-3.0&quot;&gt;GPL3&lt;/a&gt; or any later version.&lt;br/&gt;&lt;br/&gt;The source code for this application is available at &lt;a href=&quot;https://github.com/abarthel9&quot;&gt;Github&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;&amp;#169; 2015 Alexander Barthel (abarthel@mailbox.org).&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Version %2 (revision %3)&lt;br/&gt;atools Version %4 (revision %5)</oldsource>
-        <translation type="vanished">&lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;ist ein Ansichts- und Abfragewerkzeug für FSX.&lt;br/&gt;&lt;br/&gt;Diese Software steht unter der &lt;a href=&quot;http://www.gnu.org/licenses/gpl-3.0&quot;&gt;GPL3&lt;/a&gt; Lizenz oder späteren Versionen.&lt;br/&gt;&lt;br/&gt;Der Quellcode dieser Software ist auf &lt;a href=&quot;https://github.com/abarthel9&quot;&gt;Github&lt;/a&gt; verfügbar.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Copyright 2015 Alexander Barthel (abarthel@mailbox.org).&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Version %2 (Revision %3)&lt;br/&gt;atools Version %4 (Revision %5)</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;is a logbook viewer and search tool for&lt;br/&gt;Microsoft Flight Simulator X.&lt;br/&gt;&lt;br/&gt;Written by &lt;b&gt;Alexander Barthel.&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Version %2 (revision %3)&lt;br/&gt;atools Version %4 (revision %5)</source>
-        <translation type="vanished">&lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;ist ein Logbuch Ansichts- und Abfragewerkzeug für&lt;br/&gt;Microsoft Flight Simulator X.&lt;br/&gt;&lt;br/&gt;Erstellt von &lt;b&gt;Alexander Barthel.&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Version %2 (revision %3)&lt;br/&gt;atools Version %4 (revision %5)</translation>
-    </message>
-    <message>
-        <source>Help file &lt;b&gt;&lt;i&gt;%1&lt;/b&gt;&lt;/i&gt; not found</source>
-        <translation type="vanished">Hilfedatei &lt;b&gt;&lt;i&gt;%1&lt;/b&gt;&lt;/i&gt; nicht gefunden</translation>
-    </message>
-    <message>
-        <source>Error opening help URL &lt;b&gt;&lt;i&gt;%1&lt;/b&gt;&lt;/i&gt;</source>
-        <translation type="vanished">Fehler beim Öffnen der Hilfe-URL &lt;b&gt;&lt;i&gt;%1&lt;/b&gt;&lt;/i&gt;</translation>
     </message>
     <message>
         <location filename="src/gui/mainwindow.cpp" line="795"/>
@@ -1317,22 +1113,6 @@ p, li { white-space: pre-wrap; }
 </context>
 <context>
     <name>QObject</name>
-    <message>
-        <source>The file is not an runways.xml file. Element &quot;data&quot; not found.</source>
-        <translation type="vanished">Die Datei ist keine gültige runways.xml-Datei. Element &quot;data&quot; nicht gefunden.</translation>
-    </message>
-    <message>
-        <source>Error reading runways.xml file &quot;%1&quot;. Reason: %2.</source>
-        <translation type="vanished">Fehler beim Lesen der runways.xml-Datei &quot;%1&quot;. Grund: %2.</translation>
-    </message>
-    <message>
-        <source>Cannot open runways.xml file &quot;%1&quot;. Reason: %2.</source>
-        <translation type="vanished">Kann runways.xml-Datei nicht öffnnen &quot;%1&quot;. Grund: %2.</translation>
-    </message>
-    <message>
-        <source>The file is not an runways.xml file. Element &quot;ICAO&quot; not found.</source>
-        <translation type="vanished">Die Datei ist keine gültige runways.xml-Datei. Element &quot;ICAO&quot; nicht gefunden.</translation>
-    </message>
     <message>
         <location filename="src/table/formatter.cpp" line="29"/>
         <source>%1:%2</source>
@@ -1388,46 +1168,6 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>SqlModel</name>
     <message>
-        <source>ICAO Id:</source>
-        <translation type="vanished">ICAO-Code:</translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation type="vanished">Name:</translation>
-    </message>
-    <message>
-        <source>City:</source>
-        <translation type="vanished">Stadt:</translation>
-    </message>
-    <message>
-        <source>State:</source>
-        <translation type="vanished">Bundesstaat:</translation>
-    </message>
-    <message>
-        <source>Country:</source>
-        <translation type="vanished">Land:</translation>
-    </message>
-    <message>
-        <source>Altitude:</source>
-        <translation type="vanished">Höhe:</translation>
-    </message>
-    <message>
-        <source>ft</source>
-        <translation type="vanished">ft</translation>
-    </message>
-    <message>
-        <source>Longest runway:</source>
-        <translation type="vanished">Längste Landebahn:</translation>
-    </message>
-    <message>
-        <source>Has lights</source>
-        <translation type="vanished">Beleuchtet</translation>
-    </message>
-    <message>
-        <source>Has ILS</source>
-        <translation type="vanished">Hat ILS</translation>
-    </message>
-    <message>
         <location filename="src/table/sqlmodel.cpp" line="431"/>
         <source>Unknown</source>
         <translation>Unbekannt</translation>
@@ -1451,10 +1191,6 @@ p, li { white-space: pre-wrap; }
         <location filename="src/table/sqlmodel.cpp" line="443"/>
         <source>Rotary</source>
         <translation>Helikopter</translation>
-    </message>
-    <message>
-        <source>Invalid</source>
-        <translation type="vanished">Ungültig</translation>
     </message>
     <message>
         <location filename="src/table/sqlmodel.cpp" line="449"/>

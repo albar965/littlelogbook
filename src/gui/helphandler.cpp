@@ -62,7 +62,7 @@ void HelpHandler::about()
                         "This software is licensed under "
                         "<a href=\"http://www.gnu.org/licenses/gpl-3.0\">GPL3</a> or any later version.<br/><br/>"
                         "The source code for this application is available at "
-                        "<a href=\"https://github.com/abarthel9\">Github</a>.<br/><br/>"
+                        "<a href=\"https://github.com/albar965\">Github</a>.<br/><br/>"
                         "<b>Copyright 2015-2016 Alexander Barthel (albar965@mailbox.org).</b><br/>"
                         "<hr/>Version %2 (revision %3)<br/>"
                         "atools Version %4 (revision %5)<br/>"
