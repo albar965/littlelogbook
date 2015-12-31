@@ -1,5 +1,5 @@
 /*****************************************************************************
-* Copyright 2015 Alexander Barthel albar965@mailbox.org
+* Copyright 2015-2016 Alexander Barthel albar965@mailbox.org
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -63,7 +63,7 @@ void HelpHandler::about()
                         "<a href=\"http://www.gnu.org/licenses/gpl-3.0\">GPL3</a> or any later version.<br/><br/>"
                         "The source code for this application is available at "
                         "<a href=\"https://github.com/abarthel9\">Github</a>.<br/><br/>"
-                        "<b>Copyright 2015 Alexander Barthel (albar965@mailbox.org).</b><br/>"
+                        "<b>Copyright 2015-2016 Alexander Barthel (albar965@mailbox.org).</b><br/>"
                         "<hr/>Version %2 (revision %3)<br/>"
                         "atools Version %4 (revision %5)<br/>"
                         "<hr/>%6:<br/><i>%7</i>").

@@ -16,5 +16,5 @@ This software is licensed under GPL3 or any later version.
 
 The source code for this application is available at Github.
 
-Copyright 2015 Alexander Barthel (albar965@mailbox.org).
+Copyright 2015-2016 Alexander Barthel (albar965@mailbox.org).
 
