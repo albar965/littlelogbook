@@ -64,7 +64,7 @@ int HtmlExporter::exportAll(bool open)
     qDebug() << "exportAllHtml" << filename;
 
     QFile file(filename);
-    if(file.open(QIODevice::WriteOnly))
+    if(file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
       // Run the current query to get all results - not only the visible
       atools::sql::SqlDatabase *db = controller->getSqlDatabase();
@@ -141,7 +141,7 @@ int HtmlExporter::exportSelected(bool open)
     qDebug() << "exportSelectedHtml" << filename;
 
     QFile file(filename);
-    if(file.open(QIODevice::WriteOnly))
+    if(file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
       const QItemSelection sel = controller->getSelection();
 

@@ -61,7 +61,7 @@ int CsvExporter::exportAll(bool open)
     qDebug() << "exportAllCsv" << filename;
     QFile file(filename);
 
-    if(file.open(QIODevice::WriteOnly))
+    if(file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
       QTextStream stream(&file);
       qDebug() << "Used codec" << stream.codec()->name();
@@ -114,7 +114,7 @@ int CsvExporter::exportSelected(bool open)
     qDebug() << "exportSelectedCsv" << filename;
 
     QFile file(filename);
-    if(file.open(QIODevice::WriteOnly))
+    if(file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
       // Get the view selection
       const QItemSelection sel = controller->getSelection();
