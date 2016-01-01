@@ -49,6 +49,9 @@ Controller::~Controller()
 
 void Controller::clearModel()
 {
+  if(!isGrouped())
+    saveViewState();
+
   QItemSelectionModel *m = view->selectionModel();
   view->setModel(nullptr);
   delete m;
