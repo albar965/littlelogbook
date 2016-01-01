@@ -625,7 +625,7 @@ void MainWindow::showSearchBar(bool visible)
   {
     QWidget *w = ui->gridLayoutSearch->itemAt(i)->widget();
     if(w != nullptr)
-      visible ? w->show() : w->hide();
+      w->setVisible(visible);
   }
 
   // Show or hide second line of line edits and combo boxes
@@ -633,23 +633,23 @@ void MainWindow::showSearchBar(bool visible)
   {
     QWidget *w = ui->gridLayoutSearch2->itemAt(i)->widget();
     if(w != nullptr)
-      visible ? w->show() : w->hide();
+      w->setVisible(visible);
   }
+
+  // Hide additional edits if runways.xml is not available
+  showHideAirportLineEdits();
 }
 
 void MainWindow::showHideAirportLineEdits()
 {
-  if(!hasAirports)
-  {
-    ui->fromAirportNameLineEdit->hide();
-    ui->fromCityLineEdit->hide();
-    ui->fromStateLineEdit->hide();
-    ui->fromCountryLineEdit->hide();
-    ui->toAirportNameLineEdit->hide();
-    ui->toCityLineEdit->hide();
-    ui->toStateLineEdit->hide();
-    ui->toCountryLineEdit->hide();
-  }
+  ui->fromAirportNameLineEdit->setVisible(hasAirports);
+  ui->fromCityLineEdit->setVisible(hasAirports);
+  ui->fromStateLineEdit->setVisible(hasAirports);
+  ui->fromCountryLineEdit->setVisible(hasAirports);
+  ui->toAirportNameLineEdit->setVisible(hasAirports);
+  ui->toCityLineEdit->setVisible(hasAirports);
+  ui->toStateLineEdit->setVisible(hasAirports);
+  ui->toCountryLineEdit->setVisible(hasAirports);
 }
 
 void MainWindow::openLogbook()
