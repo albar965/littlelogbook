@@ -95,7 +95,7 @@ MainWindow::MainWindow() :
 
   updateActionStates();
 
-  showHideAirportLineEdits();
+  showHideAirportLineEdits(ui->actionShowSearch->isChecked());
   updateWidgetStatus();
   updateWidgetsOnSelection();
   updateGlobalStats();
@@ -637,19 +637,20 @@ void MainWindow::showSearchBar(bool visible)
   }
 
   // Hide additional edits if runways.xml is not available
-  showHideAirportLineEdits();
+  showHideAirportLineEdits(visible);
 }
 
-void MainWindow::showHideAirportLineEdits()
+void MainWindow::showHideAirportLineEdits(bool visible)
 {
-  ui->fromAirportNameLineEdit->setVisible(hasAirports);
-  ui->fromCityLineEdit->setVisible(hasAirports);
-  ui->fromStateLineEdit->setVisible(hasAirports);
-  ui->fromCountryLineEdit->setVisible(hasAirports);
-  ui->toAirportNameLineEdit->setVisible(hasAirports);
-  ui->toCityLineEdit->setVisible(hasAirports);
-  ui->toStateLineEdit->setVisible(hasAirports);
-  ui->toCountryLineEdit->setVisible(hasAirports);
+  bool show = visible && hasAirports;
+  ui->fromAirportNameLineEdit->setVisible(show);
+  ui->fromCityLineEdit->setVisible(show);
+  ui->fromStateLineEdit->setVisible(show);
+  ui->fromCountryLineEdit->setVisible(show);
+  ui->toAirportNameLineEdit->setVisible(show);
+  ui->toCityLineEdit->setVisible(show);
+  ui->toStateLineEdit->setVisible(show);
+  ui->toCountryLineEdit->setVisible(show);
 }
 
 void MainWindow::openLogbook()

@@ -156,7 +156,7 @@ private:
   void resetView();
 
   /* Shows or hides search fields depending on runways.xml */
-  void showHideAirportLineEdits();
+  void showHideAirportLineEdits(bool visible);
 
   /* Update widget and action status when selection in table has changed */
   void tableSelectionChanged(const QItemSelection& selected, const QItemSelection& deselected);
