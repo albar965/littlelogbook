@@ -133,7 +133,8 @@ DISTFILES += \
     help/de/images/aptooltip.png \
     help/en/images/aptooltip.png \
     uncrustify.cfg \
-    htmltidy.cfg
+    htmltidy.cfg \
+    BUILD.txt
 
 # Create additional makefile targets to copy help files
 unix {
@@ -141,7 +142,7 @@ unix {
   cleandata.commands = rm -Rvf $$OUT_PWD/help
 }
 
-# Windows specific stuff
+# Windows specific deploy target only for release builds
 win32 {
   RC_ICONS = resources/icons/littlelogbook.ico
 
@@ -160,7 +161,8 @@ win32 {
   deploy.commands = rmdir /s /q $${DEPLOY_DIR} &
   deploy.commands += mkdir $${DEPLOY_DIR} &
   deploy.commands += copy $${WINOUT_PWD}\\littlelogbook.exe $${DEPLOY_DIR} &&
-  deploy.commands += copy $${WINPWD}\\*.txt $${DEPLOY_DIR} &&
+  deploy.commands += copy $${WINPWD}\\README.txt $${DEPLOY_DIR} &&
+  deploy.commands += copy $${WINPWD}\\LICENSE.txt $${DEPLOY_DIR} &&
   deploy.commands += xcopy /i /s /e /f /y $${WINPWD}\\help $${DEPLOY_DIR}\\help &&
   deploy.commands += copy $${QT_BIN}\\libgcc*.dll $${DEPLOY_DIR} &&
   deploy.commands += copy $${QT_BIN}\\libstdc*.dll $${DEPLOY_DIR} &&
