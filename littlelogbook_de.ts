@@ -1022,10 +1022,10 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="src/gui/mainwindow.cpp" line="263"/>
-        <location filename="src/gui/mainwindow.cpp" line="414"/>
-        <location filename="src/gui/mainwindow.cpp" line="432"/>
-        <location filename="src/gui/mainwindow.cpp" line="477"/>
-        <location filename="src/gui/mainwindow.cpp" line="928"/>
+        <location filename="src/gui/mainwindow.cpp" line="415"/>
+        <location filename="src/gui/mainwindow.cpp" line="433"/>
+        <location filename="src/gui/mainwindow.cpp" line="478"/>
+        <location filename="src/gui/mainwindow.cpp" line="930"/>
         <source>Do not &amp;show this dialog again.</source>
         <translation>&amp;Diesen Dialog nicht wieder anzeigen.</translation>
     </message>
@@ -1056,57 +1056,58 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="src/gui/mainwindow.cpp" line="408"/>
-        <source>Runways file&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt;not found.&lt;br/&gt;Get Peter Dowson&apos;s Make Runways utility and run it in your FSX folder to show airport, city, state and country names.&lt;br/&gt;&lt;a href=&quot;http://www.schiratti.com/dowson.html&quot;&gt;Download the Make Runways utility here.&lt;/a&gt;</source>
-        <translation>Die-Datei&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt;wurde nicht gefunden.&lt;br/&gt;Lade Peter Dowsons Make Runways Utility herunter und führe es im FSX-Ordner aus, um Flugplatz-, Stadt-, Bundesstaat- und Landesnamen anzuzeigen.&lt;br/&gt;&lt;a href=&quot;http://www.schiratti.com/dowson.html&quot;&gt;Das Make Runways Utility kann hier heruntergeladen werden.&lt;/a&gt;</translation>
+        <source>Runways file&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt;not found.&lt;br/&gt;Get Peter Dowson&apos;s Make Runways utility and run it in your FSX folder to show airport, city, state and country names.&lt;br/&gt;&lt;a href=&quot;http://www.schiratti.com/dowson.html&quot;&gt;Download the Make Runways utility here.&lt;/a&gt;&lt;br/&gt;Note that this is optional.</source>
+        <oldsource>Runways file&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt;not found.&lt;br/&gt;Get Peter Dowson&apos;s Make Runways utility and run it in your FSX folder to show airport, city, state and country names.&lt;br/&gt;&lt;a href=&quot;http://www.schiratti.com/dowson.html&quot;&gt;Download the Make Runways utility here.&lt;/a&gt;</oldsource>
+        <translation>Die-Datei&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt;wurde nicht gefunden.&lt;br/&gt;Lade Peter Dowsons Make Runways Utility herunter und führe es im FSX-Ordner aus, um Flugplatz-, Stadt-, Bundesstaat- und Landesnamen anzuzeigen.&lt;br/&gt;&lt;a href=&quot;http://www.schiratti.com/dowson.html&quot;&gt;Das Make Runways Utility kann hier heruntergeladen werden.&lt;/a&gt;&lt;br/&gt;Diese Installation ist optional.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="711"/>
+        <location filename="src/gui/mainwindow.cpp" line="713"/>
         <source>Logbook Files (*.bin *.BIN);;All Files (*)</source>
         <translation>Logbuchdateien (*.bin *.BIN);;Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="430"/>
+        <location filename="src/gui/mainwindow.cpp" line="431"/>
         <source>Runways file&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt; is new or has changed.&lt;br/&gt;Will reload now.</source>
         <translation>Die Runways-Datei&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt; ist neu oder wurde geändert.&lt;br/&gt;Die Datei wird neu geladen.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="475"/>
+        <location filename="src/gui/mainwindow.cpp" line="476"/>
         <source>Logbook file&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt; is new or has changed.&lt;br/&gt;Will reload now.</source>
         <translation>Die Logbuchdatei&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt; ist neu oder wurde geändert.&lt;br/&gt;Die Datei wird neu geladen.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="710"/>
+        <location filename="src/gui/mainwindow.cpp" line="712"/>
         <source>Select the Logbook File (Logbook.BIN)</source>
         <oldsource>Select the Logbook.BIN File</oldsource>
         <translation>Logbuchdatei auswählen (Logbook.BIN)</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="716"/>
+        <location filename="src/gui/mainwindow.cpp" line="718"/>
         <source>Found logbook&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;.</source>
         <translation>Logbuchdatei &lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt;gefunden.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="795"/>
+        <location filename="src/gui/mainwindow.cpp" line="797"/>
         <source>Loaded %1 airports.</source>
         <translation>%1 Flugplätze geladen.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="801"/>
+        <location filename="src/gui/mainwindow.cpp" line="803"/>
         <source>Airport import failed.</source>
         <translation>Laden der Flugplätze fehlgeschlagen.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="834"/>
+        <location filename="src/gui/mainwindow.cpp" line="836"/>
         <source>Loaded %1 logbook entries.</source>
         <translation>%1 Logbucheinträge geladen.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="840"/>
+        <location filename="src/gui/mainwindow.cpp" line="842"/>
         <source>Logbook import failed.</source>
         <translation>Laden der Logbuches fehlgeschlagen.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="927"/>
+        <location filename="src/gui/mainwindow.cpp" line="929"/>
         <source>Really Quit?</source>
         <translation>Wirklich beenden?</translation>
     </message>

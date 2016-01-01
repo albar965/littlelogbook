@@ -409,7 +409,8 @@ bool MainWindow::checkRunwaysFile()
                                       "Get Peter Dowson's Make Runways utility and run it in your FSX folder "
                                       "to show airport, city, state and country names.<br/>"
                                       "<a href=\"http://www.schiratti.com/dowson.html\">"
-                                        "Download the Make Runways utility here.</a>")).
+                                        "Download the Make Runways utility here.</a><br/>"
+                                        "Note that this is optional.")).
                            arg(QDir::toNativeSeparators(runwaysFilename)),
                            tr("Do not &show this dialog again."));
   }
