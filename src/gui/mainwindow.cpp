@@ -692,6 +692,7 @@ void MainWindow::reloadLogbook()
 
   if(!logbookFilename.isEmpty())
   {
+    controller->resetSearch();
     controller->clearModel();
 
     loadLogbookDatabase();
@@ -850,9 +851,17 @@ void MainWindow::tableContextMenu(const QPoint& pos)
   if(hasLogbook)
   {
     QModelIndex index = controller->getModelIndexAt(pos);
+    if(!index.isValid())
+    {
+      qDebug() << "Invalid index at" << pos;
+      return;
+    }
+
     QString header = controller->getHeaderNameAt(index);
+    Q_ASSERT(!header.isNull());
     QString fieldData = controller->getFieldDataAt(index);
     const Column *cModel = controller->getColumn(index.column());
+    Q_ASSERT(cModel != nullptr);
 
     // Build the menu
     QMenu menu;
