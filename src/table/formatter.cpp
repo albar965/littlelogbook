@@ -80,6 +80,7 @@ QString formatDoubleUnit(double value, const QString& unit)
 QString formatDate(int timeT)
 {
   QDateTime dateTime;
+  dateTime.setTimeSpec(Qt::UTC);
   dateTime.setTime_t((uint)timeT);
   if(timeT > 0 && dateTime.isValid() && !dateTime.isNull() && dateTime.date().year() > 2005)
     return dateTime.toString(Qt::DefaultLocaleShortDate);
@@ -90,9 +91,11 @@ QString formatDate(int timeT)
 QString formatDateLong(int timeT)
 {
   QDateTime dateTime;
+  dateTime.setTimeSpec(Qt::UTC);
   dateTime.setTime_t((uint)timeT);
   if(timeT > 0 && dateTime.isValid() && !dateTime.isNull() && dateTime.date().year() > 2005)
-    return dateTime.toString(Qt::DefaultLocaleLongDate);
+    // Workaround to remove the UTC label since FSX stores local time without timezone spec
+    return dateTime.toString(Qt::DefaultLocaleLongDate).replace("UTC", "");
   else
     return QObject::tr("Invalid date");
 }
