@@ -162,6 +162,9 @@ public:
     return db;
   }
 
+  /* Select all rows in view */
+  void selectAll();
+
 private:
   /* Adapt columns to query change */
   void processViewColumns();

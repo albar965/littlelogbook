@@ -131,6 +131,12 @@ void Controller::ungroup()
     restoreViewState();
 }
 
+void Controller::selectAll()
+{
+  Q_ASSERT(view->selectionModel() != nullptr);
+  return view->selectAll();
+}
+
 const QItemSelection Controller::getSelection() const
 {
   Q_ASSERT(view->selectionModel() != nullptr);

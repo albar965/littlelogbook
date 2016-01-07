@@ -771,6 +771,11 @@ p, li { white-space: pre-wrap; }
         <translation>&amp;Gruppierung auflösen</translation>
     </message>
     <message>
+        <location filename="src/gui/mainwindow.ui" line="893"/>
+        <source>Ctrl+Shift+A</source>
+        <translation>Ctrl+Shift+A</translation>
+    </message>
+    <message>
         <location filename="src/gui/mainwindow.ui" line="919"/>
         <source>Stat&amp;istics</source>
         <translation>Gesamtstat&amp;istik</translation>
@@ -785,6 +790,22 @@ p, li { white-space: pre-wrap; }
         <location filename="src/gui/mainwindow.ui" line="959"/>
         <source>Filter out useless Logbook Entries when loading</source>
         <translation>Filtert sinnlose Logbucheinträge beim Laden aus</translation>
+    </message>
+    <message>
+        <location filename="src/gui/mainwindow.ui" line="979"/>
+        <source>&amp;Copy</source>
+        <oldsource>Copy</oldsource>
+        <translation>&amp;Kopieren</translation>
+    </message>
+    <message>
+        <location filename="src/gui/mainwindow.ui" line="982"/>
+        <source>Copy Text from Field</source>
+        <translation>Kopiert den Text aus dem Feld</translation>
+    </message>
+    <message>
+        <location filename="src/gui/mainwindow.ui" line="985"/>
+        <source>Ctrl+C</source>
+        <translation>Ctrl+C</translation>
     </message>
     <message>
         <location filename="src/gui/mainwindow.ui" line="617"/>
@@ -965,7 +986,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="src/gui/mainwindow.ui" line="884"/>
-        <source>Show &amp;All</source>
+        <source>&amp;Show All</source>
+        <oldsource>Show &amp;All</oldsource>
         <translation>&amp;Alle Einträge anzeigen</translation>
     </message>
     <message>
@@ -975,7 +997,18 @@ p, li { white-space: pre-wrap; }
         <translation>Lädt alle Logbucheinträge in die Tabellenansicht</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.ui" line="893"/>
+        <location filename="src/gui/mainwindow.ui" line="964"/>
+        <source>Select &amp;All</source>
+        <oldsource>Select All</oldsource>
+        <translation>&amp;Alles Auswählen</translation>
+    </message>
+    <message>
+        <location filename="src/gui/mainwindow.ui" line="967"/>
+        <source>Select all Entries</source>
+        <translation>Alle Einträge auswählen</translation>
+    </message>
+    <message>
+        <location filename="src/gui/mainwindow.ui" line="970"/>
         <source>Ctrl+A</source>
         <translation>Ctrl+A</translation>
     </message>
@@ -1009,122 +1042,122 @@ p, li { white-space: pre-wrap; }
         <translation>Öffnet die exportierte Datei in einem passenden Programm</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="67"/>
+        <location filename="src/gui/mainwindow.cpp" line="68"/>
         <source>%1 of %2 entries selected, %3 visible.</source>
         <oldsource>%1 of %2 entries selected, %3 visible</oldsource>
         <translation>%1 von %2 Logbucheinträgen ausgewählt, %3 sichtbar.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="236"/>
-        <location filename="src/gui/mainwindow.cpp" line="242"/>
+        <location filename="src/gui/mainwindow.cpp" line="237"/>
+        <location filename="src/gui/mainwindow.cpp" line="243"/>
         <source>Exported %1 logbook entries to CSV document.</source>
         <translation>%1 Logbucheinträge in CSV-Datei exportiert.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="248"/>
-        <location filename="src/gui/mainwindow.cpp" line="254"/>
+        <location filename="src/gui/mainwindow.cpp" line="249"/>
+        <location filename="src/gui/mainwindow.cpp" line="255"/>
         <source>Exported %1 logbook entries to HTML document.</source>
         <translation>%1 Logbucheinträge in HTML-Datei exportiert.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="265"/>
+        <location filename="src/gui/mainwindow.cpp" line="266"/>
         <source>Reset sort order, column order and column sizes to default?</source>
         <translation>Sortierreihenfolge, Spaltenreihenfolge und Spaltengrößen auf Standard zurücksetzen?</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="266"/>
-        <location filename="src/gui/mainwindow.cpp" line="419"/>
-        <location filename="src/gui/mainwindow.cpp" line="437"/>
-        <location filename="src/gui/mainwindow.cpp" line="482"/>
-        <location filename="src/gui/mainwindow.cpp" line="665"/>
-        <location filename="src/gui/mainwindow.cpp" line="974"/>
+        <location filename="src/gui/mainwindow.cpp" line="267"/>
+        <location filename="src/gui/mainwindow.cpp" line="420"/>
+        <location filename="src/gui/mainwindow.cpp" line="438"/>
+        <location filename="src/gui/mainwindow.cpp" line="483"/>
+        <location filename="src/gui/mainwindow.cpp" line="666"/>
+        <location filename="src/gui/mainwindow.cpp" line="1014"/>
         <source>Do not &amp;show this dialog again.</source>
         <translation>&amp;Diesen Dialog nicht wieder anzeigen.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="275"/>
+        <location filename="src/gui/mainwindow.cpp" line="276"/>
         <source>View reset to default.</source>
         <translation>Standardansicht wiederhergestellt.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="285"/>
+        <location filename="src/gui/mainwindow.cpp" line="286"/>
         <source>Search filters cleared.</source>
         <translation>Alle Suchfilter zurückgesetzt.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="292"/>
+        <location filename="src/gui/mainwindow.cpp" line="293"/>
         <source>All logbook entries read.</source>
         <translation>Alle Logbucheinträge gelesen.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="299"/>
+        <location filename="src/gui/mainwindow.cpp" line="300"/>
         <source>Grouping released.</source>
         <translation>Gruppierung aufgelöst.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="318"/>
+        <location filename="src/gui/mainwindow.cpp" line="319"/>
         <source>All message dialogs reset.</source>
         <translation>Dialogeinstellungen zurückgesetzt.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="412"/>
+        <location filename="src/gui/mainwindow.cpp" line="413"/>
         <source>Runways file&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt;not found.&lt;br/&gt;Get Peter Dowson&apos;s Make Runways utility and run it in your FSX folder to show airport, city, state and country names.&lt;br/&gt;&lt;a href=&quot;http://www.schiratti.com/dowson.html&quot;&gt;Download the Make Runways utility here.&lt;/a&gt;&lt;br/&gt;Note that this is optional.</source>
         <oldsource>Runways file&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt;not found.&lt;br/&gt;Get Peter Dowson&apos;s Make Runways utility and run it in your FSX folder to show airport, city, state and country names.&lt;br/&gt;&lt;a href=&quot;http://www.schiratti.com/dowson.html&quot;&gt;Download the Make Runways utility here.&lt;/a&gt;</oldsource>
         <translation>Die-Datei&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt;wurde nicht gefunden.&lt;br/&gt;Lade Peter Dowsons Make Runways Utility herunter und führe es im FSX-Ordner aus, um Flugplatz-, Stadt-, Bundesstaat- und Landesnamen anzuzeigen.&lt;br/&gt;&lt;a href=&quot;http://www.schiratti.com/dowson.html&quot;&gt;Das Make Runways Utility kann hier heruntergeladen werden.&lt;/a&gt;&lt;br/&gt;Diese Installation ist optional.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="664"/>
+        <location filename="src/gui/mainwindow.cpp" line="665"/>
         <source>Reload the Logbook after changing Filter Settings.</source>
         <translation>Nach dem Ändern der Filtereinstellungen das Logbuch neu laden.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="724"/>
+        <location filename="src/gui/mainwindow.cpp" line="726"/>
         <source>Logbook Files (*.bin *.BIN);;All Files (*)</source>
         <translation>Logbuchdateien (*.bin *.BIN);;Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="435"/>
+        <location filename="src/gui/mainwindow.cpp" line="436"/>
         <source>Runways file&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt; is new or has changed.&lt;br/&gt;Will reload now.</source>
         <translation>Die Runways-Datei&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt; ist neu oder wurde geändert.&lt;br/&gt;Die Datei wird neu geladen.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="480"/>
+        <location filename="src/gui/mainwindow.cpp" line="481"/>
         <source>Logbook file&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt; is new or has changed.&lt;br/&gt;Will reload now.</source>
         <translation>Die Logbuchdatei&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt; ist neu oder wurde geändert.&lt;br/&gt;Die Datei wird neu geladen.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="723"/>
+        <location filename="src/gui/mainwindow.cpp" line="725"/>
         <source>Select the Logbook File (Logbook.BIN)</source>
         <oldsource>Select the Logbook.BIN File</oldsource>
         <translation>Logbuchdatei auswählen (Logbook.BIN)</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="729"/>
+        <location filename="src/gui/mainwindow.cpp" line="731"/>
         <source>Found logbook&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;.</source>
         <translation>Logbuchdatei &lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt;gefunden.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="812"/>
+        <location filename="src/gui/mainwindow.cpp" line="814"/>
         <source>Loaded %1 airports.</source>
         <translation>%1 Flugplätze geladen.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="818"/>
+        <location filename="src/gui/mainwindow.cpp" line="820"/>
         <source>Airport import failed.</source>
         <translation>Laden der Flugplätze fehlgeschlagen.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="880"/>
+        <location filename="src/gui/mainwindow.cpp" line="882"/>
         <source>Loaded %1 logbook entries.</source>
         <translation>%1 Logbucheinträge geladen.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="886"/>
+        <location filename="src/gui/mainwindow.cpp" line="888"/>
         <source>Logbook import failed.</source>
         <translation>Laden der Logbuches fehlgeschlagen.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="973"/>
+        <location filename="src/gui/mainwindow.cpp" line="1013"/>
         <source>Really Quit?</source>
         <translation>Wirklich beenden?</translation>
     </message>
@@ -1177,8 +1210,8 @@ p, li { white-space: pre-wrap; }
         <translation>%L1 %2</translation>
     </message>
     <message>
-        <location filename="src/table/formatter.cpp" line="88"/>
-        <location filename="src/table/formatter.cpp" line="98"/>
+        <location filename="src/table/formatter.cpp" line="89"/>
+        <location filename="src/table/formatter.cpp" line="101"/>
         <source>Invalid date</source>
         <translation>Ungültiges Datum</translation>
     </message>
