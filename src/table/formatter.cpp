@@ -19,6 +19,7 @@
 
 #include <QDateTime>
 #include <QObject>
+#include <cmath>
 
 namespace formatter {
 
@@ -40,7 +41,7 @@ QString formatMinutesHoursDays(double time)
 {
   int days = (int)time / 24;
   int hours = (int)time - (days * 24);
-  int minutes = (int)((time - ::floor(time)) * 60.);
+  int minutes = (int)((time - floor(time)) * 60.);
   return QString(QObject::tr("%1:%2:%3")).
          arg(days).
          arg(hours, 2, 10, QChar('0')).
@@ -51,7 +52,7 @@ QString formatMinutesHoursDaysLong(double time)
 {
   int days = (int)time / 24;
   int hours = (int)time - (days * 24);
-  int minutes = (int)((time - ::floor(time)) * 60.);
+  int minutes = (int)((time - floor(time)) * 60.);
   QString retval;
   if(days > 0)
     retval += QString(QObject::tr("%1 d")).arg(days);
