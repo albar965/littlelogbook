@@ -21,6 +21,7 @@
 #include "table/controller.h"
 #include "fs/ap/airportloader.h"
 #include "fs/lb/logbookloader.h"
+#include "fs/lb/logbookentryfilter.h"
 #include "fs/lb/types.h"
 #include "globalstats.h"
 #include "gui/dialog.h"
@@ -222,6 +223,8 @@ void MainWindow::connectAllSlots()
 
   connect(ui->actionShowSearch, &QAction::toggled, this, &MainWindow::showSearchBar);
 
+  connect(ui->actionFilterLogbookEntries, &QAction::toggled, this, &MainWindow::filterLogbookEntries);
+
   connect(ui->mainToolBar, &QToolBar::visibilityChanged, ui->actionShowToolbar, &QAction::setChecked);
   connect(ui->dockWidget, &QDockWidget::visibilityChanged, ui->actionShowStatistics, &QAction::setChecked);
 
@@ -309,6 +312,7 @@ void MainWindow::resetMessages()
   s->setValue(ll::constants::SETTINGS_SHOW_NO_RUNWAYS, true);
   s->setValue(ll::constants::SETTINGS_SHOW_RELOAD_RUNWAYS, true);
   s->setValue(ll::constants::SETTINGS_SHOW_RESET_VIEW, true);
+  s->setValue(ll::constants::SETTINGS_SHOW_FILTER_RELOAD, true);
   s.syncSettings();
 
   ui->statusBar->showMessage(tr("All message dialogs reset."));
@@ -654,6 +658,13 @@ void MainWindow::showHideAirportLineEdits(bool visible)
   ui->toCountryLineEdit->setVisible(show);
 }
 
+void MainWindow::filterLogbookEntries()
+{
+  dialog->showInfoMsgBox(ll::constants::SETTINGS_SHOW_FILTER_RELOAD,
+                         tr("Reload the Logbook after changing Filter Settings."),
+                         tr("Do not &show this dialog again."));
+}
+
 void MainWindow::openLogbook()
 {
   // Open logbook action
@@ -742,6 +753,8 @@ void MainWindow::readSettings()
   runwaysFileTimestamp.setMSecsSinceEpoch(s->value(ll::constants::SETTINGS_RUNWAYS_FILE_TIMESTAMP).toLongLong());
 
   ui->actionOpenAfterExport->setChecked(s->value(ll::constants::SETTINGS_EXPORT_OPEN, true).toBool());
+
+  ui->actionFilterLogbookEntries->setChecked(s->value(ll::constants::SETTINGS_FILTER_ENTRIES, false).toBool());
 }
 
 void MainWindow::writeSettings()
@@ -762,6 +775,8 @@ void MainWindow::writeSettings()
   s->setValue(ll::constants::SETTINGS_RUNWAYS_FILE_TIMESTAMP, runwaysFileTimestamp.toMSecsSinceEpoch());
 
   s->setValue(ll::constants::SETTINGS_EXPORT_OPEN, ui->actionOpenAfterExport->isChecked());
+
+  s->setValue(ll::constants::SETTINGS_FILTER_ENTRIES, ui->actionFilterLogbookEntries->isChecked());
   s.syncSettings();
 }
 
@@ -807,15 +822,44 @@ bool MainWindow::loadAirports()
 
 bool MainWindow::loadLogbookDatabase()
 {
+  using namespace atools::fs::lb;
+
   bool success = true;
   qDebug() << "Starting logbook import...";
 
   QGuiApplication::setOverrideCursor(Qt::WaitCursor);
 
-  atools::fs::lb::LogbookLoader importer(&db);
+  /* All entries pass default filter */
+  LogbookEntryFilter filter;
+
+  if(ui->actionFilterLogbookEntries->isChecked())
+  {
+  Settings& s = Settings::instance();
+
+  if(s.getAndStoreValue(ll::constants::SETTINGS_FILTER_INVALID_DATE, true).toBool())
+    filter.invalidDate();
+
+  if(s.getAndStoreValue(ll::constants::SETTINGS_FILTER_START_AND_DEST_EMPTY, true).toBool())
+    filter.startAndDestEmpty();
+
+  if(s.getAndStoreValue(ll::constants::SETTINGS_FILTER_START_OR_DEST_EMPTY, false).toBool())
+    filter.startOrDestEmpty();
+
+  if(s.getAndStoreValue(ll::constants::SETTINGS_FILTER_START_DEST_SAME, true).toBool())
+    filter.startAndDestSame();
+
+  int minFlightTimeMins = s.getAndStoreValue(ll::constants::SETTINGS_FILTER_MIN_FLIGH_TIME, 5).toInt();
+  if(minFlightTimeMins)
+    filter.flightTimeLowerThan(minFlightTimeMins);
+
+  s.syncSettings();
+  }
+
+  LogbookLoader importer(&db);
+
   try
   {
-    importer.loadLogbook(logbookFilename, false /* append */);
+    importer.loadLogbook(logbookFilename, filter, false /* append */);
   }
   catch(std::exception& e)
   {
