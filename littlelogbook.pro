@@ -37,7 +37,8 @@ TARGET = littlelogbook
 TEMPLATE = app
 
 # C++ standard 11 used here
-QMAKE_CXXFLAGS += -std=c++11
+#QMAKE_CXXFLAGS += -std=c++11
+CONFIG += c++11
 
 # Get the current GIT revision to include it into the code
 win32:DEFINES += GIT_REVISION='\\"$$system($${GIT_BIN} rev-parse --short HEAD)\\"'
@@ -138,7 +139,7 @@ DISTFILES += \
 
 # Create additional makefile targets to copy help files
 unix {
-  copydata.commands = cp -avfu $$PWD/help $$OUT_PWD
+  copydata.commands = cp -avf $$PWD/help $$OUT_PWD
   cleandata.commands = rm -Rvf $$OUT_PWD/help
 }
 
