@@ -174,6 +174,9 @@ private:
   /* Update actions depending on loaded logbook, runways.xml etc. */
   void updateWidgetStatus();
 
+  /* Show notification dialog about reloading */
+  void filterLogbookEntries();
+
 };
 
 #endif // LITTLELOGBOOK_MAINWINDOW_H

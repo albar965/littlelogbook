@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
   QCoreApplication::setApplicationName("Little Logbook");
   QCoreApplication::setOrganizationName("ABarthel");
   QCoreApplication::setOrganizationDomain("abarthel.org");
-  QCoreApplication::setApplicationVersion("1.0.0");
+  QCoreApplication::setApplicationVersion("1.1.0");
 
   try
   {

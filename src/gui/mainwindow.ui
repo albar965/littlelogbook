@@ -500,6 +500,7 @@
     <property name="title">
      <string>E&amp;xtras</string>
     </property>
+    <addaction name="actionFilterLogbookEntries"/>
     <addaction name="actionResetMessages"/>
    </widget>
    <addaction name="menuFile"/>
@@ -942,6 +943,20 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="statusTip">
     <string>Opens the document in a suitable application after export</string>
+   </property>
+  </action>
+  <action name="actionFilterLogbookEntries">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Filter Logbook Entries</string>
+   </property>
+   <property name="toolTip">
+    <string>Filter out useless Logbook Entries when loading</string>
+   </property>
+   <property name="statusTip">
+    <string>Filter out useless Logbook Entries when loading</string>
    </property>
   </action>
  </widget>

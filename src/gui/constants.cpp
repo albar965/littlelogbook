@@ -28,6 +28,7 @@ const char *SETTINGS_SHOW_RELOAD = "Actions/ShowReloadLogbook";
 const char *SETTINGS_SHOW_NO_RUNWAYS = "Actions/ShowRunwaysNotFound";
 const char *SETTINGS_SHOW_RELOAD_RUNWAYS = "Actions/ShowReloadRunways";
 const char *SETTINGS_SHOW_RESET_VIEW = "Actions/ShowResetView";
+const char *SETTINGS_SHOW_FILTER_RELOAD = "Actions/ShowFilterReload";
 const char *SETTINGS_LOGBOOK_FILE = "File/Logbook";
 const char *SETTINGS_MAINWINDOW_SIZE = "MainWindow/Size";
 const char *SETTINGS_MAINWINDOW_STATE = "MainWindow/Properties";
@@ -36,6 +37,13 @@ const char *SETTINGS_SHOW_SEARCHOOL = "MainWindow/SearchTool";
 const char *SETTINGS_LOGBOOK_FILE_TIMESTAMP = "File/LogbookTimestamp";
 const char *SETTINGS_RUNWAYS_FILE = "File/Runways";
 const char *SETTINGS_RUNWAYS_FILE_TIMESTAMP = "File/RunwaysFileTimestamp";
+
+const char *SETTINGS_FILTER_ENTRIES = "Filter/FilterEntries";
+const char *SETTINGS_FILTER_INVALID_DATE = "Filter/InvalidDate";
+const char *SETTINGS_FILTER_START_AND_DEST_EMPTY = "Filter/StartAndDestEmpty";
+const char *SETTINGS_FILTER_START_OR_DEST_EMPTY = "Filter/StartOrDestEmpty";
+const char *SETTINGS_FILTER_START_DEST_SAME = "Filter/StartAndDestSame";
+const char *SETTINGS_FILTER_MIN_FLIGH_TIME = "Filter/MinFlightTime";
 
 const char *SETTINGS_EXPORT_OPEN = "File/OpenAfterExport";
 const char *SETTINGS_EXPORT_FILE_DIALOG = "MainWindow/Export";

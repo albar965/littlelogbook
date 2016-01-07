@@ -30,6 +30,7 @@ extern const char *SETTINGS_SHOW_RELOAD;
 extern const char *SETTINGS_SHOW_NO_RUNWAYS;
 extern const char *SETTINGS_SHOW_RELOAD_RUNWAYS;
 extern const char *SETTINGS_SHOW_RESET_VIEW;
+extern const char *SETTINGS_SHOW_FILTER_RELOAD;
 extern const char *SETTINGS_LOGBOOK_FILE;
 extern const char *SETTINGS_MAINWINDOW_SIZE;
 extern const char *SETTINGS_MAINWINDOW_STATE;
@@ -40,6 +41,13 @@ extern const char *SETTINGS_RUNWAYS_FILE;
 extern const char *SETTINGS_RUNWAYS_FILE_TIMESTAMP;
 extern const char *SETTINGS_EXPORT_OPEN;
 extern const char *SETTINGS_EXPORT_FILE_DIALOG;
+
+extern const char *SETTINGS_FILTER_ENTRIES;
+extern const char *SETTINGS_FILTER_INVALID_DATE;
+extern const char *SETTINGS_FILTER_START_AND_DEST_EMPTY;
+extern const char *SETTINGS_FILTER_START_OR_DEST_EMPTY;
+extern const char *SETTINGS_FILTER_START_DEST_SAME;
+extern const char *SETTINGS_FILTER_MIN_FLIGH_TIME;
 
 /* Use this if not running on Windows */
 extern const char *SETTINGS_FSX_PATH;
