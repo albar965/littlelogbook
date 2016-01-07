@@ -24,5 +24,6 @@
         <file>resources/icons/load-all.svg</file>
         <file>resources/css/export.css</file>
         <file>resources/icons/globals.svg</file>
+        <file>resources/icons/copy.svg</file>
     </qresource>
 </RCC>

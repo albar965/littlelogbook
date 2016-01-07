@@ -38,6 +38,7 @@
 #include "constants.h"
 #include "logging/loggingdefs.h"
 
+#include <QClipboard>
 #include <QCloseEvent>
 #include <QDir>
 #include <QFile>
@@ -894,41 +895,64 @@ void MainWindow::tableContextMenu(const QPoint& pos)
   // Do not show menu if no logbook is loaded
   if(hasLogbook)
   {
-    QModelIndex index = controller->getModelIndexAt(pos);
-    if(!index.isValid())
-    {
-      qDebug() << "Invalid index at" << pos;
-      return;
-    }
+    QString header, fieldData;
+    bool columnCanFilter = false, columnCanGroup = false;
 
-    QString header = controller->getHeaderNameAt(index);
-    Q_ASSERT(!header.isNull());
-    QString fieldData = controller->getFieldDataAt(index);
-    const Column *cModel = controller->getColumn(index.column());
-    Q_ASSERT(cModel != nullptr);
+    QModelIndex index = controller->getModelIndexAt(pos);
+    if(index.isValid())
+    {
+      const Column *columnDescriptor = controller->getColumn(index.column());
+      Q_ASSERT(columnDescriptor != nullptr);
+      columnCanFilter = columnDescriptor->isFilter();
+      columnCanGroup = columnDescriptor->isGroup();
+
+      if(columnCanGroup)
+      {
+        header = controller->getHeaderNameAt(index);
+        Q_ASSERT(!header.isNull());
+        // strip LF and other from header name
+        header.replace("-\n", "").replace("\n", " ");
+      }
+
+      if(columnCanFilter)
+        // Disabled menu items don't need any content
+        fieldData = controller->getFieldDataAt(index);
+    }
+    else
+      qDebug() << "Invalid index at" << pos;
 
     // Build the menu
     QMenu menu;
 
-    QString actionFilterIncludingText = ui->actionFilterIncluding->text();
-    QString actionFilterExcludingText = ui->actionFilterExcluding->text();
-    QString actionGroupByColText = ui->actionGroupByCol->text();
+    menu.addAction(ui->actionTableCopy);
+    ui->actionTableCopy->setEnabled(index.isValid());
 
-    // Add data to menu item text
-    ui->actionFilterIncluding->setText(ui->actionFilterIncluding->text().arg(fieldData));
-    ui->actionFilterIncluding->setEnabled(cModel->isFilter());
+    menu.addAction(ui->actionTableSelectAll);
+    ui->actionTableSelectAll->setEnabled(controller->getTotalRowCount() > 0);
 
-    ui->actionFilterExcluding->setText(ui->actionFilterExcluding->text().arg(fieldData));
-    ui->actionFilterExcluding->setEnabled(cModel->isFilter());
-
-    // Add table header name and strip LF and other from it
-    ui->actionGroupByCol->setText(ui->actionGroupByCol->text().
-                                  arg(header.replace("-\n", "").replace("\n", " ")));
-    ui->actionGroupByCol->setEnabled(cModel->isGroup() && !controller->isGrouped());
-
+    menu.addSeparator();
     menu.addAction(ui->actionResetView);
     menu.addAction(ui->actionResetSearch);
     menu.addAction(ui->actionShowAll);
+
+    QString actionFilterIncludingText, actionFilterExcludingText, actionGroupByColText;
+    actionFilterIncludingText = ui->actionFilterIncluding->text();
+    actionFilterExcludingText = ui->actionFilterExcluding->text();
+    actionGroupByColText = ui->actionGroupByCol->text();
+
+    // Add data to menu item text
+    ui->actionFilterIncluding->setText(ui->actionFilterIncluding->text().arg(fieldData));
+    ui->actionFilterIncluding->setEnabled(index.isValid() && columnCanFilter);
+
+    ui->actionFilterExcluding->setText(ui->actionFilterExcluding->text().arg(fieldData));
+    ui->actionFilterExcluding->setEnabled(index.isValid() && columnCanFilter);
+
+    // Add table header name
+    ui->actionGroupByCol->setText(ui->actionGroupByCol->text().arg(header));
+    ui->actionGroupByCol->setEnabled(index.isValid() && columnCanGroup && !controller->isGrouped());
+
+    ui->actionUngroup->setEnabled(index.isValid());
+
     menu.addSeparator();
     menu.addAction(ui->actionFilterIncluding);
     menu.addAction(ui->actionFilterExcluding);
@@ -959,6 +983,13 @@ void MainWindow::tableContextMenu(const QPoint& pos)
         ui->actionUngroup->setEnabled(false);
         ui->conditionComboBox->setEnabled(true);
       }
+      else if(a == ui->actionTableCopy)
+      {
+        if(index.isValid())
+          QApplication::clipboard()->setText(controller->getFieldDataAt(index));
+      }
+      else if(a == ui->actionTableSelectAll)
+        controller->selectAll();
     }
 
     // Restore old menu texts

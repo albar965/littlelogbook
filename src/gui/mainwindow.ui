@@ -881,7 +881,7 @@ p, li { white-space: pre-wrap; }
      <normaloff>:/littlelogbook/resources/icons/load-all.svg</normaloff>:/littlelogbook/resources/icons/load-all.svg</iconset>
    </property>
    <property name="text">
-    <string>Show &amp;All</string>
+    <string>&amp;Show All</string>
    </property>
    <property name="toolTip">
     <string>Load all logbook entries into the view</string>
@@ -890,7 +890,7 @@ p, li { white-space: pre-wrap; }
     <string>Load all logbook entries into the view</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+A</string>
+    <string>Ctrl+Shift+A</string>
    </property>
   </action>
   <action name="actionResetMessages">
@@ -957,6 +957,32 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="statusTip">
     <string>Filter out useless Logbook Entries when loading</string>
+   </property>
+  </action>
+  <action name="actionTableSelectAll">
+   <property name="text">
+    <string>Select &amp;All</string>
+   </property>
+   <property name="toolTip">
+    <string>Select all Entries</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
+   </property>
+  </action>
+  <action name="actionTableCopy">
+   <property name="icon">
+    <iconset resource="../../littlelogbook.qrc">
+     <normaloff>:/littlelogbook/resources/icons/copy.svg</normaloff>:/littlelogbook/resources/icons/copy.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Copy</string>
+   </property>
+   <property name="toolTip">
+    <string>Copy Text from Field</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
    </property>
   </action>
  </widget>
