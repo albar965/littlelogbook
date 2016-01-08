@@ -25,6 +25,7 @@ namespace constants {
 extern const char *SETTINGS_TABLE;
 extern const char *SETTINGS_LOGBOOK_FILE_DIALOG;
 extern const char *SETTINGS_LANGUAGE;
+extern const char *SETTINGS_VERSION;
 extern const char *SETTINGS_SHOW_QUIT;
 extern const char *SETTINGS_SHOW_RELOAD;
 extern const char *SETTINGS_SHOW_NO_RUNWAYS;
@@ -48,13 +49,6 @@ extern const char *SETTINGS_FILTER_START_AND_DEST_EMPTY;
 extern const char *SETTINGS_FILTER_START_OR_DEST_EMPTY;
 extern const char *SETTINGS_FILTER_START_DEST_SAME;
 extern const char *SETTINGS_FILTER_MIN_FLIGH_TIME;
-
-/* Use this if not running on Windows */
-extern const char *SETTINGS_FSX_PATH;
-
-/* registry path and key if running on Windows */
-extern const char *FSX_REGISTRY_PATH;
-extern const char *FSX_REGISTRY_KEY;
 
 /* Export constants */
 extern const char *EXPORT_HTML_CODEC;

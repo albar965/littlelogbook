@@ -58,8 +58,13 @@ int main(int argc, char *argv[])
     LoggingUtil::logStandardPaths();
     Settings::logSettingsInformation();
 
+    Settings& s = Settings::instance();
     // Load local and Qt system translations from various places
-    Translator::load(Settings::instance()->value(ll::constants::SETTINGS_LANGUAGE, QString()).toString());
+    Translator::load(s->value(ll::constants::SETTINGS_LANGUAGE, QString()).toString());
+
+    // Write version to configuration file
+    s.getAndStoreValue(ll::constants::SETTINGS_VERSION, QCoreApplication::applicationVersion());
+    s.syncSettings();
 
     MainWindow mainWindow;
     mainWindow.show();

@@ -23,6 +23,7 @@
 #include "fs/lb/logbookloader.h"
 #include "fs/lb/logbookentryfilter.h"
 #include "fs/lb/types.h"
+#include "fs/fspaths.h"
 #include "globalstats.h"
 #include "gui/dialog.h"
 #include "gui/errorhandler.h"
@@ -50,6 +51,7 @@ using atools::sql::SqlDatabase;
 using atools::settings::Settings;
 using atools::gui::ErrorHandler;
 using atools::gui::Dialog;
+using atools::fs::FsPaths;
 
 MainWindow::MainWindow() :
   QMainWindow(nullptr), ui(new Ui::MainWindow)
@@ -72,11 +74,12 @@ MainWindow::MainWindow() :
   // Read configuration file
   readSettings();
   // Read path to FSX installation to get access to the runways.xml file
-  readFsxPath();
+  // TODO other simulators
+  fsxPath = FsPaths::getBasePath(atools::fs::FSX);
 
-  bool runwaysFilChanged = checkRunwaysFile();
+  bool runwaysFileChanged = checkRunwaysFile();
   // If runways.xml has changed reload the logbook
-  checkLogbookFile(runwaysFilChanged);
+  checkLogbookFile(runwaysFileChanged);
 
   // Check if there are any logbook entries at all to disable most GUI elements
   hasLogbook = atools::sql::SqlUtil(&db).hasTableAndRows("logbook");
@@ -449,6 +452,8 @@ bool MainWindow::checkRunwaysFile()
 
 void MainWindow::checkLogbookFile(bool airportsChanged)
 {
+  // Windows 7 for FSX boxed is
+  // c:\Users\alex\Documents\Flight Simulator X Files\Logbook.BIN
   if(logbookFilename.isEmpty() || !QFile::exists(logbookFilename))
   {
     // File not found or not set yet - let the user select a new one
@@ -457,6 +462,7 @@ void MainWindow::checkLogbookFile(bool airportsChanged)
     QString foundLogbook = findFsxDocuments();
     qDebug() << "Found logbook" << foundLogbook;
 
+    // Will open file dialog if foundLogbook is a dir
     logbookFilename = openLogbookFile(foundLogbook);
     if(!logbookFilename.isEmpty())
     {
@@ -491,73 +497,14 @@ void MainWindow::checkLogbookFile(bool airportsChanged)
 
 QString MainWindow::findFsxDocuments()
 {
-  QStringList documents = QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation);
+  // TODO other simulators
+  QString fsDocuments = FsPaths::getDocumentsPath(atools::fs::FSX);
 
-  // Walk throug all document paths
-  for(QString documentDir : documents)
-  {
-    QDir dir(documentDir);
-
-    if(dir.exists())
-    {
-      // Directory "Documents" or similar
-
-      // First check for the English directory
-      QString lb(dir.absolutePath() + QDir::separator() + "Flight Simulator X Files" +
-                 QDir::separator() + ll::constants::LOGBOOK_FILENAME);
-      if(QFile::exists(lb))
-        return lb;
-
-      // try the German version
-      lb = dir.absolutePath() + QDir::separator() + "Flight Simulator X-Dateien" +
-           QDir::separator() + ll::constants::LOGBOOK_FILENAME;
-      if(QFile::exists(lb))
-        return lb;
-
-      // Find any directory matching the flight simulator name and add all
-      // logbooks in these to a list
-      QFileInfoList localDirs = dir.entryInfoList({"*Flight Simulator X*"}, QDir::Dirs);
-      QStringList logbooks;
-
-      for(QFileInfo localDir : localDirs)
-        if(localDir.isDir())
-        {
-          QString localLb(localDir.absoluteFilePath() + QDir::separator() + ll::constants::LOGBOOK_FILENAME);
-
-          if(QFile::exists(localLb))
-            logbooks.append(localLb);
-        }
-
-      if(logbooks.size() == 1)
-        // Only one logbook found
-        return logbooks.at(0);
-      else if(logbooks.isEmpty() && localDirs.size() == 1)
-        // No logbook found, but there is a FS directory
-        return localDirs.at(0).absoluteFilePath();
-
-      // Just return the "Documents" directoy if all else fails
-      return documents.at(0);
-    }
-    else
-      qDebug() << "Documents directory not found";
-  }
-
-  return QString();
-}
-
-void MainWindow::readFsxPath()
-{
-  // Try to get the FSX path from the Windows registry
-#if defined(Q_OS_WIN32)
-  QSettings settings(ll::constants::FSX_REGISTRY_PATH, QSettings::NativeFormat);
-  fsxPath = settings.value(ll::constants::FSX_REGISTRY_KEY).toString();
-#else
-  // No Windows here - get the path for debugging purposes
-  // from the configuration file
-  Settings& s = Settings::instance();
-  fsxPath = s->value(ll::constants::SETTINGS_FSX_PATH).toString();
-#endif
-  qDebug() << "Found Flight Simulator X at" << fsxPath;
+  QFileInfo logbookFile(fsDocuments + QDir::separator() + ll::constants::LOGBOOK_FILENAME);
+  if(logbookFile.exists() && logbookFile.isReadable() && logbookFile.isFile() && logbookFile.size() > 0)
+    return logbookFile.absoluteFilePath();
+  else
+    return QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).at(0);
 }
 
 void MainWindow::updateWidgetStatus()
@@ -684,17 +631,7 @@ void MainWindow::openLogbook()
     s->setValue(ll::constants::SETTINGS_LOGBOOK_FILE, logbookFilename);
     s.syncSettings();
 
-    controller->clearModel();
-    loadLogbookDatabase();
-
-    hasLogbook = true;
-    controller->setHasLogbook(true);
-
-    controller->prepareModel();
-    connectControllerSlots();
-    updateWidgetsOnSelection();
-    updateWidgetStatus();
-    updateGlobalStats();
+    reloadLogbook();
   }
 }
 
@@ -707,12 +644,18 @@ void MainWindow::reloadLogbook()
     controller->resetSearch();
     controller->clearModel();
 
-    loadLogbookDatabase();
+    bool success = loadLogbookDatabase();
 
-    hasLogbook = true;
-    controller->setHasLogbook(true);
-    controller->prepareModel();
-    connectControllerSlots();
+    if(success)
+    {
+      hasLogbook = true;
+      controller->setHasLogbook(true);
+      controller->prepareModel();
+      connectControllerSlots();
+    }
+    else
+      hasLogbook = false;
+
     updateWidgetsOnSelection();
     updateWidgetStatus();
     updateGlobalStats();

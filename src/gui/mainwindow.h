@@ -83,10 +83,6 @@ private:
    *refreshes the GUI. Connected to action only. */
   void openLogbook();
 
-  /* Reads FSX path from registry or from settings if not running
-   * under Windows */
-  void readFsxPath();
-
   /* Reload logbook and update GUI */
   void reloadLogbook();
 

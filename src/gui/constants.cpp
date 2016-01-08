@@ -23,6 +23,7 @@ namespace constants {
 const char *SETTINGS_TABLE = "MainWindow/TableView";
 const char *SETTINGS_LOGBOOK_FILE_DIALOG = "MainWindow/Logbook";
 const char *SETTINGS_LANGUAGE = "MainWindow/Language";
+const char *SETTINGS_VERSION = "MainWindow/Version";
 const char *SETTINGS_SHOW_QUIT = "Actions/ShowQuit";
 const char *SETTINGS_SHOW_RELOAD = "Actions/ShowReloadLogbook";
 const char *SETTINGS_SHOW_NO_RUNWAYS = "Actions/ShowRunwaysNotFound";
@@ -47,11 +48,6 @@ const char *SETTINGS_FILTER_MIN_FLIGH_TIME = "Filter/MinFlightTime";
 
 const char *SETTINGS_EXPORT_OPEN = "File/OpenAfterExport";
 const char *SETTINGS_EXPORT_FILE_DIALOG = "MainWindow/Export";
-
-const char *SETTINGS_FSX_PATH = "File/FsxPath";
-
-const char *FSX_REGISTRY_PATH = "HKEY_CURRENT_USER\\Software\\Microsoft\\Microsoft Games\\Flight Simulator";
-const char *FSX_REGISTRY_KEY = "10.0/AppPath";
 
 const char *EXPORT_HTML_CODEC = "UTF-8";
 const char *EXPORT_HTML_CSS_FILE = ":/littlelogbook/resources/css/export.css";
