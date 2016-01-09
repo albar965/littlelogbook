@@ -106,7 +106,7 @@ private:
   QString openLogbookFile(const QString& dir = QString());
 
   /* Tries to find the logbook at the default location */
-  QString findFsxDocuments();
+  QString findFsFiles();
 
   /* Looks for runways.xml and display dialogs about found or not
    *  @return true if the file is new or was changed */

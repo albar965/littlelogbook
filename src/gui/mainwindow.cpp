@@ -459,7 +459,7 @@ void MainWindow::checkLogbookFile(bool airportsChanged)
     // File not found or not set yet - let the user select a new one
     qDebug() << "Need new logbook file. logbookFilename:" << logbookFilename;
 
-    QString foundLogbook = findFsxDocuments();
+    QString foundLogbook = findFsFiles();
     qDebug() << "Found logbook" << foundLogbook;
 
     // Will open file dialog if foundLogbook is a dir
@@ -495,12 +495,12 @@ void MainWindow::checkLogbookFile(bool airportsChanged)
   }
 }
 
-QString MainWindow::findFsxDocuments()
+QString MainWindow::findFsFiles()
 {
   // TODO other simulators
-  QString fsDocuments = FsPaths::getDocumentsPath(atools::fs::FSX);
+  QString fsFiles = FsPaths::getFilesPath(atools::fs::FSX);
 
-  QFileInfo logbookFile(fsDocuments + QDir::separator() + ll::constants::LOGBOOK_FILENAME);
+  QFileInfo logbookFile(fsFiles + QDir::separator() + ll::constants::LOGBOOK_FILENAME);
   if(logbookFile.exists() && logbookFile.isReadable() && logbookFile.isFile() && logbookFile.size() > 0)
     return logbookFile.absoluteFilePath();
   else
