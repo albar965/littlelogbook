@@ -83,7 +83,7 @@ QString formatDate(int timeT)
   QDateTime dateTime;
   dateTime.setTimeSpec(Qt::UTC);
   dateTime.setTime_t((uint)timeT);
-  if(timeT > 0 && dateTime.isValid() && !dateTime.isNull() && dateTime.date().year() > 2005)
+  if(timeT > 0 && dateTime.isValid() && !dateTime.isNull())
     return dateTime.toString(Qt::DefaultLocaleShortDate);
   else
     return QObject::tr("Invalid date");
@@ -94,7 +94,7 @@ QString formatDateLong(int timeT)
   QDateTime dateTime;
   dateTime.setTimeSpec(Qt::UTC);
   dateTime.setTime_t((uint)timeT);
-  if(timeT > 0 && dateTime.isValid() && !dateTime.isNull() && dateTime.date().year() > 2005)
+  if(timeT > 0 && dateTime.isValid() && !dateTime.isNull())
     // Workaround to remove the UTC label since FSX stores local time without timezone spec
     return dateTime.toString(Qt::DefaultLocaleLongDate).replace("UTC", "");
   else
