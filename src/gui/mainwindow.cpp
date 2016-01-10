@@ -53,6 +53,7 @@ using atools::settings::Settings;
 using atools::gui::ErrorHandler;
 using atools::gui::Dialog;
 using atools::fs::FsPaths;
+using atools::fs::SimulatorType;
 
 MainWindow::MainWindow() :
   QMainWindow(nullptr), ui(new Ui::MainWindow)
@@ -74,13 +75,7 @@ MainWindow::MainWindow() :
 
   // Read configuration file
   readSettings();
-  // Read path to FSX installation to get access to the runways.xml file
-  // TODO other simulators
-  fsxPath = FsPaths::getBasePath(atools::fs::FSX);
-
-  bool runwaysFileChanged = checkRunwaysFile();
-  // If runways.xml has changed reload the logbook
-  checkLogbookFile(runwaysFileChanged);
+  pathSettings.readSettings();
 
   // Check if there are any logbook entries at all to disable most GUI elements
   hasLogbook = atools::sql::SqlUtil(&db).hasTableAndRows("logbook");
@@ -141,7 +136,7 @@ void MainWindow::connectAllSlots()
 {
   qDebug() << "Connecting slots";
   connect(ui->tableView, &QTableView::customContextMenuRequested, this, &MainWindow::tableContextMenu);
-  connect(this, &MainWindow::windowShown, this, &MainWindow::pathDialog, Qt::QueuedConnection);
+  connect(this, &MainWindow::windowShown, this, &MainWindow::startupChecks, Qt::QueuedConnection);
 
   connectControllerSlots();
 
@@ -220,9 +215,6 @@ void MainWindow::connectAllSlots()
   connect(ui->actionAboutQt, &QAction::triggered, helpHandler, &HelpHandler::aboutQt);
   connect(ui->actionHelp, &QAction::triggered, helpHandler, &HelpHandler::help);
 
-  connect(ui->actionOpenLogbook, &QAction::triggered, this, &MainWindow::openLogbook);
-  connect(ui->actionReloadLogbook, &QAction::triggered, this, &MainWindow::reloadLogbook);
-
   connect(ui->actionPaths, &QAction::triggered, this, &MainWindow::pathDialog);
 
   connect(ui->actionShowToolbar, &QAction::toggled, ui->mainToolBar, &QToolBar::setVisible);
@@ -242,6 +234,49 @@ void MainWindow::pathDialog()
 {
   PathDialog d(this, &pathSettings);
   d.exec();
+  SimulatorType type = atools::fs::FSX;
+
+  if(d.hasLogbookFileChanged(type) || d.hasRunwaysFileChanged(type))
+  {
+    preDatabaseLoad();
+
+    if(d.hasRunwaysFileChanged(type))
+    {
+      checkRunwaysFile(type);
+      checkLogbookFile(type);
+    }
+    else if(d.hasLogbookFileChanged(type))
+      checkLogbookFile(type);
+
+    // Check if there are any logbook entries at all to disable most GUI elements
+    hasLogbook = atools::sql::SqlUtil(&db).hasTableAndRows("logbook");
+    // Check if runways.xml was loaded
+    hasAirports = atools::sql::SqlUtil(&db).hasTableAndRows("airport");
+
+    postDatabaseLoad(hasLogbook);
+  }
+}
+
+void MainWindow::startupChecks()
+{
+  SimulatorType type = atools::fs::FSX;
+
+  if(!pathSettings.isLogbookFileValid(type))
+  {
+    PathDialog d(this, &pathSettings);
+    d.exec();
+  }
+
+  preDatabaseLoad();
+  checkRunwaysFile(type);
+  checkLogbookFile(type);
+
+  // Check if there are any logbook entries at all to disable most GUI elements
+  hasLogbook = atools::sql::SqlUtil(&db).hasTableAndRows("logbook");
+  // Check if runways.xml was loaded
+  hasAirports = atools::sql::SqlUtil(&db).hasTableAndRows("airport");
+
+  postDatabaseLoad(hasLogbook);
 }
 
 void MainWindow::exportAllCsv()
@@ -414,13 +449,11 @@ void MainWindow::closeDatabase()
   }
 }
 
-bool MainWindow::checkRunwaysFile()
+void MainWindow::checkRunwaysFile(SimulatorType type)
 {
-  runwaysFilename = fsxPath + QDir::separator() + ll::constants::RUNWAYS_FILENAME;
-
-  if(!QFile::exists(runwaysFilename))
+  if(!pathSettings.isRunwaysFileValid(type))
   {
-    qDebug() << "Found runways file" << runwaysFilename;
+    qDebug() << "Found runways file" << pathSettings.getRunwaysFile(type);
 
     dialog->showInfoMsgBox(ll::constants::SETTINGS_SHOW_NO_RUNWAYS,
                            QString(tr("Runways file<br/><i>%1</i><br/>not found.<br/>"
@@ -429,92 +462,59 @@ bool MainWindow::checkRunwaysFile()
                                       "<a href=\"http://www.schiratti.com/dowson.html\">"
                                         "Download the Make Runways utility here.</a><br/>"
                                         "Note that this is optional.")).
-                           arg(QDir::toNativeSeparators(runwaysFilename)),
+                           arg(QDir::toNativeSeparators(pathSettings.getRunwaysFile(type))),
                            tr("Do not &show this dialog again."));
   }
   else
   {
-    // File exists - check if it newer than the data we loaded last time
-    QDateTime fileTimestamp = QFileInfo(runwaysFilename).lastModified();
-
-    qDebug() << "runways file timestamp:" << fileTimestamp.toString()
-             << "last timestamp:" << runwaysFileTimestamp.toString();
-
-    if(runwaysFileTimestamp < fileTimestamp)
+    if(pathSettings.hasRunwaysFileChanged(type))
     {
       // File was changed
-      qDebug() << "Found runways file changed" << runwaysFilename;
+      qDebug() << "Found runways file changed" << pathSettings.getRunwaysFile(type);
 
       dialog->showInfoMsgBox(ll::constants::SETTINGS_SHOW_RELOAD_RUNWAYS,
                              QString(tr("Runways file<br/><i>%1</i><br/> is new or has changed.<br/>"
-                                        "Will reload now.")).arg(QDir::toNativeSeparators(runwaysFilename)),
+                                        "Will reload now.")).
+                             arg(QDir::toNativeSeparators(pathSettings.getRunwaysFile(type))),
                              tr("Do not &show this dialog again."));
 
       // If true is returned the logbook will be reloaded too
-      return loadAirports();
+      loadAirports(type);
     }
     else
       qDebug() << "checkRunwaysFile: nothing to do";
   }
-
-  return false;
 }
 
-void MainWindow::checkLogbookFile(bool airportsChanged)
+void MainWindow::checkLogbookFile(SimulatorType type)
 {
   // Windows 7 for FSX boxed is
   // c:\Users\alex\Documents\Flight Simulator X Files\Logbook.BIN
-  if(logbookFilename.isEmpty() || !QFile::exists(logbookFilename))
+  if(!pathSettings.isLogbookFileValid(type))
   {
     // File not found or not set yet - let the user select a new one
-    qDebug() << "Need new logbook file. logbookFilename:" << logbookFilename;
+    qDebug() << "Need new logbook file. logbookFilename:" << pathSettings.getLogbookFile(type);
 
-    QString foundLogbook = findFsFiles();
-    qDebug() << "Found logbook" << foundLogbook;
-
-    // Will open file dialog if foundLogbook is a dir
-    logbookFilename = openLogbookFile(foundLogbook);
-    if(!logbookFilename.isEmpty())
-    {
-      qDebug() << "Selected" << logbookFilename;
-      loadLogbookDatabase();
-    }
-    else
-      qDebug() << "nothing selected";
+    dialog->showInfoMsgBox(ll::constants::SETTINGS_SHOW_NO_RUNWAYS,
+                           QString(tr("Logbook file<br/><i>%1</i><br/>not found.")).
+                           arg(QDir::toNativeSeparators(pathSettings.getLogbookFile(type))),
+                           tr("Do not &show this dialog again."));
   }
   else
   {
-    QDateTime fileTimestamp = QFileInfo(logbookFilename).lastModified();
-
-    qDebug() << "logbook file timestamp:" << fileTimestamp.toString()
-             << "last timestamp:" << logbookFileTimestamp.toString()
-             << "airportsChanged" << airportsChanged;
-
-    // Did the file change since last loading?
-    if(logbookFileTimestamp < fileTimestamp || airportsChanged)
+    if(pathSettings.hasLogbookFileChanged(type))
     {
       dialog->showInfoMsgBox(ll::constants::SETTINGS_SHOW_RELOAD,
                              QString(tr("Logbook file<br/><i>%1</i><br/> is new or has changed.<br/>"
-                                        "Will reload now.")).arg(QDir::toNativeSeparators(logbookFilename)),
+                                        "Will reload now.")).
+                             arg(QDir::toNativeSeparators(pathSettings.getLogbookFile(type))),
                              tr("Do not &show this dialog again."));
 
-      loadLogbookDatabase();
+      loadLogbookDatabase(type);
     }
     else
       qDebug() << "checkLogbookFile: nothing to do";
   }
-}
-
-QString MainWindow::findFsFiles()
-{
-  // TODO other simulators
-  QString fsFiles = FsPaths::getFilesPath(atools::fs::FSX);
-
-  QFileInfo logbookFile(fsFiles + QDir::separator() + ll::constants::LOGBOOK_FILENAME);
-  if(logbookFile.exists() && logbookFile.isReadable() && logbookFile.isFile() && logbookFile.size() > 0)
-    return logbookFile.absoluteFilePath();
-  else
-    return QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).at(0);
 }
 
 void MainWindow::updateWidgetStatus()
@@ -623,66 +623,28 @@ void MainWindow::filterLogbookEntries()
                          tr("Do not &show this dialog again."));
 }
 
-void MainWindow::openLogbook()
+void MainWindow::preDatabaseLoad()
 {
-  // Open logbook action
-  QStringList documents = QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation);
-
-  // Use "Documents" directory or remembered path
-  QString file = openLogbookFile(documents.at(0));
-  qDebug() << "openLogbook" << file;
-
-  if(!file.isEmpty())
-  {
-    logbookFilename = file;
-
-    // Store logbook path in configuration file
-    Settings& s = Settings::instance();
-    s->setValue(ll::constants::SETTINGS_LOGBOOK_FILE, logbookFilename);
-    s.syncSettings();
-
-    reloadLogbook();
-  }
+  controller->resetSearch();
+  controller->clearModel();
 }
 
-void MainWindow::reloadLogbook()
+void MainWindow::postDatabaseLoad(bool success)
 {
-  qDebug() << "reloadLogbook";
-
-  if(!logbookFilename.isEmpty())
+  if(success)
   {
-    controller->resetSearch();
-    controller->clearModel();
-
-    bool success = loadLogbookDatabase();
-
-    if(success)
-    {
-      hasLogbook = true;
-      controller->setHasLogbook(true);
-      controller->prepareModel();
-      connectControllerSlots();
-    }
-    else
-      hasLogbook = false;
-
-    updateWidgetsOnSelection();
-    updateWidgetStatus();
-    updateGlobalStats();
+    hasLogbook = true;
+    controller->setHasLogbook(true);
+    controller->prepareModel();
+    connectControllerSlots();
   }
-}
+  else
+    hasLogbook = false;
 
-QString MainWindow::openLogbookFile(const QString& dir)
-{
-  if(dir.isEmpty() || QFileInfo(dir).isDir())
-    return dialog->openFileDialog(tr("Select the Logbook File (Logbook.BIN)"),
-                                  tr("Logbook Files (*.bin *.BIN);;All Files (*)"),
-                                  ll::constants::SETTINGS_LOGBOOK_FILE_DIALOG);
+  updateWidgetsOnSelection();
+  updateWidgetStatus();
+  updateGlobalStats();
 
-  // No dialog opened and logbook found
-  QMessageBox::information(this, QApplication::applicationName(),
-                           QString(tr("Found logbook<br/><i>%1</i>.")).arg(QDir::toNativeSeparators(dir)));
-  return dir;
 }
 
 void MainWindow::readSettings()
@@ -701,12 +663,6 @@ void MainWindow::readSettings()
 
   showSearchBar(s->value(ll::constants::SETTINGS_SHOW_SEARCHOOL, true).toBool());
 
-  logbookFilename = s->value(ll::constants::SETTINGS_LOGBOOK_FILE).toString();
-  logbookFileTimestamp.setMSecsSinceEpoch(s->value(ll::constants::SETTINGS_LOGBOOK_FILE_TIMESTAMP).toLongLong());
-
-  runwaysFilename = s->value(ll::constants::SETTINGS_RUNWAYS_FILE).toString();
-  runwaysFileTimestamp.setMSecsSinceEpoch(s->value(ll::constants::SETTINGS_RUNWAYS_FILE_TIMESTAMP).toLongLong());
-
   ui->actionOpenAfterExport->setChecked(s->value(ll::constants::SETTINGS_EXPORT_OPEN, true).toBool());
 
   ui->actionFilterLogbookEntries->setChecked(s->value(ll::constants::SETTINGS_FILTER_ENTRIES, false).toBool());
@@ -722,20 +678,13 @@ void MainWindow::writeSettings()
   s->setValue(ll::constants::SETTINGS_SHOW_STATUSBAR, !ui->statusBar->isHidden());
 
   s->setValue(ll::constants::SETTINGS_SHOW_SEARCHOOL, !ui->fromAirportLineEdit->isHidden());
-
-  s->setValue(ll::constants::SETTINGS_LOGBOOK_FILE, logbookFilename);
-  s->setValue(ll::constants::SETTINGS_LOGBOOK_FILE_TIMESTAMP, logbookFileTimestamp.toMSecsSinceEpoch());
-
-  s->setValue(ll::constants::SETTINGS_RUNWAYS_FILE, runwaysFilename);
-  s->setValue(ll::constants::SETTINGS_RUNWAYS_FILE_TIMESTAMP, runwaysFileTimestamp.toMSecsSinceEpoch());
-
   s->setValue(ll::constants::SETTINGS_EXPORT_OPEN, ui->actionOpenAfterExport->isChecked());
 
   s->setValue(ll::constants::SETTINGS_FILTER_ENTRIES, ui->actionFilterLogbookEntries->isChecked());
   s.syncSettings();
 }
 
-bool MainWindow::loadAirports()
+bool MainWindow::loadAirports(SimulatorType type)
 {
   bool success = true;
   qDebug() << "Starting airport import...";
@@ -746,7 +695,7 @@ bool MainWindow::loadAirports()
 
   try
   {
-    apLoader.loadAirports(runwaysFilename);
+    apLoader.loadAirports(pathSettings.getRunwaysFile(type));
   }
   catch(std::exception& e)
   {
@@ -765,7 +714,7 @@ bool MainWindow::loadAirports()
   {
     qDebug() << "Airport import done";
     ui->statusBar->showMessage(QString(tr("Loaded %1 airports.")).arg(apLoader.getNumLoaded()));
-    runwaysFileTimestamp = QFileInfo(runwaysFilename).lastModified();
+    pathSettings.setRunwaysFileLoaded(type);
   }
   else
   {
@@ -775,7 +724,7 @@ bool MainWindow::loadAirports()
   return success;
 }
 
-bool MainWindow::loadLogbookDatabase()
+bool MainWindow::loadLogbookDatabase(SimulatorType type)
 {
   using namespace atools::fs::lb;
 
@@ -814,7 +763,7 @@ bool MainWindow::loadLogbookDatabase()
 
   try
   {
-    importer.loadLogbook(logbookFilename, filter, false /* append */);
+    importer.loadLogbook(pathSettings.getLogbookFile(type), filter, false /* append */);
   }
   catch(std::exception& e)
   {
@@ -833,7 +782,7 @@ bool MainWindow::loadLogbookDatabase()
   {
     qDebug() << "logbook import done";
     ui->statusBar->showMessage(QString(tr("Loaded %1 logbook entries.")).arg(importer.getNumLoaded()));
-    logbookFileTimestamp = QFileInfo(logbookFilename).lastModified();
+    pathSettings.setLogbookFileLoaded(type);
   }
   else
   {
@@ -978,14 +927,17 @@ void MainWindow::closeEvent(QCloseEvent *event)
     disconnect(ui->mainToolBar, &QToolBar::visibilityChanged,
                ui->actionShowToolbar, &QAction::setChecked);
     writeSettings();
+    pathSettings.writeSettings();
   }
 }
 
 void MainWindow::showEvent(QShowEvent *event)
 {
   if(firstStart)
+  {
     emit windowShown();
-  firstStart = false;
+    firstStart = false;
+  }
 
   event->ignore();
 }

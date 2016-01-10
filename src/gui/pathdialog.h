@@ -48,6 +48,8 @@ public:
   explicit PathDialog(QWidget *parentWidget, PathSettings *paths);
   virtual ~PathDialog();
 
+  bool hasLogbookFileChanged(atools::fs::SimulatorType type);
+  bool hasRunwaysFileChanged(atools::fs::SimulatorType type);
 private:
   QList<bool> changedLogbooks;
   QList<bool> changedRunways;
@@ -81,12 +83,13 @@ private:
     "Paths/DialogRunwaysP3dV2", "Paths/DialogRunwaysP3dV3"
   };
 
-  void logbookTextEdited(const QString& text, QLabel *iconLabel, atools::fs::SimulatorType type);
-  void runwaysTextEdited(const QString& text, QLabel *iconLabel, atools::fs::SimulatorType type);
+  void logbookTextEdited(const QString& text, QLabel *iconLabel);
+  void runwaysTextEdited(const QString& text, QLabel *iconLabel);
   void logbookButtonClicked(QLineEdit *edit, QLabel *iconLabel, atools::fs::SimulatorType type);
   void runwaysButtonClicked(QLineEdit *edit, QLabel *iconLabel, atools::fs::SimulatorType type);
   void updateIcon(const QString& text, QLabel *iconLabel);
 
+  void dialogToSettings(QLineEdit* logbookEdit, QLineEdit* runwaysEdit, atools::fs::SimulatorType type);
 };
 
 #endif // PATHDIALOG_H

@@ -32,14 +32,10 @@ extern const char *SETTINGS_SHOW_NO_RUNWAYS;
 extern const char *SETTINGS_SHOW_RELOAD_RUNWAYS;
 extern const char *SETTINGS_SHOW_RESET_VIEW;
 extern const char *SETTINGS_SHOW_FILTER_RELOAD;
-extern const char *SETTINGS_LOGBOOK_FILE;
 extern const char *SETTINGS_MAINWINDOW_SIZE;
 extern const char *SETTINGS_MAINWINDOW_STATE;
 extern const char *SETTINGS_SHOW_STATUSBAR;
 extern const char *SETTINGS_SHOW_SEARCHOOL;
-extern const char *SETTINGS_LOGBOOK_FILE_TIMESTAMP;
-extern const char *SETTINGS_RUNWAYS_FILE;
-extern const char *SETTINGS_RUNWAYS_FILE_TIMESTAMP;
 extern const char *SETTINGS_EXPORT_OPEN;
 extern const char *SETTINGS_EXPORT_FILE_DIALOG;
 

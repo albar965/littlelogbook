@@ -20,6 +20,7 @@
 
 #include "fs/fspaths.h"
 
+#include <QDateTime>
 #include <QList>
 
 class PathSettings
@@ -28,32 +29,59 @@ public:
   PathSettings();
 
   bool hasSimulator(atools::fs::SimulatorType type);
-  QString logbookPath(atools::fs::SimulatorType type);
-  QString runwayPath(atools::fs::SimulatorType type);
+  QString getLogbookFile(atools::fs::SimulatorType type);
+  QString getRunwaysFile(atools::fs::SimulatorType type);
 
-  void store();
-  void load();
+  void setLogbookFileLoaded(atools::fs::SimulatorType type);
+  void setRunwaysFileLoaded(atools::fs::SimulatorType type);
+
+  bool hasLogbookFileChanged(atools::fs::SimulatorType type);
+  bool hasRunwaysFileChanged(atools::fs::SimulatorType type);
+
+  void writeSettings();
+  void readSettings();
+
+  bool isLogbookFileValid(atools::fs::SimulatorType type);
+  bool isRunwaysFileValid(atools::fs::SimulatorType type);
 
 private:
   friend class PathDialog;
 
-  const QStringList lbFilePaths =
+  const QStringList settingsLogbookFilePaths =
   {
     "Paths/FileLogbookFsx", "Paths/FileLogbookFsxSe",
     "Paths/FileLogbookP3dV2", "Paths/FileLogbookP3dV3"
   };
 
-  const QStringList rwFilePaths =
+  const QStringList settingsRunwayFilePaths =
   {
     "Paths/FileRunwaysFsx", "Paths/FileRunwaysFsxSe",
     "Paths/FileRunwaysP3dV2", "Paths/FileRunwaysP3dV3"
   };
 
+  const QStringList settingsLogbookTimestamps =
+  {
+    "Paths/TimestampLogbookFsx", "Paths/TimestampLogbookFsxSe",
+    "Paths/TimestampLogbookP3dV2", "Paths/TimestampLogbookP3dV3"
+  };
+
+  const QStringList settingsRunwayTimestamps =
+  {
+    "Paths/TimestampRunwaysFsx", "Paths/TimestampRunwaysFsxSe",
+    "Paths/TimestampRunwaysP3dV2", "Paths/TimestampRunwaysP3dV3"
+  };
+
   QList<bool> simulators;
+
   QStringList logbookPaths;
   QStringList runwayPaths;
+
+  QList<QDateTime> logbookTimestamps;
+  QList<QDateTime> runwayTimestamps;
+
   void storeSim(atools::fs::SimulatorType type);
   void loadSim(atools::fs::SimulatorType type);
+
 };
 
 #endif // PATHSETTINGS_H

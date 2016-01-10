@@ -64,23 +64,23 @@ PathDialog::PathDialog(QWidget *parentWidget, PathSettings *paths) :
   /* *INDENT-OFF* */
   // Logbook line edits
   connect(ui->lineEditFsxLogbook, &QLineEdit::textEdited,
-          [=](const QString &text) {logbookTextEdited(text, ui->labelIconFsxLogbook, atools::fs::FSX); });
+          [=](const QString &text) {logbookTextEdited(text, ui->labelIconFsxLogbook); });
   connect(ui->lineEditFsxSeLogbook, &QLineEdit::textEdited,
-          [=](const QString &text) {logbookTextEdited(text, ui->labelIconFsxLogbook, atools::fs::FSX_SE); });
+          [=](const QString &text) {logbookTextEdited(text, ui->labelIconFsxLogbook); });
   connect(ui->lineEditP3dV2Logbook, &QLineEdit::textEdited,
-          [=](const QString &text) {logbookTextEdited(text, ui->labelIconP3dV2Logbook, atools::fs::P3D_V2); });
+          [=](const QString &text) {logbookTextEdited(text, ui->labelIconP3dV2Logbook); });
   connect(ui->lineEditP3dV3Logbook, &QLineEdit::textEdited,
-          [=](const QString &text) {logbookTextEdited(text, ui->labelIconP3dV3Logbook, atools::fs::P3D_V3); });
+          [=](const QString &text) {logbookTextEdited(text, ui->labelIconP3dV3Logbook); });
 
   // Logbook runways/airport line edits
   connect(ui->lineEditFsxRunways, &QLineEdit::textEdited,
-          [=](const QString &text) {runwaysTextEdited(text, ui->labelIconFsxRunways, atools::fs::FSX); });
+          [=](const QString &text) {runwaysTextEdited(text, ui->labelIconFsxRunways); });
   connect(ui->lineEditFsxSeRunways, &QLineEdit::textEdited,
-          [=](const QString &text) {runwaysTextEdited(text, ui->labelIconFsxSeRunways, atools::fs::FSX_SE); });
+          [=](const QString &text) {runwaysTextEdited(text, ui->labelIconFsxSeRunways); });
   connect(ui->lineEditP3dV2Runways, &QLineEdit::textEdited,
-          [=](const QString &text) {runwaysTextEdited(text, ui->labelIconP3dV2Runways, atools::fs::P3D_V2); });
+          [=](const QString &text) {runwaysTextEdited(text, ui->labelIconP3dV2Runways); });
   connect(ui->lineEditP3dV3Runways, &QLineEdit::textEdited,
-          [=](const QString &text) {runwaysTextEdited(text, ui->labelIconP3dV3Runways, atools::fs::P3D_V3); });
+          [=](const QString &text) {runwaysTextEdited(text, ui->labelIconP3dV3Runways); });
 
   // Logbook push buttons
   connect(ui->pushButtonFsxLogbook, &QPushButton::clicked,
@@ -113,15 +113,23 @@ PathDialog::~PathDialog()
   delete errorHandler;
 }
 
-void PathDialog::logbookTextEdited(const QString& text, QLabel *iconLabel, SimulatorType type)
+bool PathDialog::hasLogbookFileChanged(SimulatorType type)
 {
-  changedLogbooks[type] = true;
+  return changedLogbooks.at(type);
+}
+
+bool PathDialog::hasRunwaysFileChanged(SimulatorType type)
+{
+  return changedRunways.at(type);
+}
+
+void PathDialog::logbookTextEdited(const QString& text, QLabel *iconLabel)
+{
   updateIcon(text, iconLabel);
 }
 
-void PathDialog::runwaysTextEdited(const QString& text, QLabel *iconLabel, SimulatorType type)
+void PathDialog::runwaysTextEdited(const QString& text, QLabel *iconLabel)
 {
-  changedRunways[type] = true;
   updateIcon(text, iconLabel);
 }
 
@@ -132,11 +140,8 @@ void PathDialog::logbookButtonClicked(QLineEdit *edit, QLabel *iconLabel, Simula
                                         lbDialogPaths.at(type),
                                         edit->text());
   if(!text.isEmpty())
-  {
-    changedLogbooks[type] = true;
     edit->setText(text);
-  }
-  updateIcon(text, iconLabel);
+  updateIcon(edit->text(), iconLabel);
 }
 
 void PathDialog::runwaysButtonClicked(QLineEdit *edit, QLabel *iconLabel, SimulatorType type)
@@ -146,11 +151,8 @@ void PathDialog::runwaysButtonClicked(QLineEdit *edit, QLabel *iconLabel, Simula
                                         rwDialogPaths.at(type),
                                         edit->text());
   if(!text.isEmpty())
-  {
-    changedRunways[type] = true;
     edit->setText(text);
-  }
-  updateIcon(text, iconLabel);
+  updateIcon(edit->text(), iconLabel);
 }
 
 void PathDialog::updateIcon(const QString& text, QLabel *iconLabel)
@@ -178,9 +180,9 @@ void PathDialog::initTab(QLineEdit *logbookEdit,
 
     QFileInfo fi;
     QString logbook;
-    if(s->contains(pathSettings->lbFilePaths.at(type)))
+    if(s->contains(pathSettings->settingsLogbookFilePaths.at(type)))
     {
-      logbook = s->value(pathSettings->lbFilePaths.at(type)).toString();
+      logbook = s->value(pathSettings->settingsLogbookFilePaths.at(type)).toString();
       fi = logbook;
     }
     else
@@ -201,9 +203,9 @@ void PathDialog::initTab(QLineEdit *logbookEdit,
     }
 
     QString runways;
-    if(s->contains(pathSettings->rwFilePaths.at(type)))
+    if(s->contains(pathSettings->settingsRunwayFilePaths.at(type)))
     {
-      runways = s->value(pathSettings->rwFilePaths.at(type)).toString();
+      runways = s->value(pathSettings->settingsRunwayFilePaths.at(type)).toString();
       fi = runways;
     }
     else
@@ -225,24 +227,40 @@ void PathDialog::initTab(QLineEdit *logbookEdit,
   }
 }
 
+void PathDialog::dialogToSettings(QLineEdit *logbookEdit, QLineEdit *runwaysEdit, SimulatorType type)
+{
+  QDateTime nullDateTime;
+  nullDateTime.setMSecsSinceEpoch(0);
+
+  pathSettings->simulators[type] = ui->tabWidget->isTabEnabled(type);
+
+  if(pathSettings->logbookPaths[type] != logbookEdit->text())
+  {
+    pathSettings->logbookPaths[type] = logbookEdit->text();
+
+    pathSettings->logbookTimestamps[type] = nullDateTime;
+    changedLogbooks[type] = true;
+  }
+
+  if(pathSettings->runwayPaths[type] != runwaysEdit->text())
+  {
+    pathSettings->runwayPaths[type] = runwaysEdit->text();
+
+    pathSettings->runwayTimestamps[type] = nullDateTime;
+    changedRunways[type] = true;
+
+    pathSettings->logbookTimestamps[type] = nullDateTime;
+    changedLogbooks[type] = true;
+  }
+}
+
 void PathDialog::accept()
 {
-  pathSettings->simulators[atools::fs::FSX] = ui->tabWidget->isTabEnabled(atools::fs::FSX);
-  pathSettings->logbookPaths[atools::fs::FSX] = ui->lineEditFsxLogbook->text();
-  pathSettings->runwayPaths[atools::fs::FSX] = ui->lineEditFsxRunways->text();
+  dialogToSettings(ui->lineEditFsxLogbook, ui->lineEditFsxRunways, atools::fs::FSX);
+  dialogToSettings(ui->lineEditFsxSeLogbook, ui->lineEditFsxSeRunways, atools::fs::FSX_SE);
+  dialogToSettings(ui->lineEditP3dV2Logbook, ui->lineEditP3dV2Runways, atools::fs::P3D_V2);
+  dialogToSettings(ui->lineEditP3dV3Logbook, ui->lineEditP3dV3Runways, atools::fs::P3D_V3);
 
-  pathSettings->simulators[atools::fs::FSX_SE] = ui->tabWidget->isTabEnabled(atools::fs::FSX_SE);
-  pathSettings->logbookPaths[atools::fs::FSX_SE] = ui->lineEditFsxSeLogbook->text();
-  pathSettings->runwayPaths[atools::fs::FSX_SE] = ui->lineEditFsxSeRunways->text();
-
-  pathSettings->simulators[atools::fs::P3D_V2] = ui->tabWidget->isTabEnabled(atools::fs::P3D_V2);
-  pathSettings->logbookPaths[atools::fs::P3D_V2] = ui->lineEditP3dV2Logbook->text();
-  pathSettings->runwayPaths[atools::fs::P3D_V2] = ui->lineEditP3dV2Runways->text();
-
-  pathSettings->simulators[atools::fs::P3D_V3] = ui->tabWidget->isTabEnabled(atools::fs::P3D_V3);
-  pathSettings->logbookPaths[atools::fs::P3D_V3] = ui->lineEditP3dV3Logbook->text();
-  pathSettings->runwayPaths[atools::fs::P3D_V3] = ui->lineEditP3dV3Runways->text();
-
-  pathSettings->store();
+  pathSettings->writeSettings();
   QDialog::accept();
 }

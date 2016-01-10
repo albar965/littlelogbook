@@ -18,6 +18,7 @@
 #include "gui/pathsettings.h"
 #include "settings/settings.h"
 
+#include <QFileInfo>
 #include <QSettings>
 
 using atools::settings::Settings;
@@ -25,30 +26,94 @@ using atools::fs::SimulatorType;
 
 PathSettings::PathSettings()
 {
+  QDateTime nullTime;
+  nullTime.setMSecsSinceEpoch(0L);
   for(int i = 0; i < 4; i++)
   {
     simulators.append(false);
+
     logbookPaths.append(QString());
+    logbookTimestamps.append(nullTime);
+
     runwayPaths.append(QString());
+    runwayTimestamps.append(nullTime);
   }
 }
 
-bool PathSettings::hasSimulator(atools::fs::SimulatorType type)
+bool PathSettings::hasSimulator(SimulatorType type)
 {
   return simulators.at(type);
 }
 
-QString PathSettings::logbookPath(atools::fs::SimulatorType type)
+QString PathSettings::getLogbookFile(SimulatorType type)
 {
   return logbookPaths.at(type);
 }
 
-QString PathSettings::runwayPath(atools::fs::SimulatorType type)
+QString PathSettings::getRunwaysFile(SimulatorType type)
 {
   return runwayPaths.at(type);
 }
 
-void PathSettings::store()
+bool PathSettings::isLogbookFileValid(SimulatorType type)
+{
+  QFileInfo fi = logbookPaths.at(type);
+  return fi.exists() && fi.isReadable() && fi.isFile();
+}
+
+bool PathSettings::isRunwaysFileValid(SimulatorType type)
+{
+  QFileInfo fi = runwayPaths.at(type);
+  return fi.exists() && fi.isReadable() && fi.isFile();
+}
+
+void PathSettings::setLogbookFileLoaded(SimulatorType type)
+{
+  QFileInfo fi = logbookPaths.at(type);
+  QDateTime time;
+  if(fi.exists() && fi.isReadable() && fi.isFile())
+    time = fi.lastModified();
+  else
+    time.setMSecsSinceEpoch(0);
+
+  logbookTimestamps[type] = time;
+  Settings::instance()->setValue(settingsLogbookTimestamps.at(type), time.toMSecsSinceEpoch());
+  Settings::instance().syncSettings();
+}
+
+void PathSettings::setRunwaysFileLoaded(SimulatorType type)
+{
+  QFileInfo fi = runwayPaths.at(type);
+  QDateTime time;
+  if(fi.exists() && fi.isReadable() && fi.isFile())
+    time = fi.lastModified();
+  else
+    time.setMSecsSinceEpoch(0);
+
+  runwayTimestamps[type] = time;
+  Settings::instance()->setValue(settingsRunwayTimestamps.at(type), time.toMSecsSinceEpoch());
+  Settings::instance().syncSettings();
+}
+
+bool PathSettings::hasLogbookFileChanged(SimulatorType type)
+{
+  QFileInfo fi = logbookPaths.at(type);
+  if(fi.exists() && fi.isReadable() && fi.isFile())
+    return logbookTimestamps.at(type) < fi.lastModified();
+  else
+    return false;
+}
+
+bool PathSettings::hasRunwaysFileChanged(SimulatorType type)
+{
+  QFileInfo fi = runwayPaths.at(type);
+  if(fi.exists() && fi.isReadable() && fi.isFile())
+    return runwayTimestamps.at(type) < fi.lastModified();
+  else
+    return false;
+}
+
+void PathSettings::writeSettings()
 {
   storeSim(atools::fs::FSX);
   storeSim(atools::fs::FSX_SE);
@@ -58,7 +123,7 @@ void PathSettings::store()
   Settings::instance().syncSettings();
 }
 
-void PathSettings::load()
+void PathSettings::readSettings()
 {
   loadSim(atools::fs::FSX);
   loadSim(atools::fs::FSX_SE);
@@ -73,8 +138,12 @@ void PathSettings::loadSim(SimulatorType type)
   if(!atools::fs::FsPaths::getBasePath(type).isEmpty())
   {
     simulators[type] = true;
-    logbookPaths[type] = s->value(lbFilePaths.at(type)).toString();
-    runwayPaths[type] = s->value(rwFilePaths.at(type)).toString();
+
+    logbookPaths[type] = s->value(settingsLogbookFilePaths.at(type)).toString();
+    logbookTimestamps[type].setMSecsSinceEpoch(s->value(settingsLogbookTimestamps.at(type)).toLongLong());
+
+    runwayPaths[type] = s->value(settingsRunwayFilePaths.at(type)).toString();
+    runwayTimestamps[type].setMSecsSinceEpoch(s->value(settingsRunwayTimestamps.at(type)).toLongLong());
   }
   else
     simulators[type] = false;
@@ -86,7 +155,10 @@ void PathSettings::storeSim(SimulatorType type)
 
   if(simulators.at(type))
   {
-    s->setValue(lbFilePaths.at(type), logbookPaths.at(type));
-    s->setValue(rwFilePaths.at(type), runwayPaths.at(type));
+    s->setValue(settingsLogbookFilePaths.at(type), logbookPaths.at(type));
+    s->setValue(settingsLogbookTimestamps.at(type), logbookTimestamps.at(type).toMSecsSinceEpoch());
+
+    s->setValue(settingsRunwayFilePaths.at(type), runwayPaths.at(type));
+    s->setValue(settingsRunwayTimestamps.at(type), runwayTimestamps.at(type).toMSecsSinceEpoch());
   }
 }

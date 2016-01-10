@@ -75,8 +75,8 @@ private:
   QLabel *selectionLabel = nullptr;
 
   atools::sql::SqlDatabase db;
-  QString logbookFilename, runwaysFilename, databaseFile, fsxPath;
-  QDateTime logbookFileTimestamp, runwaysFileTimestamp;
+  QString databaseFile;
+
   bool hasAirports = false;
   bool hasLogbook = false;
 
@@ -92,14 +92,7 @@ private:
   virtual void showEvent(QShowEvent *event) override;
 
   /* Reads logbook into database and handles exceptions */
-  bool loadLogbookDatabase();
-
-  /* Reads logbook from stored path or shows a file dialog, loads the file and
-   *refreshes the GUI. Connected to action only. */
-  void openLogbook();
-
-  /* Reload logbook and update GUI */
-  void reloadLogbook();
+  bool loadLogbookDatabase(atools::fs::SimulatorType type);
 
   /* Shows or hides the search bar */
   void showSearchBar(bool visible);
@@ -113,18 +106,12 @@ private:
   /* Write all settings to the settings singleton */
   void writeSettings();
 
-  /* Show file dialog if file not set or show dialog about logbook found */
-  QString openLogbookFile(const QString& dir = QString());
-
-  /* Tries to find the logbook at the default location */
-  QString findFsFiles();
-
   /* Looks for runways.xml and display dialogs about found or not
    *  @return true if the file is new or was changed */
-  bool checkRunwaysFile();
+  void checkRunwaysFile(atools::fs::SimulatorType type);
 
   /* Load runway.xml into database and handles exceptions */
-  bool loadAirports();
+  bool loadAirports(atools::fs::SimulatorType type);
 
   /* Assigns the runway.xml relevant line edits to the respecive column
    * descriptors */
@@ -132,7 +119,7 @@ private:
   void cleanAirportLineEdits();
 
   /* Test if the logbook timestamp has changed and display a dialog */
-  void checkLogbookFile(bool airportsChanged);
+  void checkLogbookFile(atools::fs::SimulatorType type);
 
   /* Open and close database and handle exceptions */
   void openDatabase();
@@ -186,6 +173,9 @@ private:
 
   void pathDialog();
 
+  void preDatabaseLoad();
+  void postDatabaseLoad(bool success);
+  void startupChecks();
 };
 
 #endif // LITTLELOGBOOK_MAINWINDOW_H
