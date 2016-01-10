@@ -51,7 +51,7 @@ QString HtmlExporter::saveHtmlFileDialog()
 {
   return dialog->saveFileDialog(tr("Export HTML Document"),
                                 tr("HTML Documents (*.htm *.html);;All Files (*)"),
-                                ll::constants::SETTINGS_EXPORT_FILE_DIALOG, "html");
+                                "html", ll::constants::SETTINGS_EXPORT_FILE_DIALOG);
 }
 
 int HtmlExporter::exportAll(bool open)

@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <author>Alexander Barthel</author>
+ <class>PathDialog</class>
+ <widget class="QDialog" name="PathDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>638</width>
+    <height>164</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="13" column="1" colspan="2">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tabFsx">
+      <attribute name="title">
+       <string>FSX</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_6">
+       <item row="0" column="0">
+        <layout class="QGridLayout" name="gridLayoutFsx">
+         <item row="0" column="3">
+          <widget class="QPushButton" name="pushButtonFsxLogbook">
+           <property name="text">
+            <string>Select...</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="labelFsxRunways">
+           <property name="text">
+            <string>Airports</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <widget class="QPushButton" name="pushButtonFsxRunways">
+           <property name="text">
+            <string>Select...</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="lineEditFsxRunways"/>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="labelFsxLogbook">
+           <property name="text">
+            <string>Logbook</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="lineEditFsxLogbook"/>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLabel" name="labelIconFsxLogbook">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="../../littlelogbook.qrc">:/littlelogbook/resources/icons/exclamation.svg</pixmap>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QLabel" name="labelIconFsxRunways">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="../../littlelogbook.qrc">:/littlelogbook/resources/icons/exclamation.svg</pixmap>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabFsxSe">
+      <attribute name="title">
+       <string>FSX Steam Edition</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_7">
+       <item row="0" column="0">
+        <layout class="QGridLayout" name="gridLayoutFsxSe">
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="lineEditFsxSeRunways"/>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="labelFsxSeLogbook">
+           <property name="text">
+            <string>Logbook</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <widget class="QPushButton" name="pushButtonFsxSeRunways">
+           <property name="text">
+            <string>Select...</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="lineEditFsxSeLogbook"/>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="labelFsxSeRunways">
+           <property name="text">
+            <string>Airports</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QPushButton" name="pushButtonFsxSeLogbook">
+           <property name="text">
+            <string>Select...</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLabel" name="labelIconFsxSeLogbook">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="../../littlelogbook.qrc">:/littlelogbook/resources/icons/exclamation.svg</pixmap>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QLabel" name="labelIconFsxSeRunways">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="../../littlelogbook.qrc">:/littlelogbook/resources/icons/exclamation.svg</pixmap>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabP3dV2">
+      <attribute name="title">
+       <string>Prepar3d V2</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_8">
+       <item row="0" column="0">
+        <layout class="QGridLayout" name="gridLayoutP3dV2">
+         <item row="1" column="3">
+          <widget class="QPushButton" name="pushButtonP3dV2Runways">
+           <property name="text">
+            <string>Select...</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QPushButton" name="pushButtonP3dV2Logbook">
+           <property name="text">
+            <string>Select...</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="lineEditP3dV2Logbook"/>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="lineEditP3dV2Runways"/>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="labelP3dV2Runways">
+           <property name="text">
+            <string>Airports</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="labelP3dV2Logbook">
+           <property name="text">
+            <string>Logbook</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLabel" name="labelIconP3dV2Logbook">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="../../littlelogbook.qrc">:/littlelogbook/resources/icons/exclamation.svg</pixmap>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QLabel" name="labelIconP3dV2Runways">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="../../littlelogbook.qrc">:/littlelogbook/resources/icons/exclamation.svg</pixmap>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabP3dV3">
+      <attribute name="title">
+       <string>Prepar3d V3</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_9">
+       <item row="0" column="0">
+        <layout class="QGridLayout" name="gridLayoutP3dV3">
+         <item row="0" column="0">
+          <widget class="QLabel" name="labelP3dV3Logbook">
+           <property name="text">
+            <string>Logbook</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QPushButton" name="pushButtonP3dV3Logbook">
+           <property name="text">
+            <string>Select...</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="lineEditP3dV3Logbook"/>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="lineEditP3dV3Runways"/>
+         </item>
+         <item row="1" column="3">
+          <widget class="QPushButton" name="pushButtonP3dV3Runways">
+           <property name="text">
+            <string>Select...</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="labelP3dV3Runways">
+           <property name="text">
+            <string>Airports</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLabel" name="labelIconP3dV3Logbook">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="../../littlelogbook.qrc">:/littlelogbook/resources/icons/exclamation.svg</pixmap>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QLabel" name="labelIconP3dV3Runways">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="../../littlelogbook.qrc">:/littlelogbook/resources/icons/exclamation.svg</pixmap>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../../littlelogbook.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>PathDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>PathDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

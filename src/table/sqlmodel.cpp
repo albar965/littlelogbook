@@ -434,13 +434,13 @@ QString SqlModel::formatValue(const QString& colName, const QVariant& value) con
       return tr("Glider");
 
     case AIRCRAFT_FIXED_WING:
-      return tr("Fixed wing");
+      return tr("Fixed Wing");
 
     case AIRCRAFT_AMPHIBIOUS:
       return tr("Amphibious");
 
     case AIRCRAFT_ROTARY:
-      return tr("Rotary");
+      return tr("Rotor");
   }
   }
   else if(colName == "aircraft_flags")

@@ -56,6 +56,7 @@ extern const char *EXPORT_HTML_CSS_FILE;
 
 /* FSX logbook filename */
 extern const char *LOGBOOK_FILENAME;
+extern const char *RUNWAYS_FILENAME;
 
 /* Default language for help */
 extern const char *DEFAULT_HELP_LANG;

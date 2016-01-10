@@ -21,6 +21,7 @@
 #include "sql/sqldatabase.h"
 #include "export/htmlexporter.h"
 #include "export/csvexporter.h"
+#include "gui/pathsettings.h"
 
 #include <QDateTime>
 #include <QMainWindow>
@@ -54,12 +55,19 @@ public:
   explicit MainWindow();
   virtual ~MainWindow();
 
+signals:
+  /* Emitted when window is shown the first time */
+  void windowShown();
+
 private:
+  bool firstStart = true;
   Controller *controller = nullptr;
   CsvExporter *csvExporter = nullptr;
   HtmlExporter *htmlExporter = nullptr;
   GlobalStats *globalStats;
   HelpHandler *helpHandler;
+
+  PathSettings pathSettings;
 
   atools::gui::Dialog *dialog;
   atools::gui::ErrorHandler *errorHandler;
@@ -75,6 +83,13 @@ private:
   QString selectionLabelText;
 
   Ui::MainWindow *ui = nullptr;
+
+  /* Work on the close event that also catches clicking the close button
+   * in the window frame */
+  virtual void closeEvent(QCloseEvent *event) override;
+
+  /* Emit a signal windowShown after first appearance */
+  virtual void showEvent(QShowEvent *event) override;
 
   /* Reads logbook into database and handles exceptions */
   bool loadLogbookDatabase();
@@ -97,10 +112,6 @@ private:
 
   /* Write all settings to the settings singleton */
   void writeSettings();
-
-  /* Work on the close event that also catches clicking the close button
-   * in the window frame */
-  virtual void closeEvent(QCloseEvent *event) override;
 
   /* Show file dialog if file not set or show dialog about logbook found */
   QString openLogbookFile(const QString& dir = QString());
@@ -172,6 +183,8 @@ private:
 
   /* Show notification dialog about reloading */
   void filterLogbookEntries();
+
+  void pathDialog();
 
 };
 

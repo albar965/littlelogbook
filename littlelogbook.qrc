@@ -25,5 +25,7 @@
         <file>resources/css/export.css</file>
         <file>resources/icons/globals.svg</file>
         <file>resources/icons/copy.svg</file>
+        <file>resources/icons/checkmark.svg</file>
+        <file>resources/icons/exclamation.svg</file>
     </qresource>
 </RCC>

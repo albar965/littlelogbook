@@ -53,6 +53,7 @@ const char *EXPORT_HTML_CODEC = "UTF-8";
 const char *EXPORT_HTML_CSS_FILE = ":/littlelogbook/resources/css/export.css";
 
 const char *LOGBOOK_FILENAME = "Logbook.BIN";
+const char *RUNWAYS_FILENAME = "runways.xml";
 
 const char *DEFAULT_HELP_LANG = "en";
 

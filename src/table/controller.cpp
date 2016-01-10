@@ -55,6 +55,7 @@ void Controller::clearModel()
   QItemSelectionModel *m = view->selectionModel();
   view->setModel(nullptr);
   delete m;
+
   delete model;
   model = nullptr;
 }
@@ -204,9 +205,10 @@ void Controller::resetView()
 
 void Controller::resetSearch()
 {
-  Q_ASSERT(model != nullptr);
   columns->clearWidgets();
-  model->resetSearch();
+
+  if(model != nullptr)
+    model->resetSearch();
 }
 
 QString Controller::getCurrentSqlQuery() const

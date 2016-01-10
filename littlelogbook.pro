@@ -69,7 +69,9 @@ SOURCES += src/main.cpp\
     src/export/htmlexporter.cpp \
     src/export/csvexporter.cpp \
     src/export/exporter.cpp \
-    src/gui/airportinfo.cpp
+    src/gui/airportinfo.cpp \
+    src/gui/pathdialog.cpp \
+    src/gui/pathsettings.cpp
 
 HEADERS  += src/gui/mainwindow.h \
     src/table/sqlmodel.h \
@@ -83,9 +85,12 @@ HEADERS  += src/gui/mainwindow.h \
     src/export/htmlexporter.h \
     src/export/csvexporter.h \
     src/export/exporter.h \
-    src/gui/airportinfo.h
+    src/gui/airportinfo.h \
+    src/gui/pathdialog.h \
+    src/gui/pathsettings.h
 
-FORMS    += src/gui/mainwindow.ui
+FORMS    += src/gui/mainwindow.ui \
+    src/gui/pathdialog.ui
 
 DISTFILES += \
     help/de/index.html \

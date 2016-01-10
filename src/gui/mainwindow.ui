@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <author>Alexander Barthel</author>
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
@@ -502,6 +503,7 @@
     </property>
     <addaction name="actionFilterLogbookEntries"/>
     <addaction name="actionResetMessages"/>
+    <addaction name="actionPaths"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
@@ -983,6 +985,11 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="shortcut">
     <string>Ctrl+C</string>
+   </property>
+  </action>
+  <action name="actionPaths">
+   <property name="text">
+    <string>Paths</string>
    </property>
   </action>
  </widget>

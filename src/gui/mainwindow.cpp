@@ -16,6 +16,7 @@
 *****************************************************************************/
 
 #include "mainwindow.h"
+#include "pathdialog.h"
 
 #include "table/colum.h"
 #include "table/controller.h"
@@ -140,6 +141,7 @@ void MainWindow::connectAllSlots()
 {
   qDebug() << "Connecting slots";
   connect(ui->tableView, &QTableView::customContextMenuRequested, this, &MainWindow::tableContextMenu);
+  connect(this, &MainWindow::windowShown, this, &MainWindow::pathDialog, Qt::QueuedConnection);
 
   connectControllerSlots();
 
@@ -221,6 +223,8 @@ void MainWindow::connectAllSlots()
   connect(ui->actionOpenLogbook, &QAction::triggered, this, &MainWindow::openLogbook);
   connect(ui->actionReloadLogbook, &QAction::triggered, this, &MainWindow::reloadLogbook);
 
+  connect(ui->actionPaths, &QAction::triggered, this, &MainWindow::pathDialog);
+
   connect(ui->actionShowToolbar, &QAction::toggled, ui->mainToolBar, &QToolBar::setVisible);
   connect(ui->actionShowStatusbar, &QAction::toggled, ui->statusBar, &QStatusBar::setVisible);
   connect(ui->actionShowStatistics, &QAction::toggled, ui->dockWidget, &QDockWidget::setVisible);
@@ -232,6 +236,12 @@ void MainWindow::connectAllSlots()
   connect(ui->mainToolBar, &QToolBar::visibilityChanged, ui->actionShowToolbar, &QAction::setChecked);
   connect(ui->dockWidget, &QDockWidget::visibilityChanged, ui->actionShowStatistics, &QAction::setChecked);
 
+}
+
+void MainWindow::pathDialog()
+{
+  PathDialog d(this, &pathSettings);
+  d.exec();
 }
 
 void MainWindow::exportAllCsv()
@@ -406,7 +416,7 @@ void MainWindow::closeDatabase()
 
 bool MainWindow::checkRunwaysFile()
 {
-  runwaysFilename = fsxPath + QDir::separator() + "runways.xml";
+  runwaysFilename = fsxPath + QDir::separator() + ll::constants::RUNWAYS_FILENAME;
 
   if(!QFile::exists(runwaysFilename))
   {
@@ -619,7 +629,7 @@ void MainWindow::openLogbook()
   QStringList documents = QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation);
 
   // Use "Documents" directory or remembered path
-  QString file = openLogbookFile(documents.isEmpty() ? QString() : documents.at(0));
+  QString file = openLogbookFile(documents.at(0));
   qDebug() << "openLogbook" << file;
 
   if(!file.isEmpty())
@@ -969,4 +979,13 @@ void MainWindow::closeEvent(QCloseEvent *event)
                ui->actionShowToolbar, &QAction::setChecked);
     writeSettings();
   }
+}
+
+void MainWindow::showEvent(QShowEvent *event)
+{
+  if(firstStart)
+    emit windowShown();
+  firstStart = false;
+
+  event->ignore();
 }

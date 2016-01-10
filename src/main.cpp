@@ -63,6 +63,8 @@ int main(int argc, char *argv[])
     Translator::load(s->value(ll::constants::SETTINGS_LANGUAGE, QString()).toString());
 
     // Write version to configuration file
+    QString oldVersion = s->value(ll::constants::SETTINGS_VERSION).toString();
+    qInfo() << "Found version" << oldVersion << "in configuration file";
     s.getAndStoreValue(ll::constants::SETTINGS_VERSION, QCoreApplication::applicationVersion());
     s.syncSettings();
 

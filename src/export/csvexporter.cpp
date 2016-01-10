@@ -48,7 +48,7 @@ QString CsvExporter::saveCsvFileDialog()
 {
   return dialog->saveFileDialog(tr("Export CSV Document"),
                                 tr("CSV Documents (*.csv);;All Files (*)"),
-                                ll::constants::SETTINGS_EXPORT_FILE_DIALOG, "csv");
+                                "csv", ll::constants::SETTINGS_EXPORT_FILE_DIALOG);
 }
 
 int CsvExporter::exportAll(bool open)
