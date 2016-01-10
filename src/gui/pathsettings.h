@@ -44,6 +44,9 @@ public:
   bool isLogbookFileValid(atools::fs::SimulatorType type);
   bool isRunwaysFileValid(atools::fs::SimulatorType type);
 
+  void invalidateLogbookFile(atools::fs::SimulatorType type);
+  void invalidateRunwaysFile(atools::fs::SimulatorType type);
+
 private:
   friend class PathDialog;
 
@@ -78,6 +81,7 @@ private:
 
   QList<QDateTime> logbookTimestamps;
   QList<QDateTime> runwayTimestamps;
+  QDateTime nullTime;
 
   void storeSim(atools::fs::SimulatorType type);
   void loadSim(atools::fs::SimulatorType type);

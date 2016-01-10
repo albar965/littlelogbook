@@ -108,7 +108,7 @@ private:
 
   /* Looks for runways.xml and display dialogs about found or not
    *  @return true if the file is new or was changed */
-  void checkRunwaysFile(atools::fs::SimulatorType type);
+  void checkRunwaysFile(atools::fs::SimulatorType type, bool notifyChange);
 
   /* Load runway.xml into database and handles exceptions */
   bool loadAirports(atools::fs::SimulatorType type);
@@ -119,7 +119,7 @@ private:
   void cleanAirportLineEdits();
 
   /* Test if the logbook timestamp has changed and display a dialog */
-  void checkLogbookFile(atools::fs::SimulatorType type);
+  void checkLogbookFile(atools::fs::SimulatorType type, bool notifyChange);
 
   /* Open and close database and handle exceptions */
   void openDatabase();

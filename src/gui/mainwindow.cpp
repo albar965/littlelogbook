@@ -242,11 +242,11 @@ void MainWindow::pathDialog()
 
     if(d.hasRunwaysFileChanged(type))
     {
-      checkRunwaysFile(type);
-      checkLogbookFile(type);
+      checkRunwaysFile(type, false);
+      checkLogbookFile(type, false);
     }
     else if(d.hasLogbookFileChanged(type))
-      checkLogbookFile(type);
+      checkLogbookFile(type, false);
 
     // Check if there are any logbook entries at all to disable most GUI elements
     hasLogbook = atools::sql::SqlUtil(&db).hasTableAndRows("logbook");
@@ -261,15 +261,18 @@ void MainWindow::startupChecks()
 {
   SimulatorType type = atools::fs::FSX;
 
+  bool notifyReload = true;
   if(!pathSettings.isLogbookFileValid(type))
   {
+    notifyReload = false;
+
     PathDialog d(this, &pathSettings);
     d.exec();
   }
 
   preDatabaseLoad();
-  checkRunwaysFile(type);
-  checkLogbookFile(type);
+  checkRunwaysFile(type, notifyReload);
+  checkLogbookFile(type, notifyReload);
 
   // Check if there are any logbook entries at all to disable most GUI elements
   hasLogbook = atools::sql::SqlUtil(&db).hasTableAndRows("logbook");
@@ -449,7 +452,7 @@ void MainWindow::closeDatabase()
   }
 }
 
-void MainWindow::checkRunwaysFile(SimulatorType type)
+void MainWindow::checkRunwaysFile(SimulatorType type, bool notifyChange)
 {
   if(!pathSettings.isRunwaysFileValid(type))
   {
@@ -472,11 +475,12 @@ void MainWindow::checkRunwaysFile(SimulatorType type)
       // File was changed
       qDebug() << "Found runways file changed" << pathSettings.getRunwaysFile(type);
 
-      dialog->showInfoMsgBox(ll::constants::SETTINGS_SHOW_RELOAD_RUNWAYS,
-                             QString(tr("Runways file<br/><i>%1</i><br/> is new or has changed.<br/>"
-                                        "Will reload now.")).
-                             arg(QDir::toNativeSeparators(pathSettings.getRunwaysFile(type))),
-                             tr("Do not &show this dialog again."));
+      if(notifyChange)
+        dialog->showInfoMsgBox(ll::constants::SETTINGS_SHOW_RELOAD_RUNWAYS,
+                               QString(tr("Runways file<br/><i>%1</i><br/> is new or has changed.<br/>"
+                                          "Will reload now.")).
+                               arg(QDir::toNativeSeparators(pathSettings.getRunwaysFile(type))),
+                               tr("Do not &show this dialog again."));
 
       // If true is returned the logbook will be reloaded too
       loadAirports(type);
@@ -486,7 +490,7 @@ void MainWindow::checkRunwaysFile(SimulatorType type)
   }
 }
 
-void MainWindow::checkLogbookFile(SimulatorType type)
+void MainWindow::checkLogbookFile(SimulatorType type, bool notifyChange)
 {
   // Windows 7 for FSX boxed is
   // c:\Users\alex\Documents\Flight Simulator X Files\Logbook.BIN
@@ -504,11 +508,12 @@ void MainWindow::checkLogbookFile(SimulatorType type)
   {
     if(pathSettings.hasLogbookFileChanged(type))
     {
-      dialog->showInfoMsgBox(ll::constants::SETTINGS_SHOW_RELOAD,
-                             QString(tr("Logbook file<br/><i>%1</i><br/> is new or has changed.<br/>"
-                                        "Will reload now.")).
-                             arg(QDir::toNativeSeparators(pathSettings.getLogbookFile(type))),
-                             tr("Do not &show this dialog again."));
+      if(notifyChange)
+        dialog->showInfoMsgBox(ll::constants::SETTINGS_SHOW_RELOAD,
+                               QString(tr("Logbook file<br/><i>%1</i><br/> is new or has changed.<br/>"
+                                          "Will reload now.")).
+                               arg(QDir::toNativeSeparators(pathSettings.getLogbookFile(type))),
+                               tr("Do not &show this dialog again."));
 
       loadLogbookDatabase(type);
     }
@@ -715,6 +720,7 @@ bool MainWindow::loadAirports(SimulatorType type)
     qDebug() << "Airport import done";
     ui->statusBar->showMessage(QString(tr("Loaded %1 airports.")).arg(apLoader.getNumLoaded()));
     pathSettings.setRunwaysFileLoaded(type);
+    pathSettings.invalidateLogbookFile(type);
   }
   else
   {

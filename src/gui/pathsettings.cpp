@@ -26,7 +26,6 @@ using atools::fs::SimulatorType;
 
 PathSettings::PathSettings()
 {
-  QDateTime nullTime;
   nullTime.setMSecsSinceEpoch(0L);
   for(int i = 0; i < 4; i++)
   {
@@ -74,7 +73,7 @@ void PathSettings::setLogbookFileLoaded(SimulatorType type)
   if(fi.exists() && fi.isReadable() && fi.isFile())
     time = fi.lastModified();
   else
-    time.setMSecsSinceEpoch(0);
+    time.setMSecsSinceEpoch(0L);
 
   logbookTimestamps[type] = time;
   Settings::instance()->setValue(settingsLogbookTimestamps.at(type), time.toMSecsSinceEpoch());
@@ -88,7 +87,7 @@ void PathSettings::setRunwaysFileLoaded(SimulatorType type)
   if(fi.exists() && fi.isReadable() && fi.isFile())
     time = fi.lastModified();
   else
-    time.setMSecsSinceEpoch(0);
+    time.setMSecsSinceEpoch(0L);
 
   runwayTimestamps[type] = time;
   Settings::instance()->setValue(settingsRunwayTimestamps.at(type), time.toMSecsSinceEpoch());
@@ -99,7 +98,7 @@ bool PathSettings::hasLogbookFileChanged(SimulatorType type)
 {
   QFileInfo fi = logbookPaths.at(type);
   if(fi.exists() && fi.isReadable() && fi.isFile())
-    return logbookTimestamps.at(type) < fi.lastModified();
+    return logbookTimestamps.at(type) != fi.lastModified();
   else
     return false;
 }
@@ -108,9 +107,25 @@ bool PathSettings::hasRunwaysFileChanged(SimulatorType type)
 {
   QFileInfo fi = runwayPaths.at(type);
   if(fi.exists() && fi.isReadable() && fi.isFile())
-    return runwayTimestamps.at(type) < fi.lastModified();
+    return runwayTimestamps.at(type) != fi.lastModified();
   else
     return false;
+}
+
+void PathSettings::invalidateLogbookFile(SimulatorType type)
+{
+  logbookTimestamps[type] = nullTime;
+  Settings::instance()->setValue(settingsLogbookTimestamps.at(type), nullTime.toMSecsSinceEpoch());
+  Settings::instance().syncSettings();
+
+}
+
+void PathSettings::invalidateRunwaysFile(SimulatorType type)
+{
+  runwayTimestamps[type] = nullTime;
+  Settings::instance()->setValue(settingsRunwayTimestamps.at(type), nullTime.toMSecsSinceEpoch());
+  Settings::instance().syncSettings();
+
 }
 
 void PathSettings::writeSettings()
