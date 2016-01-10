@@ -163,7 +163,7 @@ QString GlobalStats::createGlobalStatsReport(bool hasLogbook, bool hasAirports)
       html += tableRowHeader.arg(bold(tr("Number of distinct:")));
       html += alt(i++, tableRowAlignRight).arg(bold(tr("Aircrafts:"))).
               arg(query.value("aircraft_descr_cnt").toString());
-      html += alt(i++, tableRowAlignRight).arg(bold(tr("Aircraft registirations:"))).
+      html += alt(i++, tableRowAlignRight).arg(bold(tr("Aircraft registrations:"))).
               arg(query.value("aircraft_reg_cnt").toString());
       html += "</tbody></table>";
     }

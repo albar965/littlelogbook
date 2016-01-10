@@ -294,7 +294,7 @@
         </item>
         <item>
          <property name="text">
-          <string>Fixed wing</string>
+          <string>Fixed Wing</string>
          </property>
         </item>
         <item>
@@ -304,7 +304,7 @@
         </item>
         <item>
          <property name="text">
-          <string>Rotary</string>
+          <string>Rotor</string>
          </property>
         </item>
        </widget>
