@@ -176,7 +176,7 @@ private:
   void preDatabaseLoad();
   void postDatabaseLoad();
   void startupChecks();
-  void assignControllerSlots();
+  void assignSearchFieldsToController();
   void updateDatabaseStatus();
   void tableCopyCipboard();
 };

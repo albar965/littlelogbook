@@ -131,7 +131,7 @@ void MainWindow::updateActionStates()
   ui->actionShowStatistics->setChecked(!ui->dockWidget->isHidden());
 }
 
-void MainWindow::assignControllerSlots()
+void MainWindow::assignSearchFieldsToController()
 {
   if(hasLogbook)
   {
@@ -203,7 +203,7 @@ void MainWindow::connectAllSlots()
           [=](int index) {index == 1 ? controller->filterOperatorAny(true) : controller->filterOperatorAll(true); });
   /* *INDENT-ON* */
 
-  assignControllerSlots();
+  assignSearchFieldsToController();
 
   // Need extra action connected to catch the default Ctrl-C in the table view
   connect(ui->actionTableCopy, &QAction::triggered, this, &MainWindow::tableCopyCipboard);
@@ -667,6 +667,7 @@ void MainWindow::postDatabaseLoad()
 
   controller->prepareModel();
   connectControllerSlots();
+  assignSearchFieldsToController();
 
   updateWidgetsOnSelection();
   updateWidgetStatus();
@@ -888,8 +889,6 @@ void MainWindow::tableContextMenu(const QPoint& pos)
     // Add table header name
     ui->actionGroupByCol->setText(ui->actionGroupByCol->text().arg(header));
     ui->actionGroupByCol->setEnabled(index.isValid() && columnCanGroup && !controller->isGrouped());
-
-    ui->actionUngroup->setEnabled(index.isValid());
 
     menu.addSeparator();
     menu.addAction(ui->actionFilterIncluding);
