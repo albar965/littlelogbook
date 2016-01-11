@@ -142,8 +142,6 @@ QString GlobalStats::createGlobalStatsReport(bool hasLogbook, bool hasAirports)
               arg(formatter::formatMinutesHoursDaysLong(query.value("night_time_sum").toDouble()));
       html += alt(i++, tableRowAlignRight).arg(bold(tr("Maximum:"))).
               arg(formatter::formatMinutesHoursDaysLong(query.value("night_time_max").toDouble()));
-      html += alt(i++, tableRowAlignRight).arg(bold(tr("Average:"))).
-              arg(formatter::formatMinutesHoursDaysLong(query.value("night_time_avg").toDouble()));
       html += "</tbody></table>";
 
       i = 0;
@@ -153,8 +151,6 @@ QString GlobalStats::createGlobalStatsReport(bool hasLogbook, bool hasAirports)
               arg(formatter::formatMinutesHoursDaysLong(query.value("instrument_time_sum").toDouble()));
       html += alt(i++, tableRowAlignRight).arg(bold(tr("Maximum:"))).
               arg(formatter::formatMinutesHoursDaysLong(query.value("instrument_time_max").toDouble()));
-      html += alt(i++, tableRowAlignRight).arg(bold(tr("Average:"))).
-              arg(formatter::formatMinutesHoursDaysLong(query.value("instrument_time_avg").toDouble()));
       html += "</tbody></table>";
 
       i = 0;
