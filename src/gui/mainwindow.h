@@ -174,8 +174,10 @@ private:
   void pathDialog();
 
   void preDatabaseLoad();
-  void postDatabaseLoad(bool success);
+  void postDatabaseLoad();
   void startupChecks();
+  void assignControllerSlots();
+  void updateDatabaseStatus();
 };
 
 #endif // LITTLELOGBOOK_MAINWINDOW_H

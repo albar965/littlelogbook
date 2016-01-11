@@ -12,7 +12,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Little Logbook - Paths and Files</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="13" column="1" colspan="2">
@@ -40,21 +40,24 @@
          <item row="0" column="3">
           <widget class="QPushButton" name="pushButtonFsxLogbook">
            <property name="text">
-            <string>Select...</string>
+            <string>&amp;Select...</string>
            </property>
           </widget>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="labelFsxRunways">
            <property name="text">
-            <string>Airports</string>
+            <string>&amp;Airports</string>
+           </property>
+           <property name="buddy">
+            <cstring>lineEditFsxRunways</cstring>
            </property>
           </widget>
          </item>
          <item row="1" column="3">
           <widget class="QPushButton" name="pushButtonFsxRunways">
            <property name="text">
-            <string>Select...</string>
+            <string>S&amp;elect...</string>
            </property>
           </widget>
          </item>
@@ -64,7 +67,10 @@
          <item row="0" column="0">
           <widget class="QLabel" name="labelFsxLogbook">
            <property name="text">
-            <string>Logbook</string>
+            <string>&amp;Logbook</string>
+           </property>
+           <property name="buddy">
+            <cstring>lineEditFsxLogbook</cstring>
            </property>
           </widget>
          </item>
@@ -108,14 +114,17 @@
          <item row="0" column="0">
           <widget class="QLabel" name="labelFsxSeLogbook">
            <property name="text">
-            <string>Logbook</string>
+            <string>&amp;Logbook</string>
+           </property>
+           <property name="buddy">
+            <cstring>lineEditFsxSeLogbook</cstring>
            </property>
           </widget>
          </item>
          <item row="1" column="3">
           <widget class="QPushButton" name="pushButtonFsxSeRunways">
            <property name="text">
-            <string>Select...</string>
+            <string>S&amp;elect...</string>
            </property>
           </widget>
          </item>
@@ -125,14 +134,17 @@
          <item row="1" column="0">
           <widget class="QLabel" name="labelFsxSeRunways">
            <property name="text">
-            <string>Airports</string>
+            <string>&amp;Airports</string>
+           </property>
+           <property name="buddy">
+            <cstring>lineEditFsxSeRunways</cstring>
            </property>
           </widget>
          </item>
          <item row="0" column="3">
           <widget class="QPushButton" name="pushButtonFsxSeLogbook">
            <property name="text">
-            <string>Select...</string>
+            <string>&amp;Select...</string>
            </property>
           </widget>
          </item>
@@ -170,14 +182,14 @@
          <item row="1" column="3">
           <widget class="QPushButton" name="pushButtonP3dV2Runways">
            <property name="text">
-            <string>Select...</string>
+            <string>S&amp;elect...</string>
            </property>
           </widget>
          </item>
          <item row="0" column="3">
           <widget class="QPushButton" name="pushButtonP3dV2Logbook">
            <property name="text">
-            <string>Select...</string>
+            <string>&amp;Select...</string>
            </property>
           </widget>
          </item>
@@ -190,14 +202,20 @@
          <item row="1" column="0">
           <widget class="QLabel" name="labelP3dV2Runways">
            <property name="text">
-            <string>Airports</string>
+            <string>&amp;Airports</string>
+           </property>
+           <property name="buddy">
+            <cstring>lineEditP3dV2Runways</cstring>
            </property>
           </widget>
          </item>
          <item row="0" column="0">
           <widget class="QLabel" name="labelP3dV2Logbook">
            <property name="text">
-            <string>Logbook</string>
+            <string>&amp;Logbook</string>
+           </property>
+           <property name="buddy">
+            <cstring>lineEditP3dV2Logbook</cstring>
            </property>
           </widget>
          </item>
@@ -235,14 +253,17 @@
          <item row="0" column="0">
           <widget class="QLabel" name="labelP3dV3Logbook">
            <property name="text">
-            <string>Logbook</string>
+            <string>&amp;Logbook</string>
+           </property>
+           <property name="buddy">
+            <cstring>lineEditP3dV3Logbook</cstring>
            </property>
           </widget>
          </item>
          <item row="0" column="3">
           <widget class="QPushButton" name="pushButtonP3dV3Logbook">
            <property name="text">
-            <string>Select...</string>
+            <string>&amp;Select...</string>
            </property>
           </widget>
          </item>
@@ -255,14 +276,17 @@
          <item row="1" column="3">
           <widget class="QPushButton" name="pushButtonP3dV3Runways">
            <property name="text">
-            <string>Select...</string>
+            <string>S&amp;elect...</string>
            </property>
           </widget>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="labelP3dV3Runways">
            <property name="text">
-            <string>Airports</string>
+            <string>&amp;Airports</string>
+           </property>
+           <property name="buddy">
+            <cstring>lineEditP3dV3Runways</cstring>
            </property>
           </widget>
          </item>
@@ -294,6 +318,25 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>lineEditFsxLogbook</tabstop>
+  <tabstop>pushButtonFsxLogbook</tabstop>
+  <tabstop>lineEditFsxRunways</tabstop>
+  <tabstop>pushButtonFsxRunways</tabstop>
+  <tabstop>lineEditFsxSeLogbook</tabstop>
+  <tabstop>pushButtonFsxSeLogbook</tabstop>
+  <tabstop>lineEditFsxSeRunways</tabstop>
+  <tabstop>pushButtonFsxSeRunways</tabstop>
+  <tabstop>lineEditP3dV2Logbook</tabstop>
+  <tabstop>pushButtonP3dV2Logbook</tabstop>
+  <tabstop>lineEditP3dV2Runways</tabstop>
+  <tabstop>pushButtonP3dV2Runways</tabstop>
+  <tabstop>lineEditP3dV3Logbook</tabstop>
+  <tabstop>pushButtonP3dV3Logbook</tabstop>
+  <tabstop>lineEditP3dV3Runways</tabstop>
+  <tabstop>pushButtonP3dV3Runways</tabstop>
+ </tabstops>
  <resources>
   <include location="../../littlelogbook.qrc"/>
  </resources>

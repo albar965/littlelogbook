@@ -29,15 +29,9 @@
 using atools::sql::SqlQuery;
 using atools::sql::SqlDatabase;
 
-Controller::Controller(QWidget *parent,
-                       atools::sql::SqlDatabase *sqlDb,
-                       QTableView *tableView,
-                       bool hasLogbookEntries,
-                       bool hasAirportTable)
-  : parentWidget(parent), db(sqlDb), view(tableView), hasLogbook(hasLogbookEntries),
-    hasAirports(hasAirportTable)
+Controller::Controller(QWidget *parent, atools::sql::SqlDatabase *sqlDb, QTableView *tableView)
+  : parentWidget(parent), db(sqlDb), view(tableView)
 {
-  columns = new ColumnList(hasAirportTable);
 }
 
 Controller::~Controller()
@@ -55,6 +49,9 @@ void Controller::clearModel()
   QItemSelectionModel *m = view->selectionModel();
   view->setModel(nullptr);
   delete m;
+
+  delete columns;
+  columns = nullptr;
 
   delete model;
   model = nullptr;
@@ -105,6 +102,7 @@ void Controller::filterOperatorAny(bool checked)
 void Controller::groupByColumn(const QModelIndex& index)
 {
   Q_ASSERT(model != nullptr);
+  Q_ASSERT(columns != nullptr);
   Q_ASSERT(!isGrouped());
 
   saveViewState();
@@ -122,6 +120,7 @@ void Controller::groupByColumn(const QModelIndex& index)
 void Controller::ungroup()
 {
   Q_ASSERT(model != nullptr);
+  Q_ASSERT(columns != nullptr);
   columns->clearWidgets();
   columns->enableWidgets();
 
@@ -187,8 +186,11 @@ const Column *Controller::getColumn(int physicalIndex) const
 void Controller::resetView()
 {
   Q_ASSERT(model != nullptr);
-  columns->clearWidgets();
-  columns->enableWidgets();
+  if(columns != nullptr)
+  {
+    columns->clearWidgets();
+    columns->enableWidgets();
+  }
 
   // Reorder columns to match model order
   QHeaderView *header = view->horizontalHeader();
@@ -205,7 +207,8 @@ void Controller::resetView()
 
 void Controller::resetSearch()
 {
-  columns->clearWidgets();
+  if(columns != nullptr)
+    columns->clearWidgets();
 
   if(model != nullptr)
     model->resetSearch();
@@ -220,6 +223,11 @@ QString Controller::getCurrentSqlQuery() const
 void Controller::setHasLogbook(bool value)
 {
   hasLogbook = value;
+}
+
+void Controller::setHasAirports(bool value)
+{
+  hasAirports = value;
 }
 
 QModelIndex Controller::getModelIndexAt(const QPoint& pos) const
@@ -250,6 +258,7 @@ bool Controller::isGrouped() const
 void Controller::processViewColumns()
 {
   Q_ASSERT(model != nullptr);
+  Q_ASSERT(columns != nullptr);
 
   QSqlRecord rec = model->record();
   int cnt = rec.count();
@@ -279,6 +288,8 @@ void Controller::prepareModel()
 {
   if(hasLogbook)
   {
+    columns = new ColumnList(hasAirports);
+
     model = new SqlModel(parentWidget, db, columns, hasAirports);
     QItemSelectionModel *m = view->selectionModel();
     view->setModel(model);
@@ -338,6 +349,7 @@ void Controller::connectFetchedMore(std::function<void(void)> func)
 QVector<const Column *> Controller::getCurrentColumns() const
 {
   Q_ASSERT(model != nullptr);
+  Q_ASSERT(columns != nullptr);
 
   QVector<const Column *> cols;
   QSqlRecord rec = model->record();

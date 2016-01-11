@@ -458,7 +458,6 @@
      <string>&amp;File</string>
     </property>
     <addaction name="actionOpenLogbook"/>
-    <addaction name="actionReloadLogbook"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -503,7 +502,6 @@
     </property>
     <addaction name="actionFilterLogbookEntries"/>
     <addaction name="actionResetMessages"/>
-    <addaction name="actionPaths"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
@@ -531,9 +529,8 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionOpenLogbook"/>
-   <addaction name="actionReloadLogbook"/>
-   <addaction name="actionShowAll"/>
    <addaction name="separator"/>
+   <addaction name="actionShowAll"/>
    <addaction name="actionResetView"/>
    <addaction name="actionResetSearch"/>
    <addaction name="actionUngroup"/>
@@ -740,7 +737,7 @@ p, li { white-space: pre-wrap; }
      <normaloff>:/littlelogbook/resources/icons/fileopen.svg</normaloff>:/littlelogbook/resources/icons/fileopen.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Open Logbook ...</string>
+    <string>&amp;Open Logbooks ...</string>
    </property>
    <property name="toolTip">
     <string>Open a new logbook file (Logbook.BIN)</string>

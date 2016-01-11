@@ -58,12 +58,13 @@ using atools::fs::SimulatorType;
 MainWindow::MainWindow() :
   QMainWindow(nullptr), ui(new Ui::MainWindow)
 {
+  qDebug() << "MainWindow constructor";
   dialog = new atools::gui::Dialog(this);
   errorHandler = new atools::gui::ErrorHandler(this);
 
-  openDatabase();
-
   ui->setupUi(this);
+
+  openDatabase();
 
   // Can not be set in Qt Designer
   ui->tableView->horizontalHeader()->setSectionsMovable(true);
@@ -77,34 +78,31 @@ MainWindow::MainWindow() :
   readSettings();
   pathSettings.readSettings();
 
-  // Check if there are any logbook entries at all to disable most GUI elements
-  hasLogbook = atools::sql::SqlUtil(&db).hasTableAndRows("logbook");
-  // Check if runways.xml was loaded
-  hasAirports = atools::sql::SqlUtil(&db).hasTableAndRows("airport");
-
-  qDebug() << "hasAirports" << hasAirports << "hasLogbook" << hasLogbook;
-
-  controller = new Controller(this, &db, ui->tableView, hasLogbook, hasAirports);
+  controller = new Controller(this, &db, ui->tableView);
   csvExporter = new CsvExporter(this, controller);
   htmlExporter = new HtmlExporter(this, controller);
   globalStats = new GlobalStats(this, &db);
   helpHandler = new HelpHandler(this);
 
-  controller->prepareModel();
+  updateDatabaseStatus();
+  if(hasLogbook)
+    postDatabaseLoad();
 
   connectAllSlots();
 
   updateActionStates();
 
-  showHideAirportLineEdits(ui->actionShowSearch->isChecked());
   updateWidgetStatus();
   updateWidgetsOnSelection();
   updateGlobalStats();
+
+  qDebug() << "MainWindow constructor returning";
 }
 
 MainWindow::~MainWindow()
 {
   qDebug() << "MainWindow destructor";
+
   delete globalStats;
   delete csvExporter;
   delete htmlExporter;
@@ -130,6 +128,27 @@ void MainWindow::updateActionStates()
   ui->actionShowStatusbar->setChecked(!ui->statusBar->isHidden());
   ui->actionShowSearch->setChecked(!ui->fromAirportLineEdit->isHidden());
   ui->actionShowStatistics->setChecked(!ui->dockWidget->isHidden());
+}
+
+void MainWindow::assignControllerSlots()
+{
+  if(hasLogbook)
+  {
+    // Assign edit fields to controller / column descriptor to allow automatic
+    // filtering
+    controller->assignLineEdit("airport_from_icao", ui->fromAirportLineEdit);
+    controller->assignLineEdit("airport_to_icao", ui->toAirportLineEdit);
+
+    if(hasAirports)
+      assignAirportLineEdits();
+
+    controller->assignLineEdit("description", ui->descriptionLineEdit);
+    controller->assignLineEdit("aircraft_reg", ui->aircraftRegLineEdit);
+    controller->assignLineEdit("aircraft_descr", ui->aircraftDescrLineEdit);
+
+    controller->assignComboBox("aircraft_type", ui->aircraftTypeComboBox);
+    controller->assignComboBox("aircraft_flags", ui->aircraftInfoComboBox);
+  }
 }
 
 void MainWindow::connectAllSlots()
@@ -183,51 +202,40 @@ void MainWindow::connectAllSlots()
           [=](int index) {index == 1 ? controller->filterOperatorAny(true) : controller->filterOperatorAll(true); });
   /* *INDENT-ON* */
 
-  // Assign edit fields to controller / column descriptor to allow automatic
-  // filtering
-  controller->assignLineEdit("airport_from_icao", ui->fromAirportLineEdit);
-  controller->assignLineEdit("airport_to_icao", ui->toAirportLineEdit);
+  assignControllerSlots();
 
-  if(hasAirports)
-    assignAirportLineEdits();
+  // File menu
+  connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
+  connect(ui->actionOpenLogbook, &QAction::triggered, this, &MainWindow::pathDialog);
 
-  controller->assignLineEdit("description", ui->descriptionLineEdit);
-  controller->assignLineEdit("aircraft_reg", ui->aircraftRegLineEdit);
-  controller->assignLineEdit("aircraft_descr", ui->aircraftDescrLineEdit);
-
-  controller->assignComboBox("aircraft_type", ui->aircraftTypeComboBox);
-  controller->assignComboBox("aircraft_flags", ui->aircraftInfoComboBox);
-
+  // Export menu
   connect(ui->actionExportAllCsv, &QAction::triggered, this, &MainWindow::exportAllCsv);
   connect(ui->actionExportSelectedCsv, &QAction::triggered, this, &MainWindow::exportSelectedCsv);
   connect(ui->actionExportAllHtml, &QAction::triggered, this, &MainWindow::exportAllHtml);
   connect(ui->actionExportSelectedHtml, &QAction::triggered, this, &MainWindow::exportSelectedHtml);
 
+  // View menu
   connect(ui->actionShowAll, &QAction::triggered, this, &MainWindow::loadAllRowsIntoView);
   connect(ui->actionResetSearch, &QAction::triggered, this, &MainWindow::resetSearch);
   connect(ui->actionResetView, &QAction::triggered, this, &MainWindow::resetView);
   connect(ui->actionUngroup, &QAction::triggered, this, &MainWindow::ungroup);
+  connect(ui->actionShowToolbar, &QAction::toggled, ui->mainToolBar, &QToolBar::setVisible);
+  connect(ui->actionShowStatusbar, &QAction::toggled, ui->statusBar, &QStatusBar::setVisible);
+  connect(ui->actionShowStatistics, &QAction::toggled, ui->dockWidget, &QDockWidget::setVisible);
+  connect(ui->actionShowSearch, &QAction::toggled, this, &MainWindow::showSearchBar);
 
+  // Extras menu
   connect(ui->actionResetMessages, &QAction::triggered, this, &MainWindow::resetMessages);
+  connect(ui->actionFilterLogbookEntries, &QAction::toggled, this, &MainWindow::filterLogbookEntries);
 
-  connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
+  // Help menu
   connect(ui->actionAbout, &QAction::triggered, helpHandler, &HelpHandler::about);
   connect(ui->actionAboutQt, &QAction::triggered, helpHandler, &HelpHandler::aboutQt);
   connect(ui->actionHelp, &QAction::triggered, helpHandler, &HelpHandler::help);
 
-  connect(ui->actionPaths, &QAction::triggered, this, &MainWindow::pathDialog);
-
-  connect(ui->actionShowToolbar, &QAction::toggled, ui->mainToolBar, &QToolBar::setVisible);
-  connect(ui->actionShowStatusbar, &QAction::toggled, ui->statusBar, &QStatusBar::setVisible);
-  connect(ui->actionShowStatistics, &QAction::toggled, ui->dockWidget, &QDockWidget::setVisible);
-
-  connect(ui->actionShowSearch, &QAction::toggled, this, &MainWindow::showSearchBar);
-
-  connect(ui->actionFilterLogbookEntries, &QAction::toggled, this, &MainWindow::filterLogbookEntries);
-
+  // Connect widget status to actions
   connect(ui->mainToolBar, &QToolBar::visibilityChanged, ui->actionShowToolbar, &QAction::setChecked);
   connect(ui->dockWidget, &QDockWidget::visibilityChanged, ui->actionShowStatistics, &QAction::setChecked);
-
 }
 
 void MainWindow::pathDialog()
@@ -248,12 +256,7 @@ void MainWindow::pathDialog()
     else if(d.hasLogbookFileChanged(type))
       checkLogbookFile(type, false);
 
-    // Check if there are any logbook entries at all to disable most GUI elements
-    hasLogbook = atools::sql::SqlUtil(&db).hasTableAndRows("logbook");
-    // Check if runways.xml was loaded
-    hasAirports = atools::sql::SqlUtil(&db).hasTableAndRows("airport");
-
-    postDatabaseLoad(hasLogbook);
+    postDatabaseLoad();
   }
 }
 
@@ -270,16 +273,14 @@ void MainWindow::startupChecks()
     d.exec();
   }
 
-  preDatabaseLoad();
-  checkRunwaysFile(type, notifyReload);
-  checkLogbookFile(type, notifyReload);
-
-  // Check if there are any logbook entries at all to disable most GUI elements
-  hasLogbook = atools::sql::SqlUtil(&db).hasTableAndRows("logbook");
-  // Check if runways.xml was loaded
-  hasAirports = atools::sql::SqlUtil(&db).hasTableAndRows("airport");
-
-  postDatabaseLoad(hasLogbook);
+  if(pathSettings.hasLogbookFileChanged(type) || pathSettings.hasRunwaysFileChanged(type))
+  {
+    preDatabaseLoad();
+    checkRunwaysFile(type, notifyReload);
+    updateDatabaseStatus();
+    checkLogbookFile(type, notifyReload);
+    postDatabaseLoad();
+  }
 }
 
 void MainWindow::exportAllCsv()
@@ -524,6 +525,8 @@ void MainWindow::checkLogbookFile(SimulatorType type, bool notifyChange)
 
 void MainWindow::updateWidgetStatus()
 {
+  showHideAirportLineEdits(ui->actionShowSearch->isChecked());
+
   // Disable/enable all line edit widgets in the first line of the search bar
   for(int i = 0; i < ui->gridLayoutSearch->count(); ++i)
   {
@@ -623,9 +626,18 @@ void MainWindow::showHideAirportLineEdits(bool visible)
 
 void MainWindow::filterLogbookEntries()
 {
-  dialog->showInfoMsgBox(ll::constants::SETTINGS_SHOW_FILTER_RELOAD,
-                         tr("Reload the Logbook after changing Filter Settings."),
-                         tr("Do not &show this dialog again."));
+  SimulatorType type = atools::fs::FSX;
+  if(hasLogbook)
+  {
+    dialog->showInfoMsgBox(ll::constants::SETTINGS_SHOW_FILTER_RELOAD,
+                           tr("Logbooks will be reloaded."),
+                           tr("Do not &show this dialog again."));
+
+    pathSettings.invalidateLogbookFile(type);
+    preDatabaseLoad();
+    checkLogbookFile(type, false);
+    postDatabaseLoad();
+  }
 }
 
 void MainWindow::preDatabaseLoad()
@@ -634,22 +646,27 @@ void MainWindow::preDatabaseLoad()
   controller->clearModel();
 }
 
-void MainWindow::postDatabaseLoad(bool success)
+void MainWindow::updateDatabaseStatus()
 {
-  if(success)
-  {
-    hasLogbook = true;
-    controller->setHasLogbook(true);
-    controller->prepareModel();
-    connectControllerSlots();
-  }
-  else
-    hasLogbook = false;
+  hasLogbook = atools::sql::SqlUtil(&db).hasTableAndRows("logbook");
+  // Check if runways.xml was loaded
+  hasAirports = atools::sql::SqlUtil(&db).hasTableAndRows("airport");
+}
+
+void MainWindow::postDatabaseLoad()
+{
+  // Check if there are any logbook entries at all to disable most GUI elements
+  updateDatabaseStatus();
+
+  controller->setHasLogbook(hasLogbook);
+  controller->setHasAirports(hasAirports);
+
+  controller->prepareModel();
+  connectControllerSlots();
 
   updateWidgetsOnSelection();
   updateWidgetStatus();
   updateGlobalStats();
-
 }
 
 void MainWindow::readSettings()
