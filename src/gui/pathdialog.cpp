@@ -61,6 +61,17 @@ PathDialog::PathDialog(QWidget *parentWidget, PathSettings *paths) :
   initTab(ui->lineEditP3dV3Logbook, ui->lineEditP3dV3Runways,
           ui->labelIconP3dV3Logbook, ui->labelIconP3dV3Runways, atools::fs::P3D_V3);
 
+  int lastTab = Settings::instance()->value(lastTabSettings, 0).toInt();
+  if(ui->tabWidget->isTabEnabled(lastTab))
+    ui->tabWidget->setCurrentIndex(lastTab);
+  else
+    for(int i = 0; i < ui->tabWidget->count(); i++)
+      if(ui->tabWidget->isTabEnabled(i))
+      {
+        ui->tabWidget->setCurrentIndex(i);
+        break;
+      }
+
   /* *INDENT-OFF* */
   // Logbook line edits
   connect(ui->lineEditFsxLogbook, &QLineEdit::textEdited,
@@ -137,7 +148,7 @@ void PathDialog::logbookButtonClicked(QLineEdit *edit, QLabel *iconLabel, Simula
 {
   QString text = dialog->openFileDialog(tr("Select the Logbook File (Logbook.BIN)"),
                                         tr("Logbook Files (*.bin *.BIN);;All Files (*)"),
-                                        lbDialogPaths.at(type),
+                                        logbookDialogSettings.at(type),
                                         edit->text());
   if(!text.isEmpty())
     edit->setText(text);
@@ -148,7 +159,7 @@ void PathDialog::runwaysButtonClicked(QLineEdit *edit, QLabel *iconLabel, Simula
 {
   QString text = dialog->openFileDialog(tr("Select the Runways File (runways.xml)"),
                                         tr("Runways File (*.xml);;All Files (*)"),
-                                        rwDialogPaths.at(type),
+                                        runwayDialogSettings.at(type),
                                         edit->text());
   if(!text.isEmpty())
     edit->setText(text);
@@ -260,6 +271,8 @@ void PathDialog::accept()
   dialogToSettings(ui->lineEditFsxSeLogbook, ui->lineEditFsxSeRunways, atools::fs::FSX_SE);
   dialogToSettings(ui->lineEditP3dV2Logbook, ui->lineEditP3dV2Runways, atools::fs::P3D_V2);
   dialogToSettings(ui->lineEditP3dV3Logbook, ui->lineEditP3dV3Runways, atools::fs::P3D_V3);
+
+  Settings::instance()->setValue(lastTabSettings, ui->tabWidget->currentIndex());
 
   pathSettings->writeSettings();
   QDialog::accept();

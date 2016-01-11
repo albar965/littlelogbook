@@ -50,6 +50,7 @@ public:
 
   bool hasLogbookFileChanged(atools::fs::SimulatorType type);
   bool hasRunwaysFileChanged(atools::fs::SimulatorType type);
+
 private:
   QList<bool> changedLogbooks;
   QList<bool> changedRunways;
@@ -71,17 +72,19 @@ private:
   QPixmap *pixmapCheckmark;
   QPixmap *pixmapExclamation;
 
-  const QVector<QString> lbDialogPaths =
+  const QVector<QString> logbookDialogSettings =
   {
     "Paths/DialogLogbookFsx", "Paths/DialogLogbookFsxSe",
     "Paths/DialogLogbookP3dV2", "Paths/DialogLogbookP3dV3"
   };
 
-  const QVector<QString> rwDialogPaths =
+  const QVector<QString> runwayDialogSettings =
   {
     "Paths/DialogRunwaysFsx", "Paths/DialogRunwaysFsxSe",
     "Paths/DialogRunwaysP3dV2", "Paths/DialogRunwaysP3dV3"
   };
+
+  const QString lastTabSettings = "Paths/SelectedTab";
 
   void logbookTextEdited(const QString& text, QLabel *iconLabel);
   void runwaysTextEdited(const QString& text, QLabel *iconLabel);
@@ -89,7 +92,8 @@ private:
   void runwaysButtonClicked(QLineEdit *edit, QLabel *iconLabel, atools::fs::SimulatorType type);
   void updateIcon(const QString& text, QLabel *iconLabel);
 
-  void dialogToSettings(QLineEdit* logbookEdit, QLineEdit* runwaysEdit, atools::fs::SimulatorType type);
+  void dialogToSettings(QLineEdit *logbookEdit, QLineEdit *runwaysEdit, atools::fs::SimulatorType type);
+
 };
 
 #endif // PATHDIALOG_H
