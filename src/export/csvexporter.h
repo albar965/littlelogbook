@@ -24,6 +24,7 @@
 
 class Controller;
 class QWidget;
+class QTextStream;
 
 /*
  * Allows to export the table content or the selected table content from the
@@ -56,7 +57,15 @@ public:
    */
   virtual int exportSelected(bool open);
 
+  /*
+   * Export the selected rows to a string in CSV format. Uses view column
+   * order and appearance like HTML export.
+   */
+  int exportSelectedToString(QString *string);
+
 private:
+  int exportSelectedInternal(QTextStream& stream, bool header);
+
   /* Get file from save dialog */
   QString saveCsvFileDialog();
 

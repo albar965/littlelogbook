@@ -178,6 +178,7 @@ private:
   void startupChecks();
   void assignControllerSlots();
   void updateDatabaseStatus();
+  void tableCopyCipboard();
 };
 
 #endif // LITTLELOGBOOK_MAINWINDOW_H

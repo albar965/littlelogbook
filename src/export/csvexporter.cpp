@@ -29,6 +29,7 @@
 
 #include <QFile>
 #include <QTextCodec>
+#include <QIODevice>
 
 using atools::gui::ErrorHandler;
 using atools::gui::Dialog;
@@ -101,6 +102,39 @@ int CsvExporter::exportAll(bool open)
     else
       errorHandler->handleIOError(file);
   }
+  return exported;
+}
+
+int CsvExporter::exportSelectedToString(QString *string)
+{
+  QTextStream stream(string, QIODevice::WriteOnly);
+
+  int exported = 0;
+  SqlExport sqlExport;
+  sqlExport.setSeparatorChar(';');
+  qDebug() << "Used codec" << stream.codec()->name();
+
+  QVector<int> visualColumnIndex;
+  createVisualColumnIndex(controller->getCurrentColumns().size(), visualColumnIndex);
+
+  // Get the view selection
+  const QItemSelection sel = controller->getSelection();
+  for(QItemSelectionRange rng : sel)
+    for(int row = rng.top(); row <= rng.bottom(); ++row)
+    {
+      QVariantList values = controller->getFormattedModelData(row);
+      QVariantList orderedValues;
+
+      for(int col = 0; col < values.size(); ++col)
+      {
+        int physIndex = visualColumnIndex[col];
+        if(physIndex != -1)
+          orderedValues.append(values.at(physIndex));
+      }
+      stream << sqlExport.getResultSetRow(orderedValues);
+      exported++;
+    }
+  stream.flush();
   return exported;
 }
 

@@ -68,6 +68,7 @@ MainWindow::MainWindow() :
 
   // Can not be set in Qt Designer
   ui->tableView->horizontalHeader()->setSectionsMovable(true);
+  ui->tableView->addAction(ui->actionTableCopy);
 
   // Create label for the statusbar
   selectionLabelText = tr("%1 of %2 entries selected, %3 visible.");
@@ -203,6 +204,9 @@ void MainWindow::connectAllSlots()
   /* *INDENT-ON* */
 
   assignControllerSlots();
+
+  // Need extra action connected to catch the default Ctrl-C in the table view
+  connect(ui->actionTableCopy, &QAction::triggered, this, &MainWindow::tableCopyCipboard);
 
   // File menu
   connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
@@ -815,6 +819,15 @@ bool MainWindow::loadLogbookDatabase(SimulatorType type)
   return success;
 }
 
+void MainWindow::tableCopyCipboard()
+{
+  qDebug() << "tableCopyCipboard";
+  QString rows;
+  int exported = csvExporter->exportSelectedToString(&rows);
+  QApplication::clipboard()->setText(rows);
+  ui->statusBar->showMessage(QString(tr("Copied %1 logbook entries to clipboard.")).arg(exported));
+}
+
 void MainWindow::tableContextMenu(const QPoint& pos)
 {
   // Do not show menu if no logbook is loaded
@@ -908,13 +921,9 @@ void MainWindow::tableContextMenu(const QPoint& pos)
         ui->actionUngroup->setEnabled(false);
         ui->conditionComboBox->setEnabled(true);
       }
-      else if(a == ui->actionTableCopy)
-      {
-        if(index.isValid())
-          QApplication::clipboard()->setText(controller->getFieldDataAt(index));
-      }
       else if(a == ui->actionTableSelectAll)
         controller->selectAll();
+      // else if(a == ui->actionTableCopy) this is alread covered by the connected action
     }
 
     // Restore old menu texts
