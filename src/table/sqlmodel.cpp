@@ -420,7 +420,7 @@ QString SqlModel::formatValue(const QString& colName, const QVariant& value) con
   else if(colName.startsWith("instrument_time"))
     return formatter::formatMinutesHours(value.toDouble());
   else if(colName.startsWith("distance"))
-    return formatter::formatDoubleUnit(value.toDouble(), "");
+    return formatter::formatDoubleUnit(value.toDouble());
   else if(colName == "aircraft_type")
   {
 

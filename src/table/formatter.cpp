@@ -75,7 +75,10 @@ QString formatMinutesHoursDaysLong(double time)
 
 QString formatDoubleUnit(double value, const QString& unit)
 {
-  return QString(QObject::tr("%L1 %2")).arg(value, 0, 'f', 2).arg(unit);
+  if(unit.isEmpty())
+    return QString(QObject::tr("%L1")).arg(value, 0, 'f', 2);
+  else
+    return QString(QObject::tr("%L1 %2")).arg(value, 0, 'f', 2).arg(unit);
 }
 
 QString formatDate(int timeT)
