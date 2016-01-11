@@ -64,6 +64,11 @@ MainWindow::MainWindow() :
 
   ui->setupUi(this);
 
+  // QWidget *spacerWidget = new QWidget(this);
+  // spacerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+  // spacerWidget->setVisible(true);
+  // ui->mainToolBar->insertWidget(ui->actionShowSearch, spacerWidget);
+
   openDatabase();
 
   // Can not be set in Qt Designer
@@ -122,6 +127,19 @@ MainWindow::~MainWindow()
   atools::logging::LoggingHandler::shutdown();
 }
 
+void MainWindow::zoom()
+{
+  QFont f(ui->tableView->font());
+  f.setPointSize(TABLE_VIEW_FONT_SIZES[tableViewFontIndex]);
+  ui->tableView->setFont(f);
+  ui->tableView->verticalHeader()->setDefaultSectionSize(TABLE_VIEW_ROW_HEIGHTS[tableViewFontIndex]);
+  ui->tableView->verticalHeader()->setMinimumSectionSize(TABLE_VIEW_ROW_HEIGHTS[tableViewFontIndex]);
+
+  ui->actionZoomDefault->setEnabled(tableViewFontIndex != TABLE_VIEW_DEFAULT_FONT_INDEX);
+  ui->actionZoomIn->setEnabled(tableViewFontIndex < 6);
+  ui->actionZoomOut->setEnabled(tableViewFontIndex > 0);
+}
+
 void MainWindow::updateActionStates()
 {
   qDebug() << "Updating action states";
@@ -137,6 +155,8 @@ void MainWindow::assignSearchFieldsToController()
   {
     // Assign edit fields to controller / column descriptor to allow automatic
     // filtering
+    controller->assignComboBox("simulator_id", ui->simulatorComboBox);
+
     controller->assignLineEdit("airport_from_icao", ui->fromAirportLineEdit);
     controller->assignLineEdit("airport_to_icao", ui->toAirportLineEdit);
 
@@ -192,11 +212,14 @@ void MainWindow::connectAllSlots()
 
   // Need to put this in a separate variable since there are two activated methods
   void (QComboBox::* activatedPtr)(int) = &QComboBox::activated;
+  connect(ui->simulatorComboBox, activatedPtr,
+          [=](int index) {controller->filterByComboBox("simulator_id", index - 1, index == 0); });
   connect(ui->aircraftTypeComboBox, activatedPtr,
-          [=](int index) {controller->filterByComboBox("aircraft_type", index); });
+          [=](int index) {controller->filterByComboBox("aircraft_type", index, index == 0); });
   connect(ui->aircraftInfoComboBox, activatedPtr,
           [=](int index) {controller->filterByComboBox("aircraft_flags",
-                                                       index == 1 ? atools::fs::lb::types::AIRCRAFT_FLAG_MULTIMOTOR : 0); });
+                                                       index == 1 ? atools::fs::lb::types::AIRCRAFT_FLAG_MULTIMOTOR : 0,
+                                                       index == 0); });
   connect(ui->conditionComboBox, activatedPtr,
           [=](int index) {index == 0 ? controller->filterOperatorAll(true) : controller->filterOperatorAny(true); });
   connect(ui->conditionComboBox, activatedPtr,
@@ -227,6 +250,18 @@ void MainWindow::connectAllSlots()
   connect(ui->actionShowStatusbar, &QAction::toggled, ui->statusBar, &QStatusBar::setVisible);
   connect(ui->actionShowStatistics, &QAction::toggled, ui->dockWidget, &QDockWidget::setVisible);
   connect(ui->actionShowSearch, &QAction::toggled, this, &MainWindow::showSearchBar);
+
+  /* *INDENT-OFFF* */
+  connect(ui->actionZoomIn, &QAction::triggered, [ = ]() {tableViewFontIndex++;
+                                                          zoom();
+          });
+  connect(ui->actionZoomOut, &QAction::triggered, [ = ]() {tableViewFontIndex--;
+                                                           zoom();
+          });
+  connect(ui->actionZoomDefault, &QAction::triggered, [ = ]() {tableViewFontIndex = 3;
+                                                               zoom();
+          });
+  /* *INDENT-ON* */
 
   // Extras menu
   connect(ui->actionResetMessages, &QAction::triggered, this, &MainWindow::resetMessages);
@@ -332,6 +367,7 @@ void MainWindow::resetView()
     ui->statusBar->showMessage(tr("View reset to default."));
     ui->actionUngroup->setEnabled(false);
     ui->conditionComboBox->setEnabled(true);
+    ui->simulatorComboBox->setEnabled(true);
   }
 }
 
@@ -356,6 +392,7 @@ void MainWindow::ungroup()
   ui->statusBar->showMessage(tr("Grouping released."));
   ui->actionUngroup->setEnabled(false);
   ui->conditionComboBox->setEnabled(true);
+  ui->simulatorComboBox->setEnabled(true);
 }
 
 void MainWindow::resetMessages()
@@ -556,6 +593,7 @@ void MainWindow::updateWidgetStatus()
   ui->actionExportAllCsv->setEnabled(hasLogbook);
   ui->actionExportAllHtml->setEnabled(hasLogbook);
   ui->conditionComboBox->setEnabled(hasLogbook);
+  ui->simulatorComboBox->setEnabled(hasLogbook);
 
   // Update export menu if there is a selection in the table view
   QItemSelectionModel *sm = ui->tableView->selectionModel();
@@ -791,7 +829,7 @@ bool MainWindow::loadLogbookDatabase(SimulatorType type)
 
   try
   {
-    importer.loadLogbook(pathSettings.getLogbookFile(type), filter, false /* append */);
+    importer.loadLogbook(pathSettings.getLogbookFile(type), type, filter, false /* append */);
   }
   catch(std::exception& e)
   {
@@ -913,12 +951,14 @@ void MainWindow::tableContextMenu(const QPoint& pos)
         controller->groupByColumn(index);
         ui->actionUngroup->setEnabled(true);
         ui->conditionComboBox->setEnabled(false);
+        ui->simulatorComboBox->setEnabled(false);
       }
       else if(a == ui->actionUngroup)
       {
         controller->ungroup();
         ui->actionUngroup->setEnabled(false);
         ui->conditionComboBox->setEnabled(true);
+        ui->simulatorComboBox->setEnabled(true);
       }
       else if(a == ui->actionTableSelectAll)
         controller->selectAll();

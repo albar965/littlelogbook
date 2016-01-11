@@ -27,6 +27,9 @@ ColumnList::ColumnList(bool hasAirports)
   columns.append(Column("logbook_id", tr("Logbook-\nEntry")).
                  canSort().defaultCol().defaultSort().defaultSortOrder(Qt::SortOrder::DescendingOrder));
 
+  columns.append(Column("simulator_id",
+                        tr("Simulator")).canFilter().canGroup().canSort().defaultCol());
+
   columns.append(Column("startdate", tr("Start Time")).
                  canSort().defaultCol());
 

@@ -75,10 +75,10 @@ void Controller::filterByLineEdit(const QString& field, const QString& text)
   model->filter(field, text);
 }
 
-void Controller::filterByComboBox(const QString& field, int value)
+void Controller::filterByComboBox(const QString& field, int value, bool noFilter)
 {
   Q_ASSERT(model != nullptr);
-  if(value == 0)
+  if(noFilter)
     // Index 0 for combo box means here: no filter, so remove it
     model->filter(field, QVariant(QVariant::Int));
   else

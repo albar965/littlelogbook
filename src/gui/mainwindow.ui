@@ -241,7 +241,64 @@
       <property name="spacing">
        <number>0</number>
       </property>
+      <item row="0" column="3">
+       <widget class="QLineEdit" name="aircraftRegLineEdit">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>1</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Registration of the aircraft used for a flight</string>
+        </property>
+        <property name="placeholderText">
+         <string>Aircraft Registration</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLineEdit" name="descriptionLineEdit">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>1</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Short comment or descritption of a flight</string>
+        </property>
+        <property name="placeholderText">
+         <string>Flight Description</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="4">
+       <widget class="QLineEdit" name="aircraftDescrLineEdit">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>1</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Name or description of the aircraft used for a flight</string>
+        </property>
+        <property name="placeholderText">
+         <string>Aircraft Description</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="6">
        <widget class="QComboBox" name="aircraftInfoComboBox">
         <property name="toolTip">
          <string>Other aircraft information</string>
@@ -258,7 +315,49 @@
         </item>
        </widget>
       </item>
-      <item row="0" column="6">
+      <item row="0" column="7">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="0">
+       <widget class="QComboBox" name="simulatorComboBox">
+        <item>
+         <property name="text">
+          <string>Simulator</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>FSX</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>FSX SE</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>P3D V2</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>P3D V3</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="0" column="8">
        <widget class="QComboBox" name="conditionComboBox">
         <property name="toolTip">
          <string>Filter by all matching conditions or any matching condition</string>
@@ -275,7 +374,7 @@
         </item>
        </widget>
       </item>
-      <item row="0" column="3">
+      <item row="0" column="5">
        <widget class="QComboBox" name="aircraftTypeComboBox">
         <property name="toolTip">
          <string>Type of aircraft used for a flight</string>
@@ -310,71 +409,17 @@
         </item>
        </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="QLineEdit" name="aircraftDescrLineEdit">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-          <horstretch>1</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="toolTip">
-         <string>Name or description of the aircraft used for a flight</string>
-        </property>
-        <property name="placeholderText">
-         <string>Aircraft Description</string>
-        </property>
-        <property name="clearButtonEnabled">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="aircraftRegLineEdit">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-          <horstretch>1</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="toolTip">
-         <string>Registration of the aircraft used for a flight</string>
-        </property>
-        <property name="placeholderText">
-         <string>Aircraft Registration</string>
-        </property>
-        <property name="clearButtonEnabled">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLineEdit" name="descriptionLineEdit">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-          <horstretch>1</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="toolTip">
-         <string>Short comment or descritption of a flight</string>
-        </property>
-        <property name="placeholderText">
-         <string>Flight Description</string>
-        </property>
-        <property name="clearButtonEnabled">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="5">
-       <spacer name="horizontalSpacer">
+       <spacer name="horizontalSpacer_2">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>40</width>
+          <width>10</width>
           <height>20</height>
          </size>
         </property>
@@ -475,6 +520,10 @@
     <addaction name="actionResetView"/>
     <addaction name="actionResetSearch"/>
     <addaction name="actionUngroup"/>
+    <addaction name="separator"/>
+    <addaction name="actionZoomIn"/>
+    <addaction name="actionZoomOut"/>
+    <addaction name="actionZoomDefault"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -517,10 +566,10 @@
     <string>Toolbar</string>
    </property>
    <property name="movable">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="floatable">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
@@ -531,9 +580,13 @@
    <addaction name="actionOpenLogbook"/>
    <addaction name="separator"/>
    <addaction name="actionShowAll"/>
+   <addaction name="separator"/>
    <addaction name="actionResetView"/>
    <addaction name="actionResetSearch"/>
    <addaction name="actionUngroup"/>
+   <addaction name="separator"/>
+   <addaction name="actionZoomIn"/>
+   <addaction name="actionZoomOut"/>
    <addaction name="separator"/>
    <addaction name="actionShowSearch"/>
    <addaction name="actionShowStatistics"/>
@@ -987,6 +1040,41 @@ p, li { white-space: pre-wrap; }
   <action name="actionPaths">
    <property name="text">
     <string>Paths</string>
+   </property>
+  </action>
+  <action name="actionZoomIn">
+   <property name="icon">
+    <iconset resource="../../littlelogbook.qrc">
+     <normaloff>:/littlelogbook/resources/icons/zoomin.svg</normaloff>:/littlelogbook/resources/icons/zoomin.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom In</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl++</string>
+   </property>
+  </action>
+  <action name="actionZoomOut">
+   <property name="icon">
+    <iconset resource="../../littlelogbook.qrc">
+     <normaloff>:/littlelogbook/resources/icons/zoomout.svg</normaloff>:/littlelogbook/resources/icons/zoomout.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom Out</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+-</string>
+   </property>
+  </action>
+  <action name="actionZoomDefault">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Default Zoom</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+0</string>
    </property>
   </action>
  </widget>

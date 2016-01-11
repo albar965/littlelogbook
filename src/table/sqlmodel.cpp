@@ -21,6 +21,7 @@
 
 #include "gui/errorhandler.h"
 #include "fs/lb/types.h"
+#include "fs/fspaths.h"
 #include "table/columnlist.h"
 #include "table/formatter.h"
 #include "sql/sqldatabase.h"
@@ -410,8 +411,27 @@ void SqlModel::buildQuery()
 QString SqlModel::formatValue(const QString& colName, const QVariant& value) const
 {
   using namespace atools::fs::lb::types;
+  using namespace atools::fs;
 
-  if(colName.startsWith("startdate"))
+  if(colName.startsWith("simulator_id"))
+  {
+  SimulatorType type = static_cast<SimulatorType>(value.toInt());
+  switch(type)
+  {
+    case atools::fs::FSX:
+      return tr("FSX");
+
+    case atools::fs::FSX_SE:
+      return tr("FSX SE");
+
+    case atools::fs::P3D_V2:
+      return tr("P3D V2");
+
+    case atools::fs::P3D_V3:
+      return tr("P3D V3");
+  }
+  }
+  else if(colName.startsWith("startdate"))
     return formatter::formatDate(value.toInt());
   else if(colName.startsWith("total_time"))
     return formatter::formatMinutesHours(value.toDouble());
@@ -423,25 +443,24 @@ QString SqlModel::formatValue(const QString& colName, const QVariant& value) con
     return formatter::formatDoubleUnit(value.toDouble());
   else if(colName == "aircraft_type")
   {
+    AircraftType type = static_cast<AircraftType>(value.toInt());
+    switch(type)
+    {
+      case AIRCRAFT_UNKNOWN:
+        return tr("Unknown");
 
-  AircraftType type = static_cast<AircraftType>(value.toInt());
-  switch(type)
-  {
-    case AIRCRAFT_UNKNOWN:
-      return tr("Unknown");
+      case AIRCRAFT_GLIDER:
+        return tr("Glider");
 
-    case AIRCRAFT_GLIDER:
-      return tr("Glider");
+      case AIRCRAFT_FIXED_WING:
+        return tr("Fixed Wing");
 
-    case AIRCRAFT_FIXED_WING:
-      return tr("Fixed Wing");
+      case AIRCRAFT_AMPHIBIOUS:
+        return tr("Amphibious");
 
-    case AIRCRAFT_AMPHIBIOUS:
-      return tr("Amphibious");
-
-    case AIRCRAFT_ROTARY:
-      return tr("Rotor");
-  }
+      case AIRCRAFT_ROTARY:
+        return tr("Rotor");
+    }
   }
   else if(colName == "aircraft_flags")
   {

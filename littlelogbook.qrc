@@ -27,5 +27,7 @@
         <file>resources/icons/copy.svg</file>
         <file>resources/icons/checkmark.svg</file>
         <file>resources/icons/exclamation.svg</file>
+        <file>resources/icons/zoomin.svg</file>
+        <file>resources/icons/zoomout.svg</file>
     </qresource>
 </RCC>

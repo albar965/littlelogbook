@@ -97,7 +97,7 @@ public:
   void filterByLineEdit(const QString& field, const QString& text);
 
   /* Set a filter by an index from a combo box */
-  void filterByComboBox(const QString& field, int value);
+  void filterByComboBox(const QString& field, int value, bool noFilter);
 
   /* Set "and" to combine all filters */
   void filterOperatorAll(bool checked);
