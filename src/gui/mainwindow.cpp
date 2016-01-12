@@ -48,6 +48,10 @@
 #include <QSettings>
 #include <QStandardPaths>
 
+const int SECTION_TO_FONT_SIZE = 2;
+const int MIN_TABLE_VIEW_FONT_POINT_SIZE = 7;
+const int MAX_TABLE_VIEW_FONT_POINT_SIZE = 16;
+
 using atools::sql::SqlDatabase;
 using atools::settings::Settings;
 using atools::gui::ErrorHandler;
@@ -63,6 +67,8 @@ MainWindow::MainWindow() :
   errorHandler = new atools::gui::ErrorHandler(this);
 
   ui->setupUi(this);
+
+  initTableViewZoom();
 
   // QWidget *spacerWidget = new QWidget(this);
   // spacerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
@@ -101,6 +107,7 @@ MainWindow::MainWindow() :
   updateWidgetStatus();
   updateWidgetsOnSelection();
   updateGlobalStats();
+  enableDisableZoomActions();
 
   qDebug() << "MainWindow constructor returning";
 }
@@ -127,17 +134,50 @@ MainWindow::~MainWindow()
   atools::logging::LoggingHandler::shutdown();
 }
 
-void MainWindow::zoom()
+void MainWindow::initTableViewZoom()
 {
-  QFont f(ui->tableView->font());
-  f.setPointSize(TABLE_VIEW_FONT_SIZES[tableViewFontIndex]);
-  ui->tableView->setFont(f);
-  ui->tableView->verticalHeader()->setDefaultSectionSize(TABLE_VIEW_ROW_HEIGHTS[tableViewFontIndex]);
-  ui->tableView->verticalHeader()->setMinimumSectionSize(TABLE_VIEW_ROW_HEIGHTS[tableViewFontIndex]);
+  // Adjust cell height to be smaller than default but according to font height
+  defaultTableViewFontPointSize = ui->tableView->font().pointSize();
 
-  ui->actionZoomDefault->setEnabled(tableViewFontIndex != TABLE_VIEW_DEFAULT_FONT_INDEX);
-  ui->actionZoomIn->setEnabled(tableViewFontIndex < 6);
-  ui->actionZoomOut->setEnabled(tableViewFontIndex > 0);
+  int newPointSize = Settings::instance()->value(ll::constants::SETTINGS_TABLE_VIEW_ZOOM,
+                                                 defaultTableViewFontPointSize).toInt();
+  setTableViewFontSize(newPointSize);
+}
+
+void MainWindow::zoomTableView(int value)
+{
+  int newPointSize = defaultTableViewFontPointSize;
+
+  if(value != 0)
+    newPointSize = ui->tableView->font().pointSize() + value;
+
+  setTableViewFontSize(newPointSize);
+
+  Settings::instance()->setValue(ll::constants::SETTINGS_TABLE_VIEW_ZOOM, newPointSize);
+  enableDisableZoomActions();
+}
+
+void MainWindow::setTableViewFontSize(int pointSize)
+{
+  QFont newFont(ui->tableView->font());
+  newFont.setPointSize(pointSize);
+
+  int newFontHeight = QFontMetrics(newFont).height();
+
+  qDebug() << "new font height" << newFontHeight << "point size" << newFont.pointSize();
+
+  ui->tableView->setFont(newFont);
+
+  // Adjust the cell height - default is too big
+  ui->tableView->verticalHeader()->setDefaultSectionSize(newFontHeight + SECTION_TO_FONT_SIZE);
+  ui->tableView->verticalHeader()->setMinimumSectionSize(newFontHeight + SECTION_TO_FONT_SIZE);
+}
+
+void MainWindow::enableDisableZoomActions()
+{
+  ui->actionZoomDefault->setEnabled(ui->tableView->font().pointSize() != defaultTableViewFontPointSize);
+  ui->actionZoomIn->setEnabled(ui->tableView->font().pointSize() < MAX_TABLE_VIEW_FONT_POINT_SIZE);
+  ui->actionZoomOut->setEnabled(ui->tableView->font().pointSize() > MIN_TABLE_VIEW_FONT_POINT_SIZE);
 }
 
 void MainWindow::updateActionStates()
@@ -176,6 +216,8 @@ void MainWindow::connectAllSlots()
 {
   qDebug() << "Connecting slots";
   connect(ui->tableView, &QTableView::customContextMenuRequested, this, &MainWindow::tableContextMenu);
+
+  // Use this event to show path dialog after main windows is shown
   connect(this, &MainWindow::windowShown, this, &MainWindow::startupChecks, Qt::QueuedConnection);
 
   connectControllerSlots();
@@ -251,16 +293,10 @@ void MainWindow::connectAllSlots()
   connect(ui->actionShowStatistics, &QAction::toggled, ui->dockWidget, &QDockWidget::setVisible);
   connect(ui->actionShowSearch, &QAction::toggled, this, &MainWindow::showSearchBar);
 
-  /* *INDENT-OFFF* */
-  connect(ui->actionZoomIn, &QAction::triggered, [ = ]() {tableViewFontIndex++;
-                                                          zoom();
-          });
-  connect(ui->actionZoomOut, &QAction::triggered, [ = ]() {tableViewFontIndex--;
-                                                           zoom();
-          });
-  connect(ui->actionZoomDefault, &QAction::triggered, [ = ]() {tableViewFontIndex = 3;
-                                                               zoom();
-          });
+  /* *INDENT-OFF* */
+  connect(ui->actionZoomIn, &QAction::triggered, [=]() {zoomTableView(1); });
+  connect(ui->actionZoomOut, &QAction::triggered, [=]() {zoomTableView(-2); });
+  connect(ui->actionZoomDefault, &QAction::triggered, [=]() {zoomTableView(0); });
   /* *INDENT-ON* */
 
   // Extras menu
@@ -279,6 +315,7 @@ void MainWindow::connectAllSlots()
 
 void MainWindow::pathDialog()
 {
+  // TODO
   PathDialog d(this, &pathSettings);
   d.exec();
   SimulatorType type = atools::fs::FSX;
@@ -301,6 +338,7 @@ void MainWindow::pathDialog()
 
 void MainWindow::startupChecks()
 {
+  // TODO
   SimulatorType type = atools::fs::FSX;
 
   bool notifyReload = true;
@@ -668,13 +706,14 @@ void MainWindow::showHideAirportLineEdits(bool visible)
 
 void MainWindow::filterLogbookEntries()
 {
-  SimulatorType type = atools::fs::FSX;
+  // TODO
   if(hasLogbook)
   {
     dialog->showInfoMsgBox(ll::constants::SETTINGS_SHOW_FILTER_RELOAD,
                            tr("Logbooks will be reloaded."),
                            tr("Do not &show this dialog again."));
 
+    SimulatorType type = atools::fs::FSX;
     pathSettings.invalidateLogbookFile(type);
     preDatabaseLoad();
     checkLogbookFile(type, false);
@@ -1004,6 +1043,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::showEvent(QShowEvent *event)
 {
+  // Use this event to show path dialog after main windows is shown
   if(firstStart)
   {
     emit windowShown();

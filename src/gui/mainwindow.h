@@ -81,6 +81,7 @@ private:
   bool hasLogbook = false;
 
   QString selectionLabelText;
+  int defaultTableViewFontPointSize;
 
   Ui::MainWindow *ui = nullptr;
 
@@ -179,13 +180,10 @@ private:
   void assignSearchFieldsToController();
   void updateDatabaseStatus();
   void tableCopyCipboard();
-  void zoom();
-
-  static const int TABLE_VIEW_NUM_SIZES = 7;
-  static const int TABLE_VIEW_DEFAULT_FONT_INDEX = 3;
-  const int TABLE_VIEW_FONT_SIZES[TABLE_VIEW_NUM_SIZES] = {6, 7, 8, 9, 12, 14, 16};
-  const int TABLE_VIEW_ROW_HEIGHTS[TABLE_VIEW_NUM_SIZES] = {10, 12, 16, 18, 20, 22, 24};
-  int tableViewFontIndex = TABLE_VIEW_DEFAULT_FONT_INDEX;
+  void zoomTableView(int value);
+  void enableDisableZoomActions();
+  void initTableViewZoom();
+  void setTableViewFontSize(int pointSize);
 };
 
 #endif // LITTLELOGBOOK_MAINWINDOW_H

@@ -23,6 +23,7 @@ namespace constants {
 const char *SETTINGS_TABLE = "MainWindow/TableView";
 const char *SETTINGS_LOGBOOK_FILE_DIALOG = "MainWindow/Logbook";
 const char *SETTINGS_LANGUAGE = "MainWindow/Language";
+const char *SETTINGS_TABLE_VIEW_ZOOM = "MainWindow/TableViewZoom";
 const char *SETTINGS_VERSION = "MainWindow/Version";
 const char *SETTINGS_SHOW_QUIT = "Actions/ShowQuit";
 const char *SETTINGS_SHOW_RELOAD = "Actions/ShowReloadLogbook";

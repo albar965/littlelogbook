@@ -479,12 +479,6 @@
       <attribute name="verticalHeaderCascadingSectionResizes">
        <bool>true</bool>
       </attribute>
-      <attribute name="verticalHeaderDefaultSectionSize">
-       <number>18</number>
-      </attribute>
-      <attribute name="verticalHeaderMinimumSectionSize">
-       <number>18</number>
-      </attribute>
      </widget>
     </item>
    </layout>

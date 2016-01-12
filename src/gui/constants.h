@@ -25,6 +25,7 @@ namespace constants {
 extern const char *SETTINGS_TABLE;
 extern const char *SETTINGS_LOGBOOK_FILE_DIALOG;
 extern const char *SETTINGS_LANGUAGE;
+extern const char *SETTINGS_TABLE_VIEW_ZOOM;
 extern const char *SETTINGS_VERSION;
 extern const char *SETTINGS_SHOW_QUIT;
 extern const char *SETTINGS_SHOW_RELOAD;
