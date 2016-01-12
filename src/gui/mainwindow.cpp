@@ -153,7 +153,7 @@ void MainWindow::zoomTableView(int value)
 
   setTableViewFontSize(newPointSize);
 
-  Settings::instance()->setValue(ll::constants::SETTINGS_TABLE_VIEW_ZOOM, newPointSize);
+  Settings::instance()->setValue(ll::constants::SETTINGS_TABLE_VIEW_ZOOM, ui->tableView->font().pointSize());
   enableDisableZoomActions();
 }
 
@@ -295,7 +295,7 @@ void MainWindow::connectAllSlots()
 
   /* *INDENT-OFF* */
   connect(ui->actionZoomIn, &QAction::triggered, [=]() {zoomTableView(1); });
-  connect(ui->actionZoomOut, &QAction::triggered, [=]() {zoomTableView(-2); });
+  connect(ui->actionZoomOut, &QAction::triggered, [=]() {zoomTableView(-1); });
   connect(ui->actionZoomDefault, &QAction::triggered, [=]() {zoomTableView(0); });
   /* *INDENT-ON* */
 
