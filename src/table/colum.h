@@ -117,6 +117,13 @@ public:
     return *this;
   }
 
+  /* Column is always add using "and" to the search criteria */
+  Column& alwaysAnd(bool b = true)
+  {
+    isAlwaysAndColumn = b;
+    return *this;
+  }
+
   /* QLineEdit widget that is used for filtering this column */
   Column& lineEdit(QLineEdit *edit)
   {
@@ -201,6 +208,11 @@ public:
     return isDefaultColumn;
   }
 
+  bool isAlwaysAndCol() const
+  {
+    return isAlwaysAndColumn;
+  }
+
   bool isHiddenCol() const
   {
     return isHiddenColumn;
@@ -231,6 +243,7 @@ private:
   bool canBeSorted = false;
   bool isDefaultColumn = false;
   bool isDefaultSortColumn = false;
+  bool isAlwaysAndColumn = false;
   bool isHiddenColumn = false;
 
   Qt::SortOrder defaultSortOrd = Qt::SortOrder::AscendingOrder;

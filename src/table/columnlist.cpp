@@ -28,7 +28,7 @@ ColumnList::ColumnList(bool hasAirports)
                  canSort().defaultCol().defaultSort().defaultSortOrder(Qt::SortOrder::DescendingOrder));
 
   columns.append(Column("simulator_id",
-                        tr("Simulator")).canFilter().canGroup().canSort().defaultCol());
+                        tr("Simulator")).canGroup().canSort().defaultCol().alwaysAnd());
 
   columns.append(Column("startdate", tr("Start Time")).
                  canSort().defaultCol());
@@ -92,10 +92,10 @@ ColumnList::ColumnList(bool hasAirports)
                         tr("Aircraft\nDescription")).canFilter().canGroup().canSort().defaultCol());
 
   columns.append(Column("aircraft_type",
-                        tr("Aircraft\nType")).canFilter().canGroup().canSort().defaultCol());
+                        tr("Aircraft\nType")).canGroup().canSort().defaultCol());
 
   columns.append(Column("aircraft_flags",
-                        tr("Aircraft\nInformation")).canFilter().canGroup().canSort().defaultCol());
+                        tr("Aircraft\nInformation")).canGroup().canSort().defaultCol());
 
   columns.append(Column("visits", tr("Visits\nAirport/Landings, ...")).defaultCol());
 

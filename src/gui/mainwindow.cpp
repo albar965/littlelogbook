@@ -1017,7 +1017,7 @@ void MainWindow::tableContextMenu(const QPoint& pos)
         controller->groupByColumn(index);
         ui->actionUngroup->setEnabled(true);
         ui->conditionComboBox->setEnabled(false);
-        ui->simulatorComboBox->setEnabled(false);
+        ui->simulatorComboBox->setEnabled(true);
       }
       else if(a == ui->actionUngroup)
       {

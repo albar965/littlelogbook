@@ -115,15 +115,18 @@ void SqlModel::filter(const QString& colName, const QVariant& value)
       newVariant = value;
       condition = "=";
     }
+    const Column *col = columns->getColumn(colName);
+    Q_ASSERT(col != nullptr);
 
     if(colAlreadyFiltered)
     {
       // Replace values in existing condition
       whereConditionMap[colName].oper = condition;
       whereConditionMap[colName].value = newVariant;
+      whereConditionMap[colName].alwaysAnd = col->isAlwaysAndCol();
     }
     else
-      whereConditionMap.insert(colName, {colName, condition, newVariant});
+      whereConditionMap.insert(colName, {colName, condition, newVariant, col->isAlwaysAndCol()});
   }
   buildQuery();
 }
@@ -166,12 +169,15 @@ void SqlModel::filterBy(QModelIndex index, bool exclude)
   else
     whereOp = exclude ? " not like " : " like ";
 
+  const Column *col = columns->getColumn(whereCol);
+  Q_ASSERT(col != nullptr);
+
   // Set the search text into the corresponding line edit
   QLineEdit *edit = columns->getColumn(whereCol)->getLineEditWidget();
   if(edit != nullptr)
     edit->setText((exclude ? ll::constants::QUERY_NEGATE_CHAR : "") + whereValue.toString());
 
-  whereConditionMap.insert(whereCol, {whereCol, whereOp, whereValue});
+  whereConditionMap.insert(whereCol, {whereCol, whereOp, whereValue, col->isAlwaysAndCol()});
 }
 
 void SqlModel::getGroupByColumn(QModelIndex index)
@@ -327,32 +333,59 @@ QString SqlModel::buildColumnList()
   return queryCols;
 }
 
+QString SqlModel::buildWhereValue(const WhereCondition& cond)
+{
+  QString val;
+  if(cond.value.type() == QVariant::String || cond.value.type() == QVariant::Char)
+    val = " '" + cond.value.toString() + "'";
+  else if(cond.value.type() == QVariant::Bool ||
+          cond.value.type() == QVariant::Int ||
+          cond.value.type() == QVariant::UInt ||
+          cond.value.type() == QVariant::LongLong ||
+          cond.value.type() == QVariant::ULongLong ||
+          cond.value.type() == QVariant::Double)
+    val = " " + cond.value.toString();
+  return val;
+}
+
 QString SqlModel::buildWhere()
 {
   QString queryWhere;
-  if(!whereConditionMap.isEmpty())
-    queryWhere += "where ";
+  QString queryWhereAnd;
 
-  int i = 0;
-  for(WhereCondition cond : whereConditionMap)
+  int numCond = 0, numAndCond = 0;
+  for(const WhereCondition& cond : whereConditionMap)
   {
-    if(i++ > 0)
-      queryWhere += " " + whereOperator + " ";
-
-    queryWhere += cond.column + " " + cond.oper + " ";
-    if(!cond.value.isNull())
+    if(!cond.alwaysAnd)
     {
-      if(cond.value.type() == QVariant::String || cond.value.type() == QVariant::Char)
-        queryWhere += " '" + cond.value.toString() + "'";
-      else if(cond.value.type() == QVariant::Bool ||
-              cond.value.type() == QVariant::Int ||
-              cond.value.type() == QVariant::UInt ||
-              cond.value.type() == QVariant::LongLong ||
-              cond.value.type() == QVariant::ULongLong ||
-              cond.value.type() == QVariant::Double)
-        queryWhere += " " + cond.value.toString();
+      if(numCond++ > 0)
+        queryWhere += " " + whereOperator + " ";
+      queryWhere += cond.column + " " + cond.oper + " ";
+      if(!cond.value.isNull())
+        queryWhere += buildWhereValue(cond);
+    }
+    else
+    {
+      if(numAndCond++ > 0)
+        queryWhereAnd += " and ";
+      queryWhereAnd += cond.column + " " + cond.oper + " ";
+      if(!cond.value.isNull())
+        queryWhereAnd += buildWhereValue(cond);
     }
   }
+  if(numCond > 0)
+    queryWhere = "(" + queryWhere + ")";
+
+  if(numAndCond > 0)
+  {
+    if(numCond > 0)
+      queryWhere += " and ";
+    queryWhere += queryWhereAnd;
+  }
+
+  if(numCond > 0 || numAndCond > 0)
+    queryWhere = " where " + queryWhere;
+
   return queryWhere;
 }
 

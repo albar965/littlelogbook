@@ -132,6 +132,7 @@ private:
     QString column;
     QString oper; /* operator (like, not like) */
     QVariant value;
+    bool alwaysAnd;
   };
 
   /* Column header was clicked */
@@ -146,6 +147,9 @@ private:
 
   /* Build where statement */
   QString buildWhere();
+
+  /* Convert a value to string for the where clause */
+  QString buildWhereValue(const WhereCondition& cond);
 
   /* Create SQL query and set it into the model */
   void buildQuery();
