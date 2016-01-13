@@ -184,6 +184,8 @@ private:
   void enableDisableZoomActions();
   void initTableViewZoom();
   void setTableViewFontSize(int pointSize);
+  void checkAllFiles(bool notifyReload);
+  void reloadChanged();
 };
 
 #endif // LITTLELOGBOOK_MAINWINDOW_H

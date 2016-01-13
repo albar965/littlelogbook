@@ -497,6 +497,7 @@
      <string>&amp;File</string>
     </property>
     <addaction name="actionOpenLogbook"/>
+    <addaction name="actionReloadLogbook"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -572,6 +573,7 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionOpenLogbook"/>
+   <addaction name="actionReloadLogbook"/>
    <addaction name="separator"/>
    <addaction name="actionShowAll"/>
    <addaction name="separator"/>
@@ -642,7 +644,7 @@ p, li { white-space: pre-wrap; }
      <normaloff>:/littlelogbook/resources/icons/revert.svg</normaloff>:/littlelogbook/resources/icons/revert.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Reload Logbook</string>
+    <string>&amp;Reload changed Logbooks</string>
    </property>
    <property name="toolTip">
     <string>Reload the current logbook</string>

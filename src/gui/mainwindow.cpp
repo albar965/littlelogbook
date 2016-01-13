@@ -276,6 +276,7 @@ void MainWindow::connectAllSlots()
   // File menu
   connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
   connect(ui->actionOpenLogbook, &QAction::triggered, this, &MainWindow::pathDialog);
+  connect(ui->actionReloadLogbook, &QAction::triggered, this, &MainWindow::reloadChanged);
 
   // Export menu
   connect(ui->actionExportAllCsv, &QAction::triggered, this, &MainWindow::exportAllCsv);
@@ -313,51 +314,65 @@ void MainWindow::connectAllSlots()
   connect(ui->dockWidget, &QDockWidget::visibilityChanged, ui->actionShowStatistics, &QAction::setChecked);
 }
 
-void MainWindow::pathDialog()
+void MainWindow::checkAllFiles(bool notifyReload)
 {
-  // TODO
-  PathDialog d(this, &pathSettings);
-  d.exec();
-  SimulatorType type = atools::fs::FSX;
-
-  if(d.hasLogbookFileChanged(type) || d.hasRunwaysFileChanged(type))
+  if(pathSettings.hasAnyLogbookFileChanged() || pathSettings.hasAnyRunwaysFileChanged())
   {
     preDatabaseLoad();
-
-    if(d.hasRunwaysFileChanged(type))
+    for(SimulatorType type : atools::fs::ALL_SIMULATOR_TYPES)
     {
-      checkRunwaysFile(type, false);
-      checkLogbookFile(type, false);
-    }
-    else if(d.hasLogbookFileChanged(type))
-      checkLogbookFile(type, false);
+      bool notifyLogbookReload = notifyReload;
+      if(pathSettings.hasRunwaysFileChanged(type))
+      {
+        checkRunwaysFile(type, notifyReload);
+        notifyLogbookReload = false;
+      }
 
+      updateDatabaseStatus();
+
+      if(pathSettings.hasLogbookFileChanged(type))
+        checkLogbookFile(type, notifyLogbookReload);
+    }
+    updateDatabaseStatus();
     postDatabaseLoad();
   }
 }
 
+void MainWindow::reloadChanged()
+{
+  checkAllFiles(false);
+}
+
+void MainWindow::pathDialog()
+{
+  PathDialog d(this, &pathSettings);
+  d.exec();
+
+  // Let the dialog close and show the busy pointer
+  QApplication::processEvents();
+
+  checkAllFiles(false);
+}
+
 void MainWindow::startupChecks()
 {
-  // TODO
-  SimulatorType type = atools::fs::FSX;
-
+  atools::settings::Settings& s = Settings::instance();
   bool notifyReload = true;
-  if(!pathSettings.isLogbookFileValid(type))
+  if(s->value(ll::constants::SETTINGS_FIRST_START, true).toBool())
   {
+    s->setValue(ll::constants::SETTINGS_FIRST_START, false);
+    s.syncSettings();
+
     notifyReload = false;
 
     PathDialog d(this, &pathSettings);
     d.exec();
   }
 
-  if(pathSettings.hasLogbookFileChanged(type) || pathSettings.hasRunwaysFileChanged(type))
-  {
-    preDatabaseLoad();
-    checkRunwaysFile(type, notifyReload);
-    updateDatabaseStatus();
-    checkLogbookFile(type, notifyReload);
-    postDatabaseLoad();
-  }
+  // Let the dialog close and show the busy pointer
+  QApplication::processEvents();
+
+  checkAllFiles(notifyReload);
 }
 
 void MainWindow::exportAllCsv()
@@ -706,17 +721,20 @@ void MainWindow::showHideAirportLineEdits(bool visible)
 
 void MainWindow::filterLogbookEntries()
 {
-  // TODO
   if(hasLogbook)
   {
     dialog->showInfoMsgBox(ll::constants::SETTINGS_SHOW_FILTER_RELOAD,
                            tr("Logbooks will be reloaded."),
                            tr("Do not &show this dialog again."));
 
-    SimulatorType type = atools::fs::FSX;
-    pathSettings.invalidateLogbookFile(type);
     preDatabaseLoad();
-    checkLogbookFile(type, false);
+    for(SimulatorType type : atools::fs::ALL_SIMULATOR_TYPES)
+      if(pathSettings.isLogbookFileValid(type))
+      {
+        pathSettings.invalidateLogbookFile(type);
+        checkLogbookFile(type, false);
+      }
+    updateDatabaseStatus();
     postDatabaseLoad();
   }
 }
@@ -799,7 +817,11 @@ bool MainWindow::loadAirports(SimulatorType type)
 
   try
   {
-    apLoader.loadAirports(pathSettings.getRunwaysFile(type));
+    QString file = pathSettings.getRunwaysFile(type);
+    ui->statusBar->showMessage(QString(tr("Loading airports from \"%1\" (%2).")).
+                               arg(file).
+                               arg(PathSettings::getSimulatorName(type)));
+    apLoader.loadAirports(file);
   }
   catch(std::exception& e)
   {
@@ -868,7 +890,12 @@ bool MainWindow::loadLogbookDatabase(SimulatorType type)
 
   try
   {
-    importer.loadLogbook(pathSettings.getLogbookFile(type), type, filter, false /* append */);
+    QString file = pathSettings.getLogbookFile(type);
+    ui->statusBar->showMessage(QString(tr("Loading Logbook Entries from \"%1\" (%2).")).
+                               arg(file).
+                               arg(PathSettings::getSimulatorName(type)));
+
+    importer.loadLogbook(file, type, filter, false /* append */);
   }
   catch(std::exception& e)
   {

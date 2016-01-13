@@ -20,6 +20,7 @@
 namespace ll {
 namespace constants {
 
+const char *SETTINGS_FIRST_START = "MainWindow/FirstStart";
 const char *SETTINGS_TABLE = "MainWindow/TableView";
 const char *SETTINGS_LOGBOOK_FILE_DIALOG = "MainWindow/Logbook";
 const char *SETTINGS_LANGUAGE = "MainWindow/Language";

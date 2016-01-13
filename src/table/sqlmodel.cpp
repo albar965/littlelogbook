@@ -518,7 +518,7 @@ QVariant SqlModel::data(const QModelIndex& index, int role) const
     if(col.startsWith("logbook_id"))
       return Qt::AlignRight;
     else if(col.startsWith("startdate"))
-      return Qt::AlignCenter;
+      return Qt::AlignRight;
     else if(col.startsWith("total_time"))
       return Qt::AlignRight;
     else if(col.startsWith("night_time"))

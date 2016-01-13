@@ -77,7 +77,7 @@ PathDialog::PathDialog(QWidget *parentWidget, PathSettings *paths) :
   connect(ui->lineEditFsxLogbook, &QLineEdit::textEdited,
           [=](const QString &text) {logbookTextEdited(text, ui->labelIconFsxLogbook); });
   connect(ui->lineEditFsxSeLogbook, &QLineEdit::textEdited,
-          [=](const QString &text) {logbookTextEdited(text, ui->labelIconFsxLogbook); });
+          [=](const QString &text) {logbookTextEdited(text, ui->labelIconFsxSeLogbook); });
   connect(ui->lineEditP3dV2Logbook, &QLineEdit::textEdited,
           [=](const QString &text) {logbookTextEdited(text, ui->labelIconP3dV2Logbook); });
   connect(ui->lineEditP3dV3Logbook, &QLineEdit::textEdited,
@@ -191,9 +191,9 @@ void PathDialog::initTab(QLineEdit *logbookEdit,
 
     QFileInfo fi;
     QString logbook;
-    if(s->contains(pathSettings->settingsLogbookFilePaths.at(type)))
+    if(s->contains(pathSettings->SETTINGS_LOGBOOK_PATHS[type]))
     {
-      logbook = s->value(pathSettings->settingsLogbookFilePaths.at(type)).toString();
+      logbook = s->value(pathSettings->SETTINGS_LOGBOOK_PATHS[type]).toString();
       fi = logbook;
     }
     else
@@ -214,9 +214,9 @@ void PathDialog::initTab(QLineEdit *logbookEdit,
     }
 
     QString runways;
-    if(s->contains(pathSettings->settingsRunwayFilePaths.at(type)))
+    if(s->contains(pathSettings->SETTINGS_RUNWAY_PATHS[type]))
     {
-      runways = s->value(pathSettings->settingsRunwayFilePaths.at(type)).toString();
+      runways = s->value(pathSettings->SETTINGS_RUNWAY_PATHS[type]).toString();
       fi = runways;
     }
     else

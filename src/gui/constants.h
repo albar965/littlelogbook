@@ -22,6 +22,7 @@ namespace ll {
 namespace constants {
 
 /* Settings keys */
+extern const char *SETTINGS_FIRST_START;
 extern const char *SETTINGS_TABLE;
 extern const char *SETTINGS_LOGBOOK_FILE_DIALOG;
 extern const char *SETTINGS_LANGUAGE;

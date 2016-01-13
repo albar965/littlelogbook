@@ -28,53 +28,67 @@ class PathSettings
 public:
   PathSettings();
 
-  bool hasSimulator(atools::fs::SimulatorType type);
-  QString getLogbookFile(atools::fs::SimulatorType type);
-  QString getRunwaysFile(atools::fs::SimulatorType type);
+  static QString getSimulatorName(atools::fs::SimulatorType type);
+
+  bool hasSimulator(atools::fs::SimulatorType type) const;
+  QString getLogbookFile(atools::fs::SimulatorType type) const;
+  QString getRunwaysFile(atools::fs::SimulatorType type) const;
 
   void setLogbookFileLoaded(atools::fs::SimulatorType type);
   void setRunwaysFileLoaded(atools::fs::SimulatorType type);
 
-  bool hasLogbookFileChanged(atools::fs::SimulatorType type);
-  bool hasRunwaysFileChanged(atools::fs::SimulatorType type);
+  bool hasLogbookFileChanged(atools::fs::SimulatorType type) const;
+  bool hasRunwaysFileChanged(atools::fs::SimulatorType type) const;
 
-  void writeSettings();
-  void readSettings();
-
-  bool isLogbookFileValid(atools::fs::SimulatorType type);
-  bool isRunwaysFileValid(atools::fs::SimulatorType type);
+  bool isLogbookFileValid(atools::fs::SimulatorType type) const;
+  bool isRunwaysFileValid(atools::fs::SimulatorType type) const;
 
   void invalidateLogbookFile(atools::fs::SimulatorType type);
   void invalidateRunwaysFile(atools::fs::SimulatorType type);
 
+  bool isOneLogbookFileValid() const;
+
+  // bool hasSomeLogbookFileChanged() const;
+  // bool hasSomeRunwaysFileChanged() const;
+
+  // bool areAllLogbookFilesValid() const;
+  // bool areAllRunwaysFilesValid() const;
+
+  void writeSettings();
+  void readSettings();
+
+  bool hasAnyLogbookFileChanged() const;
+  bool hasAnyRunwaysFileChanged() const;
+
+  bool isAnyLogbookFileValid() const;
 private:
   friend class PathDialog;
 
-  const QStringList settingsLogbookFilePaths =
+  const char *SETTINGS_LOGBOOK_PATHS[NUM_SIMULATOR_TYPES] =
   {
     "Paths/FileLogbookFsx", "Paths/FileLogbookFsxSe",
     "Paths/FileLogbookP3dV2", "Paths/FileLogbookP3dV3"
   };
 
-  const QStringList settingsRunwayFilePaths =
+  const char *SETTINGS_RUNWAY_PATHS[NUM_SIMULATOR_TYPES] =
   {
     "Paths/FileRunwaysFsx", "Paths/FileRunwaysFsxSe",
     "Paths/FileRunwaysP3dV2", "Paths/FileRunwaysP3dV3"
   };
 
-  const QStringList settingsLogbookTimestamps =
+  const char *SETTINGS_LOGBOOK_TIMESTAMPS[NUM_SIMULATOR_TYPES] =
   {
     "Paths/TimestampLogbookFsx", "Paths/TimestampLogbookFsxSe",
     "Paths/TimestampLogbookP3dV2", "Paths/TimestampLogbookP3dV3"
   };
 
-  const QStringList settingsRunwayTimestamps =
+  const char *SETTINGS_RUNWAY_TIMESTAMPS[NUM_SIMULATOR_TYPES] =
   {
     "Paths/TimestampRunwaysFsx", "Paths/TimestampRunwaysFsxSe",
     "Paths/TimestampRunwaysP3dV2", "Paths/TimestampRunwaysP3dV3"
   };
 
-  QList<bool> simulators;
+  bool simulators[NUM_SIMULATOR_TYPES] = {false, false, false, false};
 
   QStringList logbookPaths;
   QStringList runwayPaths;
