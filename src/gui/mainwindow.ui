@@ -546,6 +546,7 @@
     </property>
     <addaction name="actionFilterLogbookEntries"/>
     <addaction name="actionResetMessages"/>
+    <addaction name="actionResetDatabase"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
@@ -600,6 +601,35 @@
    </attribute>
    <widget class="QWidget" name="dockWidgetContents">
     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QComboBox" name="globalStatsSimTypeComboBox">
+       <item>
+        <property name="text">
+         <string>All Simulators</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>FSX</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>FSX SE</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>P3D V2</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>P3D V3</string>
+        </property>
+       </item>
+      </widget>
+     </item>
      <item>
       <widget class="QTextEdit" name="globalStatsTextEdit">
        <property name="undoRedoEnabled">
@@ -1071,6 +1101,11 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="shortcut">
     <string>Ctrl+0</string>
+   </property>
+  </action>
+  <action name="actionResetDatabase">
+   <property name="text">
+    <string>Reset Logbook Database</string>
    </property>
   </action>
  </widget>

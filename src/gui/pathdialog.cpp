@@ -28,6 +28,18 @@
 #include "gui/dialog.h"
 #include "gui/errorhandler.h"
 
+const char *PathDialog::SETTINGS_LOGBOOK_DIALOG[NUM_SIMULATOR_TYPES] =
+{
+  "Paths/DialogLogbookFsx", "Paths/DialogLogbookFsxSe",
+  "Paths/DialogLogbookP3dV2", "Paths/DialogLogbookP3dV3"
+};
+
+const char *PathDialog::SETTINGS_RUNWAYS_DIALOG[NUM_SIMULATOR_TYPES] =
+{
+  "Paths/DialogRunwaysFsx", "Paths/DialogRunwaysFsxSe",
+  "Paths/DialogRunwaysP3dV2", "Paths/DialogRunwaysP3dV3"
+};
+
 using atools::fs::FsPaths;
 using atools::fs::SimulatorType;
 using atools::settings::Settings;
@@ -148,7 +160,7 @@ void PathDialog::logbookButtonClicked(QLineEdit *edit, QLabel *iconLabel, Simula
 {
   QString text = dialog->openFileDialog(tr("Select the Logbook File (Logbook.BIN)"),
                                         tr("Logbook Files (*.bin *.BIN);;All Files (*)"),
-                                        logbookDialogSettings.at(type),
+                                        SETTINGS_LOGBOOK_DIALOG[type],
                                         edit->text());
   if(!text.isEmpty())
     edit->setText(text);
@@ -159,7 +171,7 @@ void PathDialog::runwaysButtonClicked(QLineEdit *edit, QLabel *iconLabel, Simula
 {
   QString text = dialog->openFileDialog(tr("Select the Runways File (runways.xml)"),
                                         tr("Runways File (*.xml);;All Files (*)"),
-                                        runwayDialogSettings.at(type),
+                                        SETTINGS_RUNWAYS_DIALOG[type],
                                         edit->text());
   if(!text.isEmpty())
     edit->setText(text);
@@ -191,9 +203,9 @@ void PathDialog::initTab(QLineEdit *logbookEdit,
 
     QFileInfo fi;
     QString logbook;
-    if(s->contains(pathSettings->SETTINGS_LOGBOOK_PATHS[type]))
+    if(s->contains(PathSettings::SETTINGS_LOGBOOK_PATHS[type]))
     {
-      logbook = s->value(pathSettings->SETTINGS_LOGBOOK_PATHS[type]).toString();
+      logbook = s->value(PathSettings::SETTINGS_LOGBOOK_PATHS[type]).toString();
       fi = logbook;
     }
     else
@@ -214,9 +226,9 @@ void PathDialog::initTab(QLineEdit *logbookEdit,
     }
 
     QString runways;
-    if(s->contains(pathSettings->SETTINGS_RUNWAY_PATHS[type]))
+    if(s->contains(PathSettings::SETTINGS_RUNWAY_PATHS[type]))
     {
-      runways = s->value(pathSettings->SETTINGS_RUNWAY_PATHS[type]).toString();
+      runways = s->value(PathSettings::SETTINGS_RUNWAY_PATHS[type]).toString();
       fi = runways;
     }
     else

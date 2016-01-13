@@ -47,7 +47,9 @@ GlobalStats::~GlobalStats()
 
 }
 
-QString GlobalStats::createGlobalStatsReport(bool hasLogbook, bool hasAirports)
+QString GlobalStats::createGlobalStatsReport(atools::fs::SimulatorType type,
+                                             bool hasLogbook,
+                                             bool hasAirports)
 {
   QString html(
     "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">"
@@ -60,110 +62,123 @@ QString GlobalStats::createGlobalStatsReport(bool hasLogbook, bool hasAirports)
   {
     QString queryStr = buildQueryStr(hasAirports);
 
+    if(type != atools::fs::ALL_SIMULATORS)
+      queryStr += " where simulator_id = " + QString::number(type);
+
     SqlQuery query(db);
     query.exec(queryStr);
 
     SqlQuery startDateQuery(db);
 
-    startDateQuery.exec("select "
-                        "  min(startdate) as earliest_flight, "
-                        "  max(startdate) as latest_flight "
-                        "from logbook where startdate > 0");
+    QString countQueryStr = "select "
+                            "  min(startdate) as earliest_flight, "
+                            "  max(startdate) as latest_flight "
+                            "from logbook where startdate > 0";
+
+    if(type != atools::fs::ALL_SIMULATORS)
+      countQueryStr += " and simulator_id = " + QString::number(type);
+
+    startDateQuery.exec(countQueryStr);
 
     if(query.next())
     {
-      // For internal use string built HTML is sufficient
-      int i = 0;
-      html += "<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\"><tbody>";
-
-      html += alt(i++, tableRow).arg(bold(tr("Number of flights:"))).
-              arg(query.value("num_flights").toString());
-
-      if(startDateQuery.next())
+      if(query.value("num_flights").toInt() > 0)
       {
-        html += alt(i++, tableRow).arg(bold(tr("Earliest flight:"))).
-                arg(formatter::formatDateLong(startDateQuery.value("earliest_flight").toInt()));
-        html += alt(i++, tableRow).arg(bold(tr("Latest flight:"))).
-                arg(formatter::formatDateLong(startDateQuery.value("latest_flight").toInt()));
-      }
-      html += "</tbody></table>";
-
-      if(hasAirports)
-      {
-        int i2 = 0;
-        html += header(tr("Distances"));
+        // For internal use string built HTML is sufficient
+        int i = 0;
         html += "<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\"><tbody>";
 
-        html += alt(i2++, tableRowAlignRight).arg(bold(tr("Total:"))).
-                arg(formatter::formatDoubleUnit(query.value("distance_sum").toDouble(),
-                                                tr("NM", "Nautical miles")));
-        html += alt(i2++, tableRowAlignRight).arg(bold(tr("Maximum:"))).
-                arg(formatter::formatDoubleUnit(query.value("distance_max").toDouble(),
-                                                tr("NM", "Nautical miles")));
-        html += alt(i2++, tableRowAlignRight).arg(bold(tr("Average:"))).
-                arg(formatter::formatDoubleUnit(query.value("distance_avg").toDouble(),
-                                                tr("NM", "Nautical miles")));
+        html += alt(i++, tableRow).arg(bold(tr("Number of flights:"))).
+                arg(query.value("num_flights").toString());
+
+        if(startDateQuery.next())
+        {
+          html += alt(i++, tableRow).arg(bold(tr("Earliest flight:"))).
+                  arg(formatter::formatDateLong(startDateQuery.value("earliest_flight").toInt()));
+          html += alt(i++, tableRow).arg(bold(tr("Latest flight:"))).
+                  arg(formatter::formatDateLong(startDateQuery.value("latest_flight").toInt()));
+        }
+        html += "</tbody></table>";
+
+        if(hasAirports)
+        {
+          int i2 = 0;
+          html += header(tr("Distances"));
+          html += "<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\"><tbody>";
+
+          html += alt(i2++, tableRowAlignRight).arg(bold(tr("Total:"))).
+                  arg(formatter::formatDoubleUnit(query.value("distance_sum").toDouble(),
+                                                  tr("NM", "Nautical miles")));
+          html += alt(i2++, tableRowAlignRight).arg(bold(tr("Maximum:"))).
+                  arg(formatter::formatDoubleUnit(query.value("distance_max").toDouble(),
+                                                  tr("NM", "Nautical miles")));
+          html += alt(i2++, tableRowAlignRight).arg(bold(tr("Average:"))).
+                  arg(formatter::formatDoubleUnit(query.value("distance_avg").toDouble(),
+                                                  tr("NM", "Nautical miles")));
+          html += "</tbody></table>";
+        }
+
+        i = 0;
+        html += header(tr("Airports"));
+        html += "<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\"><tbody>";
+        html += tableRowHeader.arg(bold(tr("Number of distinct:")));
+        html += alt(i++, tableRowAlignRight).arg(bold(tr("Start airports:"))).
+                arg(query.value("airport_from_icao_cnt").toString());
+        if(hasAirports)
+          html += alt(i++, tableRowAlignRight).arg(bold(tr("Start countries:"))).
+                  arg(query.value("airport_from_country_cnt").toString());
+
+        html += alt(i++, tableRowAlignRight).arg(bold(tr("Destination airports:"))).
+                arg(query.value("airport_to_icao_cnt").toString());
+
+        if(hasAirports)
+          html += alt(i++, tableRowAlignRight).arg(bold(tr("Destination countries:"))).
+                  arg(query.value("airport_to_country_cnt").toString());
+        html += "</tbody></table>";
+
+        i = 0;
+        html += header(tr("Flight time"));
+        html += "<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\"><tbody>";
+        html += alt(i++, tableRowAlignRight).arg(bold(tr("Total:"))).
+                arg(formatter::formatMinutesHoursDaysLong(query.value("total_time_sum").toDouble()));
+        html += alt(i++, tableRowAlignRight).arg(bold(tr("Maximum:"))).
+                arg(formatter::formatMinutesHoursDaysLong(query.value("total_time_max").toDouble()));
+        html += alt(i++, tableRowAlignRight).arg(bold(tr("Average:"))).
+                arg(formatter::formatMinutesHoursDaysLong(query.value("total_time_avg").toDouble()));
+        html += "</tbody></table>";
+
+        i = 0;
+        html += header(tr("Night flight time"));
+        html += "<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\"><tbody>";
+        html += alt(i++, tableRowAlignRight).arg(bold(tr("Total:"))).
+                arg(formatter::formatMinutesHoursDaysLong(query.value("night_time_sum").toDouble()));
+        html += alt(i++, tableRowAlignRight).arg(bold(tr("Maximum:"))).
+                arg(formatter::formatMinutesHoursDaysLong(query.value("night_time_max").toDouble()));
+        html += "</tbody></table>";
+
+        i = 0;
+        html += header(tr("Instrument flight time"));
+        html += "<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\"><tbody>";
+        html += alt(i++, tableRowAlignRight).arg(bold(tr("Total:"))).
+                arg(formatter::formatMinutesHoursDaysLong(query.value("instrument_time_sum").toDouble()));
+        html += alt(i++, tableRowAlignRight).arg(bold(tr("Maximum:"))).
+                arg(formatter::formatMinutesHoursDaysLong(query.value("instrument_time_max").toDouble()));
+        html += "</tbody></table>";
+
+        i = 0;
+        html += header(tr("Aircraft"));
+        html += "<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\"><tbody>";
+        html += tableRowHeader.arg(bold(tr("Number of distinct:")));
+        html += alt(i++, tableRowAlignRight).arg(bold(tr("Aircrafts:"))).
+                arg(query.value("aircraft_descr_cnt").toString());
+        html += alt(i++, tableRowAlignRight).arg(bold(tr("Aircraft registrations:"))).
+                arg(query.value("aircraft_reg_cnt").toString());
         html += "</tbody></table>";
       }
-
-      i = 0;
-      html += header(tr("Airports"));
-      html += "<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\"><tbody>";
-      html += tableRowHeader.arg(bold(tr("Number of distinct:")));
-      html += alt(i++, tableRowAlignRight).arg(bold(tr("Start airports:"))).
-              arg(query.value("airport_from_icao_cnt").toString());
-      if(hasAirports)
-        html += alt(i++, tableRowAlignRight).arg(bold(tr("Start countries:"))).
-                arg(query.value("airport_from_country_cnt").toString());
-
-      html += alt(i++, tableRowAlignRight).arg(bold(tr("Destination airports:"))).
-              arg(query.value("airport_to_icao_cnt").toString());
-
-      if(hasAirports)
-        html += alt(i++, tableRowAlignRight).arg(bold(tr("Destination countries:"))).
-                arg(query.value("airport_to_country_cnt").toString());
-      html += "</tbody></table>";
-
-      i = 0;
-      html += header(tr("Flight time"));
-      html += "<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\"><tbody>";
-      html += alt(i++, tableRowAlignRight).arg(bold(tr("Total:"))).
-              arg(formatter::formatMinutesHoursDaysLong(query.value("total_time_sum").toDouble()));
-      html += alt(i++, tableRowAlignRight).arg(bold(tr("Maximum:"))).
-              arg(formatter::formatMinutesHoursDaysLong(query.value("total_time_max").toDouble()));
-      html += alt(i++, tableRowAlignRight).arg(bold(tr("Average:"))).
-              arg(formatter::formatMinutesHoursDaysLong(query.value("total_time_avg").toDouble()));
-      html += "</tbody></table>";
-
-      i = 0;
-      html += header(tr("Night flight time"));
-      html += "<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\"><tbody>";
-      html += alt(i++, tableRowAlignRight).arg(bold(tr("Total:"))).
-              arg(formatter::formatMinutesHoursDaysLong(query.value("night_time_sum").toDouble()));
-      html += alt(i++, tableRowAlignRight).arg(bold(tr("Maximum:"))).
-              arg(formatter::formatMinutesHoursDaysLong(query.value("night_time_max").toDouble()));
-      html += "</tbody></table>";
-
-      i = 0;
-      html += header(tr("Instrument flight time"));
-      html += "<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\"><tbody>";
-      html += alt(i++, tableRowAlignRight).arg(bold(tr("Total:"))).
-              arg(formatter::formatMinutesHoursDaysLong(query.value("instrument_time_sum").toDouble()));
-      html += alt(i++, tableRowAlignRight).arg(bold(tr("Maximum:"))).
-              arg(formatter::formatMinutesHoursDaysLong(query.value("instrument_time_max").toDouble()));
-      html += "</tbody></table>";
-
-      i = 0;
-      html += header(tr("Aircraft"));
-      html += "<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\"><tbody>";
-      html += tableRowHeader.arg(bold(tr("Number of distinct:")));
-      html += alt(i++, tableRowAlignRight).arg(bold(tr("Aircrafts:"))).
-              arg(query.value("aircraft_descr_cnt").toString());
-      html += alt(i++, tableRowAlignRight).arg(bold(tr("Aircraft registrations:"))).
-              arg(query.value("aircraft_reg_cnt").toString());
-      html += "</tbody></table>";
-    }
-  }
+      else
+        html += tr("No Logbook Entries found");
+    } // if(query.next())
+  } // if(hasLogbook)
   else
     html += tr("No Logbook loaded");
 

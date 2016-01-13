@@ -21,6 +21,30 @@
 #include <QFileInfo>
 #include <QSettings>
 
+const char *PathSettings::SETTINGS_LOGBOOK_PATHS[NUM_SIMULATOR_TYPES] =
+{
+  "Paths/FileLogbookFsx", "Paths/FileLogbookFsxSe",
+  "Paths/FileLogbookP3dV2", "Paths/FileLogbookP3dV3"
+};
+
+const char *PathSettings::SETTINGS_RUNWAY_PATHS[NUM_SIMULATOR_TYPES] =
+{
+  "Paths/FileRunwaysFsx", "Paths/FileRunwaysFsxSe",
+  "Paths/FileRunwaysP3dV2", "Paths/FileRunwaysP3dV3"
+};
+
+const char *PathSettings::SETTINGS_LOGBOOK_TIMESTAMPS[NUM_SIMULATOR_TYPES] =
+{
+  "Paths/TimestampLogbookFsx", "Paths/TimestampLogbookFsxSe",
+  "Paths/TimestampLogbookP3dV2", "Paths/TimestampLogbookP3dV3"
+};
+
+const char *PathSettings::SETTINGS_RUNWAY_TIMESTAMPS[NUM_SIMULATOR_TYPES] =
+{
+  "Paths/TimestampRunwaysFsx", "Paths/TimestampRunwaysFsxSe",
+  "Paths/TimestampRunwaysP3dV2", "Paths/TimestampRunwaysP3dV3"
+};
+
 using atools::settings::Settings;
 using atools::fs::SimulatorType;
 
@@ -44,16 +68,19 @@ QString PathSettings::getSimulatorName(atools::fs::SimulatorType type)
   switch(type)
   {
     case atools::fs::FSX:
-      return QObject::tr("FSX Boxed", "PathSettings");
+      return QObject::tr("FSX Boxed");
 
     case atools::fs::FSX_SE:
-      return QObject::tr("FSX Steam Edition", "PathSettings");
+      return QObject::tr("FSX Steam Edition");
 
     case atools::fs::P3D_V2:
-      return QObject::tr("Prepar3d V2", "PathSettings");
+      return QObject::tr("Prepar3d V2");
 
     case atools::fs::P3D_V3:
-      return QObject::tr("Prepar3d V3", "PathSettings");
+      return QObject::tr("Prepar3d V3");
+
+    case atools::fs::ALL_SIMULATORS:
+      return QString();
   }
   return QString();
 }
@@ -113,15 +140,6 @@ void PathSettings::setRunwaysFileLoaded(SimulatorType type)
   Settings::instance().syncSettings();
 }
 
-bool PathSettings::isAnyLogbookFileValid() const
-{
-  for(SimulatorType type : atools::fs::ALL_SIMULATOR_TYPES)
-    if(isLogbookFileValid(type))
-      return true;
-
-  return false;
-}
-
 bool PathSettings::hasAnyLogbookFileChanged() const
 {
   for(SimulatorType type : atools::fs::ALL_SIMULATOR_TYPES)
@@ -158,6 +176,18 @@ bool PathSettings::hasRunwaysFileChanged(SimulatorType type) const
     return false;
 }
 
+void PathSettings::invalidateAllLogbookFiles()
+{
+  for(SimulatorType type : atools::fs::ALL_SIMULATOR_TYPES)
+    invalidateLogbookFile(type);
+}
+
+void PathSettings::invalidateAllRunwayFiles()
+{
+  for(SimulatorType type : atools::fs::ALL_SIMULATOR_TYPES)
+    invalidateRunwaysFile(type);
+}
+
 void PathSettings::invalidateLogbookFile(SimulatorType type)
 {
   logbookTimestamps[type] = nullTime;
@@ -170,15 +200,6 @@ void PathSettings::invalidateRunwaysFile(SimulatorType type)
   runwayTimestamps[type] = nullTime;
   Settings::instance()->setValue(SETTINGS_RUNWAY_TIMESTAMPS[type], nullTime.toMSecsSinceEpoch());
   Settings::instance().syncSettings();
-}
-
-bool PathSettings::isOneLogbookFileValid() const
-{
-  for(SimulatorType type : atools::fs::ALL_SIMULATOR_TYPES)
-    if(isLogbookFileValid(type))
-      return true;
-
-  return false;
 }
 
 void PathSettings::writeSettings()

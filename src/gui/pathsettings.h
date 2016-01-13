@@ -46,47 +46,22 @@ public:
   void invalidateLogbookFile(atools::fs::SimulatorType type);
   void invalidateRunwaysFile(atools::fs::SimulatorType type);
 
-  bool isOneLogbookFileValid() const;
-
-  // bool hasSomeLogbookFileChanged() const;
-  // bool hasSomeRunwaysFileChanged() const;
-
-  // bool areAllLogbookFilesValid() const;
-  // bool areAllRunwaysFilesValid() const;
-
   void writeSettings();
   void readSettings();
 
   bool hasAnyLogbookFileChanged() const;
   bool hasAnyRunwaysFileChanged() const;
 
-  bool isAnyLogbookFileValid() const;
+  void invalidateAllLogbookFiles();
+  void invalidateAllRunwayFiles();
+
 private:
   friend class PathDialog;
 
-  const char *SETTINGS_LOGBOOK_PATHS[NUM_SIMULATOR_TYPES] =
-  {
-    "Paths/FileLogbookFsx", "Paths/FileLogbookFsxSe",
-    "Paths/FileLogbookP3dV2", "Paths/FileLogbookP3dV3"
-  };
-
-  const char *SETTINGS_RUNWAY_PATHS[NUM_SIMULATOR_TYPES] =
-  {
-    "Paths/FileRunwaysFsx", "Paths/FileRunwaysFsxSe",
-    "Paths/FileRunwaysP3dV2", "Paths/FileRunwaysP3dV3"
-  };
-
-  const char *SETTINGS_LOGBOOK_TIMESTAMPS[NUM_SIMULATOR_TYPES] =
-  {
-    "Paths/TimestampLogbookFsx", "Paths/TimestampLogbookFsxSe",
-    "Paths/TimestampLogbookP3dV2", "Paths/TimestampLogbookP3dV3"
-  };
-
-  const char *SETTINGS_RUNWAY_TIMESTAMPS[NUM_SIMULATOR_TYPES] =
-  {
-    "Paths/TimestampRunwaysFsx", "Paths/TimestampRunwaysFsxSe",
-    "Paths/TimestampRunwaysP3dV2", "Paths/TimestampRunwaysP3dV3"
-  };
+  static const char *SETTINGS_LOGBOOK_PATHS[NUM_SIMULATOR_TYPES];
+  static const char *SETTINGS_RUNWAY_PATHS[NUM_SIMULATOR_TYPES];
+  static const char *SETTINGS_LOGBOOK_TIMESTAMPS[NUM_SIMULATOR_TYPES];
+  static const char *SETTINGS_RUNWAY_TIMESTAMPS[NUM_SIMULATOR_TYPES];
 
   bool simulators[NUM_SIMULATOR_TYPES] = {false, false, false, false};
 

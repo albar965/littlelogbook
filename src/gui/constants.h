@@ -29,6 +29,7 @@ extern const char *SETTINGS_LANGUAGE;
 extern const char *SETTINGS_TABLE_VIEW_ZOOM;
 extern const char *SETTINGS_VERSION;
 extern const char *SETTINGS_SHOW_QUIT;
+extern const char *SETTINGS_SHOW_RESET_DATABASE;
 extern const char *SETTINGS_SHOW_RELOAD;
 extern const char *SETTINGS_SHOW_NO_RUNWAYS;
 extern const char *SETTINGS_SHOW_RELOAD_RUNWAYS;

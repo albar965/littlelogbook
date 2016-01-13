@@ -462,6 +462,10 @@ QString SqlModel::formatValue(const QString& colName, const QVariant& value) con
 
     case atools::fs::P3D_V3:
       return tr("P3D V3");
+
+    case atools::fs::ALL_SIMULATORS:
+      return QString();
+
   }
   }
   else if(colName.startsWith("startdate"))

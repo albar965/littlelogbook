@@ -27,6 +27,7 @@ const char *SETTINGS_LANGUAGE = "MainWindow/Language";
 const char *SETTINGS_TABLE_VIEW_ZOOM = "MainWindow/TableViewZoom";
 const char *SETTINGS_VERSION = "MainWindow/Version";
 const char *SETTINGS_SHOW_QUIT = "Actions/ShowQuit";
+const char *SETTINGS_SHOW_RESET_DATABASE = "Actions/ShowResetDatabase";
 const char *SETTINGS_SHOW_RELOAD = "Actions/ShowReloadLogbook";
 const char *SETTINGS_SHOW_NO_RUNWAYS = "Actions/ShowRunwaysNotFound";
 const char *SETTINGS_SHOW_RELOAD_RUNWAYS = "Actions/ShowReloadRunways";

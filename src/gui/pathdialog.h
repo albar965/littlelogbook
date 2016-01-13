@@ -72,17 +72,8 @@ private:
   QPixmap *pixmapCheckmark;
   QPixmap *pixmapExclamation;
 
-  const QVector<QString> logbookDialogSettings =
-  {
-    "Paths/DialogLogbookFsx", "Paths/DialogLogbookFsxSe",
-    "Paths/DialogLogbookP3dV2", "Paths/DialogLogbookP3dV3"
-  };
-
-  const QVector<QString> runwayDialogSettings =
-  {
-    "Paths/DialogRunwaysFsx", "Paths/DialogRunwaysFsxSe",
-    "Paths/DialogRunwaysP3dV2", "Paths/DialogRunwaysP3dV3"
-  };
+  static const char *SETTINGS_LOGBOOK_DIALOG[NUM_SIMULATOR_TYPES];
+  static const char *SETTINGS_RUNWAYS_DIALOG[NUM_SIMULATOR_TYPES];
 
   const QString lastTabSettings = "Paths/SelectedTab";
 
@@ -91,7 +82,6 @@ private:
   void logbookButtonClicked(QLineEdit *edit, QLabel *iconLabel, atools::fs::SimulatorType type);
   void runwaysButtonClicked(QLineEdit *edit, QLabel *iconLabel, atools::fs::SimulatorType type);
   void updateIcon(const QString& text, QLabel *iconLabel);
-
   void dialogToSettings(QLineEdit *logbookEdit, QLineEdit *runwaysEdit, atools::fs::SimulatorType type);
 
 };

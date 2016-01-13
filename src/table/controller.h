@@ -99,11 +99,8 @@ public:
   /* Set a filter by an index from a combo box */
   void filterByComboBox(const QString& field, int value, bool noFilter);
 
-  /* Set "and" to combine all filters */
-  void filterOperatorAll(bool checked);
-
-  /* Set "or" to combine all filters */
-  void filterOperatorAny(bool checked);
+  /* Use "and" or "or" to combine searches */
+  void filterOperator(bool useAnd);
 
   /* Connect model reset signal */
   void connectModelReset(std::function<void(void)> func);

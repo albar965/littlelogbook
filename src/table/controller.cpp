@@ -85,17 +85,12 @@ void Controller::filterByComboBox(const QString& field, int value, bool noFilter
     model->filter(field, value);
 }
 
-void Controller::filterOperatorAll(bool checked)
+void Controller::filterOperator(bool useAnd)
 {
   Q_ASSERT(model != nullptr);
-  if(checked)
+  if(useAnd)
     model->filterOperator("and");
-}
-
-void Controller::filterOperatorAny(bool checked)
-{
-  Q_ASSERT(model != nullptr);
-  if(checked)
+  else
     model->filterOperator("or");
 }
 

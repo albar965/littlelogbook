@@ -76,7 +76,6 @@ MainWindow::MainWindow() :
   // ui->mainToolBar->insertWidget(ui->actionShowSearch, spacerWidget);
 
   openDatabase();
-
   // Can not be set in Qt Designer
   ui->tableView->horizontalHeader()->setSectionsMovable(true);
   ui->tableView->addAction(ui->actionTableCopy);
@@ -263,9 +262,9 @@ void MainWindow::connectAllSlots()
                                                        index == 1 ? atools::fs::lb::types::AIRCRAFT_FLAG_MULTIMOTOR : 0,
                                                        index == 0); });
   connect(ui->conditionComboBox, activatedPtr,
-          [=](int index) {index == 0 ? controller->filterOperatorAll(true) : controller->filterOperatorAny(true); });
-  connect(ui->conditionComboBox, activatedPtr,
-          [=](int index) {index == 1 ? controller->filterOperatorAny(true) : controller->filterOperatorAll(true); });
+          [=](int index) { controller->filterOperator(index == 0); });
+  connect(ui->globalStatsSimTypeComboBox, activatedPtr,
+          [=](int /*index*/) { updateGlobalStats(); });
   /* *INDENT-ON* */
 
   assignSearchFieldsToController();
@@ -303,6 +302,7 @@ void MainWindow::connectAllSlots()
   // Extras menu
   connect(ui->actionResetMessages, &QAction::triggered, this, &MainWindow::resetMessages);
   connect(ui->actionFilterLogbookEntries, &QAction::toggled, this, &MainWindow::filterLogbookEntries);
+  connect(ui->actionResetDatabase, &QAction::triggered, this, &MainWindow::resetDatabase);
 
   // Help menu
   connect(ui->actionAbout, &QAction::triggered, helpHandler, &HelpHandler::about);
@@ -320,27 +320,47 @@ void MainWindow::checkAllFiles(bool notifyReload)
   {
     preDatabaseLoad();
     for(SimulatorType type : atools::fs::ALL_SIMULATOR_TYPES)
-    {
-      bool notifyLogbookReload = notifyReload;
       if(pathSettings.hasRunwaysFileChanged(type))
-      {
         checkRunwaysFile(type, notifyReload);
-        notifyLogbookReload = false;
-      }
 
-      updateDatabaseStatus();
+    updateDatabaseStatus();
 
+    for(SimulatorType type : atools::fs::ALL_SIMULATOR_TYPES)
       if(pathSettings.hasLogbookFileChanged(type))
-        checkLogbookFile(type, notifyLogbookReload);
-    }
+        checkLogbookFile(type, notifyReload);
     updateDatabaseStatus();
     postDatabaseLoad();
   }
+  else
+    ui->statusBar->showMessage(QString(tr("No changed Logbooks found.")));
 }
 
 void MainWindow::reloadChanged()
 {
   checkAllFiles(false);
+}
+
+void MainWindow::resetDatabase()
+{
+  int result = dialog->showQuestionMsgBox(ll::constants::SETTINGS_SHOW_RESET_DATABASE,
+                                          tr("Delete all Logbooks and Airports from internal Database "
+                                             "and reload all available files?"),
+                                          tr("Do not &show this dialog again."),
+                                          QMessageBox::Yes | QMessageBox::No,
+                                          QMessageBox::Yes);
+
+  if(result == QMessageBox::Yes)
+  {
+    preDatabaseLoad();
+    atools::fs::ap::AirportLoader(&db).dropDatabase();
+    atools::fs::lb::LogbookLoader(&db).dropDatabase();
+    updateDatabaseStatus();
+    postDatabaseLoad();
+
+    pathSettings.invalidateAllLogbookFiles();
+    pathSettings.invalidateAllRunwayFiles();
+    checkAllFiles(false);
+  }
 }
 
 void MainWindow::pathDialog()
@@ -401,7 +421,13 @@ void MainWindow::exportSelectedHtml()
 
 void MainWindow::updateGlobalStats()
 {
-  ui->globalStatsTextEdit->setHtml(globalStats->createGlobalStatsReport(hasLogbook, hasAirports));
+  SimulatorType type;
+  int idx = ui->globalStatsSimTypeComboBox->currentIndex();
+  if(idx == 0)
+    type = atools::fs::ALL_SIMULATORS;
+  else
+    type = static_cast<SimulatorType>(idx - 1);
+  ui->globalStatsTextEdit->setHtml(globalStats->createGlobalStatsReport(type, hasLogbook, hasAirports));
 }
 
 void MainWindow::resetView()
@@ -517,6 +543,14 @@ void MainWindow::openDatabase()
     db = SqlDatabase::addDatabase(ll::constants::DATABASE_TYPE);
     db.setDatabaseName(databaseFile);
     db.open();
+
+    // On first startup of this version clean the database from the old schema
+    atools::settings::Settings& s = Settings::instance();
+    if(s->value(ll::constants::SETTINGS_FIRST_START, true).toBool())
+    {
+      atools::fs::ap::AirportLoader(&db).dropDatabase();
+      atools::fs::lb::LogbookLoader(&db).dropDatabase();
+    }
   }
   catch(std::exception& e)
   {

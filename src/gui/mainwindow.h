@@ -186,6 +186,7 @@ private:
   void setTableViewFontSize(int pointSize);
   void checkAllFiles(bool notifyReload);
   void reloadChanged();
+  void resetDatabase();
 };
 
 #endif // LITTLELOGBOOK_MAINWINDOW_H

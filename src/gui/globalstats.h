@@ -18,6 +18,8 @@
 #ifndef LITTLELOGBOOK_GLOBALSTATS_H
 #define LITTLELOGBOOK_GLOBALSTATS_H
 
+#include "fs/fspaths.h"
+
 #include <QObject>
 #include <QWidget>
 
@@ -49,7 +51,7 @@ public:
    * @return String containing a HTML report
    *
    */
-  QString createGlobalStatsReport(bool hasLogbook, bool hasAirports);
+  QString createGlobalStatsReport(atools::fs::SimulatorType type, bool hasLogbook, bool hasAirports);
 
 private:
   atools::sql::SqlDatabase *db;
