@@ -27,7 +27,9 @@
 #include "logging/loggingdefs.h"
 
 #include <QApplication>
+#include <QMessageBox>
 #include <QSettings>
+#include <QSharedMemory>
 
 int main(int argc, char *argv[])
 {
@@ -41,6 +43,17 @@ int main(int argc, char *argv[])
   QCoreApplication::setOrganizationName("ABarthel");
   QCoreApplication::setOrganizationDomain("abarthel.org");
   QCoreApplication::setApplicationVersion("1.1.0");
+
+#if defined(Q_OS_WIN32)
+  // Detect second running application - this is unsafe on Unix since shm can remain after crashes
+  QSharedMemory shared("7ac8013e-b1c4-4d7f-83ed-1fc201cf004c");
+  if(!shared.create(512, QSharedMemory::ReadWrite))
+  {
+    QMessageBox::critical(nullptr, QObject::tr("%1 - Error").arg(QApplication::applicationName()),
+                          QObject::tr("%1 is already running.").arg(QApplication::applicationName()));
+    return 1;
+  }
+#endif
 
   try
   {
