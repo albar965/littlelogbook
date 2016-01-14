@@ -25,6 +25,7 @@
 class Controller;
 class QWidget;
 class QXmlStreamWriter;
+class QFile;
 
 /*
  * Allows to export the table content or the selected table content from the
@@ -37,7 +38,7 @@ class HtmlExporter :
   Q_OBJECT
 
 public:
-  HtmlExporter(QWidget *parentWidget, Controller *controller);
+  HtmlExporter(QWidget *parentWidget, Controller *controller, int rowsPerPage);
   virtual ~HtmlExporter();
 
   /* Export all rows.
@@ -55,6 +56,8 @@ public:
   virtual int exportSelected(bool open);
 
 private:
+  int pageSize = 500;
+
   /* Get filename from save dialog */
   QString saveHtmlFileDialog();
 
@@ -85,6 +88,22 @@ private:
                                    QVariant value,
                                    int row);
 
+  void writeHtmlNav(QXmlStreamWriter& stream, const QString& filename, int currentPage, int totalPages);
+  void writeHtmlLink(QXmlStreamWriter& stream, const QString& url, const QString& text);
+  void endFile(QFile& file,
+               const QString& basename,
+               QXmlStreamWriter& stream,
+               int currentPage,
+               int totalPages);
+  bool startFile(QFile& file,
+                 const QString& basename,
+                 QXmlStreamWriter& stream,
+                 int currentPage,
+                 int totalPages);
+
+  QString filenameForPage(const QString& filename, int currentPage);
+
+  bool askOverwriteDialog(const QString& basename, int totalPages);
 };
 
 #endif // LITTLELOGBOOK_HTMLEXPORTER_H

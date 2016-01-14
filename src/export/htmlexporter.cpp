@@ -27,19 +27,21 @@
 #include "sql/sqlquery.h"
 #include "logging/loggingdefs.h"
 
+#include <algorithm>
 #include <QUrl>
 #include <QFile>
 #include <QApplication>
 #include <QDateTime>
 #include <QXmlStreamReader>
 #include <QDesktopServices>
+#include <QFileInfo>
 
 using atools::gui::ErrorHandler;
 using atools::gui::Dialog;
 using atools::sql::SqlQuery;
 
-HtmlExporter::HtmlExporter(QWidget *parent, Controller *controller) :
-  Exporter(parent, controller)
+HtmlExporter::HtmlExporter(QWidget *parent, Controller *controller, int rowsPerPage)
+  : Exporter(parent, controller), pageSize(rowsPerPage)
 {
 }
 
@@ -54,154 +56,223 @@ QString HtmlExporter::saveHtmlFileDialog()
                                 "html", ll::constants::SETTINGS_EXPORT_FILE_DIALOG);
 }
 
+bool HtmlExporter::askOverwriteDialog(const QString& basename, int totalPages)
+{
+  if(totalPages == 1)
+    return true;
+
+  QStringList existingFiles;
+
+  for(int i = 1; i < std::min(totalPages, 10); i++)
+  {
+    QString fn = filenameForPage(basename, i);
+    if(QFile::exists(fn))
+      existingFiles.push_back("<i>" + fn + "</i><br/>");
+  }
+  if(existingFiles.size() < totalPages)
+    existingFiles.push_back("<i>...</i><br/>");
+
+  int retval = QMessageBox::question(parentWidget, tr("Overwrite Files"),
+                                     tr("One or more additional files already exist.<br/><br/>"
+                                        "%1<br/>Overwrite?<br/><br/>").
+                                     arg(existingFiles.join("")),
+                                     QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+
+  return retval == QMessageBox::Yes;
+}
+
 int HtmlExporter::exportAll(bool open)
 {
-  int exported = 0;
+  int exported = 0, totalToExport = 0, currentPage = 0, totalPages = 0, exportedPage = 0;
+
   QString filename = saveHtmlFileDialog();
+  qDebug() << "exportAllHtml" << filename;
 
-  if(!filename.isEmpty())
+  if(filename.isEmpty())
+    return 0;
+
+  // Run the current query to get all results - not only the visible
+  atools::sql::SqlDatabase *db = controller->getSqlDatabase();
+  SqlQuery query(db);
+  query.exec(controller->getCurrentSqlQuery());
+  totalToExport = controller->getTotalRowCount();
+  totalPages = (int)ceil((double)totalToExport / (double)pageSize);
+
+  if(!askOverwriteDialog(filename, totalPages))
+    return exported;
+
+  QFile file(filename);
+  QXmlStreamWriter stream;
+  if(!startFile(file, filename, stream, currentPage, totalPages))
+    return exported;
+
+  QVector<int> visualColumnIndex;
+  while(query.next())
   {
-    qDebug() << "exportAllHtml" << filename;
+    QSqlRecord rec = query.record();
 
-    QFile file(filename);
-    if(file.open(QIODevice::WriteOnly | QIODevice::Text))
+    if(exportedPage == 0)
     {
-      // Run the current query to get all results - not only the visible
-      atools::sql::SqlDatabase *db = controller->getSqlDatabase();
-      SqlQuery query(db);
-      query.exec(controller->getCurrentSqlQuery());
-
-      QXmlStreamWriter stream(&file);
-      stream.setAutoFormatting(true);
-      stream.setAutoFormattingIndent(2);
-      stream.setCodec(ll::constants::EXPORT_HTML_CODEC);
-
-      // Get the CSS either from the resources or from the settings directory
-      writeHtmlStart(stream,
-                     atools::settings::Settings::getOverloadedPath(ll::constants::EXPORT_HTML_CSS_FILE));
-      writeHtmlHeader(stream);
-
-      stream.writeStartElement("table");
-      stream.writeStartElement("tbody");
-      QVector<int> visualColumnIndex;
-      int row = 0;
-      while(query.next())
-      {
-        QSqlRecord rec = query.record();
-
-        if(row == 0)
-        {
-          // Create an index that maps the (probably reordered) columns of the
-          // view to the model
-          createVisualColumnIndex(rec.count(), visualColumnIndex);
-          writeHtmlTableHeader(stream, headerNames(rec.count(), visualColumnIndex));
-        }
-
-        stream.writeStartElement("tr");
-        if((row % 2) == 1)
-          // Use alternating color CSS class to row
-          stream.writeAttribute("class", "alt");
-
-        for(int col = 0; col < rec.count(); ++col)
-        {
-          // Get data formatted as shown in the table
-          int physIndex = visualColumnIndex[col];
-          if(physIndex != -1)
-            writeHtmlTableCellFormatted(stream, rec.fieldName(physIndex), rec.value(physIndex), row);
-        }
-        stream.writeEndElement(); // tr
-        row++;
-        exported++;
-      }
-
-      stream.writeEndElement(); // tbody
-      stream.writeEndElement(); // table
-
-      writeHtmlFooter(stream);
-      writeHtmlEnd(stream);
-
-      file.close();
-
-      if(open)
-        openDocument(filename);
+      // Create an index that maps the (probably reordered) columns of the
+      // view to the model
+      createVisualColumnIndex(rec.count(), visualColumnIndex);
+      writeHtmlTableHeader(stream, headerNames(rec.count(), visualColumnIndex));
     }
-    else
-      errorHandler->handleIOError(file);
+    exportedPage++;
+
+    stream.writeStartElement("tr");
+    if((exportedPage % 2) == 1)
+      // Use alternating color CSS class to row
+      stream.writeAttribute("class", "alt");
+
+    for(int col = 0; col < rec.count(); ++col)
+    {
+      // Get data formatted as shown in the table
+      int physIndex = visualColumnIndex[col];
+      if(physIndex != -1)
+        writeHtmlTableCellFormatted(stream, rec.fieldName(physIndex), rec.value(physIndex), exportedPage);
+    }
+    stream.writeEndElement(); // tr
+
+    exported++;
+    if((exported % pageSize) == 0)
+    {
+      endFile(file, filename, stream, currentPage, totalPages);
+      currentPage++;
+      exportedPage = 0;
+
+      file.setFileName(filenameForPage(filename, currentPage));
+      if(!startFile(file, filename, stream, currentPage, totalPages))
+        return exported;
+    }
   }
+
+  endFile(file, filename, stream, currentPage, totalPages);
+
+  if(open)
+    openDocument(filename);
+
   return exported;
 }
 
 int HtmlExporter::exportSelected(bool open)
 {
-  int exported = 0;
+  int exported = 0, totalToExport = 0, currentPage = 0, totalPages = 0, exportedPage = 0;
+
   QString filename = saveHtmlFileDialog();
+  qDebug() << "exportSelectedHtml" << filename;
 
-  if(!filename.isEmpty())
-  {
-    qDebug() << "exportSelectedHtml" << filename;
+  if(filename.isEmpty())
+    return 0;
 
-    QFile file(filename);
-    if(file.open(QIODevice::WriteOnly | QIODevice::Text))
+  const QItemSelection sel = controller->getSelection();
+  for(QItemSelectionRange rng : sel)
+    totalToExport += rng.height();
+  totalPages = (int)ceil((double)totalToExport / (double)pageSize);
+
+  if(!askOverwriteDialog(filename, totalPages))
+    return exported;
+
+  QFile file(filename);
+  QXmlStreamWriter stream;
+  if(!startFile(file, filename, stream, currentPage, totalPages))
+    return exported;
+
+  QVector<const Column *> columnList = controller->getCurrentColumns();
+
+  QVector<int> visualColumnIndex;
+
+  for(QItemSelectionRange rng : sel)
+    for(int row = rng.top(); row <= rng.bottom(); ++row)
     {
-      const QItemSelection sel = controller->getSelection();
+      if(exportedPage == 0)
+      {
+        // Create an index that maps the (probably reordered) columns of the
+        // view to the model
+        createVisualColumnIndex(columnList.size(), visualColumnIndex);
+        writeHtmlTableHeader(stream, headerNames(columnList.size(), visualColumnIndex));
+      }
+      exportedPage++;
 
-      QXmlStreamWriter stream(&file);
-      stream.setAutoFormatting(true);
-      stream.setAutoFormattingIndent(2);
-      stream.setCodec(ll::constants::EXPORT_HTML_CODEC);
+      stream.writeStartElement("tr");
+      if((exported % 2) == 1)
+        // Write alternating color class
+        stream.writeAttribute("class", "alt");
 
-      // Get the CSS either from the resources or from the settings directory
-      writeHtmlStart(stream,
-                     atools::settings::Settings::getOverloadedPath(ll::constants::EXPORT_HTML_CSS_FILE));
-      writeHtmlHeader(stream);
+      QVariantList values = controller->getFormattedModelData(row);
 
-      stream.writeStartElement("table");
-      stream.writeStartElement("tbody");
+      for(int col = 0; col < values.size(); ++col)
+      {
+        int physIndex = visualColumnIndex[col];
+        if(physIndex != -1)
+          writeHtmlTableCellRaw(stream, columnList.at(physIndex)->getColumnName(),
+                                values.at(physIndex).toString(), exported);
+      }
+      stream.writeEndElement(); // tr
 
-      QVector<const Column *> columnList = controller->getCurrentColumns();
+      exported++;
+      if((exported % pageSize) == 0)
+      {
+        endFile(file, filename, stream, currentPage, totalPages);
+        currentPage++;
+        exportedPage = 0;
 
-      // Create an index that maps the (probably reordered) columns of the
-      // view to the model
-      QVector<int> visualColumnIndex;
-      createVisualColumnIndex(columnList.size(), visualColumnIndex);
-      writeHtmlTableHeader(stream, headerNames(columnList.size(), visualColumnIndex));
-
-      for(QItemSelectionRange rng : sel)
-        for(int row = rng.top(); row <= rng.bottom(); ++row)
-        {
-          stream.writeStartElement("tr");
-          if((row % 2) == 1)
-            // Write alternating color class
-            stream.writeAttribute("class", "alt");
-
-          QVariantList values = controller->getFormattedModelData(row);
-
-          for(int col = 0; col < values.size(); ++col)
-          {
-            int physIndex = visualColumnIndex[col];
-            if(physIndex != -1)
-              writeHtmlTableCellRaw(stream, columnList.at(physIndex)->getColumnName(),
-                                    values.at(physIndex).toString(), row);
-          }
-
-          stream.writeEndElement(); // tr
-          exported++;
-        }
-
-      stream.writeEndElement(); // tbody
-      stream.writeEndElement(); // table
-
-      writeHtmlFooter(stream);
-      writeHtmlEnd(stream);
-      file.close();
-
-      if(open)
-        openDocument(filename);
+        file.setFileName(filenameForPage(filename, currentPage));
+        if(!startFile(file, filename, stream, currentPage, totalPages))
+          return exported;
+      }
     }
-    else
-      errorHandler->handleIOError(file);
-  }
+
+  endFile(file, filename, stream, currentPage, totalPages);
+
+  if(open)
+    openDocument(filename);
+
   return exported;
+}
+
+bool HtmlExporter::startFile(QFile& file,
+                             const QString& basename,
+                             QXmlStreamWriter& stream,
+                             int currentPage,
+                             int totalPages)
+{
+  if(!file.open(QIODevice::WriteOnly | QIODevice::Text))
+  {
+    errorHandler->handleIOError(file);
+    return false;
+  }
+
+  stream.setDevice(&file);
+  stream.setAutoFormatting(true);
+  stream.setAutoFormattingIndent(2);
+  stream.setCodec(ll::constants::EXPORT_HTML_CODEC);
+
+  // Get the CSS either from the resources or from the settings directory
+  writeHtmlStart(stream,
+                 atools::settings::Settings::getOverloadedPath(ll::constants::EXPORT_HTML_CSS_FILE));
+  writeHtmlHeader(stream);
+  writeHtmlNav(stream, basename, currentPage, totalPages);
+
+  stream.writeStartElement("table");
+  stream.writeStartElement("tbody");
+  return true;
+}
+
+void HtmlExporter::endFile(QFile& file,
+                           const QString& basename,
+                           QXmlStreamWriter& stream,
+                           int currentPage,
+                           int totalPages)
+{
+  stream.writeEndElement(); // tbody
+  stream.writeEndElement(); // table
+
+  writeHtmlNav(stream, basename, currentPage, totalPages);
+  writeHtmlFooter(stream);
+  writeHtmlEnd(stream);
+
+  file.close();
 }
 
 void HtmlExporter::writeHtmlStart(QXmlStreamWriter& stream, const QString& cssFilename)
@@ -257,6 +328,79 @@ void HtmlExporter::writeHtmlFooter(QXmlStreamWriter& stream)
 void HtmlExporter::writeHtmlHeader(QXmlStreamWriter& stream)
 {
   stream.writeTextElement("h1", tr("FSX Logbook"));
+}
+
+QString HtmlExporter::filenameForPage(const QString& filename, int currentPage)
+{
+  if(currentPage == 0)
+    return filename;
+  else
+  {
+    QString retval = filename;
+    if(filename.lastIndexOf(".") == -1)
+      retval = filename + "_" + QString::number(currentPage);
+    else
+      retval.insert(filename.lastIndexOf("."), "_" + QString::number(currentPage));
+    return retval;
+  }
+}
+
+void HtmlExporter::writeHtmlNav(QXmlStreamWriter& stream,
+                                const QString& filename,
+                                int currentPage,
+                                int totalPages)
+{
+  if(totalPages == 1)
+    return;
+
+  stream.writeStartElement("p");
+  stream.writeCharacters(tr("Page %1 of %2 - ").arg(currentPage + 1).arg(totalPages));
+
+  QString firstLink = filename;
+  QString nextLink = filename;
+  nextLink.insert(filename.lastIndexOf("."), "_" + QString::number(currentPage + 1));
+
+  QString prevLink = filename;
+  if(currentPage != 1)
+    prevLink.insert(filename.lastIndexOf("."), "_" + QString::number(currentPage - 1));
+
+  QString lastLink = filename;
+  lastLink.insert(filename.lastIndexOf("."), "_" + QString::number(totalPages - 1));
+
+  if(currentPage == 0)
+  {
+    stream.writeCharacters("First Page - Previous Page - ");
+    writeHtmlLink(stream, nextLink, tr("Next Page"));
+    stream.writeCharacters(" - ");
+    writeHtmlLink(stream, lastLink, tr("Last Page"));
+  }
+  else if(currentPage == totalPages - 1)
+  {
+    writeHtmlLink(stream, firstLink, tr("First Page"));
+    stream.writeCharacters(" - ");
+    writeHtmlLink(stream, prevLink, tr("Previous Page"));
+    stream.writeCharacters(" - Next Page - Last Page");
+  }
+  else
+  {
+    writeHtmlLink(stream, firstLink, tr("First Page"));
+    stream.writeCharacters(" - ");
+    writeHtmlLink(stream, prevLink, tr("Previous  Page"));
+    stream.writeCharacters(" - ");
+    writeHtmlLink(stream, nextLink, tr("Next Page"));
+    stream.writeCharacters(" - ");
+    writeHtmlLink(stream, lastLink, tr("Last Page"));
+  }
+
+  stream.writeEndElement(); // p
+}
+
+void HtmlExporter::writeHtmlLink(QXmlStreamWriter& stream, const QString& url, const QString& text)
+{
+  stream.writeStartElement("a");
+  stream.writeAttribute("href", url);
+  stream.writeCharacters(text);
+  stream.writeEndElement(); // a
 }
 
 void HtmlExporter::writeHtmlTableHeader(QXmlStreamWriter& stream, const QStringList& names)

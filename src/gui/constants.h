@@ -40,6 +40,7 @@ extern const char *SETTINGS_MAINWINDOW_STATE;
 extern const char *SETTINGS_SHOW_STATUSBAR;
 extern const char *SETTINGS_SHOW_SEARCHOOL;
 extern const char *SETTINGS_EXPORT_OPEN;
+extern const char *SETTINGS_EXPORT_HTML_PAGE_SIZE;
 extern const char *SETTINGS_EXPORT_FILE_DIALOG;
 
 extern const char *SETTINGS_FILTER_ENTRIES;

@@ -91,7 +91,9 @@ MainWindow::MainWindow() :
 
   controller = new Controller(this, &db, ui->tableView);
   csvExporter = new CsvExporter(this, controller);
-  htmlExporter = new HtmlExporter(this, controller);
+  int pageSize = Settings::instance().getAndStoreValue(
+    ll::constants::SETTINGS_EXPORT_HTML_PAGE_SIZE, 500).toInt();
+  htmlExporter = new HtmlExporter(this, controller, pageSize);
   globalStats = new GlobalStats(this, &db);
   helpHandler = new HelpHandler(this);
 
@@ -347,7 +349,7 @@ void MainWindow::resetDatabase()
                                              "and reload all available files?"),
                                           tr("Do not &show this dialog again."),
                                           QMessageBox::Yes | QMessageBox::No,
-                                          QMessageBox::Yes);
+                                          QMessageBox::Yes, QMessageBox::Yes);
 
   if(result == QMessageBox::Yes)
   {
@@ -436,7 +438,7 @@ void MainWindow::resetView()
                                           tr("Reset sort order, column order and column sizes to default?"),
                                           tr("Do not &show this dialog again."),
                                           QMessageBox::Yes | QMessageBox::No,
-                                          QMessageBox::Yes);
+                                          QMessageBox::Yes, QMessageBox::Yes);
 
   if(result == QMessageBox::Yes)
   {
@@ -1086,7 +1088,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
                                           tr("Really Quit?"),
                                           tr("Do not &show this dialog again."),
                                           QMessageBox::Yes | QMessageBox::No,
-                                          QMessageBox::Yes);
+                                          QMessageBox::No, QMessageBox::Yes);
 
   if(result != QMessageBox::Yes)
     event->ignore();

@@ -46,6 +46,7 @@ const char *SETTINGS_FILTER_START_DEST_SAME = "Filter/StartAndDestSame";
 const char *SETTINGS_FILTER_MIN_FLIGH_TIME = "Filter/MinFlightTime";
 
 const char *SETTINGS_EXPORT_OPEN = "File/OpenAfterExport";
+const char *SETTINGS_EXPORT_HTML_PAGE_SIZE = "MainWindow/ExportHtmlPageSize";
 const char *SETTINGS_EXPORT_FILE_DIALOG = "MainWindow/Export";
 
 const char *EXPORT_HTML_CODEC = "UTF-8";
