@@ -42,7 +42,10 @@ class SqlModel :
   Q_OBJECT
 
 public:
-  SqlModel(QWidget *parent, atools::sql::SqlDatabase *sqlDb, const ColumnList *columnList, bool hasAirportTable);
+  SqlModel(QWidget *parent,
+           atools::sql::SqlDatabase *sqlDb,
+           const ColumnList *columnList,
+           bool hasAirportTable);
   virtual ~SqlModel();
 
   /* Creates an include filer for value at index in the table */
@@ -132,7 +135,7 @@ private:
     QString column;
     QString oper; /* operator (like, not like) */
     QVariant value;
-    bool alwaysAnd;
+    const Column *col;
   };
 
   /* Column header was clicked */

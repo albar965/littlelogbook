@@ -124,6 +124,14 @@ public:
     return *this;
   }
 
+  /* Sort function for column where %1 will be replaced with the column name */
+  Column& sortFunc(const QString& sortFuncAsc, const QString& sortFuncDesc)
+  {
+    sortFuncForColAsc = sortFuncAsc;
+    sortFuncForColDesc = sortFuncDesc;
+    return *this;
+  }
+
   /* QLineEdit widget that is used for filtering this column */
   Column& lineEdit(QLineEdit *edit)
   {
@@ -213,6 +221,16 @@ public:
     return isAlwaysAndColumn;
   }
 
+  QString getSortFuncColAsc() const
+  {
+    return sortFuncForColAsc;
+  }
+
+  QString getSortFuncColDesc() const
+  {
+    return sortFuncForColDesc;
+  }
+
   bool isHiddenCol() const
   {
     return isHiddenColumn;
@@ -233,6 +251,7 @@ private:
   QString displayName;
   QLineEdit *lineEditWidget = nullptr;
   QComboBox *comboBoxWidget = nullptr;
+  QString sortFuncForColAsc, sortFuncForColDesc;
 
   bool groupByShow = false;
   bool groupByMin = false;

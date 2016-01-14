@@ -23,6 +23,10 @@
 
 ColumnList::ColumnList(bool hasAirports)
 {
+  // Use sort function to put nulls at end of the list
+  QString nullAtEndsortFunc = "ifnull(%1,'~')";
+  QString nullAtEndSortFuncDesc = "ifnull(%1,' ')";
+
   // Default view column descriptors
   columns.append(Column("logbook_id", tr("Logbook-\nEntry")).
                  canSort().defaultCol().defaultSort().defaultSortOrder(Qt::SortOrder::DescendingOrder));
@@ -34,47 +38,58 @@ ColumnList::ColumnList(bool hasAirports)
                  canSort().defaultCol());
 
   columns.append(Column("airport_from_icao",
-                        tr("From\nICAO")).canFilter().canGroup().canSort().defaultCol());
+                        tr("From\nICAO")).canFilter().canGroup().canSort().defaultCol().
+                 sortFunc(nullAtEndsortFunc, nullAtEndSortFuncDesc));
 
   if(hasAirports)
   {
     columns.append(Column("airport_from_name",
-                          tr("From Airport")).canFilter().canGroup().canSort().defaultCol());
+                          tr("From Airport")).canFilter().canGroup().canSort().defaultCol().
+                   sortFunc(nullAtEndsortFunc, nullAtEndSortFuncDesc));
 
     columns.append(Column("airport_from_city",
-                          tr("From City")).canFilter().canGroup().canSort().defaultCol());
+                          tr("From City")).canFilter().canGroup().canSort().defaultCol().
+                   sortFunc(nullAtEndsortFunc, nullAtEndSortFuncDesc));
 
     columns.append(Column("airport_from_state",
-                          tr("From State")).canFilter().canGroup().canSort().defaultCol());
+                          tr("From State")).canFilter().canGroup().canSort().defaultCol().
+                   sortFunc(nullAtEndsortFunc, nullAtEndSortFuncDesc));
 
     columns.append(Column("airport_from_country",
-                          tr("From Country")).canFilter().canGroup().canSort().defaultCol());
+                          tr("From Country")).canFilter().canGroup().canSort().defaultCol().
+                   sortFunc(nullAtEndsortFunc, nullAtEndSortFuncDesc));
 
   }
 
   columns.append(Column("airport_to_icao",
-                        tr("To\nICAO")).canFilter().canGroup().canSort().defaultCol());
+                        tr("To\nICAO")).canFilter().canGroup().canSort().defaultCol().
+                 sortFunc(nullAtEndsortFunc, nullAtEndSortFuncDesc));
 
   if(hasAirports)
   {
     columns.append(Column("airport_to_name",
-                          tr("To Airport")).canFilter().canGroup().canSort().defaultCol());
+                          tr("To Airport")).canFilter().canGroup().canSort().defaultCol().
+                   sortFunc(nullAtEndsortFunc, nullAtEndSortFuncDesc));
 
     columns.append(Column("airport_to_city",
-                          tr("To City")).canFilter().canGroup().canSort().defaultCol());
+                          tr("To City")).canFilter().canGroup().canSort().defaultCol().
+                   sortFunc(nullAtEndsortFunc, nullAtEndSortFuncDesc));
 
     columns.append(Column("airport_to_state",
-                          tr("To State")).canFilter().canGroup().canSort().defaultCol());
+                          tr("To State")).canFilter().canGroup().canSort().defaultCol().
+                   sortFunc(nullAtEndsortFunc, nullAtEndSortFuncDesc));
 
     columns.append(Column("airport_to_country",
-                          tr("To Country")).canFilter().canGroup().canSort().defaultCol());
+                          tr("To Country")).canFilter().canGroup().canSort().defaultCol().
+                   sortFunc(nullAtEndsortFunc, nullAtEndSortFuncDesc));
 
     columns.append(Column("distance",
                           tr("Distance\nNM")).canSum().canSort().defaultCol());
   }
 
   columns.append(Column("description",
-                        tr("Flight\nDescription")).canFilter().canGroup().canSort().defaultCol());
+                        tr("Flight\nDescription")).canFilter().canGroup().canSort().defaultCol().
+                 sortFunc(nullAtEndsortFunc, nullAtEndSortFuncDesc));
 
   columns.append(Column("total_time",
                         tr("Total Time\nh:mm")).canSum().canSort().defaultCol());
@@ -86,13 +101,26 @@ ColumnList::ColumnList(bool hasAirports)
                         tr("Instrument\nTime h:mm")).canSum().canSort().defaultCol());
 
   columns.append(Column("aircraft_reg",
-                        tr("Aircraft\nRegistration")).canFilter().canGroup().canSort().defaultCol());
+                        tr("Aircraft\nRegistration")).canFilter().canGroup().canSort().defaultCol().
+                 sortFunc(nullAtEndsortFunc, nullAtEndSortFuncDesc));
 
   columns.append(Column("aircraft_descr",
                         tr("Aircraft\nDescription")).canFilter().canGroup().canSort().defaultCol());
 
+  // Do aircraft type sorting by localized type name
+  QString aircraftTypeSort = QString(
+    "CASE WHEN %7 =0 THEN '%1' "
+    "WHEN %7 =1 THEN '%2' "
+    "WHEN %7 =2 THEN '%3' "
+    "WHEN %7 =3 THEN '%4' "
+    "WHEN %7 =4 THEN '%5'"
+    "ELSE '%6' END").arg(tr("Unknown")).arg(tr("Glider")).
+                             arg(tr("Fixed Wing")).arg(tr("Amphibious")).
+                             arg(tr("Rotor").arg(tr("Unknown")).arg("%1"));
+
   columns.append(Column("aircraft_type",
-                        tr("Aircraft\nType")).canGroup().canSort().defaultCol());
+                        tr("Aircraft\nType")).canGroup().canSort().defaultCol().
+                 sortFunc(aircraftTypeSort, aircraftTypeSort));
 
   columns.append(Column("aircraft_flags",
                         tr("Aircraft\nInformation")).canGroup().canSort().defaultCol());

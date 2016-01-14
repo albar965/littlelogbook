@@ -123,10 +123,10 @@ void SqlModel::filter(const QString& colName, const QVariant& value)
       // Replace values in existing condition
       whereConditionMap[colName].oper = condition;
       whereConditionMap[colName].value = newVariant;
-      whereConditionMap[colName].alwaysAnd = col->isAlwaysAndCol();
+      whereConditionMap[colName].col = col;
     }
     else
-      whereConditionMap.insert(colName, {colName, condition, newVariant, col->isAlwaysAndCol()});
+      whereConditionMap.insert(colName, {colName, condition, newVariant, col});
   }
   buildQuery();
 }
@@ -177,7 +177,7 @@ void SqlModel::filterBy(QModelIndex index, bool exclude)
   if(edit != nullptr)
     edit->setText((exclude ? ll::constants::QUERY_NEGATE_CHAR : "") + whereValue.toString());
 
-  whereConditionMap.insert(whereCol, {whereCol, whereOp, whereValue, col->isAlwaysAndCol()});
+  whereConditionMap.insert(whereCol, {whereCol, whereOp, whereValue, col});
 }
 
 void SqlModel::getGroupByColumn(QModelIndex index)
@@ -356,7 +356,7 @@ QString SqlModel::buildWhere()
   int numCond = 0, numAndCond = 0;
   for(const WhereCondition& cond : whereConditionMap)
   {
-    if(!cond.alwaysAnd)
+    if(!cond.col->isAlwaysAndCol())
     {
       if(numCond++ > 0)
         queryWhere += " " + whereOperator + " ";
@@ -401,7 +401,23 @@ void SqlModel::buildQuery()
 
   QString queryOrder;
   if(!orderByCol.isEmpty() && !orderByOrder.isEmpty())
-    queryOrder += "order by " + orderByCol + " " + orderByOrder;
+  {
+    const Column *col = columns->getColumn(orderByCol);
+    Q_ASSERT(col != nullptr);
+
+    if(!(col->getSortFuncColAsc().isEmpty() && col->getSortFuncColDesc().isEmpty()))
+    {
+      // Use sort functions to have null values at end of the list - will avoid indexes
+      if(orderByOrder == "asc")
+        queryOrder += "order by " + col->getSortFuncColAsc().arg(orderByCol) + " " + orderByOrder;
+      else if(orderByOrder == "desc")
+        queryOrder += "order by " + col->getSortFuncColDesc().arg(orderByCol) + " " + orderByOrder;
+      else
+        Q_ASSERT(orderByOrder != "asc" && orderByOrder != "desc");
+    }
+    else
+      queryOrder += "order by " + orderByCol + " " + orderByOrder;
+  }
 
   currentSqlQuery = "select " + queryCols + " from " + tableName +
                     " " + queryWhere + " " + queryGroup + " " + queryOrder;
