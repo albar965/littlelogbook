@@ -20,6 +20,7 @@
 
 #include "sql/sqldatabase.h"
 #include "export/htmlexporter.h"
+#include "export/kmlexporter.h"
 #include "export/csvexporter.h"
 #include "gui/pathsettings.h"
 
@@ -64,6 +65,7 @@ private:
   Controller *controller = nullptr;
   CsvExporter *csvExporter = nullptr;
   HtmlExporter *htmlExporter = nullptr;
+  KmlExporter *kmlExporter = nullptr;
   GlobalStats *globalStats;
   HelpHandler *helpHandler;
 
@@ -134,9 +136,11 @@ private:
 
   /* Export methods */
   void exportAllCsv();
-  void exportAllHtml();
   void exportSelectedCsv();
+  void exportAllHtml();
   void exportSelectedHtml();
+  void exportAllKml();
+  void exportSelectedKml();
 
   /* Fill view fully */
   void loadAllRowsIntoView();

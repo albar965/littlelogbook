@@ -88,22 +88,30 @@ private:
                                    QVariant value,
                                    int row);
 
+  /* Write next, previous, last and first page links */
   void writeHtmlNav(QXmlStreamWriter& stream, const QString& filename, int currentPage, int totalPages);
+
+  /* Write an anchor and href */
   void writeHtmlLink(QXmlStreamWriter& stream, const QString& url, const QString& text);
+
+  /* Close file and write all end of page footer, etc. including table end tags */
   void endFile(QFile& file,
                const QString& basename,
                QXmlStreamWriter& stream,
                int currentPage,
                int totalPages);
+
+  /* Open file and write all HTML headers until including table begin tags */
   bool startFile(QFile& file,
                  const QString& basename,
                  QXmlStreamWriter& stream,
                  int currentPage,
                  int totalPages);
 
+  /* Check if multiple files for paging already exist and ask user for overwrite or not */
+  bool askOverwriteDialog(const QString& basename, int totalPages);
   QString filenameForPage(const QString& filename, int currentPage);
 
-  bool askOverwriteDialog(const QString& basename, int totalPages);
 };
 
 #endif // LITTLELOGBOOK_HTMLEXPORTER_H

@@ -51,8 +51,9 @@ extern const char *SETTINGS_FILTER_START_DEST_SAME;
 extern const char *SETTINGS_FILTER_MIN_FLIGH_TIME;
 
 /* Export constants */
-extern const char *EXPORT_HTML_CODEC;
 extern const char *EXPORT_HTML_CSS_FILE;
+extern const char *EXPORT_HTML_CODEC;
+extern const char *EXPORT_KML_CODEC;
 
 /* FSX logbook filename */
 extern const char *LOGBOOK_FILENAME;

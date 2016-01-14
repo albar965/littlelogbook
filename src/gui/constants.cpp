@@ -49,8 +49,9 @@ const char *SETTINGS_EXPORT_OPEN = "File/OpenAfterExport";
 const char *SETTINGS_EXPORT_HTML_PAGE_SIZE = "MainWindow/ExportHtmlPageSize";
 const char *SETTINGS_EXPORT_FILE_DIALOG = "MainWindow/Export";
 
-const char *EXPORT_HTML_CODEC = "UTF-8";
 const char *EXPORT_HTML_CSS_FILE = ":/littlelogbook/resources/css/export.css";
+const char *EXPORT_HTML_CODEC = "UTF-8";
+const char *EXPORT_KML_CODEC = "UTF-8";
 
 const char *LOGBOOK_FILENAME = "Logbook.BIN";
 const char *RUNWAYS_FILENAME = "runways.xml";

@@ -90,10 +90,13 @@ MainWindow::MainWindow() :
   pathSettings.readSettings();
 
   controller = new Controller(this, &db, ui->tableView);
+
   csvExporter = new CsvExporter(this, controller);
+  kmlExporter = new KmlExporter(this, controller);
   int pageSize = Settings::instance().getAndStoreValue(
     ll::constants::SETTINGS_EXPORT_HTML_PAGE_SIZE, 500).toInt();
   htmlExporter = new HtmlExporter(this, controller, pageSize);
+
   globalStats = new GlobalStats(this, &db);
   helpHandler = new HelpHandler(this);
 
@@ -284,6 +287,8 @@ void MainWindow::connectAllSlots()
   connect(ui->actionExportSelectedCsv, &QAction::triggered, this, &MainWindow::exportSelectedCsv);
   connect(ui->actionExportAllHtml, &QAction::triggered, this, &MainWindow::exportAllHtml);
   connect(ui->actionExportSelectedHtml, &QAction::triggered, this, &MainWindow::exportSelectedHtml);
+  connect(ui->actionExportAllKml, &QAction::triggered, this, &MainWindow::exportAllKml);
+  connect(ui->actionExportSelectedKml, &QAction::triggered, this, &MainWindow::exportSelectedKml);
 
   // View menu
   connect(ui->actionShowAll, &QAction::triggered, this, &MainWindow::loadAllRowsIntoView);
@@ -419,6 +424,18 @@ void MainWindow::exportSelectedHtml()
 {
   int exported = htmlExporter->exportSelected(ui->actionOpenAfterExport->isChecked());
   ui->statusBar->showMessage(QString(tr("Exported %1 logbook entries to HTML document.")).arg(exported));
+}
+
+void MainWindow::exportAllKml()
+{
+  int exported = kmlExporter->exportAll(ui->actionOpenAfterExport->isChecked());
+  ui->statusBar->showMessage(QString(tr("Exported %1 logbook entries to KML document.")).arg(exported));
+}
+
+void MainWindow::exportSelectedKml()
+{
+  int exported = kmlExporter->exportSelected(ui->actionOpenAfterExport->isChecked());
+  ui->statusBar->showMessage(QString(tr("Exported %1 logbook entries to KML document.")).arg(exported));
 }
 
 void MainWindow::updateGlobalStats()
@@ -681,15 +698,13 @@ void MainWindow::updateWidgetStatus()
   ui->actionReloadLogbook->setEnabled(hasLogbook);
   ui->actionExportAllCsv->setEnabled(hasLogbook);
   ui->actionExportAllHtml->setEnabled(hasLogbook);
+  ui->actionExportAllKml->setEnabled(hasLogbook && hasAirports && !controller->isGrouped());
   ui->conditionComboBox->setEnabled(hasLogbook);
   ui->simulatorComboBox->setEnabled(hasLogbook);
 
-  // Update export menu if there is a selection in the table view
-  QItemSelectionModel *sm = ui->tableView->selectionModel();
-  ui->actionExportSelectedCsv->setEnabled(hasLogbook && sm != nullptr && sm->hasSelection());
-  ui->actionExportSelectedHtml->setEnabled(hasLogbook && sm != nullptr && sm->hasSelection());
-
   ui->actionUngroup->setEnabled(hasLogbook && controller->isGrouped());
+
+  updateWidgetsOnSelection();
 }
 
 void MainWindow::tableSelectionChanged(const QItemSelection& selected, const QItemSelection& deselected)
@@ -705,6 +720,8 @@ void MainWindow::updateWidgetsOnSelection()
   QItemSelectionModel *sm = ui->tableView->selectionModel();
   ui->actionExportSelectedCsv->setEnabled(hasLogbook && sm != nullptr && sm->hasSelection());
   ui->actionExportSelectedHtml->setEnabled(hasLogbook && sm != nullptr && sm->hasSelection());
+  ui->actionExportSelectedKml->setEnabled(hasLogbook && hasAirports && sm != nullptr &&
+                                          sm->hasSelection() && !controller->isGrouped());
 
   // Update show all action - disable if everything is already shown
   ui->actionShowAll->setEnabled(controller->getTotalRowCount() != controller->getVisibleRowCount());

@@ -539,6 +539,9 @@
     <addaction name="separator"/>
     <addaction name="actionExportAllHtml"/>
     <addaction name="actionExportSelectedHtml"/>
+    <addaction name="separator"/>
+    <addaction name="actionExportAllKml"/>
+    <addaction name="actionExportSelectedKml"/>
    </widget>
    <widget class="QMenu" name="menuExtras">
     <property name="title">
@@ -1106,6 +1109,22 @@ p, li { white-space: pre-wrap; }
   <action name="actionResetDatabase">
    <property name="text">
     <string>Reset Logbook Database</string>
+   </property>
+  </action>
+  <action name="actionExportAllKml">
+   <property name="text">
+    <string>Export All as &amp;KML ...</string>
+   </property>
+   <property name="toolTip">
+    <string>Export All as Google Earth KML</string>
+   </property>
+  </action>
+  <action name="actionExportSelectedKml">
+   <property name="text">
+    <string>Export Selected as &amp;KML ...</string>
+   </property>
+   <property name="toolTip">
+    <string>Export Selected as Google Earth KML</string>
    </property>
   </action>
  </widget>

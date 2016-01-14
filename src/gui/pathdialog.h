@@ -15,8 +15,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *****************************************************************************/
 
-#ifndef PATHDIALOG_H
-#define PATHDIALOG_H
+#ifndef LITTLELOGBOOK_PATHDIALOG_H
+#define LITTLELOGBOOK_PATHDIALOG_H
 
 #include "fs/fspaths.h"
 
@@ -86,4 +86,4 @@ private:
 
 };
 
-#endif // PATHDIALOG_H
+#endif // LITTLELOGBOOK_PATHDIALOG_H

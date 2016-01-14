@@ -71,7 +71,8 @@ SOURCES += src/main.cpp\
     src/export/exporter.cpp \
     src/gui/airportinfo.cpp \
     src/gui/pathdialog.cpp \
-    src/gui/pathsettings.cpp
+    src/gui/pathsettings.cpp \
+    src/export/kmlexporter.cpp
 
 HEADERS  += src/gui/mainwindow.h \
     src/table/sqlmodel.h \
@@ -87,7 +88,8 @@ HEADERS  += src/gui/mainwindow.h \
     src/export/exporter.h \
     src/gui/airportinfo.h \
     src/gui/pathdialog.h \
-    src/gui/pathsettings.h
+    src/gui/pathsettings.h \
+    src/export/kmlexporter.h
 
 FORMS    += src/gui/mainwindow.ui \
     src/gui/pathdialog.ui

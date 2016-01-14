@@ -15,8 +15,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *****************************************************************************/
 
-#ifndef PATHSETTINGS_H
-#define PATHSETTINGS_H
+#ifndef LITTLELOGBOOK_PATHSETTINGS_H
+#define LITTLELOGBOOK_PATHSETTINGS_H
 
 #include "fs/fspaths.h"
 
@@ -77,4 +77,4 @@ private:
 
 };
 
-#endif // PATHSETTINGS_H
+#endif // LITTLELOGBOOK_PATHSETTINGS_H

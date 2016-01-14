@@ -65,7 +65,7 @@ QString AirportInfo::createAirportHtml(const QString& icao) const
       tableHtml += tableRowUnit.arg(tr("Longest runway:")).arg(rwyLength).arg(tr("ft"));
 
     if(query.value("has_lights").toBool())
-      tableHtml += tableRow.arg(tr("Has lights")).arg("");
+      tableHtml += tableRow.arg(tr("Has Lights")).arg("");
 
     if(query.value("has_ils").toBool())
       tableHtml += tableRow.arg(tr("Has ILS")).arg("");
