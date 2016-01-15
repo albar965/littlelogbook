@@ -241,7 +241,7 @@
       <property name="spacing">
        <number>0</number>
       </property>
-      <item row="0" column="3">
+      <item row="0" column="1">
        <widget class="QLineEdit" name="aircraftRegLineEdit">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -260,121 +260,7 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="QLineEdit" name="descriptionLineEdit">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-          <horstretch>1</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="toolTip">
-         <string>Short comment or descritption of a flight</string>
-        </property>
-        <property name="placeholderText">
-         <string>Flight Description</string>
-        </property>
-        <property name="clearButtonEnabled">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="4">
-       <widget class="QLineEdit" name="aircraftDescrLineEdit">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-          <horstretch>1</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="toolTip">
-         <string>Name or description of the aircraft used for a flight</string>
-        </property>
-        <property name="placeholderText">
-         <string>Aircraft Description</string>
-        </property>
-        <property name="clearButtonEnabled">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="6">
-       <widget class="QComboBox" name="aircraftInfoComboBox">
-        <property name="toolTip">
-         <string>Other aircraft information</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>Aircraft Information</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Multi-engine</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="0" column="7">
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="0">
-       <widget class="QComboBox" name="simulatorComboBox">
-        <item>
-         <property name="text">
-          <string>Simulator</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>FSX</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>FSX SE</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>P3D V2</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>P3D V3</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="0" column="8">
-       <widget class="QComboBox" name="conditionComboBox">
-        <property name="toolTip">
-         <string>Filter by all matching conditions or any matching condition</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>All Conditions</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Any Condition</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="0" column="5">
+      <item row="0" column="3">
        <widget class="QComboBox" name="aircraftTypeComboBox">
         <property name="toolTip">
          <string>Type of aircraft used for a flight</string>
@@ -409,21 +295,90 @@
         </item>
        </widget>
       </item>
-      <item row="0" column="1">
-       <spacer name="horizontalSpacer_2">
+      <item row="0" column="6">
+       <widget class="QComboBox" name="conditionComboBox">
+        <property name="toolTip">
+         <string>Filter by all matching conditions or any matching condition</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>All Conditions</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Any Condition</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>20</width>
+          <width>40</width>
           <height>20</height>
          </size>
         </property>
        </spacer>
+      </item>
+      <item row="0" column="4">
+       <widget class="QComboBox" name="aircraftInfoComboBox">
+        <property name="toolTip">
+         <string>Other aircraft information</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>Aircraft Information</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Multi-engine</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLineEdit" name="aircraftDescrLineEdit">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>1</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Name or description of the aircraft used for a flight</string>
+        </property>
+        <property name="placeholderText">
+         <string>Aircraft Description</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLineEdit" name="descriptionLineEdit">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>1</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Short comment or descritption of a flight</string>
+        </property>
+        <property name="placeholderText">
+         <string>Flight Description</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -604,35 +559,6 @@
    </attribute>
    <widget class="QWidget" name="dockWidgetContents">
     <layout class="QVBoxLayout" name="verticalLayout_2">
-     <item>
-      <widget class="QComboBox" name="globalStatsSimTypeComboBox">
-       <item>
-        <property name="text">
-         <string>All Simulators</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>FSX</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>FSX SE</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>P3D V2</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>P3D V3</string>
-        </property>
-       </item>
-      </widget>
-     </item>
      <item>
       <widget class="QTextEdit" name="globalStatsTextEdit">
        <property name="undoRedoEnabled">

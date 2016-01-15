@@ -68,22 +68,9 @@ MainWindow::MainWindow() :
 
   ui->setupUi(this);
 
-  initTableViewZoom();
-
-  // QWidget *spacerWidget = new QWidget(this);
-  // spacerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-  // spacerWidget->setVisible(true);
-  // ui->mainToolBar->insertWidget(ui->actionShowSearch, spacerWidget);
+  setupUi();
 
   openDatabase();
-  // Can not be set in Qt Designer
-  ui->tableView->horizontalHeader()->setSectionsMovable(true);
-  ui->tableView->addAction(ui->actionTableCopy);
-
-  // Create label for the statusbar
-  selectionLabelText = tr("%1 of %2 entries selected, %3 visible.");
-  selectionLabel = new QLabel();
-  ui->statusBar->addPermanentWidget(selectionLabel);
 
   // Read configuration file
   readSettings();
@@ -136,6 +123,34 @@ MainWindow::~MainWindow()
 
   qDebug() << "MainWindow destructor about to shut down logging";
   atools::logging::LoggingHandler::shutdown();
+}
+
+void MainWindow::setupUi()
+{
+  initTableViewZoom();
+
+  // QWidget *spacerWidget = new QWidget(this);
+  // spacerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+  // spacerWidget->setVisible(true);
+  // ui->mainToolBar->insertWidget(ui->actionShowSearch, spacerWidget);
+
+  simulatorComboBox = new QComboBox(this);
+  simulatorComboBox->addItem(tr("All Simulators"));
+  simulatorComboBox->addItem(tr("FSX"));
+  simulatorComboBox->addItem(tr("FSX SE"));
+  simulatorComboBox->addItem(tr("P3D V2"));
+  simulatorComboBox->addItem(tr("P3D V3"));
+  ui->mainToolBar->insertWidget(ui->actionShowSearch, simulatorComboBox);
+  ui->mainToolBar->insertSeparator(ui->actionShowSearch);
+
+  // Can not be set in Qt Designer
+  ui->tableView->horizontalHeader()->setSectionsMovable(true);
+  ui->tableView->addAction(ui->actionTableCopy);
+
+  // Create label for the statusbar
+  selectionLabelText = tr("%1 of %2 entries selected, %3 visible.");
+  selectionLabel = new QLabel();
+  ui->statusBar->addPermanentWidget(selectionLabel);
 }
 
 void MainWindow::initTableViewZoom()
@@ -199,7 +214,7 @@ void MainWindow::assignSearchFieldsToController()
   {
     // Assign edit fields to controller / column descriptor to allow automatic
     // filtering
-    controller->assignComboBox("simulator_id", ui->simulatorComboBox);
+    controller->assignComboBox("simulator_id", simulatorComboBox);
 
     controller->assignLineEdit("airport_from_icao", ui->fromAirportLineEdit);
     controller->assignLineEdit("airport_to_icao", ui->toAirportLineEdit);
@@ -258,7 +273,7 @@ void MainWindow::connectAllSlots()
 
   // Need to put this in a separate variable since there are two activated methods
   void (QComboBox::* activatedPtr)(int) = &QComboBox::activated;
-  connect(ui->simulatorComboBox, activatedPtr,
+  connect(simulatorComboBox, activatedPtr,
           [=](int index) {controller->filterByComboBox("simulator_id", index - 1, index == 0); });
   connect(ui->aircraftTypeComboBox, activatedPtr,
           [=](int index) {controller->filterByComboBox("aircraft_type", index, index == 0); });
@@ -268,7 +283,7 @@ void MainWindow::connectAllSlots()
                                                        index == 0); });
   connect(ui->conditionComboBox, activatedPtr,
           [=](int index) { controller->filterOperator(index == 0); });
-  connect(ui->globalStatsSimTypeComboBox, activatedPtr,
+  connect(simulatorComboBox, activatedPtr,
           [=](int /*index*/) { updateGlobalStats(); });
   /* *INDENT-ON* */
 
@@ -441,7 +456,7 @@ void MainWindow::exportSelectedKml()
 void MainWindow::updateGlobalStats()
 {
   SimulatorType type;
-  int idx = ui->globalStatsSimTypeComboBox->currentIndex();
+  int idx = simulatorComboBox->currentIndex();
   if(idx == 0)
     type = atools::fs::ALL_SIMULATORS;
   else
@@ -465,7 +480,7 @@ void MainWindow::resetView()
     ui->statusBar->showMessage(tr("View reset to default."));
     ui->actionUngroup->setEnabled(false);
     ui->conditionComboBox->setEnabled(true);
-    ui->simulatorComboBox->setEnabled(true);
+    simulatorComboBox->setEnabled(true);
   }
 }
 
@@ -490,7 +505,7 @@ void MainWindow::ungroup()
   ui->statusBar->showMessage(tr("Grouping released."));
   ui->actionUngroup->setEnabled(false);
   ui->conditionComboBox->setEnabled(true);
-  ui->simulatorComboBox->setEnabled(true);
+  simulatorComboBox->setEnabled(true);
 }
 
 void MainWindow::resetMessages()
@@ -702,7 +717,7 @@ void MainWindow::updateWidgetStatus()
   ui->actionExportAllHtml->setEnabled(hasLogbook);
   ui->actionExportAllKml->setEnabled(hasLogbook && hasAirports && !controller->isGrouped());
   ui->conditionComboBox->setEnabled(hasLogbook);
-  ui->simulatorComboBox->setEnabled(hasLogbook);
+  simulatorComboBox->setEnabled(hasLogbook);
 
   ui->actionUngroup->setEnabled(hasLogbook && controller->isGrouped());
 
@@ -1072,14 +1087,14 @@ void MainWindow::tableContextMenu(const QPoint& pos)
         controller->groupByColumn(index);
         ui->actionUngroup->setEnabled(true);
         ui->conditionComboBox->setEnabled(false);
-        ui->simulatorComboBox->setEnabled(true);
+        simulatorComboBox->setEnabled(true);
       }
       else if(a == ui->actionUngroup)
       {
         controller->ungroup();
         ui->actionUngroup->setEnabled(false);
         ui->conditionComboBox->setEnabled(true);
-        ui->simulatorComboBox->setEnabled(true);
+        simulatorComboBox->setEnabled(true);
       }
       else if(a == ui->actionTableSelectAll)
         controller->selectAll();

@@ -46,6 +46,7 @@ class HelpHandler;
 
 class QItemSelection;
 class QLabel;
+class QComboBox;
 
 class MainWindow :
   public QMainWindow
@@ -75,6 +76,7 @@ private:
   atools::gui::ErrorHandler *errorHandler;
 
   QLabel *selectionLabel = nullptr;
+  QComboBox *simulatorComboBox = nullptr;
 
   atools::sql::SqlDatabase db;
   QString databaseFile;
@@ -191,6 +193,8 @@ private:
   void checkAllFiles(bool notifyReload);
   void reloadChanged();
   void resetDatabase();
+  void setupUi();
+
 };
 
 #endif // LITTLELOGBOOK_MAINWINDOW_H
