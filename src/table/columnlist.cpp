@@ -109,14 +109,14 @@ ColumnList::ColumnList(bool hasAirports)
 
   // Do aircraft type sorting by localized type name
   QString aircraftTypeSort = QString(
-    "CASE WHEN %7 =0 THEN '%1' "
-    "WHEN %7 =1 THEN '%2' "
-    "WHEN %7 =2 THEN '%3' "
-    "WHEN %7 =3 THEN '%4' "
-    "WHEN %7 =4 THEN '%5'"
+    "CASE WHEN aircraft_type = 0 THEN '%1' "
+    "WHEN aircraft_type = 1 THEN '%2' "
+    "WHEN aircraft_type = 2 THEN '%3' "
+    "WHEN aircraft_type = 3 THEN '%4' "
+    "WHEN aircraft_type = 4 THEN '%5'"
     "ELSE '%6' END").arg(tr("Unknown")).arg(tr("Glider")).
                              arg(tr("Fixed Wing")).arg(tr("Amphibious")).
-                             arg(tr("Rotor").arg(tr("Unknown")).arg("%1"));
+                             arg(tr("Rotor").arg(tr("Unknown")));
 
   columns.append(Column("aircraft_type",
                         tr("Aircraft\nType")).canGroup().canSort().defaultCol().

@@ -124,7 +124,7 @@ public:
     return *this;
   }
 
-  /* Sort function for column where %1 will be replaced with the column name */
+  /* Sort function for column */
   Column& sortFunc(const QString& sortFuncAsc, const QString& sortFuncDesc)
   {
     sortFuncForColAsc = sortFuncAsc;

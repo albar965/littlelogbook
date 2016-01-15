@@ -142,7 +142,8 @@ DISTFILES += \
     help/en/images/aptooltip.png \
     uncrustify.cfg \
     htmltidy.cfg \
-    BUILD.txt
+    BUILD.txt \
+    CHANGELOG.txt
 
 # Create additional makefile targets to copy help files
 unix {

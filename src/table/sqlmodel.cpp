@@ -409,9 +409,9 @@ void SqlModel::buildQuery()
     {
       // Use sort functions to have null values at end of the list - will avoid indexes
       if(orderByOrder == "asc")
-        queryOrder += "order by " + col->getSortFuncColAsc().arg(orderByCol) + " " + orderByOrder;
+        queryOrder += "order by " + col->getSortFuncColAsc() + " " + orderByOrder;
       else if(orderByOrder == "desc")
-        queryOrder += "order by " + col->getSortFuncColDesc().arg(orderByCol) + " " + orderByOrder;
+        queryOrder += "order by " + col->getSortFuncColDesc() + " " + orderByOrder;
       else
         Q_ASSERT(orderByOrder != "asc" && orderByOrder != "desc");
     }
