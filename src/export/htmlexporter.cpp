@@ -35,6 +35,7 @@
 #include <QXmlStreamReader>
 #include <QDesktopServices>
 #include <QFileInfo>
+#include <QSqlRecord>
 
 using atools::gui::ErrorHandler;
 using atools::gui::Dialog;
@@ -69,16 +70,21 @@ bool HtmlExporter::askOverwriteDialog(const QString& basename, int totalPages)
     if(QFile::exists(fn))
       existingFiles.push_back("<i>" + fn + "</i><br/>");
   }
-  if(existingFiles.size() < totalPages)
+  if(existingFiles.size() > 0 && existingFiles.size() < totalPages)
     existingFiles.push_back("<i>...</i><br/>");
 
-  int retval = QMessageBox::question(parentWidget, tr("Overwrite Files"),
-                                     tr("One or more additional files already exist.<br/><br/>"
-                                        "%1<br/>Overwrite?<br/><br/>").
-                                     arg(existingFiles.join("")),
-                                     QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+  if(!existingFiles.isEmpty())
+  {
+    int retval = QMessageBox::question(parentWidget, tr("Overwrite Files"),
+                                       tr("One or more additional files already exist.<br/><br/>"
+                                          "%1<br/>Overwrite?<br/><br/>").
+                                       arg(existingFiles.join("")),
+                                       QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
 
-  return retval == QMessageBox::Yes;
+    return retval == QMessageBox::Yes;
+  }
+  else
+    return true;
 }
 
 int HtmlExporter::exportAll(bool open)

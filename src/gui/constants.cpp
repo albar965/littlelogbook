@@ -33,6 +33,7 @@ const char *SETTINGS_SHOW_NO_RUNWAYS = "Actions/ShowRunwaysNotFound";
 const char *SETTINGS_SHOW_RELOAD_RUNWAYS = "Actions/ShowReloadRunways";
 const char *SETTINGS_SHOW_RESET_VIEW = "Actions/ShowResetView";
 const char *SETTINGS_SHOW_FILTER_RELOAD = "Actions/ShowFilterReload";
+const char *SETTINGS_SHOW_SKIPPED_KML = "Actions/ShowKmlSkipped";
 const char *SETTINGS_MAINWINDOW_SIZE = "MainWindow/Size";
 const char *SETTINGS_MAINWINDOW_STATE = "MainWindow/Properties";
 const char *SETTINGS_SHOW_STATUSBAR = "MainWindow/StatusBar";

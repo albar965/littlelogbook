@@ -44,6 +44,7 @@ QString AirportInfo::createAirportHtml(const QString& icao) const
 
   if(query.next())
   {
+    QLocale l;
     // Use plain text to build the HTML code. No need for XML stream classes
     // here
     QString tableHtml("<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\">"
@@ -58,11 +59,12 @@ QString AirportInfo::createAirportHtml(const QString& icao) const
     if(!query.value("state").isNull())
       tableHtml += tableRow.arg(tr("State:")).arg(query.value("state").toString());
     tableHtml += tableRow.arg(tr("Country:")).arg(query.value("country").toString());
-    tableHtml += tableRowUnit.arg(tr("Altitude:")).arg(query.value("altitude").toInt()).arg(tr("ft"));
+    tableHtml += tableRowUnit.arg(tr("Altitude:")).
+                 arg(l.toString(query.value("altitude").toInt())).arg(tr("ft"));
 
     int rwyLength = query.value("max_runway_length").toInt();
     if(rwyLength > 0)
-      tableHtml += tableRowUnit.arg(tr("Longest runway:")).arg(rwyLength).arg(tr("ft"));
+      tableHtml += tableRowUnit.arg(tr("Longest Runway:")).arg(l.toString(rwyLength)).arg(tr("ft"));
 
     if(query.value("has_lights").toBool())
       tableHtml += tableRow.arg(tr("Has Lights")).arg("");

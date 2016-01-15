@@ -125,6 +125,9 @@ public:
 
   virtual void fetchMore(const QModelIndex& parent) override;
 
+  QVariantList getRawData(int row) const;
+  QStringList getRawColumns() const;
+
 signals:
   /* Emitted when more data was fetched*/
   void fetchedMore();

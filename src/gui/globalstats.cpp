@@ -51,6 +51,7 @@ QString GlobalStats::createGlobalStatsReport(atools::fs::SimulatorType type,
                                              bool hasLogbook,
                                              bool hasAirports)
 {
+  QLocale l;
   QString html(
     "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">"
       "<html>"
@@ -89,7 +90,7 @@ QString GlobalStats::createGlobalStatsReport(atools::fs::SimulatorType type,
         html += "<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\"><tbody>";
 
         html += alt(i++, tableRow).arg(bold(tr("Number of flights:"))).
-                arg(query.value("num_flights").toString());
+                arg(l.toString(query.value("num_flights").toInt()));
 
         if(startDateQuery.next())
         {
@@ -123,17 +124,17 @@ QString GlobalStats::createGlobalStatsReport(atools::fs::SimulatorType type,
         html += "<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\"><tbody>";
         html += tableRowHeader.arg(bold(tr("Number of distinct:")));
         html += alt(i++, tableRowAlignRight).arg(bold(tr("Start airports:"))).
-                arg(query.value("airport_from_icao_cnt").toString());
+                arg(l.toString(query.value("airport_from_icao_cnt").toInt()));
         if(hasAirports)
           html += alt(i++, tableRowAlignRight).arg(bold(tr("Start countries:"))).
-                  arg(query.value("airport_from_country_cnt").toString());
+                  arg(l.toString(query.value("airport_from_country_cnt").toInt()));
 
         html += alt(i++, tableRowAlignRight).arg(bold(tr("Destination airports:"))).
-                arg(query.value("airport_to_icao_cnt").toString());
+                arg(l.toString(query.value("airport_to_icao_cnt").toInt()));
 
         if(hasAirports)
           html += alt(i++, tableRowAlignRight).arg(bold(tr("Destination countries:"))).
-                  arg(query.value("airport_to_country_cnt").toString());
+                  arg(l.toString(query.value("airport_to_country_cnt").toInt()));
         html += "</tbody></table>";
 
         i = 0;
@@ -170,13 +171,13 @@ QString GlobalStats::createGlobalStatsReport(atools::fs::SimulatorType type,
         html += "<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\"><tbody>";
         html += tableRowHeader.arg(bold(tr("Number of distinct:")));
         html += alt(i++, tableRowAlignRight).arg(bold(tr("Aircrafts:"))).
-                arg(query.value("aircraft_descr_cnt").toString());
+                arg(l.toString(query.value("aircraft_descr_cnt").toInt()));
         html += alt(i++, tableRowAlignRight).arg(bold(tr("Aircraft registrations:"))).
-                arg(query.value("aircraft_reg_cnt").toString());
+                arg(l.toString(query.value("aircraft_reg_cnt").toInt()));
         html += "</tbody></table>";
       }
       else
-        html += tr("No Logbook Entries found");
+        html += tr("No logbook entries found.");
     } // if(query.next())
   } // if(hasLogbook)
   else

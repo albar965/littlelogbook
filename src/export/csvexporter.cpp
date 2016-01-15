@@ -165,7 +165,7 @@ int CsvExporter::exportSelected(bool open)
       for(QItemSelectionRange rng : sel)
         for(int row = rng.top(); row <= rng.bottom(); ++row)
         {
-          // Export as formatted in the view
+          // Export all fields
           stream << sqlExport.getResultSetRow(controller->getFormattedModelData(row));
           exported++;
         }

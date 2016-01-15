@@ -59,25 +59,26 @@ public:
   virtual int exportSelected(bool open);
 
 private:
+  atools::sql::SqlQuery *airportDetailQuery = nullptr;
+
+  QString lineColor = "ff00ffff";
+  int lineWidth = 3;
+  QString startIcon = "http://maps.google.com/mapfiles/kml/paddle/grn-blank.png";
+  QString destIcon = "http://maps.google.com/mapfiles/kml/paddle/red-blank.png";
+  double startScale = 1.5, destScale = 1.5;
+  int startXHotspot = 32, startYHotspot = 1, destXHotspot = 32, destYHotspot = 1;
+
   QString saveKmlFileDialog();
   bool startFile(QFile& file, QXmlStreamWriter& stream);
   void endFile(QFile& file, QXmlStreamWriter& stream);
-
   void writeLineStyle(QXmlStreamWriter& stream);
   void writePointStyle(QXmlStreamWriter& stream, bool start);
-
-  atools::sql::SqlQuery *airportDetailQuery = nullptr;
-  QString lineColor = "ff00ffff";
-
-  int lineWidth = 3;
-  QString startIcon = "http://maps.google.com/mapfiles/kml/paddle/blu-blank.png";
-  QString destIcon = "http://maps.google.com/mapfiles/kml/paddle/grn-blank.png";
-  double startScale = 1.1, destScale = 1.1;
-  int startXHotspot = 32, startYHotspot = 1, destXHotspot = 32, destYHotspot = 1;
   void writeFlight(QXmlStreamWriter& stream, QSqlRecord rec);
 
   QSqlRecord airportDetail(const QString& icao);
   QString airportDescription(QSqlRecord lbRec, QSqlRecord apRec, const QString& fromTo);
+  QString flightDescription(QSqlRecord rec);
+
 };
 
 #endif // LITTLELOGBOOK_KMLEXPORTER_H

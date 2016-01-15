@@ -23,8 +23,10 @@
 #include "table/controller.h"
 #include "sql/sqlquery.h"
 #include "sql/sqldatabase.h"
+#include "table/formatter.h"
 
 #include <QFile>
+#include <QSqlField>
 #include <QXmlStreamReader>
 
 using atools::gui::ErrorHandler;
@@ -56,7 +58,8 @@ QString KmlExporter::saveKmlFileDialog()
 int KmlExporter::exportAll(bool open)
 {
   int exported = 0;
-  QString filename = "/home/alex/Temp/_export/export.kml"; /*saveKmlFileDialog();*/
+  int skipped = 0;
+  QString filename = saveKmlFileDialog();
   qDebug() << "exportAllKml" << filename;
 
   if(filename.isEmpty())
@@ -77,10 +80,19 @@ int KmlExporter::exportAll(bool open)
     QSqlRecord rec = query.record();
     if(!(rec.isNull("airport_from_name") || rec.isNull("airport_to_name")))
       writeFlight(stream, rec);
+    else
+      skipped++;
     exported++;
   }
 
   endFile(file, stream);
+
+  if(skipped > 0)
+    dialog->showInfoMsgBox(ll::constants::SETTINGS_SHOW_SKIPPED_KML,
+                           QString(tr("%1 logbook entries were not exported due to "
+                                      "missing start or destination airport coordinates.")).arg(skipped),
+                           tr("Do not &show this dialog again."));
+
   if(open)
     openDocument(filename);
   return exported;
@@ -100,7 +112,16 @@ int KmlExporter::exportSelected(bool open)
   if(!startFile(file, stream))
     return exported;
 
-  // TODO
+  QSqlRecord rec;
+  const QItemSelection sel = controller->getSelection();
+  for(QItemSelectionRange rng : sel)
+    for(int row = rng.top(); row <= rng.bottom(); ++row)
+    {
+      fillRecord(controller->getRawModelData(row), controller->getRawModelColumns(), rec);
+      if(!(rec.isNull("airport_from_name") || rec.isNull("airport_to_name")))
+        writeFlight(stream, rec);
+      exported++;
+    }
 
   endFile(file, stream);
 
@@ -132,7 +153,7 @@ bool KmlExporter::startFile(QFile& file, QXmlStreamWriter& stream)
   writePointStyle(stream, false);
 
   stream.writeStartElement("Folder");
-  stream.writeTextElement("name", "Exported Flights");
+  stream.writeTextElement("name", tr("Exported Flights"));
   return true;
 }
 
@@ -172,7 +193,6 @@ void KmlExporter::writePointStyle(QXmlStreamWriter& stream, bool start)
   stream.writeAttribute("xunits", "pixels");
   stream.writeAttribute("yunits", "pixels");
   stream.writeEndElement(); // hotspot
-
   stream.writeEndElement(); // IconStyle
   stream.writeEndElement(); // Style
 
@@ -191,17 +211,16 @@ void KmlExporter::writeFlight(QXmlStreamWriter& stream, QSqlRecord rec)
   QString toCoord = QString("%1,%2,0").
                     arg(toRec.value("longitude").toDouble()).
                     arg(toRec.value("latitude").toDouble());
-  QString fromName = rec.value("airport_from_name").toString();
-  QString toName = rec.value("airport_to_name").toString();
-  QString shortDescr = QString("%1 to %2").arg(fromIcao).arg(toIcao);
+
+  QString shortDescr = QString(tr("%1 to %2")).arg(fromIcao).arg(toIcao);
 
   stream.writeStartElement("Folder");
   stream.writeTextElement("name", shortDescr);
 
+  // Line
   stream.writeStartElement("Placemark");
   stream.writeTextElement("name", shortDescr);
-  stream.writeTextElement("description", QString("From %1 (%2) to %3 (%4)").
-                          arg(fromIcao).arg(fromName).arg(toIcao).arg(toName));
+  stream.writeTextElement("description", flightDescription(rec));
   stream.writeTextElement("styleUrl", "#line_style");
   stream.writeStartElement("LineString");
   stream.writeTextElement("tessellate", "1");
@@ -209,8 +228,10 @@ void KmlExporter::writeFlight(QXmlStreamWriter& stream, QSqlRecord rec)
   stream.writeEndElement(); // LineString
   stream.writeEndElement(); // Placemark
 
+  // Start icon
   stream.writeStartElement("Placemark");
-  stream.writeTextElement("name", QString("From %1 (%2)").arg(fromIcao).arg(fromName));
+  stream.writeTextElement("name", QString(tr("From %1 (%2)")).
+                          arg(fromIcao).arg(rec.value("airport_from_name").toString()));
   stream.writeTextElement("description", airportDescription(rec, fromRec, "from"));
   stream.writeTextElement("styleUrl", "#start_style");
   stream.writeStartElement("Point");
@@ -218,8 +239,10 @@ void KmlExporter::writeFlight(QXmlStreamWriter& stream, QSqlRecord rec)
   stream.writeEndElement(); // Point
   stream.writeEndElement(); // Placemark
 
+  // Destination icon
   stream.writeStartElement("Placemark");
-  stream.writeTextElement("name", QString("To %1 (%2)").arg(toIcao).arg(toName));
+  stream.writeTextElement("name", QString(tr("To %1 (%2)")).
+                          arg(toIcao).arg(rec.value("airport_to_name").toString()));
   stream.writeTextElement("description", airportDescription(rec, toRec, "to"));
   stream.writeTextElement("styleUrl", "#dest_style");
   stream.writeStartElement("Point");
@@ -242,25 +265,74 @@ QSqlRecord KmlExporter::airportDetail(const QString& icao)
 
 QString KmlExporter::airportDescription(QSqlRecord lbRec, QSqlRecord apRec, const QString& fromTo)
 {
-  QString retval("<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\"><tbody>");
+  QLocale l;
+  QString retval("<table border=\"1\" cellpadding=\"2\" cellspacing=\"0\"><tbody>");
 
-  retval += "<tr><td>ICAO:</td><td>" + lbRec.value("airport_" + fromTo + "_icao").toString() + "</td>";
-  retval += "<tr><td>Name:</td><td>" + lbRec.value("airport_" + fromTo + "_name").toString() + "</td>";
-  retval += "<tr><td>City:</td><td>" + lbRec.value("airport_" + fromTo + "_city").toString() + "</td>";
+  retval += "<tr><td><b>" + tr("ICAO:") + "</b></td><td><b>" +
+            lbRec.value("airport_" + fromTo + "_icao").toString() + "</b></td>";
+  retval += "<tr><td><b>" + tr("Name:") + "</b></td><td><b>" +
+            lbRec.value("airport_" + fromTo + "_name").toString() + "</b></td>";
+  retval += "<tr><td>" + tr("City:") + "</td><td>" +
+            lbRec.value("airport_" + fromTo + "_city").toString() + "</td>";
   QString state(lbRec.value("airport_" + fromTo + "_state").toString());
   if(!state.isEmpty())
-    retval += "<tr><td>State:</td><td>" + state + "</td>";
-  retval += "<tr><td>Country:</td><td>" + lbRec.value("airport_" + fromTo + "_country").toString() + "</td>";
-  retval += "<tr><td>Longitude:</td><td>" + apRec.value("longitude").toString() + "</td>";
-  retval += "<tr><td>Latitude:</td><td>" + apRec.value("latitude").toString() + "</td>";
-  retval += "<tr><td>Altitude:</td><td>" + QLocale().toString(apRec.value("altitude").toInt()) + " ft</td>";
-  retval += "<tr><td>Max Runway Length:</td><td>" +
-            QLocale().toString(apRec.value("max_runway_length").toInt()) + " ft</td>";
+    retval += "<tr><td>" + tr("State:") + "</td><td>" + state + "</td>";
+  retval += "<tr><td>" + tr("Country:") + "</td><td>" +
+            lbRec.value("airport_" + fromTo + "_country").toString() + "</td>";
+  retval += "<tr><td>" + tr("Longitude:") + "</td><td>" +
+            l.toString(apRec.value("longitude").toDouble(), 'f', 6) + "</td>";
+  retval += "<tr><td>" + tr("Latitude:") + "</td><td>" +
+            l.toString(apRec.value("latitude").toDouble(), 'f', 6) + "</td>";
+  retval += "<tr><td>" + tr("Altitude:") + "</td><td>" +
+            l.toString(apRec.value("altitude").toInt()) + " ft</td>";
+  retval += "<tr><td>" + tr("Max Runway Length:") + "</td><td>" +
+            l.toString(apRec.value("max_runway_length").toInt()) + " ft</td>";
 
   if(apRec.value("has_lights").toBool())
-    retval += "<tr><td>Has Lights</td>";
+    retval += "<tr><td>" + tr("Has Lights") + "</td>";
   if(apRec.value("has_ils").toBool())
-    retval += "<tr><td>Has ILS</td>";
+    retval += "<tr><td>" + tr("Has ILS") + "</td>";
+
+  retval += "</tbody></table>";
+  return retval;
+}
+
+QString KmlExporter::flightDescription(QSqlRecord rec)
+{
+  QString fromName(rec.value("airport_from_name").toString());
+  QString toName(rec.value("airport_to_name").toString());
+  QString fromIcao(rec.value("airport_from_icao").toString());
+  QString toIcao(rec.value("airport_to_icao").toString());
+
+  QLocale l;
+  QString retval = QString("<p><b>" + tr("From %1 (%2)<br/>to %3 (%4)") + "</b></p>").
+                   arg(fromIcao).arg(fromName).arg(toIcao).arg(toName);
+
+  retval += "<table border=\"1\" cellpadding=\"2\" cellspacing=\"0\"><tbody>";
+
+  retval += "<tr><td>" + tr("Logbook ID:") + "</td><td>" +
+            controller->formatModelData("logbook_id", rec.value("logbook_id")) + "</td>";
+  retval += "<tr><td>" + tr("Start Time:") + "</td><td>" +
+            controller->formatModelData("startdate", rec.value("startdate")) + "</td>";
+
+  retval += "<tr><td>" + tr("Distance:") + "</td><td>" +
+            l.toString(rec.value("distance").toDouble(), 'f', 0) + " NM</td>";
+  retval += "<tr><td>" + tr("Total Time:") + "</td><td>" +
+            formatter::formatMinutesHoursLong(rec.value("total_time").toDouble()) + "</td>";
+  retval += "<tr><td>" + tr("Night Time:") + "</td><td>" +
+            formatter::formatMinutesHoursLong(rec.value("night_time").toDouble()) + "</td>";
+  retval += "<tr><td>" + tr("Instrument Time:") + "</td><td>" +
+            formatter::formatMinutesHoursLong(rec.value("instrument_time").toDouble()) + "</td>";
+
+  QString descr = rec.value("description").toString();
+  if(!descr.isEmpty())
+    retval += "<tr><td>" + tr("Flight Description:") + "</td><td>" + descr + "</td>";
+  retval += "<tr><td>" + tr("Aircraft Registration:") + "</td><td>" +
+            rec.value("aircraft_reg").toString() + "</td>";
+  retval += "<tr><td>" + tr("Aircraft Description:") + "</td><td>" +
+            rec.value("aircraft_descr").toString() + "</td>";
+  retval += "<tr><td>" + tr("Aircraft Type:") + "</td><td>" +
+            controller->formatModelData("aircraft_type", rec.value("aircraft_type")) + "</td>";
 
   retval += "</tbody></table>";
   return retval;

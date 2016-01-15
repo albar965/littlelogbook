@@ -35,6 +35,7 @@ extern const char *SETTINGS_SHOW_NO_RUNWAYS;
 extern const char *SETTINGS_SHOW_RELOAD_RUNWAYS;
 extern const char *SETTINGS_SHOW_RESET_VIEW;
 extern const char *SETTINGS_SHOW_FILTER_RELOAD;
+extern const char *SETTINGS_SHOW_SKIPPED_KML;
 extern const char *SETTINGS_MAINWINDOW_SIZE;
 extern const char *SETTINGS_MAINWINDOW_STATE;
 extern const char *SETTINGS_SHOW_STATUSBAR;

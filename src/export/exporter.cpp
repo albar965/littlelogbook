@@ -24,6 +24,8 @@
 #include <QUrl>
 #include <QDesktopServices>
 #include <QApplication>
+#include <QSqlField>
+#include <QSqlRecord>
 
 using atools::gui::Dialog;
 using atools::gui::ErrorHandler;
@@ -90,4 +92,16 @@ void Exporter::openDocument(const QString& file)
                          QString(tr("Cannot open file <i>%1</i>")).arg(file),
                          QMessageBox::Close, QMessageBox::NoButton);
   }
+}
+
+void Exporter::fillRecord(const QVariantList& values, const QStringList& cols, QSqlRecord& rec)
+{
+  Q_ASSERT(values.size() == cols.size());
+
+  if(rec.isEmpty())
+    for(int i = 0; i < values.size(); i++)
+      rec.append(QSqlField(cols.at(i), values.at(i).type()));
+
+  for(int i = 0; i < values.size(); i++)
+    rec.setValue(i, values.at(i));
 }

@@ -52,10 +52,18 @@ protected:
   atools::gui::Dialog *dialog = nullptr;
   atools::gui::ErrorHandler *errorHandler = nullptr;
 
+  /* Get table header names with any LF or dash cleaned out */
   QStringList headerNames(int cnt);
   QStringList headerNames(int cnt, const QVector<int>& visualToIndex);
+
+  /* Open document with application */
   void openDocument(const QString& file);
+
+  /* Create an index mapping physical to logical column numbers */
   void createVisualColumnIndex(int cnt, QVector<int>& visualToIndex);
+
+  /* Create an SQL record from column names and values */
+  void fillRecord(const QVariantList& values, const QStringList& cols, QSqlRecord& rec);
 
 };
 

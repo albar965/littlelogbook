@@ -23,7 +23,6 @@
 
 #include <QItemSelectionModel>
 #include <QObject>
-#include <QSqlRecord>
 #include <functional>
 
 namespace atools {
@@ -140,6 +139,10 @@ public:
   /* Return field data formatted as in the table view */
   QString formatModelData(const QString& col, const QVariant& var) const;
   QVariantList getFormattedModelData(int row) const;
+
+  /* get values from the database */
+  QVariantList getRawModelData(int row) const;
+  QStringList getRawModelColumns() const;
 
   /* Column name for sorted column */
   QString getSortColumn() const;

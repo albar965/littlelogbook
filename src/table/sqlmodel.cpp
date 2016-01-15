@@ -522,6 +522,12 @@ QString SqlModel::formatValue(const QString& colName, const QVariant& value) con
     else
       return QString();
   }
+  else if(value.type() == QVariant::Int || value.type() == QVariant::UInt)
+    return QLocale().toString(value.toInt());
+  else if(value.type() == QVariant::LongLong || value.type() == QVariant::ULongLong)
+    return QLocale().toString(value.toLongLong());
+  else if(value.type() == QVariant::Double)
+    return QLocale().toString(value.toDouble());
 
   return value.toString();
 }
@@ -579,6 +585,7 @@ QVariant SqlModel::data(const QModelIndex& index, int role) const
     else if(col.startsWith("instrument_time"))
       return Qt::AlignRight;
     else if(col.startsWith("distance"))
+      // TODO why is this still left aligned
       return Qt::AlignRight;
     else
       return QSqlQueryModel::data(index, role);
@@ -593,15 +600,29 @@ void SqlModel::fetchMore(const QModelIndex& parent)
   emit fetchedMore();
 }
 
+QVariantList SqlModel::getRawData(int row) const
+{
+  QVariantList values;
+  for(int i = 0; i < columnCount(); ++i)
+    values.append(QSqlQueryModel::data(createIndex(row, i)));
+  return values;
+}
+
+QStringList SqlModel::getRawColumns() const
+{
+  QStringList cols;
+  for(int i = 0; i < columnCount(); ++i)
+    cols.append(record().field(i).name());
+  return cols;
+}
+
 QVariantList SqlModel::getFormattedRowData(int row)
 {
   QVariantList values;
   for(int i = 0; i < columnCount(); ++i)
   {
     QModelIndex idx = createIndex(row, i);
-    QString col = record().field(idx.column()).name();
-    QVariant var = QSqlQueryModel::data(idx);
-    values.append(formatValue(col, var));
+    values.append(formatValue(record().field(idx.column()).name(), QSqlQueryModel::data(idx)));
   }
   return values;
 }

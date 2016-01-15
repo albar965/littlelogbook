@@ -18,6 +18,7 @@
 #include "table/formatter.h"
 
 #include <QDateTime>
+#include <QLocale>
 #include <QObject>
 #include <algorithm>
 
@@ -73,12 +74,12 @@ QString formatMinutesHoursDaysLong(double time)
   return retval;
 }
 
-QString formatDoubleUnit(double value, const QString& unit)
+QString formatDoubleUnit(double value, const QString& unit, int precision)
 {
   if(unit.isEmpty())
-    return QString(QObject::tr("%L1")).arg(value, 0, 'f', 2);
+    return QString(QObject::tr("%L1")).arg(QLocale().toString(value, 'f', precision));
   else
-    return QString(QObject::tr("%L1 %2")).arg(value, 0, 'f', 2).arg(unit);
+    return QString(QObject::tr("%L1 %2")).arg(QLocale().toString(value, 'f', precision)).arg(unit);
 }
 
 QString formatDate(int timeT)

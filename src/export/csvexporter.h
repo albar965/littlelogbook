@@ -60,12 +60,11 @@ public:
   /*
    * Export the selected rows to a string in CSV format. Uses view column
    * order and appearance like HTML export.
+   * @param out sting to fill with clipboard data
    */
   int exportSelectedToString(QString *string);
 
 private:
-  int exportSelectedInternal(QTextStream& stream, bool header);
-
   /* Get file from save dialog */
   QString saveCsvFileDialog();
 

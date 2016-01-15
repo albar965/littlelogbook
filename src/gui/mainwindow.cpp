@@ -500,11 +500,13 @@ void MainWindow::resetMessages()
 
   // Show all message dialogs again
   s->setValue(ll::constants::SETTINGS_SHOW_QUIT, true);
+  s->setValue(ll::constants::SETTINGS_SHOW_RESET_DATABASE, true);
   s->setValue(ll::constants::SETTINGS_SHOW_RELOAD, true);
   s->setValue(ll::constants::SETTINGS_SHOW_NO_RUNWAYS, true);
   s->setValue(ll::constants::SETTINGS_SHOW_RELOAD_RUNWAYS, true);
   s->setValue(ll::constants::SETTINGS_SHOW_RESET_VIEW, true);
   s->setValue(ll::constants::SETTINGS_SHOW_FILTER_RELOAD, true);
+  s->setValue(ll::constants::SETTINGS_SHOW_SKIPPED_KML, true);
   s.syncSettings();
 
   ui->statusBar->showMessage(tr("All message dialogs reset."));
@@ -944,7 +946,7 @@ bool MainWindow::loadLogbookDatabase(SimulatorType type)
   try
   {
     QString file = pathSettings.getLogbookFile(type);
-    ui->statusBar->showMessage(QString(tr("Loading Logbook Entries from \"%1\" (%2).")).
+    ui->statusBar->showMessage(QString(tr("Loading Logbook entries from \"%1\" (%2).")).
                                arg(file).
                                arg(PathSettings::getSimulatorName(type)));
 

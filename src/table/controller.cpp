@@ -366,6 +366,18 @@ QVariantList Controller::getFormattedModelData(int row) const
   return model->getFormattedRowData(row);
 }
 
+QVariantList Controller::getRawModelData(int row) const
+{
+  Q_ASSERT(model != nullptr);
+  return model->getRawData(row);
+}
+
+QStringList Controller::getRawModelColumns() const
+{
+  Q_ASSERT(model != nullptr);
+  return model->getRawColumns();
+}
+
 QString Controller::getSortColumn() const
 {
   Q_ASSERT(model != nullptr);
