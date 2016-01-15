@@ -56,6 +56,18 @@ extern const char *EXPORT_HTML_CSS_FILE;
 extern const char *EXPORT_HTML_CODEC;
 extern const char *EXPORT_KML_CODEC;
 
+/* KML export settings */
+extern const char *SETTINGS_EXPORT_KML_LINE_COLOR;
+extern const char *SETTINGS_EXPORT_KML_LINE_WIDTH;
+extern const char *SETTINGS_EXPORT_KML_START_ICON;
+extern const char *SETTINGS_EXPORT_KML_DEST_ICON;
+extern const char *SETTINGS_EXPORT_KML_START_ICON_SCALE;
+extern const char *SETTINGS_EXPORT_KML_DEST_ICON_SCALE;
+extern const char *SETTINGS_EXPORT_KML_START_X_HOTSPOT;
+extern const char *SETTINGS_EXPORT_KML_START_Y_HOTSPOT;
+extern const char *SETTINGS_EXPORT_KML_DEST_X_HOTSPOT;
+extern const char *SETTINGS_EXPORT_KML_DEST_Y_HOTSPOT;
+
 /* FSX logbook filename */
 extern const char *LOGBOOK_FILENAME;
 extern const char *RUNWAYS_FILENAME;

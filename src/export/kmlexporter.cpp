@@ -24,19 +24,42 @@
 #include "sql/sqlquery.h"
 #include "sql/sqldatabase.h"
 #include "table/formatter.h"
+#include "settings/settings.h"
 
 #include <QFile>
 #include <QSqlField>
 #include <QXmlStreamReader>
+#include <QApplication>
+#include <QDateTime>
 
 using atools::gui::ErrorHandler;
 using atools::gui::Dialog;
 using atools::sql::SqlQuery;
 using atools::sql::SqlDatabase;
+using atools::settings::Settings;
 
 KmlExporter::KmlExporter(QWidget *parent, Controller *controller)
   : Exporter(parent, controller)
 {
+  Settings& s = Settings::instance();
+
+  // Store defaults on first access to allow user configuration
+  lineColor = s.getAndStoreValue(ll::constants::SETTINGS_EXPORT_KML_LINE_COLOR, "ff00ffff").toString();
+  lineWidth = s.getAndStoreValue(ll::constants::SETTINGS_EXPORT_KML_LINE_WIDTH, 3).toInt();
+
+  startIcon = s.getAndStoreValue(ll::constants::SETTINGS_EXPORT_KML_START_ICON,
+                                 "http://maps.google.com/mapfiles/kml/paddle/grn-blank.png").toString();
+  destIcon = s.getAndStoreValue(ll::constants::SETTINGS_EXPORT_KML_DEST_ICON,
+                                "http://maps.google.com/mapfiles/kml/paddle/red-blank.png").toString();
+
+  startScale = s.getAndStoreValue(ll::constants::SETTINGS_EXPORT_KML_START_ICON_SCALE, 1.5).toDouble();
+  destScale = s.getAndStoreValue(ll::constants::SETTINGS_EXPORT_KML_DEST_ICON_SCALE, 1.5).toDouble();
+
+  startXHotspot = s.getAndStoreValue(ll::constants::SETTINGS_EXPORT_KML_START_X_HOTSPOT, 32).toInt();
+  startYHotspot = s.getAndStoreValue(ll::constants::SETTINGS_EXPORT_KML_START_Y_HOTSPOT, 1).toInt();
+  destXHotspot = s.getAndStoreValue(ll::constants::SETTINGS_EXPORT_KML_DEST_X_HOTSPOT, 32).toInt();
+  destYHotspot = s.getAndStoreValue(ll::constants::SETTINGS_EXPORT_KML_DEST_Y_HOTSPOT, 1).toInt();
+
   airportDetailQuery = new SqlQuery(controller->getSqlDatabase());
   airportDetailQuery->prepare("select longitude, latitude, altitude, max_runway_length, has_lights, has_ils "
                               "from airport "
@@ -55,16 +78,25 @@ QString KmlExporter::saveKmlFileDialog()
                                 "kml", ll::constants::SETTINGS_EXPORT_FILE_DIALOG);
 }
 
+void KmlExporter::skippedEntriesDialog(int skipped)
+{
+  if(skipped > 0)
+    dialog->showInfoMsgBox(ll::constants::SETTINGS_SHOW_SKIPPED_KML,
+                           QString(tr("%1 logbook entries were not exported due to "
+                                      "missing start or destination airport coordinates.")).arg(skipped),
+                           tr("Do not &show this dialog again."));
+}
+
 int KmlExporter::exportAll(bool open)
 {
-  int exported = 0;
-  int skipped = 0;
+  int exported = 0, skipped = 0;
   QString filename = saveKmlFileDialog();
   qDebug() << "exportAllKml" << filename;
 
   if(filename.isEmpty())
     return 0;
 
+  // Open file and write all headers including styles
   QFile file(filename);
   QXmlStreamWriter stream;
   if(!startFile(file, stream))
@@ -79,19 +111,17 @@ int KmlExporter::exportAll(bool open)
   {
     QSqlRecord rec = query.record();
     if(!(rec.isNull("airport_from_name") || rec.isNull("airport_to_name")))
+    {
       writeFlight(stream, rec);
+      exported++;
+    }
     else
       skipped++;
-    exported++;
   }
 
   endFile(file, stream);
 
-  if(skipped > 0)
-    dialog->showInfoMsgBox(ll::constants::SETTINGS_SHOW_SKIPPED_KML,
-                           QString(tr("%1 logbook entries were not exported due to "
-                                      "missing start or destination airport coordinates.")).arg(skipped),
-                           tr("Do not &show this dialog again."));
+  skippedEntriesDialog(skipped);
 
   if(open)
     openDocument(filename);
@@ -100,13 +130,14 @@ int KmlExporter::exportAll(bool open)
 
 int KmlExporter::exportSelected(bool open)
 {
-  int exported = 0;
+  int exported = 0, skipped = 0;
   QString filename = saveKmlFileDialog();
   qDebug() << "exportSelectedKml" << filename;
 
   if(filename.isEmpty())
     return 0;
 
+  // Open file
   QFile file(filename);
   QXmlStreamWriter stream;
   if(!startFile(file, stream))
@@ -119,8 +150,12 @@ int KmlExporter::exportSelected(bool open)
     {
       fillRecord(controller->getRawModelData(row), controller->getRawModelColumns(), rec);
       if(!(rec.isNull("airport_from_name") || rec.isNull("airport_to_name")))
+      {
         writeFlight(stream, rec);
-      exported++;
+        exported++;
+      }
+      else
+        skipped++;
     }
 
   endFile(file, stream);
@@ -146,20 +181,23 @@ bool KmlExporter::startFile(QFile& file, QXmlStreamWriter& stream)
   stream.writeStartElement("kml");
   stream.writeDefaultNamespace("http://www.opengis.net/kml/2.2");
   stream.writeStartElement("Document");
-  stream.writeTextElement("name", file.fileName());
+  stream.writeTextElement("name", QApplication::applicationName());
+  stream.writeTextElement("description", QString(tr("Version %2 (revision %3)<br/>"
+                                                    "by Alexander Barthel.<br/>"
+                                                    "Created on %4.")).
+                          arg(QApplication::applicationVersion()).
+                          arg(GIT_REVISION).
+                          arg(QDateTime::currentDateTime().toString(Qt::DefaultLocaleLongDate)));
 
   writeLineStyle(stream);
   writePointStyle(stream, true);
   writePointStyle(stream, false);
 
-  stream.writeStartElement("Folder");
-  stream.writeTextElement("name", tr("Exported Flights"));
   return true;
 }
 
 void KmlExporter::endFile(QFile& file, QXmlStreamWriter& stream)
 {
-  stream.writeEndElement(); // Folder
   stream.writeEndElement(); // Document
   stream.writeEndElement(); // kml
   stream.writeEndDocument();
@@ -216,6 +254,7 @@ void KmlExporter::writeFlight(QXmlStreamWriter& stream, QSqlRecord rec)
 
   stream.writeStartElement("Folder");
   stream.writeTextElement("name", shortDescr);
+  stream.writeTextElement("description", flightDescription(rec));
 
   // Line
   stream.writeStartElement("Placemark");

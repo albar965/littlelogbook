@@ -61,12 +61,9 @@ public:
 private:
   atools::sql::SqlQuery *airportDetailQuery = nullptr;
 
-  QString lineColor = "ff00ffff";
-  int lineWidth = 3;
-  QString startIcon = "http://maps.google.com/mapfiles/kml/paddle/grn-blank.png";
-  QString destIcon = "http://maps.google.com/mapfiles/kml/paddle/red-blank.png";
+  QString lineColor, startIcon, destIcon;
   double startScale = 1.5, destScale = 1.5;
-  int startXHotspot = 32, startYHotspot = 1, destXHotspot = 32, destYHotspot = 1;
+  int lineWidth, startXHotspot, startYHotspot, destXHotspot, destYHotspot;
 
   QString saveKmlFileDialog();
   bool startFile(QFile& file, QXmlStreamWriter& stream);
@@ -78,6 +75,8 @@ private:
   QSqlRecord airportDetail(const QString& icao);
   QString airportDescription(QSqlRecord lbRec, QSqlRecord apRec, const QString& fromTo);
   QString flightDescription(QSqlRecord rec);
+
+  void skippedEntriesDialog(int skipped);
 
 };
 
