@@ -102,9 +102,9 @@ void Controller::groupByColumn(const QModelIndex& index)
 
   saveViewState();
 
-  columns->clearWidgets();
+  columns->clearWidgets({"simulator_id"});
   // Disable all search widgets except the one for the group by column
-  columns->enableWidgets(false, QStringList(model->record().fieldName(index.column())));
+  columns->enableWidgets(false, {model->record().fieldName(index.column()), "simulator_id"});
 
   model->getGroupByColumn(index);
   processViewColumns();
@@ -116,8 +116,8 @@ void Controller::ungroup()
 {
   Q_ASSERT(model != nullptr);
   Q_ASSERT(columns != nullptr);
-  columns->clearWidgets();
-  columns->enableWidgets();
+  columns->clearWidgets({"simulator_id"});
+  columns->enableWidgets(true, {"simulator_id"});
 
   model->ungroup();
   processViewColumns();
@@ -183,8 +183,8 @@ void Controller::resetView()
   Q_ASSERT(model != nullptr);
   if(columns != nullptr)
   {
-    columns->clearWidgets();
-    columns->enableWidgets();
+    columns->clearWidgets({"simulator_id"});
+    columns->enableWidgets(true, {"simulator_id"});
   }
 
   // Reorder columns to match model order
@@ -203,7 +203,7 @@ void Controller::resetView()
 void Controller::resetSearch()
 {
   if(columns != nullptr)
-    columns->clearWidgets();
+    columns->clearWidgets({"simulator_id"});
 
   if(model != nullptr)
     model->resetSearch();

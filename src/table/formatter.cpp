@@ -28,14 +28,16 @@ QString formatMinutesHours(double time)
 {
   int hours = (int)time;
   int minutes = (int)((time - hours) * 60);
-  return QString(QObject::tr("%1:%2")).arg(hours).arg(minutes, 2, 10, QChar('0'));
+  return QString(QObject::tr("%1:%2")).arg(QLocale().toString(hours)).
+         arg(minutes, 2, 10, QChar('0'));
 }
 
 QString formatMinutesHoursLong(double time)
 {
   int hours = (int)time;
   int minutes = (int)((time - hours) * 60);
-  return QString(QObject::tr("%1 h %2 m")).arg(hours).arg(minutes, 2, 10, QChar('0'));
+  return QString(QObject::tr("%1 h %2 m")).arg(QLocale().toString(hours)).
+         arg(minutes, 2, 10, QChar('0'));
 }
 
 QString formatMinutesHoursDays(double time)
@@ -44,7 +46,7 @@ QString formatMinutesHoursDays(double time)
   int hours = (int)time - (days * 24);
   int minutes = (int)((time - std::floor(time)) * 60.);
   return QString(QObject::tr("%1:%2:%3")).
-         arg(days).
+         arg(QLocale().toString(days)).
          arg(hours, 2, 10, QChar('0')).
          arg(minutes, 2, 10, QChar('0'));
 }
@@ -56,20 +58,20 @@ QString formatMinutesHoursDaysLong(double time)
   int minutes = (int)((time - std::floor(time)) * 60.);
   QString retval;
   if(days > 0)
-    retval += QString(QObject::tr("%1 d")).arg(days);
+    retval += QString(QObject::tr("%1 d")).arg(QLocale().toString(days));
 
   if(hours > 0)
   {
     if(!retval.isEmpty())
       retval += QString(QObject::tr(" %1 h")).arg(hours, 2, 10, QChar('0'));
     else
-      retval += QString(QObject::tr("%1 h")).arg(hours);
+      retval += QString(QObject::tr("%1 h")).arg(QLocale().toString(hours));
   }
 
   if(!retval.isEmpty())
     retval += QString(QObject::tr(" %1 m")).arg(minutes, 2, 10, QChar('0'));
   else
-    retval += QString(QObject::tr("%1 m")).arg(minutes);
+    retval += QString(QObject::tr("%1 m")).arg(QLocale().toString(minutes));
 
   return retval;
 }

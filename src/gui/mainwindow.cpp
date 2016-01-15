@@ -214,7 +214,7 @@ void MainWindow::assignSearchFieldsToController()
   {
     // Assign edit fields to controller / column descriptor to allow automatic
     // filtering
-    controller->assignComboBox("simulator_id", simulatorComboBox);
+//    controller->assignComboBox("simulator_id", simulatorComboBox);
 
     controller->assignLineEdit("airport_from_icao", ui->fromAirportLineEdit);
     controller->assignLineEdit("airport_to_icao", ui->toAirportLineEdit);
@@ -911,7 +911,10 @@ bool MainWindow::loadAirports(SimulatorType type)
     qDebug() << "Airport import done";
     ui->statusBar->showMessage(QString(tr("Loaded %1 airports.")).arg(apLoader.getNumLoaded()));
     pathSettings.setRunwaysFileLoaded(type);
-    pathSettings.invalidateLogbookFile(type);
+
+    // Runways loading invalidates all logbooks
+    for(SimulatorType sim : atools::fs::ALL_SIMULATOR_TYPES)
+      pathSettings.invalidateLogbookFile(sim);
   }
   else
   {

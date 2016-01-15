@@ -30,6 +30,7 @@
 #include "geo/calculations.h"
 #include "logging/loggingdefs.h"
 
+#include <algorithm>
 #include <QApplication>
 #include <QLineEdit>
 #include <QSqlField>
@@ -185,7 +186,7 @@ void SqlModel::getGroupByColumn(QModelIndex index)
   groupByCol = record().fieldName(index.column());
   orderByCol = groupByCol;
   orderByOrder = "asc";
-  whereConditionMap.clear();
+  clearWhereConditions();
   buildQuery();
   fillHeaderData();
 }
@@ -195,21 +196,35 @@ void SqlModel::reset()
   orderByCol.clear();
   orderByOrder.clear();
   groupByCol.clear();
-  whereConditionMap.clear();
+  clearWhereConditions();
   buildQuery();
   fillHeaderData();
 }
 
 void SqlModel::resetSearch()
 {
-  whereConditionMap.clear();
+  clearWhereConditions();
   buildQuery();
   // no need to rebuild header - view remains the same
 }
 
+void SqlModel::clearWhereConditions()
+{
+  // Keep simulator filter - system dependent
+  auto iter = whereConditionMap.find("simulator_id");
+  if(iter != whereConditionMap.end())
+  {
+    WhereCondition wc = *iter;
+    whereConditionMap.clear();
+    whereConditionMap.insert(wc.column, wc);
+  }
+  else
+    whereConditionMap.clear();
+}
+
 void SqlModel::ungroup()
 {
-  whereConditionMap.clear();
+  clearWhereConditions();
   groupByCol.clear();
 
   // Restore last sort order
@@ -409,9 +424,9 @@ void SqlModel::buildQuery()
     {
       // Use sort functions to have null values at end of the list - will avoid indexes
       if(orderByOrder == "asc")
-        queryOrder += "order by " + col->getSortFuncColAsc() + " " + orderByOrder;
+        queryOrder += "order by " + col->getSortFuncColAsc().arg(orderByCol) + " " + orderByOrder;
       else if(orderByOrder == "desc")
-        queryOrder += "order by " + col->getSortFuncColDesc() + " " + orderByOrder;
+        queryOrder += "order by " + col->getSortFuncColDesc().arg(orderByCol) + " " + orderByOrder;
       else
         Q_ASSERT(orderByOrder != "asc" && orderByOrder != "desc");
     }

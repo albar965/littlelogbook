@@ -21,6 +21,7 @@
 #include <QString>
 
 namespace formatter {
+/* All formatters are locale aware */
 
 /* Format time_t to short locale dependent date string */
 QString formatDate(int timeT);

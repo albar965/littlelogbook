@@ -45,7 +45,7 @@ KmlExporter::KmlExporter(QWidget *parent, Controller *controller)
 
   // Store defaults on first access to allow user configuration
   lineColor = s.getAndStoreValue(ll::constants::SETTINGS_EXPORT_KML_LINE_COLOR, "ff00ffff").toString();
-  lineWidth = s.getAndStoreValue(ll::constants::SETTINGS_EXPORT_KML_LINE_WIDTH, 3).toInt();
+  lineWidth = s.getAndStoreValue(ll::constants::SETTINGS_EXPORT_KML_LINE_WIDTH, 2).toInt();
 
   startIcon = s.getAndStoreValue(ll::constants::SETTINGS_EXPORT_KML_START_ICON,
                                  "http://maps.google.com/mapfiles/kml/paddle/grn-blank.png").toString();
@@ -349,6 +349,8 @@ QString KmlExporter::flightDescription(QSqlRecord rec)
 
   retval += "<table border=\"1\" cellpadding=\"2\" cellspacing=\"0\"><tbody>";
 
+  retval += "<tr><td>" + tr("Simulator:") + "</td><td>" +
+            controller->formatModelData("simulator_id", rec.value("simulator_id")) + "</td>";
   retval += "<tr><td>" + tr("Logbook ID:") + "</td><td>" +
             controller->formatModelData("logbook_id", rec.value("logbook_id")) + "</td>";
   retval += "<tr><td>" + tr("Start Time:") + "</td><td>" +

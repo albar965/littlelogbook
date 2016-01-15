@@ -181,6 +181,8 @@ private:
 
   /* Alternating colors for normal display and display of sorted column */
   QColor rowBgColor, rowAltBgColor, rowSortBgColor, rowSortAltBgColor;
+  void clearWhereConditions();
+
 };
 
 #endif // LITTLELOGBOOK_SQLMODEL_H

@@ -61,7 +61,7 @@ public:
   void assignComboBox(const QString& field, QComboBox *combo);
 
   /* Clear all LineEdit widgets and ComboBox widgets */
-  void clearWidgets();
+  void clearWidgets(const QStringList& exceptColNames = QStringList());
 
   /* Enable or disable widgets except the ones with the give column names */
   void enableWidgets(bool enabled = true, const QStringList& exceptColNames = QStringList());

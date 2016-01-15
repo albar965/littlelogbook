@@ -168,15 +168,16 @@ void ColumnList::assignComboBox(const QString& field, QComboBox *combo)
     qWarning() << "Cannot assign combo box to" << field;
 }
 
-void ColumnList::clearWidgets()
+void ColumnList::clearWidgets(const QStringList& exceptColNames)
 {
   for(Column& cd : columns)
-  {
-    if(cd.getLineEditWidget() != nullptr)
-      cd.getLineEditWidget()->setText("");
-    else if(cd.getComboBoxWidget() != nullptr)
-      cd.getComboBoxWidget()->setCurrentIndex(0);
-  }
+    if(!exceptColNames.contains(cd.getColumnName()))
+    {
+      if(cd.getLineEditWidget() != nullptr)
+        cd.getLineEditWidget()->setText("");
+      else if(cd.getComboBoxWidget() != nullptr)
+        cd.getComboBoxWidget()->setCurrentIndex(0);
+    }
 }
 
 void ColumnList::enableWidgets(bool enabled, const QStringList& exceptColNames)
