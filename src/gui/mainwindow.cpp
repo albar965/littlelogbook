@@ -151,6 +151,9 @@ void MainWindow::setupUi()
   selectionLabelText = tr("%1 of %2 entries selected, %3 visible.");
   selectionLabel = new QLabel();
   ui->statusBar->addPermanentWidget(selectionLabel);
+
+  // Avoid stealing of Ctrl-C from other default menus
+  ui->actionTableCopy->setShortcutContext(Qt::WidgetWithChildrenShortcut);
 }
 
 void MainWindow::initTableViewZoom()
