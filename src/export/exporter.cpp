@@ -103,5 +103,11 @@ void Exporter::fillRecord(const QVariantList& values, const QStringList& cols, Q
       rec.append(QSqlField(cols.at(i), values.at(i).type()));
 
   for(int i = 0; i < values.size(); i++)
-    rec.setValue(i, values.at(i));
+  {
+    QVariant val = values.at(i);
+    if(val.type() == QVariant::String && val.toString().isEmpty())
+      rec.setNull(i);
+    else
+      rec.setValue(i, values.at(i));
+  }
 }

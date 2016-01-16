@@ -160,6 +160,8 @@ int KmlExporter::exportSelected(bool open)
 
   endFile(file, stream);
 
+  skippedEntriesDialog(skipped);
+
   if(open)
     openDocument(filename);
   return exported;
