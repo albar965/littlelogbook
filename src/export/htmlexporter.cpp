@@ -92,6 +92,7 @@ int HtmlExporter::exportAll(bool open)
   int exported = 0, totalToExport = 0, currentPage = 0, totalPages = 0, exportedPage = 0;
 
   QString filename = saveHtmlFileDialog();
+  QString basename = QFileInfo(filename).fileName();
   qDebug() << "exportAllHtml" << filename;
 
   if(filename.isEmpty())
@@ -109,7 +110,7 @@ int HtmlExporter::exportAll(bool open)
 
   QFile file(filename);
   QXmlStreamWriter stream;
-  if(!startFile(file, filename, stream, currentPage, totalPages))
+  if(!startFile(file, basename, stream, currentPage, totalPages))
     return exported;
 
   QVector<int> visualColumnIndex;
@@ -143,17 +144,17 @@ int HtmlExporter::exportAll(bool open)
     exported++;
     if((exported % pageSize) == 0)
     {
-      endFile(file, filename, stream, currentPage, totalPages);
+      endFile(file, basename, stream, currentPage, totalPages);
       currentPage++;
       exportedPage = 0;
 
       file.setFileName(filenameForPage(filename, currentPage));
-      if(!startFile(file, filename, stream, currentPage, totalPages))
+      if(!startFile(file, basename, stream, currentPage, totalPages))
         return exported;
     }
   }
 
-  endFile(file, filename, stream, currentPage, totalPages);
+  endFile(file, basename, stream, currentPage, totalPages);
 
   if(open)
     openDocument(filename);
@@ -166,6 +167,7 @@ int HtmlExporter::exportSelected(bool open)
   int exported = 0, totalToExport = 0, currentPage = 0, totalPages = 0, exportedPage = 0;
 
   QString filename = saveHtmlFileDialog();
+  QString basename = QFileInfo(filename).fileName();
   qDebug() << "exportSelectedHtml" << filename;
 
   if(filename.isEmpty())
@@ -181,7 +183,7 @@ int HtmlExporter::exportSelected(bool open)
 
   QFile file(filename);
   QXmlStreamWriter stream;
-  if(!startFile(file, filename, stream, currentPage, totalPages))
+  if(!startFile(file, basename, stream, currentPage, totalPages))
     return exported;
 
   QVector<const Column *> columnList = controller->getCurrentColumns();
@@ -219,17 +221,17 @@ int HtmlExporter::exportSelected(bool open)
       exported++;
       if((exported % pageSize) == 0)
       {
-        endFile(file, filename, stream, currentPage, totalPages);
+        endFile(file, basename, stream, currentPage, totalPages);
         currentPage++;
         exportedPage = 0;
 
         file.setFileName(filenameForPage(filename, currentPage));
-        if(!startFile(file, filename, stream, currentPage, totalPages))
+        if(!startFile(file, basename, stream, currentPage, totalPages))
           return exported;
       }
     }
 
-  endFile(file, filename, stream, currentPage, totalPages);
+  endFile(file, basename, stream, currentPage, totalPages);
 
   if(open)
     openDocument(filename);
@@ -352,7 +354,7 @@ QString HtmlExporter::filenameForPage(const QString& filename, int currentPage)
 }
 
 void HtmlExporter::writeHtmlNav(QXmlStreamWriter& stream,
-                                const QString& filename,
+                                const QString& basename,
                                 int currentPage,
                                 int totalPages)
 {
@@ -362,16 +364,16 @@ void HtmlExporter::writeHtmlNav(QXmlStreamWriter& stream,
   stream.writeStartElement("p");
   stream.writeCharacters(tr("Page %1 of %2 - ").arg(currentPage + 1).arg(totalPages));
 
-  QString firstLink = filename;
-  QString nextLink = filename;
-  nextLink.insert(filename.lastIndexOf("."), "_" + QString::number(currentPage + 1));
+  QString firstLink = basename;
+  QString nextLink = basename;
+  nextLink.insert(basename.lastIndexOf("."), "_" + QString::number(currentPage + 1));
 
-  QString prevLink = filename;
+  QString prevLink = basename;
   if(currentPage != 1)
-    prevLink.insert(filename.lastIndexOf("."), "_" + QString::number(currentPage - 1));
+    prevLink.insert(basename.lastIndexOf("."), "_" + QString::number(currentPage - 1));
 
-  QString lastLink = filename;
-  lastLink.insert(filename.lastIndexOf("."), "_" + QString::number(totalPages - 1));
+  QString lastLink = basename;
+  lastLink.insert(basename.lastIndexOf("."), "_" + QString::number(totalPages - 1));
 
   if(currentPage == 0)
   {

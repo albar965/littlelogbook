@@ -89,7 +89,7 @@ private:
                                    int row);
 
   /* Write next, previous, last and first page links */
-  void writeHtmlNav(QXmlStreamWriter& stream, const QString& filename, int currentPage, int totalPages);
+  void writeHtmlNav(QXmlStreamWriter& stream, const QString& basename, int currentPage, int totalPages);
 
   /* Write an anchor and href */
   void writeHtmlLink(QXmlStreamWriter& stream, const QString& url, const QString& text);
