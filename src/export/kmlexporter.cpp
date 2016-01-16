@@ -91,6 +91,8 @@ int KmlExporter::exportAll(bool open)
   if(filename.isEmpty())
     return 0;
 
+  prepareQuery();
+
   // Open file and write all headers including styles
   QFile file(filename);
   QXmlStreamWriter stream;
@@ -132,6 +134,8 @@ int KmlExporter::exportSelected(bool open)
   if(filename.isEmpty())
     return 0;
 
+  prepareQuery();
+
   // Open file
   QFile file(filename);
   QXmlStreamWriter stream;
@@ -164,10 +168,14 @@ int KmlExporter::exportSelected(bool open)
 
 void KmlExporter::prepareQuery()
 {
-  airportDetailQuery = new SqlQuery(controller->getSqlDatabase());
-  airportDetailQuery->prepare("select longitude, latitude, altitude, max_runway_length, has_lights, has_ils "
-                              "from airport "
-                              "where icao = :icao");
+  if(airportDetailQuery == nullptr)
+  {
+    airportDetailQuery = new SqlQuery(controller->getSqlDatabase());
+    airportDetailQuery->prepare(
+      "select longitude, latitude, altitude, max_runway_length, has_lights, has_ils "
+      "from airport "
+      "where icao = :icao");
+  }
 }
 
 bool KmlExporter::startFile(QFile& file, QXmlStreamWriter& stream)
