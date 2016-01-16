@@ -59,11 +59,6 @@ KmlExporter::KmlExporter(QWidget *parent, Controller *controller)
   startYHotspot = s.getAndStoreValue(ll::constants::SETTINGS_EXPORT_KML_START_Y_HOTSPOT, 1).toInt();
   destXHotspot = s.getAndStoreValue(ll::constants::SETTINGS_EXPORT_KML_DEST_X_HOTSPOT, 32).toInt();
   destYHotspot = s.getAndStoreValue(ll::constants::SETTINGS_EXPORT_KML_DEST_Y_HOTSPOT, 1).toInt();
-
-  airportDetailQuery = new SqlQuery(controller->getSqlDatabase());
-  airportDetailQuery->prepare("select longitude, latitude, altitude, max_runway_length, has_lights, has_ils "
-                              "from airport "
-                              "where icao = :icao");
 }
 
 KmlExporter::~KmlExporter()
@@ -165,6 +160,14 @@ int KmlExporter::exportSelected(bool open)
   if(open)
     openDocument(filename);
   return exported;
+}
+
+void KmlExporter::prepareQuery()
+{
+  airportDetailQuery = new SqlQuery(controller->getSqlDatabase());
+  airportDetailQuery->prepare("select longitude, latitude, altitude, max_runway_length, has_lights, has_ils "
+                              "from airport "
+                              "where icao = :icao");
 }
 
 bool KmlExporter::startFile(QFile& file, QXmlStreamWriter& stream)

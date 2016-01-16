@@ -71,6 +71,7 @@ MainWindow::MainWindow() :
   setupUi();
 
   openDatabase();
+  updateDatabaseStatus();
 
   // Read configuration file
   readSettings();

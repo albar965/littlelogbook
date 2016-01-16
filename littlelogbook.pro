@@ -170,6 +170,7 @@ win32 {
   deploy.commands = rmdir /s /q $${DEPLOY_DIR} &
   deploy.commands += mkdir $${DEPLOY_DIR} &
   deploy.commands += copy $${WINOUT_PWD}\\littlelogbook.exe $${DEPLOY_DIR} &&
+  deploy.commands += copy $${WINPWD}\\CHANGELOG.txt $${DEPLOY_DIR} &&
   deploy.commands += copy $${WINPWD}\\README.txt $${DEPLOY_DIR} &&
   deploy.commands += copy $${WINPWD}\\LICENSE.txt $${DEPLOY_DIR} &&
   deploy.commands += xcopy /i /s /e /f /y $${WINPWD}\\help $${DEPLOY_DIR}\\help &&

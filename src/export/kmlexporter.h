@@ -78,6 +78,7 @@ private:
 
   void skippedEntriesDialog(int skipped);
 
+  void prepareQuery();
 };
 
 #endif // LITTLELOGBOOK_KMLEXPORTER_H
