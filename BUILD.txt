@@ -16,6 +16,8 @@ Windows
 -- For atools use the build directory of e.g.: "C:\Projects\atools\release"
 -- For littlelogbook use the build directory of e.g.: "C:\Projects\littlelogbook\release"
 - Adapt the QT_BIN and GIT_BIN variables in "littlelogbook.pro".
+- Run qmake from Qt Creator
+- Run lupdate Qt Creator
 - Build and run.
 
 It is important that the shadow build directories reside within the project directories and are
@@ -25,7 +27,7 @@ break project dependencies.
 Linux
 ------------------------------------------------------
 
-Build atools according to instructions.
+Build atools according to instructions in BUILD.txt.
 
 To build release
 - mkdir littlelogbook/release

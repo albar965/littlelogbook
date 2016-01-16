@@ -182,9 +182,9 @@ bool KmlExporter::startFile(QFile& file, QXmlStreamWriter& stream)
   stream.writeDefaultNamespace("http://www.opengis.net/kml/2.2");
   stream.writeStartElement("Document");
   stream.writeTextElement("name", QApplication::applicationName());
-  stream.writeTextElement("description", QString(tr("Version %2 (revision %3)<br/>"
+  stream.writeTextElement("description", QString(tr("Version %1 (revision %2)<br/>"
                                                     "by Alexander Barthel.<br/>"
-                                                    "Created on %4.")).
+                                                    "Created on %3.")).
                           arg(QApplication::applicationVersion()).
                           arg(GIT_REVISION).
                           arg(QDateTime::currentDateTime().toString(Qt::DefaultLocaleLongDate)));
@@ -324,7 +324,7 @@ QString KmlExporter::airportDescription(QSqlRecord lbRec, QSqlRecord apRec, cons
             l.toString(apRec.value("latitude").toDouble(), 'f', 6) + "</td>";
   retval += "<tr><td>" + tr("Altitude:") + "</td><td>" +
             l.toString(apRec.value("altitude").toInt()) + " ft</td>";
-  retval += "<tr><td>" + tr("Max Runway Length:") + "</td><td>" +
+  retval += "<tr><td>" + tr("Longest Runway:") + "</td><td>" +
             l.toString(apRec.value("max_runway_length").toInt()) + " ft</td>";
 
   if(apRec.value("has_lights").toBool())

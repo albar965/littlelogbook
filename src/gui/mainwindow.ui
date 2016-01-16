@@ -1007,9 +1007,12 @@ p, li { white-space: pre-wrap; }
     <string>Zoom &amp;In</string>
    </property>
    <property name="iconText">
-    <string>Increase font size in table view</string>
+    <string>Zoom In</string>
    </property>
    <property name="toolTip">
+    <string>Increase font size in table view</string>
+   </property>
+   <property name="statusTip">
     <string>Increase font size in table view</string>
    </property>
    <property name="shortcut">

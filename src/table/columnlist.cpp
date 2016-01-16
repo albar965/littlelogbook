@@ -116,7 +116,7 @@ ColumnList::ColumnList(bool hasAirports)
     "WHEN aircraft_type = 4 THEN '%5'"
     "ELSE '%6' END").arg(tr("Unknown")).arg(tr("Glider")).
                              arg(tr("Fixed Wing")).arg(tr("Amphibious")).
-                             arg(tr("Rotor").arg(tr("Unknown")));
+                             arg(tr("Rotor")).arg(tr("Unknown"));
 
   columns.append(Column("aircraft_type",
                         tr("Aircraft\nType")).canGroup().canSort().defaultCol().

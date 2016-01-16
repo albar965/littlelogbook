@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
   QCoreApplication::setApplicationName("Little Logbook");
   QCoreApplication::setOrganizationName("ABarthel");
   QCoreApplication::setOrganizationDomain("abarthel.org");
-  QCoreApplication::setApplicationVersion("1.1.0");
+  QCoreApplication::setApplicationVersion("1.5.0.beta");
 
 #if defined(Q_OS_WIN32)
   // Detect second running application - this is unsafe on Unix since shm can remain after crashes
