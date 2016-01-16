@@ -182,9 +182,15 @@ void PathDialog::updateIcon(const QString& text, QLabel *iconLabel)
 {
   QFileInfo fi(text);
   if(fi.exists() && fi.isReadable() && fi.isFile())
+  {
     iconLabel->setPixmap(*pixmapCheckmark);
+    iconLabel->setToolTip(tr("File <i>%1</i> found. Will be loaded when pressing OK").arg(fi.fileName()));
+  }
   else
+  {
     iconLabel->setPixmap(*pixmapExclamation);
+    iconLabel->setToolTip(tr("File not found. The path will be ignored when pressing OK"));
+  }
 }
 
 void PathDialog::initTab(QLineEdit *logbookEdit,
@@ -215,15 +221,10 @@ void PathDialog::initTab(QLineEdit *logbookEdit,
     }
 
     if(fi.exists() && fi.isReadable() && fi.isFile())
-    {
-      logbookLabel->setPixmap(*pixmapCheckmark);
       logbookEdit->setText(fi.absoluteFilePath());
-    }
     else
-    {
-      logbookLabel->setPixmap(*pixmapExclamation);
       logbookEdit->setText(logbook);
-    }
+    updateIcon(logbookEdit->text(), logbookLabel);
 
     QString runways;
     if(s->contains(PathSettings::SETTINGS_RUNWAY_PATHS[type]))
@@ -238,15 +239,10 @@ void PathDialog::initTab(QLineEdit *logbookEdit,
     }
 
     if(fi.exists() && fi.isReadable() && fi.isFile())
-    {
-      runwaysLabel->setPixmap(*pixmapCheckmark);
       runwaysEdit->setText(fi.absoluteFilePath());
-    }
     else
-    {
-      runwaysLabel->setPixmap(*pixmapExclamation);
       runwaysEdit->setText(runways);
-    }
+    updateIcon(runwaysEdit->text(), runwaysLabel);
   }
 }
 

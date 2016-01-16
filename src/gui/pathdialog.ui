@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>638</width>
-    <height>164</height>
+    <width>652</width>
+    <height>208</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,6 +27,9 @@
    </item>
    <item row="1" column="1">
     <widget class="QTabWidget" name="tabWidget">
+     <property name="toolTip">
+      <string/>
+     </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -35,10 +38,13 @@
        <string>FSX</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_6">
-       <item row="0" column="0">
+       <item row="1" column="0">
         <layout class="QGridLayout" name="gridLayoutFsx">
          <item row="0" column="3">
           <widget class="QPushButton" name="pushButtonFsxLogbook">
+           <property name="toolTip">
+            <string>Select logbook file (Logbook.bin)</string>
+           </property>
            <property name="text">
             <string>&amp;Select...</string>
            </property>
@@ -56,13 +62,20 @@
          </item>
          <item row="1" column="3">
           <widget class="QPushButton" name="pushButtonFsxRunways">
+           <property name="toolTip">
+            <string>Select runways file (runways.xml) to load optional airport information</string>
+           </property>
            <property name="text">
             <string>S&amp;elect...</string>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QLineEdit" name="lineEditFsxRunways"/>
+          <widget class="QLineEdit" name="lineEditFsxRunways">
+           <property name="toolTip">
+            <string>Select a valid runways file (runways.xml) to load optional airport information</string>
+           </property>
+          </widget>
          </item>
          <item row="0" column="0">
           <widget class="QLabel" name="labelFsxLogbook">
@@ -75,7 +88,11 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QLineEdit" name="lineEditFsxLogbook"/>
+          <widget class="QLineEdit" name="lineEditFsxLogbook">
+           <property name="toolTip">
+            <string>Select a valid logbook file (Logbook.BIN)</string>
+           </property>
+          </widget>
          </item>
          <item row="0" column="2">
           <widget class="QLabel" name="labelIconFsxLogbook">
@@ -99,6 +116,13 @@
          </item>
         </layout>
        </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="labelFsx">
+         <property name="text">
+          <string>Platforms: FSX, FSX XPack and FSX Gold.</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="tabFsxSe">
@@ -106,10 +130,14 @@
        <string>FSX Steam Edition</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_7">
-       <item row="0" column="0">
+       <item row="1" column="0">
         <layout class="QGridLayout" name="gridLayoutFsxSe">
          <item row="1" column="1">
-          <widget class="QLineEdit" name="lineEditFsxSeRunways"/>
+          <widget class="QLineEdit" name="lineEditFsxSeRunways">
+           <property name="toolTip">
+            <string>Select a valid runways file (runways.xml) to load airport information</string>
+           </property>
+          </widget>
          </item>
          <item row="0" column="0">
           <widget class="QLabel" name="labelFsxSeLogbook">
@@ -123,13 +151,20 @@
          </item>
          <item row="1" column="3">
           <widget class="QPushButton" name="pushButtonFsxSeRunways">
+           <property name="toolTip">
+            <string>Select runways file (runways.xml) to load optional airport information</string>
+           </property>
            <property name="text">
             <string>S&amp;elect...</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QLineEdit" name="lineEditFsxSeLogbook"/>
+          <widget class="QLineEdit" name="lineEditFsxSeLogbook">
+           <property name="toolTip">
+            <string>Select a valid logbook file (Logbook.BIN)</string>
+           </property>
+          </widget>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="labelFsxSeRunways">
@@ -143,6 +178,9 @@
          </item>
          <item row="0" column="3">
           <widget class="QPushButton" name="pushButtonFsxSeLogbook">
+           <property name="toolTip">
+            <string>Select a logbook file (Logbook.bin)</string>
+           </property>
            <property name="text">
             <string>&amp;Select...</string>
            </property>
@@ -170,6 +208,13 @@
          </item>
         </layout>
        </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="labelFsxSe">
+         <property name="text">
+          <string>Platform: FSX Steam Edition.</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="tabP3dV2">
@@ -177,10 +222,13 @@
        <string>Prepar3d V2</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_8">
-       <item row="0" column="0">
+       <item row="1" column="0">
         <layout class="QGridLayout" name="gridLayoutP3dV2">
          <item row="1" column="3">
           <widget class="QPushButton" name="pushButtonP3dV2Runways">
+           <property name="toolTip">
+            <string>Select runways file (runways.xml) to load optional airport information</string>
+           </property>
            <property name="text">
             <string>S&amp;elect...</string>
            </property>
@@ -188,16 +236,27 @@
          </item>
          <item row="0" column="3">
           <widget class="QPushButton" name="pushButtonP3dV2Logbook">
+           <property name="toolTip">
+            <string>Select a logbook file (Logbook.bin)</string>
+           </property>
            <property name="text">
             <string>&amp;Select...</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QLineEdit" name="lineEditP3dV2Logbook"/>
+          <widget class="QLineEdit" name="lineEditP3dV2Logbook">
+           <property name="toolTip">
+            <string>Select a valid logbook file (Logbook.BIN)</string>
+           </property>
+          </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QLineEdit" name="lineEditP3dV2Runways"/>
+          <widget class="QLineEdit" name="lineEditP3dV2Runways">
+           <property name="toolTip">
+            <string>Select a valid runways file (runways.xml) to load airport information</string>
+           </property>
+          </widget>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="labelP3dV2Runways">
@@ -241,6 +300,13 @@
          </item>
         </layout>
        </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="labelP3dV2">
+         <property name="text">
+          <string>Platform: Prepar3d Version 2.</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="tabP3dV3">
@@ -248,55 +314,12 @@
        <string>Prepar3d V3</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_9">
-       <item row="0" column="0">
+       <item row="1" column="0">
         <layout class="QGridLayout" name="gridLayoutP3dV3">
-         <item row="0" column="0">
-          <widget class="QLabel" name="labelP3dV3Logbook">
-           <property name="text">
-            <string>&amp;Logbook</string>
-           </property>
-           <property name="buddy">
-            <cstring>lineEditP3dV3Logbook</cstring>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="3">
-          <widget class="QPushButton" name="pushButtonP3dV3Logbook">
-           <property name="text">
-            <string>&amp;Select...</string>
-           </property>
-          </widget>
-         </item>
          <item row="0" column="1">
-          <widget class="QLineEdit" name="lineEditP3dV3Logbook"/>
-         </item>
-         <item row="1" column="1">
-          <widget class="QLineEdit" name="lineEditP3dV3Runways"/>
-         </item>
-         <item row="1" column="3">
-          <widget class="QPushButton" name="pushButtonP3dV3Runways">
-           <property name="text">
-            <string>S&amp;elect...</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="labelP3dV3Runways">
-           <property name="text">
-            <string>&amp;Airports</string>
-           </property>
-           <property name="buddy">
-            <cstring>lineEditP3dV3Runways</cstring>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="QLabel" name="labelIconP3dV3Logbook">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="pixmap">
-            <pixmap resource="../../littlelogbook.qrc">:/littlelogbook/resources/icons/exclamation.svg</pixmap>
+          <widget class="QLineEdit" name="lineEditP3dV3Logbook">
+           <property name="toolTip">
+            <string>Select a valid logbook file (Logbook.BIN)</string>
            </property>
           </widget>
          </item>
@@ -310,10 +333,81 @@
            </property>
           </widget>
          </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="labelP3dV3Logbook">
+           <property name="text">
+            <string>&amp;Logbook</string>
+           </property>
+           <property name="buddy">
+            <cstring>lineEditP3dV3Logbook</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="lineEditP3dV3Runways">
+           <property name="toolTip">
+            <string>Select a valid runways file (runways.xml) to load airport information</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLabel" name="labelIconP3dV3Logbook">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="../../littlelogbook.qrc">:/littlelogbook/resources/icons/exclamation.svg</pixmap>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QPushButton" name="pushButtonP3dV3Logbook">
+           <property name="toolTip">
+            <string>Select a logbook file (Logbook.bin)</string>
+           </property>
+           <property name="text">
+            <string>&amp;Select...</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="labelP3dV3Runways">
+           <property name="text">
+            <string>&amp;Airports</string>
+           </property>
+           <property name="buddy">
+            <cstring>lineEditP3dV3Runways</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <widget class="QPushButton" name="pushButtonP3dV3Runways">
+           <property name="toolTip">
+            <string>Select runways file (runways.xml) to load optional airport information</string>
+           </property>
+           <property name="text">
+            <string>S&amp;elect...</string>
+           </property>
+          </widget>
+         </item>
         </layout>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="labelP3dV3">
+         <property name="text">
+          <string>Platform: Prepar3d Version 3.</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLabel" name="labelExplanation">
+     <property name="text">
+      <string>Select at least one valid logbook file. All other paths are optional and will be ignored if invalid.</string>
+     </property>
     </widget>
    </item>
   </layout>

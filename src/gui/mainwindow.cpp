@@ -129,12 +129,10 @@ void MainWindow::setupUi()
 {
   initTableViewZoom();
 
-  // QWidget *spacerWidget = new QWidget(this);
-  // spacerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-  // spacerWidget->setVisible(true);
-  // ui->mainToolBar->insertWidget(ui->actionShowSearch, spacerWidget);
-
   simulatorComboBox = new QComboBox(this);
+  QString helpText = tr("Select the flight simulator platform to display in the table and global statistics");
+  simulatorComboBox->setToolTip(helpText);
+  simulatorComboBox->setStatusTip(helpText);
   simulatorComboBox->addItem(tr("All Simulators"));
   simulatorComboBox->addItem(tr("FSX"));
   simulatorComboBox->addItem(tr("FSX SE"));
@@ -217,7 +215,7 @@ void MainWindow::assignSearchFieldsToController()
   {
     // Assign edit fields to controller / column descriptor to allow automatic
     // filtering
-//    controller->assignComboBox("simulator_id", simulatorComboBox);
+    // controller->assignComboBox("simulator_id", simulatorComboBox);
 
     controller->assignLineEdit("airport_from_icao", ui->fromAirportLineEdit);
     controller->assignLineEdit("airport_to_icao", ui->toAirportLineEdit);

@@ -606,10 +606,10 @@ p, li { white-space: pre-wrap; }
     <string>&amp;Reload changed Logbooks</string>
    </property>
    <property name="toolTip">
-    <string>Reload the current logbook</string>
+    <string>Reload all changed logbook and airport information files</string>
    </property>
    <property name="statusTip">
-    <string>Reload the current logbook</string>
+    <string>Reload all changed logbook and airport information files</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+L</string>
@@ -748,10 +748,10 @@ p, li { white-space: pre-wrap; }
     <string>&amp;Open Logbooks ...</string>
    </property>
    <property name="toolTip">
-    <string>Open a new logbook file (Logbook.BIN)</string>
+    <string>Opens the paths dialog to select logbook and airport information files</string>
    </property>
    <property name="statusTip">
-    <string>Open a new logbook file (Logbook.BIN)</string>
+    <string>Opens the paths dialog to select logbook and airport information files</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
@@ -902,7 +902,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionResetMessages">
    <property name="text">
-    <string>&amp;Reset all Messages</string>
+    <string>Reset all &amp;Messages</string>
    </property>
    <property name="toolTip">
     <string>Shows all notification and question dialogs again</string>
@@ -946,10 +946,10 @@ p, li { white-space: pre-wrap; }
     <string>&amp;Open Document after Export</string>
    </property>
    <property name="toolTip">
-    <string>Opens the document in a suitable application after export</string>
+    <string>Opens the exported document in a suitable application after export</string>
    </property>
    <property name="statusTip">
-    <string>Opens the document in a suitable application after export</string>
+    <string>Opens the exported document in a suitable application after export</string>
    </property>
   </action>
   <action name="actionFilterLogbookEntries">
@@ -957,13 +957,13 @@ p, li { white-space: pre-wrap; }
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Filter Logbook Entries</string>
+    <string>&amp;Filter Logbook Entries</string>
    </property>
    <property name="toolTip">
-    <string>Filter out useless Logbook Entries when loading</string>
+    <string>Filter out incomplete logbook entries when loading</string>
    </property>
    <property name="statusTip">
-    <string>Filter out useless Logbook Entries when loading</string>
+    <string>Filter out incomplete logbook entries when loading</string>
    </property>
   </action>
   <action name="actionTableSelectAll">
@@ -971,7 +971,10 @@ p, li { white-space: pre-wrap; }
     <string>Select &amp;All</string>
    </property>
    <property name="toolTip">
-    <string>Select all Entries</string>
+    <string>Select all logbook entries in the table view</string>
+   </property>
+   <property name="statusTip">
+    <string>Select all logbook entries in the table view</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+A</string>
@@ -986,15 +989,13 @@ p, li { white-space: pre-wrap; }
     <string>&amp;Copy</string>
    </property>
    <property name="toolTip">
-    <string>Copy Text from Field</string>
+    <string>Copy selected logbook entries into the clipboard</string>
+   </property>
+   <property name="statusTip">
+    <string>Copy selected logbook entries into the clipboard</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+C</string>
-   </property>
-  </action>
-  <action name="actionPaths">
-   <property name="text">
-    <string>Paths</string>
    </property>
   </action>
   <action name="actionZoomIn">
@@ -1003,7 +1004,13 @@ p, li { white-space: pre-wrap; }
      <normaloff>:/littlelogbook/resources/icons/zoomin.svg</normaloff>:/littlelogbook/resources/icons/zoomin.svg</iconset>
    </property>
    <property name="text">
-    <string>Zoom In</string>
+    <string>Zoom &amp;In</string>
+   </property>
+   <property name="iconText">
+    <string>Increase font size in table view</string>
+   </property>
+   <property name="toolTip">
+    <string>Increase font size in table view</string>
    </property>
    <property name="shortcut">
     <string>Ctrl++</string>
@@ -1015,7 +1022,13 @@ p, li { white-space: pre-wrap; }
      <normaloff>:/littlelogbook/resources/icons/zoomout.svg</normaloff>:/littlelogbook/resources/icons/zoomout.svg</iconset>
    </property>
    <property name="text">
-    <string>Zoom Out</string>
+    <string>Zoom &amp;Out</string>
+   </property>
+   <property name="toolTip">
+    <string>Decrease font size in table view</string>
+   </property>
+   <property name="statusTip">
+    <string>Decrease font size in table view</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+-</string>
@@ -1026,7 +1039,13 @@ p, li { white-space: pre-wrap; }
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Default Zoom</string>
+    <string>&amp;Default Zoom</string>
+   </property>
+   <property name="toolTip">
+    <string>Reset font size in table view to default</string>
+   </property>
+   <property name="statusTip">
+    <string>Reset font size in table view to default</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+0</string>
@@ -1034,7 +1053,13 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionResetDatabase">
    <property name="text">
-    <string>Reset Logbook Database</string>
+    <string>&amp;Reset Logbook Database</string>
+   </property>
+   <property name="toolTip">
+    <string>Clear logbook database and reload all logbooks and airport information files</string>
+   </property>
+   <property name="statusTip">
+    <string>Clear logbook database and reload all logbooks and airport information files</string>
    </property>
   </action>
   <action name="actionExportAllKml">
@@ -1042,7 +1067,10 @@ p, li { white-space: pre-wrap; }
     <string>Export All as &amp;KML ...</string>
    </property>
    <property name="toolTip">
-    <string>Export All as Google Earth KML</string>
+    <string>Export all logbook entries to a Google Earth KML Document</string>
+   </property>
+   <property name="statusTip">
+    <string>Export all logbook entries to a Google Earth KML Document</string>
    </property>
   </action>
   <action name="actionExportSelectedKml">
@@ -1050,7 +1078,10 @@ p, li { white-space: pre-wrap; }
     <string>Export Selected as &amp;KML ...</string>
    </property>
    <property name="toolTip">
-    <string>Export Selected as Google Earth KML</string>
+    <string>Export selected logbook entries to a Google Earth KML Document</string>
+   </property>
+   <property name="statusTip">
+    <string>Export selected logbook entries to a Google Earth KML Document</string>
    </property>
   </action>
  </widget>

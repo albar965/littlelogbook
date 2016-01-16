@@ -600,7 +600,8 @@ QVariant SqlModel::data(const QModelIndex& index, int role) const
     else if(col.startsWith("instrument_time"))
       return Qt::AlignRight;
     else if(col.startsWith("distance"))
-      // TODO why is this still left aligned
+      return Qt::AlignRight;
+    else if(col.startsWith("num_flights"))
       return Qt::AlignRight;
     else
       return QSqlQueryModel::data(index, role);
