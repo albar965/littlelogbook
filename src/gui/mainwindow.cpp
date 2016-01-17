@@ -375,6 +375,9 @@ void MainWindow::resetDatabase()
 
   if(result == QMessageBox::Yes)
   {
+    // Let the dialog close and show the busy pointer
+    QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
+
     preDatabaseLoad();
     atools::fs::ap::AirportLoader(&db).dropDatabase();
     atools::fs::lb::LogbookLoader(&db).dropDatabase();
@@ -391,9 +394,10 @@ void MainWindow::pathDialog()
 {
   PathDialog d(this, &pathSettings);
   d.exec();
+  checkRunwaysFile();
 
   // Let the dialog close and show the busy pointer
-  QApplication::processEvents();
+  QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 
   checkAllFiles(false);
 }
@@ -411,12 +415,26 @@ void MainWindow::startupChecks()
 
     PathDialog d(this, &pathSettings);
     d.exec();
+    checkRunwaysFile();
   }
 
   // Let the dialog close and show the busy pointer
-  QApplication::processEvents();
+  QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 
   checkAllFiles(notifyReload);
+}
+
+void MainWindow::checkRunwaysFile()
+{
+  if(!pathSettings.isAnyRunwaysFileValid())
+    dialog->showInfoMsgBox(ll::constants::SETTINGS_SHOW_NO_RUNWAYS,
+                           QString(tr("<p>No Runways file found.</p>"
+                                        "<p>Get Peter Dowson's Make Runways utility and run it in your FSX folder "
+                                          "to show additional airport information and to allow the Google Earth KML export.</p>"
+                                          "<p><a href=\"http://www.schiratti.com/dowson.html\">"
+                                            "Download the Make Runways utility here.</a></p>"
+                                            "<p>Note that this is optional.</p>")),
+                           tr("Do not &show this dialog again."));
 }
 
 void MainWindow::exportAllCsv()
@@ -644,8 +662,8 @@ void MainWindow::checkRunwaysFile(SimulatorType type, bool notifyChange)
 
       if(notifyChange)
         dialog->showInfoMsgBox(ll::constants::SETTINGS_SHOW_RELOAD_RUNWAYS,
-                               QString(tr("Runways file<br/><i>%1</i><br/> is new or has changed.<br/>"
-                                          "Will reload now.")).
+                               QString(tr("<p>Runways file</p><p><i>%1</i></p><p>is new or has changed.</p>"
+                                          "<p>Will reload now.</p>")).
                                arg(QDir::toNativeSeparators(pathSettings.getRunwaysFile(type))),
                                tr("Do not &show this dialog again."));
 
@@ -667,7 +685,7 @@ void MainWindow::checkLogbookFile(SimulatorType type, bool notifyChange)
     qDebug() << "Need new logbook file. logbookFilename:" << pathSettings.getLogbookFile(type);
 
     dialog->showInfoMsgBox(ll::constants::SETTINGS_SHOW_NO_RUNWAYS,
-                           QString(tr("Logbook file<br/><i>%1</i><br/>not found.")).
+                           QString(tr("<p>Logbook file</p><p><i>%1</i></p><p>not found.</p>")).
                            arg(QDir::toNativeSeparators(pathSettings.getLogbookFile(type))),
                            tr("Do not &show this dialog again."));
   }
@@ -677,8 +695,8 @@ void MainWindow::checkLogbookFile(SimulatorType type, bool notifyChange)
     {
       if(notifyChange)
         dialog->showInfoMsgBox(ll::constants::SETTINGS_SHOW_RELOAD,
-                               QString(tr("Logbook file<br/><i>%1</i><br/> is new or has changed.<br/>"
-                                          "Will reload now.")).
+                               QString(tr("<p>Logbook file</p><p><i>%1</i></p><p>is new or has changed.</p>"
+                                          "<p>Will reload now.</p>")).
                                arg(QDir::toNativeSeparators(pathSettings.getLogbookFile(type))),
                                tr("Do not &show this dialog again."));
 

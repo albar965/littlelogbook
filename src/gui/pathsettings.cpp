@@ -112,6 +112,15 @@ bool PathSettings::isRunwaysFileValid(SimulatorType type) const
   return fi.exists() && fi.isReadable() && fi.isFile();
 }
 
+bool PathSettings::isAnyRunwaysFileValid() const
+{
+  for(SimulatorType type : atools::fs::ALL_SIMULATOR_TYPES)
+    if(isRunwaysFileValid(type))
+      return true;
+
+  return false;
+}
+
 void PathSettings::setLogbookFileLoaded(SimulatorType type)
 {
   QFileInfo fi = logbookPaths.at(type);

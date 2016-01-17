@@ -57,16 +57,16 @@ void HelpHandler::about()
 
   QMessageBox::about(parentWidget,
                      tr("About %1").arg(QApplication::applicationName()),
-                     tr("<b>%1</b><br/>"
-                        "is a logbook viewer and search tool for FSX.<br/><br/>"
-                        "This software is licensed under "
-                        "<a href=\"http://www.gnu.org/licenses/gpl-3.0\">GPL3</a> or any later version.<br/><br/>"
-                        "The source code for this application is available at "
-                        "<a href=\"https://github.com/albar965\">Github</a>.<br/><br/>"
-                        "<b>Copyright 2015-2016 Alexander Barthel (albar965@mailbox.org).</b><br/>"
-                        "<hr/>Version %2 (revision %3)<br/>"
-                        "atools Version %4 (revision %5)<br/>"
-                        "<hr/>%6:<br/><i>%7</i>").
+                     tr("<p><b>%1</b></p>"
+                        "<p>is a logbook viewer and search tool for FSX.</p>"
+                        "<p>This software is licensed under "
+                        "<a href=\"http://www.gnu.org/licenses/gpl-3.0\">GPL3</a> or any later version.</p>"
+                        "<p>The source code for this application is available at "
+                        "<a href=\"https://github.com/albar965\">Github</a>.</p>"
+                        "<p><b>Copyright 2015-2016 Alexander Barthel (albar965@mailbox.org).</b></p>"
+                        "<p><hr/>Version %2 (revision %3)</p>"
+                        "<p>atools Version %4 (revision %5)</p>"
+                        "<p><hr/>%6:</p><p><i>%7</i></p>").
                      arg(QApplication::applicationName()).
                      arg(QApplication::applicationVersion()).
                      arg(GIT_REVISION).

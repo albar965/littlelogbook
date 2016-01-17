@@ -42,6 +42,7 @@ public:
 
   bool isLogbookFileValid(atools::fs::SimulatorType type) const;
   bool isRunwaysFileValid(atools::fs::SimulatorType type) const;
+  bool isAnyRunwaysFileValid() const;
 
   void invalidateLogbookFile(atools::fs::SimulatorType type);
   void invalidateRunwaysFile(atools::fs::SimulatorType type);
