@@ -196,6 +196,7 @@ private:
   void setupUi();
 
   void checkRunwaysFile();
+
 };
 
 #endif // LITTLELOGBOOK_MAINWINDOW_H

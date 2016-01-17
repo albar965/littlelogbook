@@ -663,7 +663,7 @@ void MainWindow::checkRunwaysFile(SimulatorType type, bool notifyChange)
       if(notifyChange)
         dialog->showInfoMsgBox(ll::constants::SETTINGS_SHOW_RELOAD_RUNWAYS,
                                QString(tr("<p>Runways file</p><p><i>%1</i></p><p>is new or has changed.</p>"
-                                          "<p>Will reload now.</p>")).
+                                            "<p>Will reload now.</p>")).
                                arg(QDir::toNativeSeparators(pathSettings.getRunwaysFile(type))),
                                tr("Do not &show this dialog again."));
 
@@ -696,7 +696,7 @@ void MainWindow::checkLogbookFile(SimulatorType type, bool notifyChange)
       if(notifyChange)
         dialog->showInfoMsgBox(ll::constants::SETTINGS_SHOW_RELOAD,
                                QString(tr("<p>Logbook file</p><p><i>%1</i></p><p>is new or has changed.</p>"
-                                          "<p>Will reload now.</p>")).
+                                            "<p>Will reload now.</p>")).
                                arg(QDir::toNativeSeparators(pathSettings.getLogbookFile(type))),
                                tr("Do not &show this dialog again."));
 

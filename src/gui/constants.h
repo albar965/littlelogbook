@@ -68,7 +68,7 @@ extern const char *SETTINGS_EXPORT_KML_START_Y_HOTSPOT;
 extern const char *SETTINGS_EXPORT_KML_DEST_X_HOTSPOT;
 extern const char *SETTINGS_EXPORT_KML_DEST_Y_HOTSPOT;
 
-/* FSX logbook filename */
+/* Filenames */
 extern const char *LOGBOOK_FILENAME;
 extern const char *RUNWAYS_FILENAME;
 
@@ -78,7 +78,7 @@ extern const char *DEFAULT_HELP_LANG;
 /* Default database */
 extern const char *DATABASE_TYPE;
 
-/* Query constants */
+/* Query constants that are used in the line edit fields */
 extern const char *QUERY_PLACEHOLDER_CHAR;
 extern const char *QUERY_NEGATE_CHAR;
 

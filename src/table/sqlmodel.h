@@ -123,8 +123,10 @@ public:
     return currentSqlQuery;
   }
 
+  /* Emit signal fetchedMore */
   virtual void fetchMore(const QModelIndex& parent) override;
 
+  /* Get unformatted data from the model */
   QVariantList getRawData(int row) const;
   QStringList getRawColumns() const;
 
@@ -135,7 +137,6 @@ signals:
 private:
   struct WhereCondition
   {
-    QString column;
     QString oper; /* operator (like, not like) */
     QVariant value;
     const Column *col;

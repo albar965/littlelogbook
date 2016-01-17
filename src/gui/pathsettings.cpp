@@ -68,7 +68,7 @@ QString PathSettings::getSimulatorName(atools::fs::SimulatorType type)
   switch(type)
   {
     case atools::fs::FSX:
-      return QObject::tr("FSX Boxed");
+      return QObject::tr("FSX");
 
     case atools::fs::FSX_SE:
       return QObject::tr("FSX Steam Edition");

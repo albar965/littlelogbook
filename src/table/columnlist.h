@@ -29,7 +29,7 @@ class QLineEdit;
 class QComboBox;
 
 /*
- * A list of column descriptor that define behaviour and display in the table
+ * A list of column descriptors that define behaviour and display in the table
  * view.
  */
 class ColumnList :

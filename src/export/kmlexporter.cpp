@@ -253,8 +253,8 @@ void KmlExporter::writeFlight(QXmlStreamWriter& stream, QSqlRecord rec)
 {
   QString fromIcao(rec.value("airport_from_icao").toString());
   QString toIcao(rec.value("airport_to_icao").toString());
-  QSqlRecord fromRec(airportDetail(fromIcao));
-  QSqlRecord toRec(airportDetail(toIcao));
+  QSqlRecord fromRec(queryAirportDetail(fromIcao));
+  QSqlRecord toRec(queryAirportDetail(toIcao));
 
   QString fromCoord = QString("%1,%2,0").
                       arg(fromRec.value("longitude").toDouble()).
@@ -305,7 +305,7 @@ void KmlExporter::writeFlight(QXmlStreamWriter& stream, QSqlRecord rec)
   stream.writeEndElement(); // Folder
 }
 
-QSqlRecord KmlExporter::airportDetail(const QString& icao)
+QSqlRecord KmlExporter::queryAirportDetail(const QString& icao)
 {
   airportDetailQuery->bindValue(":icao", icao);
   airportDetailQuery->exec();

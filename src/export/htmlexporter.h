@@ -110,6 +110,8 @@ private:
 
   /* Check if multiple files for paging already exist and ask user for overwrite or not */
   bool askOverwriteDialog(const QString& basename, int totalPages);
+
+  /* Get the filename for the page including page number */
   QString filenameForPage(const QString& filename, int currentPage);
 
 };

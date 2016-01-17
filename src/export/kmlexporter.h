@@ -62,23 +62,42 @@ private:
   atools::sql::SqlQuery *airportDetailQuery = nullptr;
 
   QString lineColor, startIcon, destIcon;
-  double startScale = 1.5, destScale = 1.5;
+  double startScale, destScale;
   int lineWidth, startXHotspot, startYHotspot, destXHotspot, destYHotspot;
 
+  /* Show save file dialog */
   QString saveKmlFileDialog();
+
+  /* Open file and stream and write all header and style information */
   bool startFile(QFile& file, QXmlStreamWriter& stream);
+
+  /* Close file and tags */
   void endFile(QFile& file, QXmlStreamWriter& stream);
+
+  /* Write line style for routes */
   void writeLineStyle(QXmlStreamWriter& stream);
+
+  /* Write start and destination point styles */
   void writePointStyle(QXmlStreamWriter& stream, bool start);
+
+  /* Write flight with three placemarks - start, dest and line */
   void writeFlight(QXmlStreamWriter& stream, QSqlRecord rec);
 
-  QSqlRecord airportDetail(const QString& icao);
+  /* Get airport information from the database */
+  QSqlRecord queryAirportDetail(const QString& icao);
+
+  /* Create the airport details HTML code */
   QString airportDescription(QSqlRecord lbRec, QSqlRecord apRec, const QString& fromTo);
+
+  /* Create the flight details HTML code for the line*/
   QString flightDescription(QSqlRecord rec);
 
+  /* Show the user how many entries were skipped due to incomplete information */
   void skippedEntriesDialog(int skipped);
 
+  /* Prepare the SQL query on demand */
   void prepareQuery();
+
 };
 
 #endif // LITTLELOGBOOK_KMLEXPORTER_H

@@ -127,7 +127,7 @@ void SqlModel::filter(const QString& colName, const QVariant& value)
       whereConditionMap[colName].col = col;
     }
     else
-      whereConditionMap.insert(colName, {colName, condition, newVariant, col});
+      whereConditionMap.insert(colName, {condition, newVariant, col});
   }
   buildQuery();
 }
@@ -178,7 +178,7 @@ void SqlModel::filterBy(QModelIndex index, bool exclude)
   if(edit != nullptr)
     edit->setText((exclude ? ll::constants::QUERY_NEGATE_CHAR : "") + whereValue.toString());
 
-  whereConditionMap.insert(whereCol, {whereCol, whereOp, whereValue, col});
+  whereConditionMap.insert(whereCol, {whereOp, whereValue, col});
 }
 
 void SqlModel::getGroupByColumn(QModelIndex index)
@@ -216,7 +216,7 @@ void SqlModel::clearWhereConditions()
   {
     WhereCondition wc = *iter;
     whereConditionMap.clear();
-    whereConditionMap.insert(wc.column, wc);
+    whereConditionMap.insert(wc.col->getColumnName(), wc);
   }
   else
     whereConditionMap.clear();
@@ -375,7 +375,7 @@ QString SqlModel::buildWhere()
     {
       if(numCond++ > 0)
         queryWhere += " " + whereOperator + " ";
-      queryWhere += cond.column + " " + cond.oper + " ";
+      queryWhere += cond.col->getColumnName() + " " + cond.oper + " ";
       if(!cond.value.isNull())
         queryWhere += buildWhereValue(cond);
     }
@@ -383,7 +383,7 @@ QString SqlModel::buildWhere()
     {
       if(numAndCond++ > 0)
         queryWhereAnd += " and ";
-      queryWhereAnd += cond.column + " " + cond.oper + " ";
+      queryWhereAnd += cond.col->getColumnName() + " " + cond.oper + " ";
       if(!cond.value.isNull())
         queryWhereAnd += buildWhereValue(cond);
     }

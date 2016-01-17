@@ -82,7 +82,7 @@ bool HtmlExporter::askOverwriteDialog(const QString& basename, int totalPages)
   {
     int retval = QMessageBox::question(parentWidget, tr("Overwrite Files"),
                                        tr("<p>One or more additional files already exist.</p>"
-                                          "<p>%1</p><p>Overwrite?</p>").
+                                            "<p>%1</p><p>Overwrite?</p>").
                                        arg(existingFiles.join("")),
                                        QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
 
