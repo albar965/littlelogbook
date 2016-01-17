@@ -53,7 +53,8 @@ void Controller::clearModel()
   delete columns;
   columns = nullptr;
 
-  model->clear();
+  if(model != nullptr)
+    model->clear();
   delete model;
   model = nullptr;
 }
