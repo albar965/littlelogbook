@@ -98,6 +98,9 @@ private:
   /* Prepare the SQL query on demand */
   void prepareQuery();
 
+  /* Remove to avoid database locks */
+  void deleteQuery();
+
 };
 
 #endif // LITTLELOGBOOK_KMLEXPORTER_H

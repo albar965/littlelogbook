@@ -90,7 +90,7 @@ MainWindow::MainWindow() :
 
   updateDatabaseStatus();
   if(hasLogbook)
-    postDatabaseLoad();
+    postDatabaseLoad(true /* force */);
 
   connectAllSlots();
 
@@ -382,7 +382,7 @@ void MainWindow::resetDatabase()
     atools::fs::ap::AirportLoader(&db).dropDatabase();
     atools::fs::lb::LogbookLoader(&db).dropDatabase();
     updateDatabaseStatus();
-    postDatabaseLoad();
+    // postDatabaseLoad();
 
     pathSettings.invalidateAllLogbookFiles();
     pathSettings.invalidateAllRunwayFiles();
@@ -836,12 +836,6 @@ void MainWindow::filterLogbookEntries()
   }
 }
 
-void MainWindow::preDatabaseLoad()
-{
-  controller->resetSearch();
-  controller->clearModel();
-}
-
 void MainWindow::updateDatabaseStatus()
 {
   hasLogbook = atools::sql::SqlUtil(&db).hasTableAndRows("logbook");
@@ -849,21 +843,39 @@ void MainWindow::updateDatabaseStatus()
   hasAirports = atools::sql::SqlUtil(&db).hasTableAndRows("airport");
 }
 
-void MainWindow::postDatabaseLoad()
+void MainWindow::preDatabaseLoad()
 {
-  // Check if there are any logbook entries at all to disable most GUI elements
-  updateDatabaseStatus();
+  if(!hasDatabaseLoadStatus)
+  {
+    hasDatabaseLoadStatus = true;
+    controller->resetSearch();
+    controller->clearModel();
+  }
+  else
+    qDebug() << "Already in database loading status";
+}
 
-  controller->setHasLogbook(hasLogbook);
-  controller->setHasAirports(hasAirports);
+void MainWindow::postDatabaseLoad(bool force)
+{
+  if(hasDatabaseLoadStatus || force)
+  {
+    // Check if there are any logbook entries at all to disable most GUI elements
+    updateDatabaseStatus();
 
-  controller->prepareModel();
-  connectControllerSlots();
-  assignSearchFieldsToController();
+    controller->setHasLogbook(hasLogbook);
+    controller->setHasAirports(hasAirports);
 
-  updateWidgetsOnSelection();
-  updateWidgetStatus();
-  updateGlobalStats();
+    controller->prepareModel();
+    connectControllerSlots();
+    assignSearchFieldsToController();
+
+    updateWidgetsOnSelection();
+    updateWidgetStatus();
+    updateGlobalStats();
+    hasDatabaseLoadStatus = false;
+  }
+  else
+    qDebug() << "Not in database loading status";
 }
 
 void MainWindow::readSettings()

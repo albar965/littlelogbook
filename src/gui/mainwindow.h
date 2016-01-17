@@ -83,6 +83,7 @@ private:
 
   bool hasAirports = false;
   bool hasLogbook = false;
+  bool hasDatabaseLoadStatus = false;
 
   QString selectionLabelText;
   int defaultTableViewFontPointSize;
@@ -178,23 +179,49 @@ private:
   /* Show notification dialog about reloading */
   void filterLogbookEntries();
 
+  /* Open the path management dialog and reload database if needed */
   void pathDialog();
 
+  /* Clean model and queries before changing the database to avoid locks */
   void preDatabaseLoad();
-  void postDatabaseLoad();
+
+  /* Restore view and model after database changes */
+  void postDatabaseLoad(bool force = false);
+
+  /* Check for first start (show dialog then) or file changes (reload these) */
   void startupChecks();
+
   void assignSearchFieldsToController();
+
+  /* Update flags based on table presence */
   void updateDatabaseStatus();
+
+  /* Copy CSV like text of selected rows to clipboard */
   void tableCopyCipboard();
+
+  /* Change font size and store in settings */
   void zoomTableView(int value);
+
+  /* Update action status (enabled/disabled) */
   void enableDisableZoomActions();
+
+  /* Init table row height according to font size (smaller than default) */
   void initTableViewZoom();
+
+  /* Change font size and adjust row height accordingly */
   void setTableViewFontSize(int pointSize);
+
+  /* Reload all changed files */
   void checkAllFiles(bool notifyReload);
   void reloadChanged();
+
+  /* Drop all table and reload available files */
   void resetDatabase();
+
+  /* Private setup UI for all that cannot be done in designer */
   void setupUi();
 
+  /* Check if runways file has changed and reload if needed */
   void checkRunwaysFile();
 
 };

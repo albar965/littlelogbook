@@ -63,7 +63,7 @@ KmlExporter::KmlExporter(QWidget *parent, Controller *controller)
 
 KmlExporter::~KmlExporter()
 {
-  delete airportDetailQuery;
+  deleteQuery();
 }
 
 QString KmlExporter::saveKmlFileDialog()
@@ -96,32 +96,33 @@ int KmlExporter::exportAll(bool open)
   // Open file and write all headers including styles
   QFile file(filename);
   QXmlStreamWriter stream;
-  if(!startFile(file, stream))
-    return exported;
-
-  // Run the current query to get all results - not only the visible
-  SqlDatabase *db = controller->getSqlDatabase();
-  SqlQuery query(db);
-  query.exec(controller->getCurrentSqlQuery());
-
-  while(query.next())
+  if(startFile(file, stream))
   {
-    QSqlRecord rec = query.record();
-    if(!(rec.isNull("airport_from_name") || rec.isNull("airport_to_name")))
+    // Run the current query to get all results - not only the visible
+    SqlDatabase *db = controller->getSqlDatabase();
+    SqlQuery query(db);
+    query.exec(controller->getCurrentSqlQuery());
+
+    while(query.next())
     {
-      writeFlight(stream, rec);
-      exported++;
+      QSqlRecord rec = query.record();
+      if(!(rec.isNull("airport_from_name") || rec.isNull("airport_to_name")))
+      {
+        writeFlight(stream, rec);
+        exported++;
+      }
+      else
+        skipped++;
     }
-    else
-      skipped++;
+
+    endFile(file, stream);
+
+    skippedEntriesDialog(skipped);
+
+    if(open)
+      openDocument(filename);
   }
-
-  endFile(file, stream);
-
-  skippedEntriesDialog(skipped);
-
-  if(open)
-    openDocument(filename);
+  deleteQuery();
   return exported;
 }
 
@@ -139,30 +140,32 @@ int KmlExporter::exportSelected(bool open)
   // Open file
   QFile file(filename);
   QXmlStreamWriter stream;
-  if(!startFile(file, stream))
-    return exported;
-
-  QSqlRecord rec;
-  const QItemSelection sel = controller->getSelection();
-  for(QItemSelectionRange rng : sel)
-    for(int row = rng.top(); row <= rng.bottom(); ++row)
-    {
-      fillRecord(controller->getRawModelData(row), controller->getRawModelColumns(), rec);
-      if(!(rec.isNull("airport_from_name") || rec.isNull("airport_to_name")))
+  if(startFile(file, stream))
+  {
+    QSqlRecord rec;
+    const QItemSelection sel = controller->getSelection();
+    for(QItemSelectionRange rng : sel)
+      for(int row = rng.top(); row <= rng.bottom(); ++row)
       {
-        writeFlight(stream, rec);
-        exported++;
+        fillRecord(controller->getRawModelData(row), controller->getRawModelColumns(), rec);
+        if(!(rec.isNull("airport_from_name") || rec.isNull("airport_to_name")))
+        {
+          writeFlight(stream, rec);
+          exported++;
+        }
+        else
+          skipped++;
       }
-      else
-        skipped++;
-    }
 
-  endFile(file, stream);
+    endFile(file, stream);
 
-  skippedEntriesDialog(skipped);
+    skippedEntriesDialog(skipped);
 
-  if(open)
-    openDocument(filename);
+    if(open)
+      openDocument(filename);
+  }
+
+  deleteQuery();
   return exported;
 }
 
@@ -175,6 +178,15 @@ void KmlExporter::prepareQuery()
       "select longitude, latitude, altitude, max_runway_length, has_lights, has_ils "
       "from airport "
       "where icao = :icao");
+  }
+}
+
+void KmlExporter::deleteQuery()
+{
+  if(airportDetailQuery != nullptr)
+  {
+    delete airportDetailQuery;
+    airportDetailQuery = nullptr;
   }
 }
 
