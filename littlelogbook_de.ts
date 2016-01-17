@@ -50,14 +50,6 @@
         <translation>Beleuchtet</translation>
     </message>
     <message>
-        <source>Longest runway:</source>
-        <translation type="vanished">Längste Landebahn:</translation>
-    </message>
-    <message>
-        <source>Has lights</source>
-        <translation type="vanished">Beleuchtet</translation>
-    </message>
-    <message>
         <location filename="src/gui/airportinfo.cpp" line="73"/>
         <source>Has ILS</source>
         <translation>Hat ILS</translation>
@@ -392,10 +384,6 @@ Flights</source>
         <translation>Flugzeuge:</translation>
     </message>
     <message>
-        <source>Aircraft registirations:</source>
-        <translation type="vanished">Flugzeugregistrierungen:</translation>
-    </message>
-    <message>
         <location filename="src/gui/globalstats.cpp" line="152"/>
         <source>Night flight time</source>
         <oldsource>Average night flight time:</oldsource>
@@ -477,10 +465,6 @@ Flights</source>
         <location filename="src/export/htmlexporter.cpp" line="83"/>
         <source>Overwrite Files</source>
         <translation>Dateien überschreiben</translation>
-    </message>
-    <message>
-        <source>One or more additional files already exist.&lt;br/&gt;&lt;br/&gt;%1&lt;br/&gt;Overwrite?&lt;br/&gt;&lt;br/&gt;</source>
-        <translation type="vanished">Eine oder mehrere Dateien existieren bereits.&lt;br/&gt;&lt;br/&gt;%1&lt;br/&gt;Überschreiben?&lt;br/&gt;&lt;br/&gt;</translation>
     </message>
     <message>
         <location filename="src/export/htmlexporter.cpp" line="84"/>
@@ -972,17 +956,9 @@ Flights</source>
         <translation>Segelflugzeug</translation>
     </message>
     <message>
-        <source>Fixed wing</source>
-        <translation type="vanished">Starrflügel</translation>
-    </message>
-    <message>
         <location filename="src/gui/mainwindow.ui" line="288"/>
         <source>Amphibious</source>
         <translation>Amphibisch</translation>
-    </message>
-    <message>
-        <source>Rotary</source>
-        <translation type="vanished">Helikopter</translation>
     </message>
     <message>
         <location filename="src/gui/mainwindow.ui" line="354"/>
@@ -1079,15 +1055,6 @@ p, li { white-space: pre-wrap; }
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <source>&amp;Reload Logbook</source>
-        <translation type="vanished">&amp;Logbuch neu laden</translation>
-    </message>
-    <message>
-        <source>Reload the current logbook</source>
-        <oldsource>Reload the logbook</oldsource>
-        <translation type="vanished">Lädt das aktuelle Logbuch neu</translation>
-    </message>
-    <message>
         <location filename="src/gui/mainwindow.ui" line="615"/>
         <source>Ctrl+L</source>
         <translation>Ctrl+L</translation>
@@ -1149,22 +1116,10 @@ p, li { white-space: pre-wrap; }
         <translation>Gesamtstat&amp;istik</translation>
     </message>
     <message>
-        <source>Filter Logbook Entries</source>
-        <translation type="vanished">Logbucheinträge filtern</translation>
-    </message>
-    <message>
-        <source>Filter out useless Logbook Entries when loading</source>
-        <translation type="vanished">Filtert sinnlose Logbucheinträge beim Laden aus</translation>
-    </message>
-    <message>
         <location filename="src/gui/mainwindow.ui" line="989"/>
         <source>&amp;Copy</source>
         <oldsource>Copy</oldsource>
         <translation>&amp;Kopieren</translation>
-    </message>
-    <message>
-        <source>Copy Text from Field</source>
-        <translation type="vanished">Kopiert den Text aus dem Feld</translation>
     </message>
     <message>
         <location filename="src/gui/mainwindow.ui" line="998"/>
@@ -1268,15 +1223,6 @@ p, li { white-space: pre-wrap; }
         <location filename="src/gui/mainwindow.ui" line="739"/>
         <source>Show or hide the statusbar</source>
         <translation>Statuszeile anzeigen oder verstecken</translation>
-    </message>
-    <message>
-        <source>&amp;Open Logbook ...</source>
-        <translation type="vanished">Logbuch &amp;öffnen ...</translation>
-    </message>
-    <message>
-        <source>Open a new logbook file (Logbook.BIN)</source>
-        <oldsource>Open a new logbook file</oldsource>
-        <translation type="vanished">Öffnet eine neue Logbuchdatei (Logbook.BIN)</translation>
     </message>
     <message>
         <location filename="src/gui/mainwindow.ui" line="757"/>
@@ -1397,17 +1343,9 @@ p, li { white-space: pre-wrap; }
         <translation>&amp;Alles Auswählen</translation>
     </message>
     <message>
-        <source>Select all Entries</source>
-        <translation type="vanished">Alle Einträge auswählen</translation>
-    </message>
-    <message>
         <location filename="src/gui/mainwindow.ui" line="980"/>
         <source>Ctrl+A</source>
         <translation>Ctrl+A</translation>
-    </message>
-    <message>
-        <source>&amp;Reset all Messages</source>
-        <translation type="vanished">&amp;Dialogeinstellungen zurücksetzen</translation>
     </message>
     <message>
         <location filename="src/gui/mainwindow.ui" line="908"/>
@@ -1426,10 +1364,6 @@ p, li { white-space: pre-wrap; }
         <source>&amp;Open Document after Export</source>
         <oldsource>Open Document after Export</oldsource>
         <translation>&amp;Dokument nach Export öffnen</translation>
-    </message>
-    <message>
-        <source>Opens the document in a suitable application after export</source>
-        <translation type="vanished">Öffnet die exportierte Datei in einem passenden Programm</translation>
     </message>
     <message>
         <location filename="src/gui/mainwindow.cpp" line="150"/>
@@ -1574,35 +1508,6 @@ p, li { white-space: pre-wrap; }
         <location filename="src/gui/mainwindow.cpp" line="911"/>
         <source>Loading airports from &quot;%1&quot; (%2).</source>
         <translation>Lade Flugplatzinformationen von &quot;%1&quot; (%2).</translation>
-    </message>
-    <message>
-        <source>Reload the Logbook after changing Filter Settings.</source>
-        <translation type="vanished">Nach dem Ändern der Filtereinstellungen das Logbuch neu laden.</translation>
-    </message>
-    <message>
-        <source>Logbook Files (*.bin *.BIN);;All Files (*)</source>
-        <translation type="vanished">Logbuchdateien (*.bin *.BIN);;Alle Dateien (*)</translation>
-    </message>
-    <message>
-        <source>Runways file&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt; is new or has changed.&lt;br/&gt;Will reload now.</source>
-        <translation type="vanished">Die Runways-Datei&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt; ist neu oder wurde geändert.&lt;br/&gt;Die Datei wird neu geladen.</translation>
-    </message>
-    <message>
-        <source>Logbook file&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt;not found.</source>
-        <translation type="vanished">Logbuchdatei&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt;nicht gefunden.</translation>
-    </message>
-    <message>
-        <source>Logbook file&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt; is new or has changed.&lt;br/&gt;Will reload now.</source>
-        <translation type="vanished">Die Logbuchdatei&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt; ist neu oder wurde geändert.&lt;br/&gt;Die Datei wird neu geladen.</translation>
-    </message>
-    <message>
-        <source>Select the Logbook File (Logbook.BIN)</source>
-        <oldsource>Select the Logbook.BIN File</oldsource>
-        <translation type="vanished">Logbuchdatei auswählen (Logbook.BIN)</translation>
-    </message>
-    <message>
-        <source>Found logbook&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;.</source>
-        <translation type="vanished">Logbuchdatei &lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt;gefunden.</translation>
     </message>
     <message>
         <location filename="src/gui/mainwindow.cpp" line="932"/>
@@ -1933,17 +1838,9 @@ p, li { white-space: pre-wrap; }
         <translation>Rotor</translation>
     </message>
     <message>
-        <source>Fixed wing</source>
-        <translation type="vanished">Starrflügel</translation>
-    </message>
-    <message>
         <location filename="src/table/sqlmodel.cpp" line="527"/>
         <source>Amphibious</source>
         <translation>Amphibisch</translation>
-    </message>
-    <message>
-        <source>Rotary</source>
-        <translation type="vanished">Helikopter</translation>
     </message>
     <message>
         <location filename="src/table/sqlmodel.cpp" line="536"/>
