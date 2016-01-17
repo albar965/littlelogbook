@@ -393,13 +393,17 @@ void MainWindow::resetDatabase()
 void MainWindow::pathDialog()
 {
   PathDialog d(this, &pathSettings);
-  d.exec();
-  checkRunwaysFile();
+  int retval = d.exec();
 
-  // Let the dialog close and show the busy pointer
-  QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
+  if(retval == QDialog::Accepted)
+  {
+    checkRunwaysFile();
 
-  checkAllFiles(false);
+    // Let the dialog close and show the busy pointer
+    QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
+
+    checkAllFiles(false);
+  }
 }
 
 void MainWindow::startupChecks()
@@ -414,13 +418,16 @@ void MainWindow::startupChecks()
     notifyReload = false;
 
     PathDialog d(this, &pathSettings);
-    d.exec();
-    checkRunwaysFile();
+    int retval = d.exec();
+
+    if(retval == QDialog::Accepted)
+      checkRunwaysFile();
   }
 
   // Let the dialog close and show the busy pointer
   QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 
+  // Check for change files - even if dialog was cancelled
   checkAllFiles(notifyReload);
 }
 

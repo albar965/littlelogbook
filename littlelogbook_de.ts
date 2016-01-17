@@ -402,7 +402,7 @@ Flights</source>
     <message>
         <location filename="src/gui/globalstats.cpp" line="180"/>
         <source>No logbook entries found.</source>
-        <translation>Kein Logbucheinträge gefunden.</translation>
+        <translation>Keine Logbucheinträge gefunden.</translation>
     </message>
     <message>
         <location filename="src/gui/globalstats.cpp" line="184"/>
@@ -531,7 +531,7 @@ Flights</source>
     <message>
         <location filename="src/export/kmlexporter.cpp" line="80"/>
         <source>%1 logbook entries were not exported due to missing start or destination airport coordinates.</source>
-        <translation>%1 Logbucheinträge wurden nicht exportiert aufgrund fehlender Start- oder Zielkoordinaten.</translation>
+        <translation>%1 Logbucheinträge wurden aufgrund fehlender Start- oder Zielkoordinaten nicht exportiert.</translation>
     </message>
     <message>
         <location filename="src/export/kmlexporter.cpp" line="82"/>
@@ -1073,7 +1073,7 @@ p, li { white-space: pre-wrap; }
         <location filename="src/gui/mainwindow.ui" line="751"/>
         <location filename="src/gui/mainwindow.ui" line="754"/>
         <source>Opens the paths dialog to select logbook and airport information files</source>
-        <translation>Öffnet den Pfaddialog um Logbuch- und Flugplatzdateien auszuwählen</translation>
+        <translation>Öffnet den Pfaddialog, um Logbuch- und Flugplatzdateien auszuwählen</translation>
     </message>
     <message>
         <location filename="src/gui/mainwindow.ui" line="781"/>
@@ -1372,32 +1372,32 @@ p, li { white-space: pre-wrap; }
         <translation>%1 von %2 Logbucheinträgen ausgewählt, %3 sichtbar.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="443"/>
         <location filename="src/gui/mainwindow.cpp" line="449"/>
+        <location filename="src/gui/mainwindow.cpp" line="455"/>
         <source>Exported %1 logbook entries to CSV document.</source>
         <translation>%1 Logbucheinträge in CSV-Datei exportiert.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="455"/>
         <location filename="src/gui/mainwindow.cpp" line="461"/>
+        <location filename="src/gui/mainwindow.cpp" line="467"/>
         <source>Exported %1 logbook entries to HTML document.</source>
         <translation>%1 Logbucheinträge in HTML-Datei exportiert.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="490"/>
+        <location filename="src/gui/mainwindow.cpp" line="496"/>
         <source>Reset sort order, column order and column sizes to default?</source>
         <translation>Sortierreihenfolge, Spaltenreihenfolge und Spaltengrößen auf Standard zurücksetzen?</translation>
     </message>
     <message>
         <location filename="src/gui/mainwindow.cpp" line="372"/>
-        <location filename="src/gui/mainwindow.cpp" line="437"/>
-        <location filename="src/gui/mainwindow.cpp" line="491"/>
-        <location filename="src/gui/mainwindow.cpp" line="654"/>
-        <location filename="src/gui/mainwindow.cpp" line="668"/>
-        <location filename="src/gui/mainwindow.cpp" line="690"/>
-        <location filename="src/gui/mainwindow.cpp" line="701"/>
-        <location filename="src/gui/mainwindow.cpp" line="818"/>
-        <location filename="src/gui/mainwindow.cpp" line="1146"/>
+        <location filename="src/gui/mainwindow.cpp" line="443"/>
+        <location filename="src/gui/mainwindow.cpp" line="497"/>
+        <location filename="src/gui/mainwindow.cpp" line="660"/>
+        <location filename="src/gui/mainwindow.cpp" line="674"/>
+        <location filename="src/gui/mainwindow.cpp" line="696"/>
+        <location filename="src/gui/mainwindow.cpp" line="707"/>
+        <location filename="src/gui/mainwindow.cpp" line="824"/>
+        <location filename="src/gui/mainwindow.cpp" line="1152"/>
         <source>Do not &amp;show this dialog again.</source>
         <translation>&amp;Diesen Dialog nicht wieder anzeigen.</translation>
     </message>
@@ -1434,7 +1434,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="src/gui/mainwindow.cpp" line="359"/>
         <source>No changed Logbooks found.</source>
-        <translation>Keine geänderten Logbucheinträge gefunden</translation>
+        <translation>Keine geänderten Logbuchdateien gefunden.</translation>
     </message>
     <message>
         <location filename="src/gui/mainwindow.cpp" line="370"/>
@@ -1442,105 +1442,105 @@ p, li { white-space: pre-wrap; }
         <translation>Alle Logbuch- und Flugplatzinformationen in der internen Datenbank löschen und alle verfügbaren Dateien neu laden?</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="431"/>
+        <location filename="src/gui/mainwindow.cpp" line="437"/>
         <source>&lt;p&gt;No Runways file found.&lt;/p&gt;&lt;p&gt;Get Peter Dowson&apos;s Make Runways utility and run it in your FSX folder to show additional airport information and to allow the Google Earth KML export.&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.schiratti.com/dowson.html&quot;&gt;Download the Make Runways utility here.&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Note that this is optional.&lt;/p&gt;</source>
         <oldsource>&lt;p&gt;No Runways file found.&lt;/p&gt;&lt;p&gt;Get Peter Dowson&apos;s Make Runways utility and run it in your FSX folder to show airport, city, state and country names and also to allow the Google Earth KML export.&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.schiratti.com/dowson.html&quot;&gt;Download the Make Runways utility here.&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Note that this is optional.&lt;/p&gt;</oldsource>
         <translation>&lt;p&gt;Keine Runways-Datei gefunden.&lt;/p&gt;&lt;p&gt;Lade Peter Dowsons Make Runways Utility herunter und führe es im FSX-Ordner aus, um zusätzliche Flugplatzinformationen anzuzeigen und den Google Earth KML Export zu ermöglichen.&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.schiratti.com/dowson.html&quot;&gt;Das Make Runways Utility kann hier heruntergeladen werden.&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Diese Installation ist optional.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="467"/>
         <location filename="src/gui/mainwindow.cpp" line="473"/>
+        <location filename="src/gui/mainwindow.cpp" line="479"/>
         <source>Exported %1 logbook entries to KML document.</source>
         <translation>%1 Logbucheinträge in KML-Datei exportiert.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="500"/>
+        <location filename="src/gui/mainwindow.cpp" line="506"/>
         <source>View reset to default.</source>
         <translation>Standardansicht wiederhergestellt.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="511"/>
+        <location filename="src/gui/mainwindow.cpp" line="517"/>
         <source>Search filters cleared.</source>
         <translation>Alle Suchfilter zurückgesetzt.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="518"/>
+        <location filename="src/gui/mainwindow.cpp" line="524"/>
         <source>All logbook entries read.</source>
         <translation>Alle Logbucheinträge gelesen.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="525"/>
+        <location filename="src/gui/mainwindow.cpp" line="531"/>
         <source>Grouping released.</source>
         <translation>Gruppierung aufgelöst.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="547"/>
+        <location filename="src/gui/mainwindow.cpp" line="553"/>
         <source>All message dialogs reset.</source>
         <translation>Dialogeinstellungen zurückgesetzt.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="647"/>
+        <location filename="src/gui/mainwindow.cpp" line="653"/>
         <source>Runways file&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt;not found.&lt;br/&gt;Get Peter Dowson&apos;s Make Runways utility and run it in your FSX folder to show airport, city, state and country names.&lt;br/&gt;&lt;a href=&quot;http://www.schiratti.com/dowson.html&quot;&gt;Download the Make Runways utility here.&lt;/a&gt;&lt;br/&gt;Note that this is optional.</source>
         <oldsource>Runways file&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt;not found.&lt;br/&gt;Get Peter Dowson&apos;s Make Runways utility and run it in your FSX folder to show airport, city, state and country names.&lt;br/&gt;&lt;a href=&quot;http://www.schiratti.com/dowson.html&quot;&gt;Download the Make Runways utility here.&lt;/a&gt;</oldsource>
         <translation>Die-Datei&lt;br/&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br/&gt;wurde nicht gefunden.&lt;br/&gt;Lade Peter Dowsons Make Runways Utility herunter und führe es im FSX-Ordner aus, um Flugplatz-, Stadt-, Bundesstaat- und Landesnamen anzuzeigen.&lt;br/&gt;&lt;a href=&quot;http://www.schiratti.com/dowson.html&quot;&gt;Das Make Runways Utility kann hier heruntergeladen werden.&lt;/a&gt;&lt;br/&gt;Diese Installation ist optional.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="665"/>
+        <location filename="src/gui/mainwindow.cpp" line="671"/>
         <source>&lt;p&gt;Runways file&lt;/p&gt;&lt;p&gt;&lt;i&gt;%1&lt;/i&gt;&lt;/p&gt;&lt;p&gt;is new or has changed.&lt;/p&gt;&lt;p&gt;Will reload now.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Die Runways-Datei&lt;/p&gt;&lt;p&gt;&lt;i&gt;%1&lt;/i&gt;&lt;/p&gt;&lt;p&gt; ist neu oder wurde geändert.&lt;/p&gt;&lt;p&gt;Die Datei wird neu geladen.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="688"/>
+        <location filename="src/gui/mainwindow.cpp" line="694"/>
         <source>&lt;p&gt;Logbook file&lt;/p&gt;&lt;p&gt;&lt;i&gt;%1&lt;/i&gt;&lt;/p&gt;&lt;p&gt;not found.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Logbuchdatei&lt;/p&gt;&lt;p&gt;&lt;i&gt;%1&lt;/i&gt;&lt;/p&gt;&lt;p&gt;nicht gefunden.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="698"/>
+        <location filename="src/gui/mainwindow.cpp" line="704"/>
         <source>&lt;p&gt;Logbook file&lt;/p&gt;&lt;p&gt;&lt;i&gt;%1&lt;/i&gt;&lt;/p&gt;&lt;p&gt;is new or has changed.&lt;/p&gt;&lt;p&gt;Will reload now.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Die Logbuchdatei&lt;/p&gt;&lt;p&gt;&lt;i&gt;%1&lt;/i&gt;&lt;/p&gt;&lt;p&gt; ist neu oder wurde geändert.&lt;/p&gt;&lt;p&gt;Die Datei wird neu geladen.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="817"/>
+        <location filename="src/gui/mainwindow.cpp" line="823"/>
         <source>Logbooks will be reloaded.</source>
         <translation>Logbuchdateien werden neu geladen.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="911"/>
+        <location filename="src/gui/mainwindow.cpp" line="917"/>
         <source>Loading airports from &quot;%1&quot; (%2).</source>
         <translation>Lade Flugplatzinformationen von &quot;%1&quot; (%2).</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="932"/>
+        <location filename="src/gui/mainwindow.cpp" line="938"/>
         <source>Loaded %1 airports.</source>
         <translation>%1 Flugplätze geladen.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="942"/>
+        <location filename="src/gui/mainwindow.cpp" line="948"/>
         <source>Airport import failed.</source>
         <translation>Laden der Flugplätze fehlgeschlagen.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="987"/>
+        <location filename="src/gui/mainwindow.cpp" line="993"/>
         <source>Loading Logbook entries from &quot;%1&quot; (%2).</source>
         <translation>Lade Logbucheinträge von &quot;%1&quot; (%2).</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="1009"/>
+        <location filename="src/gui/mainwindow.cpp" line="1015"/>
         <source>Loaded %1 logbook entries.</source>
         <translation>%1 Logbucheinträge geladen.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="1015"/>
+        <location filename="src/gui/mainwindow.cpp" line="1021"/>
         <source>Logbook import failed.</source>
         <translation>Laden der Logbuches fehlgeschlagen.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="1026"/>
+        <location filename="src/gui/mainwindow.cpp" line="1032"/>
         <source>Copied %1 logbook entries to clipboard.</source>
         <translation>%1 Logbucheinträge in die Zwischenablage kopiert.</translation>
     </message>
     <message>
-        <location filename="src/gui/mainwindow.cpp" line="1145"/>
+        <location filename="src/gui/mainwindow.cpp" line="1151"/>
         <source>Really Quit?</source>
         <translation>Wirklich beenden?</translation>
     </message>
@@ -1765,9 +1765,13 @@ p, li { white-space: pre-wrap; }
         <translation>Ungültiges Datum</translation>
     </message>
     <message>
-        <location filename="src/gui/pathsettings.cpp" line="71"/>
         <source>FSX Boxed</source>
-        <translation>FSX Boxed</translation>
+        <translation type="vanished">FSX Boxed</translation>
+    </message>
+    <message>
+        <location filename="src/gui/pathsettings.cpp" line="71"/>
+        <source>FSX</source>
+        <translation>FSX</translation>
     </message>
     <message>
         <location filename="src/gui/pathsettings.cpp" line="74"/>
@@ -1785,12 +1789,12 @@ p, li { white-space: pre-wrap; }
         <translation>Prepar3d V3</translation>
     </message>
     <message>
-        <location filename="src/main.cpp" line="52"/>
+        <location filename="src/main.cpp" line="72"/>
         <source>%1 - Error</source>
         <translation>%1 - Fehler</translation>
     </message>
     <message>
-        <location filename="src/main.cpp" line="53"/>
+        <location filename="src/main.cpp" line="73"/>
         <source>%1 is already running.</source>
         <translation>%1 wurde schon gestartet.</translation>
     </message>

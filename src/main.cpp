@@ -44,17 +44,6 @@ int main(int argc, char *argv[])
   QCoreApplication::setOrganizationDomain("abarthel.org");
   QCoreApplication::setApplicationVersion("1.5.0.beta");
 
-#if defined(Q_OS_WIN32)
-  // Detect second running application - this is unsafe on Unix since shm can remain after crashes
-  QSharedMemory shared("7ac8013e-b1c4-4d7f-83ed-1fc201cf004c");
-  if(!shared.create(512, QSharedMemory::ReadWrite))
-  {
-    QMessageBox::critical(nullptr, QObject::tr("%1 - Error").arg(QApplication::applicationName()),
-                          QObject::tr("%1 is already running.").arg(QApplication::applicationName()));
-    return 1;
-  }
-#endif
-
   try
   {
     using atools::logging::LoggingHandler;
@@ -74,6 +63,17 @@ int main(int argc, char *argv[])
     Settings& s = Settings::instance();
     // Load local and Qt system translations from various places
     Translator::load(s->value(ll::constants::SETTINGS_LANGUAGE, QString()).toString());
+
+#if defined(Q_OS_WIN32)
+    // Detect other running application instance - this is unsafe on Unix since shm can remain after crashes
+    QSharedMemory shared("7ac8013e-b1c4-4d7f-83ed-1fc201cf004c"); // generated GUID
+    if(!shared.create(512, QSharedMemory::ReadWrite))
+    {
+      QMessageBox::critical(nullptr, QObject::tr("%1 - Error").arg(QApplication::applicationName()),
+                            QObject::tr("%1 is already running.").arg(QApplication::applicationName()));
+      return 1;
+    }
+#endif
 
     // Write version to configuration file
     QString oldVersion = s->value(ll::constants::SETTINGS_VERSION).toString();
