@@ -7,7 +7,7 @@
     <meta http-equiv="language" content="DE" />
     <meta name="generator" content="HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
     <meta name="author" content="Alexander Barthel" />
-    <meta name="date" content="2015-12-01T22:35:00+01:00" />
+    <meta name="date" content="2016-01-18T22:35:00+01:00" />
     <title>
       Little Logbook Hilfe
     </title>
@@ -40,6 +40,28 @@
     img {
     margin-top: 0.2em;
     margin-bottom: 0.2em;
+    border-bottom: 2px solid darkgreen;
+    border-top: 2px solid darkgreen;
+    border-left: 2px solid darkgreen;
+    border-right: 2px solid darkgreen;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: white;
+    }
+    .textimg {
+    margin-top: 0em;
+    margin-bottom: 0em;
+    border-bottom: 0px;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    background-color: white;
     }
     p {
     margin-left: 1.5em;
@@ -99,12 +121,9 @@
     <meta content="Little Logbook Hilfe" name="description" />
     <style type="text/css" xml:space="preserve">
 /*<![CDATA[*/
-    :link { color: #0000EE }
-    :visited { color: #551A8B }
-    :active { color: #EE0000 }
     body.c3 { color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);}
-    img.c2 {width: 166px; height: 82px;}
-    span.c1 {font-weight: bold;}
+    img.gplimg {width: 166px; height: 82px;}
+    span.bold {font-weight: bold;}
     /*]]>*/
     </style>
   </head>
@@ -124,12 +143,14 @@
       mehrerer Parameter sowie den Export in HTML-, CSV- und Google Earth KML-Dokumente.
     </p>
     <p>
-      Zusammen mit den <a href="http://www.schiratti.com/dowson.html">MakeRunways Utility</a> von
-      Peter Dowson werden über das eigentliche Logbuch hinaus zusätzliche Informationen zu
-      Flugplätzen angezeigt und der Google Earth KML Export ermöglicht.
+      Der automatische Import von Logbuchdateien aus mehreren Flugsimulatoren wird unterstützt.
+      Dazu zählen FSX (Boxed, Acceleration, Gold), FSX Steam Edition, Prepar3d Version 2 und
+      Prepar3d Version 3.
     </p>
     <p>
-      Prepare3d oder FSX SE wurden bisher nicht getestet.
+      Zusammen mit den <a href="http://www.schiratti.com/dowson.html">MakeRunways Utility</a> von
+      Peter Dowson werden über das eigentliche Logbuch hinaus zusätzliche Informationen zu
+      Flugplätzen angezeigt und der Google Earth KML-Export ermöglicht.
     </p>
     <h2>
       Installation
@@ -138,7 +159,7 @@
       Ein Installer bzw. Setup-Programm steht nicht zur Verfügung.
     </p>
     <p>
-      <span class="c1">Das Archiv sollte nicht in <code>c:\Programme\</code> oder in
+      <span class="bold">Das Archiv sollte nicht in <code>c:\Programme\</code> oder in
       <code>c:\Programme (x86)\</code> installiert werden, da dazu unter manchen Windows Versionen
       Administratorrechte nötig sind. Da Windows Kontrolle über diese Ordner behält, können weitere
       Probleme auftreten, wie gelöschte oder ersetzte Dateien.</span>
@@ -149,20 +170,52 @@
       <code>littlelogbook.exe</code> starten.
     </p>
     <p>
-      <em>Little Logbook</em> ist eine 32 Bit Anwendung und wurde unter Windows XP, Windows 7 64
-      Bit und Windows 8.1 64 Bit getestet.
+      <em>Little Logbook</em> ist eine 32 Bit Anwendung und wurde unter Windows XP 32 Bit, Windows
+      7 64 Bit und Windows 8.1 64 Bit getestet.
     </p>
     <h2>
       Erster Start
     </h2>
     <p>
-      Das Programm versucht beim ersten Start die Datei <code>Logbook.BIN</code> zu finden und in
-      eine interne Datenbank zu lesen. Wird die Datei nicht gefunden, erscheint ein
-      Dateiauswahldialog, mit dem <code>Logbook.BIN</code> ausgewählt werden kann.
+      Das Programm ermittelt beim ersten Start automatisch die installierten Simulatoren und die
+      dazugehörigen Logbuchdateien, ebenso wie eventuell vorhandene Dateien des <em>MakeRunways
+      Utility</em>. Anschließend wird der Dialog <code>Pfade und Dateien</code> dargestellt, der
+      für jeden gefunden Simulator einen Tab anzeigt.
     </p>
     <p>
-      Das Programm merkt sich die zuletzt ausgewählte Logbuchdatei. Falls Änderungen beim Start
-      festgestellt werden, wird die Datei neu in die interne Datenbank geladen.
+      Im Dialog <code>Pfade und Dateien</code> werden die gefundenen Dateien angezeigt und können
+      bei Bedarf geändert werden. Bei Bestätigung des Dialoges werden alle Dateien mit gültigem
+      Pfad in die interne Datenbank von <em>Little Logbook</em> geladen.
+    </p>
+    <p>
+      Dateien, deren Pfad korrekt ist und die lesbar sind, werden mit einem grünen Haken
+      <img class="textimg" alt="Datei OK" title="Datei OK" src="images/check.png" /> angezeigt,
+      nicht existierende oder nicht lesbare Dateien mit einen Ausrufezeichen <img class="textimg"
+      alt="Datei OK" title="Datei OK" src="images/exclamation.png" />. Der Inhalt der Dateien wird
+      erst beim Laden überprüft. Daher sollten auch nur korrekte Logbuch- und Runways-Dateien
+      angegeben werden. Ungültige Pfade werden ignoriert.
+    </p>
+    <p>
+      Mindestens eine gültige <code>Logbook.BIN</code>-Logbuchdatei sollte angegeben werden um
+      <em>Little Logbook</em> nutzen zu können. Alle weiteren Dateien sind optional.
+    </p>
+    <p>
+      <img alt="Pfade und Dateien" title="Pfade und Dateien" src="images/paths.png" />
+    </p>
+    <p>
+      <span class="bold">Bild oben:</span> Der Dialog <code>Pfade und Dateien</code> zeigt eine
+      gültige <code>Logbook.BIN</code>- und eine gültige <code>runways.xml</code>-Datei an.
+      Letztere ist optional und ermöglicht die Darstellunge zusätzlicher Flugplatzinformationen.
+    </p>
+    <p>
+      Nur ein installierter Simulator wurde erkannt.
+    </p>
+    <p>
+      Das Programm merkt sich die zuletzt ausgewählten Dateien. Falls Änderungen beim Programmstart
+      festgestellt werden, werden die jeweiligen Dateien neu in die interne Datenbank geladen. Wenn
+      ein Dateipfad oder eine Datei gelöscht werden, verbleiben die Logbucheinträge in der internen
+      Datenbank, bis diese mit dem Menüpunkt <code>Logbuchdatenbank zurücksetzen</code> entfernt
+      werden.
     </p>
     <h2>
       MakeRunways Utility
@@ -170,7 +223,8 @@
     <p>
       Wenn das <em>MakeRunways</em> Utility von Peter Dowson installiert und ausgeführt wurde,
       können über die Datei <code>runways.xml</code> im FSX-Basisverzeichnis zusätzliche
-      Informationen über Flugplätze angezeigt werden.
+      Informationen über Flugplätze angezeigt werden. Ebenso wird diese Datei für den Google Earth
+      KML-Export benötigt.
     </p>
     <p>
       Zusätzliche Informationen, die in der Tabellenansicht dargestellt und durchsucht werden
@@ -181,12 +235,13 @@
       <img alt="Airport Tooltip" title="Airport Tooltip" src="images/aptooltip.png" />
     </p>
     <p>
-      <span class="c1">Bild oben:</span> Flugplatzinformationen, die angezeigt werden, wenn
+      <span class="bold">Bild oben:</span> Flugplatzinformationen, die angezeigt werden, wenn
       <code>runways.xml</code> geladen wurde.
     </p>
     <p>
-      Falls die <code>runways.xml</code>-Datei gefunden und geladen wurde, wird sie auf zukünftige
-      Änderungen überwacht und bei Bedarf neu geladen.
+      Falls <code>runways.xml</code>-Dateien im <code>Pfade und Dateien</code>-Dialog eingetragen
+      wurden, werden diese bei jeden Programmstart auf zukünftige Änderungen überwacht und neu
+      geladen, wenn nötig.
     </p>
     <p>
       Das <em>MakeRunways</em> Utility kann auf <a href=
@@ -199,23 +254,25 @@
       Datei
     </h3>
     <h4>
-      Logbuch öffnen ...
+      Logbuchdateien öffnen ...
     </h4>
     <p>
-      <img alt="Logbuch öffnen" title="Logbuch öffnen" src="images/open.png" />
+      <img alt="Logbuchdateien öffnen" title="Logbuchdateien öffnen" src="images/open.png" />
     </p>
     <p>
-      Öffnet eine andere <code>Logbook.BIN</code>-Datei und lädt diese in die interne Datenbank.
-      <em>Little Logbook</em> merkt sich anschließend die Datei und überwacht sie auf Änderungen.
+      Öffnet den <code>Pfade und Dateien</code>-Dialog der Korrekturen und Änderungen erläubt.
+      Gültige Dateien werden automatisch in die interne Datenbank von <em>Little Logbook</em>
+      gelesen.
     </p>
     <h4>
-      Logbuch neu laden
+      Logbücher aktualisieren ...
     </h4>
     <p>
-      <img alt="Logbuch neu laden" title="Logbuch neu laden" src="images/reload.png" />
+      <img alt="Logbücher aktualisieren" title="Logbücher aktualisieren" src="images/reload.png" />
     </p>
     <p>
-      Lädt die früher ausgewählte <code>Logbook.BIN</code>-Datei neu in die interne Datenbank.
+      Überprüft alle im <code>Pfade und Dateien</code>-Dialog eingetragenen Dateien auf Änderungen
+      und lädt diese neu.
     </p>
     <h4>
       Beenden
@@ -280,20 +337,34 @@
       Eine vorher erstellte Gruppierung wird aufgelöst und zur normalen Ansicht zurückgekehrt.
       Siehe weiter unten zum Erstellen von Gruppierungen.
     </p>
+    <h4>
+      Vergrößern, Verkleinern und Standardschriftgröße
+    </h4>
+    <p>
+      <img alt="Vergrößern" title="Vergrößern" src="images/zoomin.png" /> <img alt="Verkleinern"
+      title="Verkleinern" src="images/zoomout.png" />
+    </p>
+    <p>
+      Ändert die Schriftgröße und die Zellenhöhe in der Tabellenansicht. Die Einstellungen werden
+      gespeichert.
+    </p>
     <h3>
       Export
     </h3>
     <p>
       Entweder alle oder nur die ausgewählten Logbucheinträge in der Tabellenansicht können
-      exportiert werden.
+      exportiert werden. Wenn die angezeigten Logbucheinträge durch eine Suche eingeschränkt
+      wurden, werden auch nur diese durch die Menüpunkte <code>Alle Einträge als ... Exportieren
+      ...</code> gespeichert.
     </p>
     <h4>
       Datei nach Export öffnen
     </h4>
     <p>
       Wenn diese Menüpunkt ausgewählt ist, werden die Dateien nach dem Export in einem passenden
-      Programm geöffnet. Für HTML ist das der Standardbrowser und für CSV beispielsweise Excel oder
-      LibreOffice Calc.
+      Programm geöffnet. Für HTML ist das der Standardbrowser, für CSV beispielsweise
+      <em>Excel</em> oder <em>LibreOffice Calc</em> und für KML <em>Google Earth</em> oder
+      <em>Marble</em>.
     </p>
     <h4>
       Alle Einträge als CSV exportieren ...
@@ -327,19 +398,94 @@
       Möglichkeit, das exportierte Dokument im begrenzten Maße zu gestalten.
     </p>
     <p>
-      Zu große Dateien können zu langen Ladenzeiten führen oder den Browser zum Absturz bringen.
-      Daher sollte die Anzahl der Einträge durch Filter oder eine passende Auswahl auf unter 5.000
-      Logbucheinträge begrenzt werden.
+      Der HTML-Export erstellt standarmäßig ab 500 Logbucheinträgen einen neue HTML-Datei, wobei
+      alle Dateien zusammen verlinkt werden (sogenanntes Paging). Die Anzahl der maximalen
+      Logbucheinträge kann in der <em>Little Logbook</em> Konfigurationsdatei eingestellt werden.
+      Mehr dazu im Anhand dieses Dokumentes.
+    </p>
+    <h4>
+      Alle Einträge als KML exportieren ...
+    </h4>
+    <h4>
+      Ausgewählte Einträge als KML exportieren ...
+    </h4>
+    <p>
+      Benötigt eine gültige <code>runways.xml</code>-Datei. Exportiert Logbucheinträge in eine
+      <em>Google Earth</em> KML-Datei. Diese Datei ermöglicht die Darstellung der Logbucheinträge
+      in einer Karte. Wenn nicht alle Logbucheinträge aufgrund unvollständiger Informationen
+      exportiert werden können, wird dies nach dem Export angezeigt.
+    </p>
+    <p>
+      Folgende Daten werden pro Logbucheintrag exportiert:
+    </p>
+    <ul>
+      <li>Grüner Marker für den Start inklusive Flugplatzinformationen.
+      </li>
+      <li>Roter Marker für das Ziel Start inklusive Flugplatzinformationen.
+      </li>
+      <li>Gelbe Linie, welche die Luftlinenverbindung zwischen Start- und Zielflugplatz anzeigt.
+      Das Linienobjekt enthält Fluginformationen, wie Entfernung, Flugzeit und mehr.
+      </li>
+    </ul>
+    <p>
+      <img alt="Fluginformationen" title="Fluginformationen" src="images/mapflightinfo.png" />
+      <img alt="Flugplatzinformationen" title="Flugplatzinformationen" src=
+      "images/mapairportinfo.png" />
+    </p>
+    <p>
+      <span class="bold">Bilder oben:</span> Flug- und Flugplatzinformationen, die mit der
+      KML-Datei gespeichert und in <em>Goole Earth</em> angezeigt werden können.
+    </p>
+    <p>
+      <img alt="KML Beispiel" title="KML Beispiel" src="images/mapexample.png" />
+    </p>
+    <p>
+      <span class="bold">Bild oben:</span>Alle Flüge, die einen Startflugplatz in Deutschland und
+      einen Zielflugplatz in Spanien haben.
+    </p>
+    <p>
+      Bestimmte Aspekte des KML-Exportes können in der Konfigurationsdatei angepasst werden. Dazu
+      mehr im Anhang der Hilfe.
     </p>
     <h3>
       Extras
     </h3>
+    <h4>
+      Logbucheinträge filtern
+    </h4>
+    <p>
+      Wenn diese Option eingeschaltet ist, werden beim Import der Logbuchdateien unvollständige
+      Einträge übersprungen. Logbucheinträge werden durch folgende Kriterien durch den Filter
+      ignoriert:
+    </p>
+    <ul>
+      <li>Flugzeit unter fünf Minuten
+      </li>
+      <li>Start- und Zielflugplatz nicht gesetzt
+      </li>
+      <li>Start- und Zielflugplatz sind gleich
+      </li>
+      <li>Datum ist ungültig
+      </li>
+    </ul>
+    <p>
+      Der Filter kann in der Konfigurationsdatei von <em>Little Logbook</em> angepasst werden. Dazu
+      mehr im Anhang der Hilfe.
+    </p>
     <h4>
       Dialogeinstellungen zurücksetzen
     </h4>
     <p>
       Alle Dialoge, die mit der <code>Diesen Dialog nicht wieder anzeigen</code> Option
       ausgeschaltet wurden, werden wieder aktiviert.
+    </p>
+    <h4>
+      Logbuchdatenbank zurücksetzen
+    </h4>
+    <p>
+      Löscht die interne Datenbank und lädt alle gültigen <code>Logbook.BIN</code>- und
+      <code>runways.xml</code>-Dateien neu. Verwaiste Einträge aus gelöschten Logbuchdateien werden
+      dabei ebenso entfernt.
     </p>
     <h3>
       Hilfe
@@ -354,7 +500,8 @@
       Über
     </h4>
     <p>
-      Zeigt Informationen über <em>Little Logbook</em>.
+      Zeigt Informationen über <em>Little Logbook</em>, Verweise zum Quellcode, der Lizenz und der
+      Logdatei.
     </p>
     <h4>
       Über Qt
@@ -367,7 +514,8 @@
     </h2>
     <p>
       Alle Suchfilter können parallel benutzt werden. Die Begriffe können dabei mit einer und-
-      sowie einer oder-Bedingung verknüpft werden.
+      sowie einer oder-Bedingung verknüpft werden. Zu beachten ist, dass der Filter zum Simulator
+      (<code>Alle Simulatoren</code>) immer als und-Bedingung benutzt wird.
     </p>
     <p>
       Wenn die Datei <code>runways.xml</code> des <em>MakeRunways</em> Utility nicht geladen wurde,
@@ -377,7 +525,7 @@
       <img title="Suchfilter" alt="Suchfilter" src="images/searchbar.png" />
     </p>
     <p>
-      <span class="c1">Bild oben:</span> Suchfilter, die angezeigt werden, wenn
+      <span class="bold">Bild oben:</span> Suchfilter, die angezeigt werden, wenn
       <code>runways.xml</code> gefunden wurde.
     </p>
     <p>
@@ -385,7 +533,7 @@
       "images/searchbarsmall.png" />
     </p>
     <p>
-      <span class="c1">Bild oben:</span> Die reduzierte Suchleiste, wenn <code>runways.xml</code>
+      <span class="bold">Bild oben:</span> Die reduzierte Suchleiste, wenn <code>runways.xml</code>
       nicht gefunden wurde.
     </p>
     <h3>
@@ -397,6 +545,12 @@
     </p>
     <p>
       <img title="Suchtipps" alt="Suchtipps" src="images/searchtips.png" />
+    </p>
+    <h3>
+      Simulator Auswahl
+    </h3>
+    <p>
+      <code>All Simulatoren</code>
     </p>
     <h3>
       Muster
@@ -466,7 +620,7 @@
       <img alt="Komplexe Suche" title="Komplexe Suche" src="images/complexsearch.png" />
     </p>
     <p>
-      <span class="c1">Bild oben:</span> Suche für alle Flüge mit der Beech Duke, die in
+      <span class="bold">Bild oben:</span> Suche für alle Flüge mit der Beech Duke, die in
       Reichelsheim gestartet sind und kein Ziel in Deutschland haben.
     </p>
     <h2>
@@ -478,11 +632,11 @@
     <div class="tabbed12">
       <ul>
         <li>
-          <span class="c1">Normale Ansicht:</span> Diese wird nach dem Start des Programmes
+          <span class="bold">Normale Ansicht:</span> Diese wird nach dem Start des Programmes
           dargestellt und zeigt alle Spalten des Logbuches an.
         </li>
         <li>
-          <span class="c1">Gruppierungsansicht:</span> Wenn um eine Spalte gruppiert wird, werden
+          <span class="bold">Gruppierungsansicht:</span> Wenn um eine Spalte gruppiert wird, werden
           für die restlichen Spalten Summen der jeweiligen Werte dargestellt. Einige Spalten werden
           in der Gruppierungsansicht nicht angezeigt und unpassende Suchfilter werden deaktiviert.
         </li>
@@ -492,7 +646,7 @@
       <img alt="Gruppierte Ansicht" title="Gruppierte Ansicht" src="images/grouped.png" />
     </p>
     <p>
-      <span class="c1">Bild oben:</span> Die Ansicht ist nach Flugzeugbeschreibung gruppiert und
+      <span class="bold">Bild oben:</span> Die Ansicht ist nach Flugzeugbeschreibung gruppiert und
       absteigend nach Anzahl der der Flüge sortiert, um das meist geflogene Flugzeug zu finden.
     </p>
     <h3>
@@ -504,16 +658,17 @@
     <div class="tabbed20">
       <ul>
         <li>
-          <span class="c1">Klick auf Spaltenkopf:</span> Sortiere auf- oder absteigend.
+          <span class="bold">Klick auf Spaltenkopf:</span> Sortiere auf- oder absteigend.
         </li>
         <li>
-          <span class="c1">Klick und Ziehen auf Spaltenkopf:</span> Spalte verschieben.
+          <span class="bold">Klick und Ziehen auf Spaltenkopf:</span> Spalte verschieben.
         </li>
         <li>
-          <span class="c1">Doppelklick auf Spaltengrenze:</span> Spalte auf optimale Breite setzen.
+          <span class="bold">Doppelklick auf Spaltengrenze:</span> Spalte auf optimale Breite
+          setzen.
         </li>
         <li>
-          <span class="c1">Klick und Ziehen auf Spaltengrenze:</span> Spaltenbreite ändern.
+          <span class="bold">Klick und Ziehen auf Spaltengrenze:</span> Spaltenbreite ändern.
         </li>
       </ul>
     </div>
@@ -525,8 +680,8 @@
       <img alt="Kopfzeile" title="Kopfzeile" src="images/header.png" />
     </p>
     <p>
-      <span class="c1">Bild oben:</span> Die Spalten zwischen Start-Flugplatz und Start-Land wurden
-      auf Minimalgröße reduziert. Sie werden somit vom HTML-Export ausgeschlossen.
+      <span class="bold">Bild oben:</span> Die Spalten zwischen Start-Flugplatz und Start-Land
+      wurden auf Minimalgröße reduziert. Sie werden somit vom HTML-Export ausgeschlossen.
     </p>
     <h3>
       Spalten
@@ -539,6 +694,10 @@
         <li>
           <span><code>Logbucheintrag</code>:</span> Nummer des Logbucheintrages. Gibt die zeitliche
           Reihenfolge wieder, wann der Flug stattfand. Die größte Nummer ist der letzte Flug.
+        </li>
+        <li>
+          <span><code>Simulator</code>:</span> Der Simulator aus dem der Logbucheintrag stammt.
+          <code>FSX</code>, <code>FSX SE</code>, <code>P3D V2</code> oder <code>P3D V3</code>.
         </li>
         <li>
           <span><code>Startzeit</code>:</span> Datum und Zeit des Fluges, die im Flugsimulator
@@ -644,6 +803,21 @@
       "images/tableviewcontext.png" />
     </p>
     <h4>
+      Kopieren
+    </h4>
+    <p>
+      Kopiert die ausgewählten Tabellenzeilen im CSV-Format in die Zwischenablage. Dabei werden die
+      Einstellungen der Tabellenansicht, Spaltenreihenfolge und -sichtbarkeit, wie beim HTML-Export
+      berücksichtigt.
+    </p>
+    <h4>
+      Alles auswählen
+    </h4>
+    <p>
+      Wählt die sichtbaren Logbucheinträge aus. Um alle Einträge des Logbuches auszuwählen, muss
+      erst <code>Alle Einträge anzeigen</code> benutzt werden.
+    </p>
+    <h4>
       Ansicht zurücksetzen, Suchfilter zurücksetzen und Alle Einträge anzeigen
     </h4>
     <p>
@@ -686,6 +860,126 @@
       <img alt="Gesamtstatistik" title="Gesamtstatistik" src="images/statistics.png" />
     </p>
     <h2>
+      Konfigurationsdatei
+    </h2>
+    <p>
+      Die Konfiguration von <em>Little Logbook</em> wird in der Datei
+      <code>C:/Users/BENUTZERNAME/AppData/Roaming/ABarthel/little_logbook.ini</code> gespeichert.
+      Die hier beschriebenen Einstellungen sind erfahrenen Benutzern vorbehalten und zu speziell,
+      um sie in einen Dialog zu verarbeiten.
+    </p>
+    <h3>
+      KML-Exportoptionen:
+    </h3>
+    <p>
+      Optionen, die die Darstellung der Google Earth Dokumente steuern.
+    </p>
+    <pre xml:space="preserve">
+<code>[ExportKml]</code>
+</pre>
+    <p>
+      Gruppe für KML-Exporteinstellungen
+    </p>
+    <pre xml:space="preserve">
+<code>DestIcon          = http://maps.google.com/mapfiles/kml/paddle/red-blank.png</code>
+</pre>
+    <p>
+      Icon für den Zielflughafen
+    </p>
+    <pre xml:space="preserve">
+<code>DestIconScale     = 1.5</code>
+</pre>
+    <p>
+      Icongröße
+    </p>
+    <pre xml:space="preserve">
+<code>DestIconXHotspot  = 32
+DestIconYHotspot  = 1</code>
+</pre>
+    <p>
+      Hotspot in Pixel für das Icon
+    </p>
+    <pre xml:space="preserve">
+<code>LineColor         = ff00ffff</code>
+</pre>
+    <p>
+      Farbe dwer Linie
+    </p>
+    <pre xml:space="preserve">
+<code>LineWidth         = 2</code>
+</pre>
+    <p>
+      Breite der Linie in Pixel
+    </p>
+    <pre xml:space="preserve">
+<code>StartIcon         = http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</code>
+</pre>
+    <p>
+      Iconadresse für den Startflughafen
+    </p>
+    <pre xml:space="preserve">
+<code>StartIconScale    = 1.5</code>
+</pre>
+    <p>
+      Größe des Icons
+    </p>
+    <pre xml:space="preserve">
+<code>StartIconXHotspot = 32
+StartIconYHotspot = 1</code>
+</pre>
+    <p>
+      Hotspot in Pixel für das Icon
+    </p>
+    <h3>
+      Einstellungen für den Logbuchfilter:
+    </h3>
+    <p>
+      Mit diesen Einstellungen kann festgelegt werden, welche Einträge beim Laden ausgefiltert
+      werden.
+    </p>
+    <pre xml:space="preserve">
+<code>[Filter]</code>
+</pre>
+    <p>
+      Gruppe mit Filtereinstellungen
+    </p>
+    <pre xml:space="preserve">
+<code>FilterEntries=true</code>
+</pre>
+    <p>
+      Entspricht der Einstellung des Menüpunktes
+    </p>
+    <pre xml:space="preserve">
+<code>InvalidDate=true</code>
+</pre>
+    <p>
+      Alle Einträge mit ungültigen Datum beim Laden auslassen
+    </p>
+    <pre xml:space="preserve">
+<code>MinFlightTime=5</code>
+</pre>
+    <p>
+      All Flüge mit einer kleineren Flugzeit als die angegebene, werden ignoriert
+    </p>
+    <pre xml:space="preserve">
+<code>StartAndDestEmpty=true</code>
+</pre>
+    <p>
+      Flüge ignorieren, wenn Start <span class="bold">und</span> Ziel leer sind
+    </p>
+    <pre xml:space="preserve">
+<code>StartAndDestSame=true</code>
+</pre>
+    <p>
+      Ignorieren, wenn Start und Ziel gleich sind
+    </p>
+    <pre xml:space="preserve">
+<code>StartOrDestEmpty=false</code>
+</pre>
+    <p>
+      Ignorieren, wenn Start <span class="bold">oder</span> Ziel leer sind
+    </p>
+    <h2>
       Lizenz
     </h2>
     <p>
@@ -707,7 +1001,7 @@
       "http://www.gnu.org/licenses">http://www.gnu.org/licenses</a>.
     </p>
     <p>
-      <img alt="GPL V3" title="GPL V3" class="c2" src="images/gpl-v3-logo.svg" />
+      <img alt="GPL V3" title="GPL V3" class="gplimg" src="images/gpl-v3-logo.svg" />
     </p>
   </body>
 </html>
