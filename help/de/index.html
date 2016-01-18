@@ -113,13 +113,20 @@
       Little Logbook Hilfe
     </h1>
     <p>
+      Version 1.5
+    </p>
+    <p>
       <img alt="Little Logbook" title="Little Logbook" src="images/logbook.png" />
     </p>
     <p>
-      <em>Little Logbook</em> ist ein Ansichts- und Abfrageprogramm für das FSX Logbuch. Es erlaubt das intuitive und schnelle Filtern und Gruppieren von Logbucheinträgen anhand mehrerer Parameter sowie den Export in HTML- und CSV-Dokumente.
+      <em>Little Logbook</em> ist ein Ansichts- und Abfrageprogramm für das Flugsimulator Logbuch.
+      Es erlaubt das intuitive und schnelle Filtern und Gruppieren von Logbucheinträgen anhand
+      mehrerer Parameter sowie den Export in HTML-, CSV- und Google Earth KML-Dokumente.
     </p>
     <p>
-      Zusammen mit den <a href="http://www.schiratti.com/dowson.html">MakeRunways Utility</a> von Peter Dowson werden über das eigentliche Logbuch hinaus zusätzliche Informationen zu Flugplätzen angezeigt.
+      Zusammen mit den <a href="http://www.schiratti.com/dowson.html">MakeRunways Utility</a> von
+      Peter Dowson werden über das eigentliche Logbuch hinaus zusätzliche Informationen zu
+      Flugplätzen angezeigt und der Google Earth KML Export ermöglicht.
     </p>
     <p>
       Prepare3d oder FSX SE wurden bisher nicht getestet.
@@ -131,43 +138,59 @@
       Ein Installer bzw. Setup-Programm steht nicht zur Verfügung.
     </p>
     <p>
-      <span class="c1">Das Archiv sollte nicht in <code>c:\Programme\</code> oder in <code>c:\Programme (x86)\</code> installiert werden, da dazu unter manchen Windows Versionen Administratorrechte nötig sind. Da Windows Kontrolle über diese Ordner behält, können weitere Probleme auftreten, wie gelöschte oder ersetzte Dateien.</span>
+      <span class="c1">Das Archiv sollte nicht in <code>c:\Programme\</code> oder in
+      <code>c:\Programme (x86)\</code> installiert werden, da dazu unter manchen Windows Versionen
+      Administratorrechte nötig sind. Da Windows Kontrolle über diese Ordner behält, können weitere
+      Probleme auftreten, wie gelöschte oder ersetzte Dateien.</span>
     </p>
     <p>
-      Das Zip-Archiv in einen beliebigen Ordner, wie z.B. <code>c:\Meine Programme\Little Logbook</code> extrahieren. Das Programm anschließend durch Doppelklick auf die <code>littlelogbook.exe</code> starten.
+      Das Zip-Archiv in einen beliebigen Ordner, wie z.B. <code>c:\Meine Programme\Little
+      Logbook</code> extrahieren. Das Programm anschließend durch Doppelklick auf die
+      <code>littlelogbook.exe</code> starten.
     </p>
     <p>
-      <em>Little Logbook</em> ist eine 32 Bit Anwendung und wurde unter Windows XP, Windows 7 64 Bit und Windows 8.1 64 Bit getestet.
+      <em>Little Logbook</em> ist eine 32 Bit Anwendung und wurde unter Windows XP, Windows 7 64
+      Bit und Windows 8.1 64 Bit getestet.
     </p>
     <h2>
       Erster Start
     </h2>
     <p>
-      Das Programm versucht beim ersten Start die Datei <code>Logbook.BIN</code> zu finden und in eine interne Datenbank zu lesen. Wird die Datei nicht gefunden, erscheint ein Dateiauswahldialog, mit dem <code>Logbook.BIN</code> ausgewählt werden kann.
+      Das Programm versucht beim ersten Start die Datei <code>Logbook.BIN</code> zu finden und in
+      eine interne Datenbank zu lesen. Wird die Datei nicht gefunden, erscheint ein
+      Dateiauswahldialog, mit dem <code>Logbook.BIN</code> ausgewählt werden kann.
     </p>
     <p>
-      Das Programm merkt sich die zuletzt ausgewählte Logbuchdatei. Falls Änderungen beim Start festgestellt werden, wird die Datei neu in die interne Datenbank geladen.
+      Das Programm merkt sich die zuletzt ausgewählte Logbuchdatei. Falls Änderungen beim Start
+      festgestellt werden, wird die Datei neu in die interne Datenbank geladen.
     </p>
     <h2>
       MakeRunways Utility
     </h2>
     <p>
-      Wenn das <em>MakeRunways</em> Utility von Peter Dowson installiert und ausgeführt wurde, können über die Datei <code>runways.xml</code> im FSX-Basisverzeichnis zusätzliche Informationen über Flugplätze angezeigt werden.
+      Wenn das <em>MakeRunways</em> Utility von Peter Dowson installiert und ausgeführt wurde,
+      können über die Datei <code>runways.xml</code> im FSX-Basisverzeichnis zusätzliche
+      Informationen über Flugplätze angezeigt werden.
     </p>
     <p>
-      Zusätzliche Informationen, die in der Tabellenansicht dargestellt und durchsucht werden können, sind Flugplatzname, Stadt, Bundesstaat und Land. Mehr Flugplatzinformationen stehen über den Tooltip der Start- und Ziel-ICAO Felder zur Verfügung.
+      Zusätzliche Informationen, die in der Tabellenansicht dargestellt und durchsucht werden
+      können, sind Flugplatzname, Stadt, Bundesstaat und Land. Mehr Flugplatzinformationen stehen
+      über den Tooltip der Start- und Ziel-ICAO Felder zur Verfügung.
     </p>
     <p>
       <img alt="Airport Tooltip" title="Airport Tooltip" src="images/aptooltip.png" />
     </p>
     <p>
-      <span class="c1">Bild oben:</span> Flugplatzinformationen, die angezeigt werden, wenn <code>runways.xml</code> geladen wurde.
+      <span class="c1">Bild oben:</span> Flugplatzinformationen, die angezeigt werden, wenn
+      <code>runways.xml</code> geladen wurde.
     </p>
     <p>
-      Falls die <code>runways.xml</code>-Datei gefunden und geladen wurde, wird sie auf zukünftige Änderungen überwacht und bei Bedarf neu geladen.
+      Falls die <code>runways.xml</code>-Datei gefunden und geladen wurde, wird sie auf zukünftige
+      Änderungen überwacht und bei Bedarf neu geladen.
     </p>
     <p>
-      Das <em>MakeRunways</em> Utility kann auf <a href="http://www.schiratti.com/dowson.html">Peter Dowsons Seite</a> heruntergeladen werden.
+      Das <em>MakeRunways</em> Utility kann auf <a href=
+      "http://www.schiratti.com/dowson.html">Peter Dowsons Seite</a> heruntergeladen werden.
     </p>
     <h2>
       Menü
@@ -182,7 +205,8 @@
       <img alt="Logbuch öffnen" title="Logbuch öffnen" src="images/open.png" />
     </p>
     <p>
-      Öffnet eine andere <code>Logbook.BIN</code>-Datei und lädt diese in die interne Datenbank. <em>Little Logbook</em> merkt sich anschließend die Datei und überwacht sie auf Änderungen.
+      Öffnet eine andere <code>Logbook.BIN</code>-Datei und lädt diese in die interne Datenbank.
+      <em>Little Logbook</em> merkt sich anschließend die Datei und überwacht sie auf Änderungen.
     </p>
     <h4>
       Logbuch neu laden
@@ -206,7 +230,8 @@
       Werkzeugleiste, Statusleiste, Gesamtstatistik und Suche
     </h4>
     <p>
-      Schaltet die jeweiligen Leisten und Fenster an oder aus. <em>Little Logbook</em> merkt sich diese Einstellungen.
+      Schaltet die jeweiligen Leisten und Fenster an oder aus. <em>Little Logbook</em> merkt sich
+      diese Einstellungen.
     </p>
     <h4>
       Alle Einträge anzeigen
@@ -215,10 +240,14 @@
       <img alt="Alle Einträge anzeigen" title="Alle Einträge anzeigen" src="images/showall.png" />
     </p>
     <p>
-      Die Tabellenansicht zeigt anfänglich nicht alle Einträge des Logbuches an. Mit diesem Menüpunkt können sämtliche Eintrage in die Tabellenansicht geladen und angezeigt werden. Nach der Eingabe eines neuen Suchfilters oder einer neuen Sortierung wird wiederum nur ein Teil der Ergebnisse angezeigt.
+      Die Tabellenansicht zeigt anfänglich nicht alle Einträge des Logbuches an. Mit diesem
+      Menüpunkt können sämtliche Eintrage in die Tabellenansicht geladen und angezeigt werden. Nach
+      der Eingabe eines neuen Suchfilters oder einer neuen Sortierung wird wiederum nur ein Teil
+      der Ergebnisse angezeigt.
     </p>
     <p>
-      Die Anzahl der vorhandenen, ausgewählten und angezeigten Einträge werden in der Statuszeile vermerkt.
+      Die Anzahl der vorhandenen, ausgewählten und angezeigten Einträge werden in der Statuszeile
+      vermerkt.
     </p>
     <h4>
       Ansicht zurücksetzen
@@ -227,16 +256,19 @@
       <img alt="Ansicht zurücksetzen" title="Ansicht zurücksetzen" src="images/resetview.png" />
     </p>
     <p>
-      Setzt die Sortierung, Spaltenreihenfolge und Spaltenbreiten der Tabellenansicht nach einem Nachfragedialog auf die Standardeinstellungen zurück.
+      Setzt die Sortierung, Spaltenreihenfolge und Spaltenbreiten der Tabellenansicht nach einem
+      Nachfragedialog auf die Standardeinstellungen zurück.
     </p>
     <h4>
       Suchfilter zurücksetzen
     </h4>
     <p>
-      <img alt="Suchfilter zurücksetzen" title="Suchfilter zurücksetzen" src="images/clearsearch.png" />
+      <img alt="Suchfilter zurücksetzen" title="Suchfilter zurücksetzen" src=
+      "images/clearsearch.png" />
     </p>
     <p>
-      Löscht alle Eingaben in den Suchfiltern und zeigt wieder alle Logbucheinträge in der Tabellenansicht an. Siehe weiter unten zu Suchfiltern.
+      Löscht alle Eingaben in den Suchfiltern und zeigt wieder alle Logbucheinträge in der
+      Tabellenansicht an. Siehe weiter unten zu Suchfiltern.
     </p>
     <h4>
       Gruppierung auflösen
@@ -245,19 +277,23 @@
       <img alt="Gruppierung auflösen" title="Gruppierung auflösen" src="images/ungroup.png" />
     </p>
     <p>
-      Eine vorher erstellte Gruppierung wird aufgelöst und zur normalen Ansicht zurückgekehrt. Siehe weiter unten zum Erstellen von Gruppierungen.
+      Eine vorher erstellte Gruppierung wird aufgelöst und zur normalen Ansicht zurückgekehrt.
+      Siehe weiter unten zum Erstellen von Gruppierungen.
     </p>
     <h3>
       Export
     </h3>
     <p>
-      Entweder alle oder nur die ausgewählten Logbucheinträge in der Tabellenansicht können exportiert werden.
+      Entweder alle oder nur die ausgewählten Logbucheinträge in der Tabellenansicht können
+      exportiert werden.
     </p>
     <h4>
       Datei nach Export öffnen
     </h4>
     <p>
-      Wenn diese Menüpunkt ausgewählt ist, werden die Dateien nach dem Export in einem passenden Programm geöffnet. Für HTML ist das der Standardbrowser und für CSV beispielsweise Excel oder LibreOffice Calc.
+      Wenn diese Menüpunkt ausgewählt ist, werden die Dateien nach dem Export in einem passenden
+      Programm geöffnet. Für HTML ist das der Standardbrowser und für CSV beispielsweise Excel oder
+      LibreOffice Calc.
     </p>
     <h4>
       Alle Einträge als CSV exportieren ...
@@ -266,10 +302,14 @@
       Ausgewählte Einträge als CSV exportieren ...
     </h4>
     <p>
-      Im Gegensatz zum HTML-Export werden CSV-Dokumente unabhängig von der Ansicht immer mit allen Spalten und in der gleichen Spaltenreihenfolge exportiert.
+      Im Gegensatz zum HTML-Export werden CSV-Dokumente unabhängig von der Ansicht immer mit allen
+      Spalten und in der gleichen Spaltenreihenfolge exportiert.
     </p>
     <p>
-      Als Feldtrennzeichen wird <code>;</code> benutzt und <code>"</code>, um Zeichenketten zu markieren. Die verwendete Codepage hängt von den Betriebssystemeinstellungen ab. Unter Windows ist das im Westeuropäischen Raum meist <code>Windows-1252</code> und unter Mac und Linux <code>UTF-8</code>.
+      Als Feldtrennzeichen wird <code>;</code> benutzt und <code>"</code>, um Zeichenketten zu
+      markieren. Die verwendete Codepage hängt von den Betriebssystemeinstellungen ab. Unter
+      Windows ist das im Westeuropäischen Raum meist <code>Windows-1252</code> und unter Mac und
+      Linux <code>UTF-8</code>.
     </p>
     <h4>
       Alle Einträge als HTML exportieren ...
@@ -278,13 +318,18 @@
       Ausgewählte Einträge als HTML exportieren ...
     </h4>
     <p>
-      Der HTML-Export erstellt das exportierte Dokument mit der gleichen Spaltenreihenfolge und Sortierung, wie es in der aktuellen Tabellenansicht anzeigt wird. Das gilt auch für gruppierte Ansichten.
+      Der HTML-Export erstellt das exportierte Dokument mit der gleichen Spaltenreihenfolge und
+      Sortierung, wie es in der aktuellen Tabellenansicht anzeigt wird. Das gilt auch für
+      gruppierte Ansichten.
     </p>
     <p>
-      Spalten, die auf Minimalbreite zusammengezogen sind, werden nicht exportiert. Dies ist eine Möglichkeit, das exportierte Dokument im begrenzten Maße zu gestalten.
+      Spalten, die auf Minimalbreite zusammengezogen sind, werden nicht exportiert. Dies ist eine
+      Möglichkeit, das exportierte Dokument im begrenzten Maße zu gestalten.
     </p>
     <p>
-      Zu große Dateien können zu langen Ladenzeiten führen oder den Browser zum Absturz bringen. Daher sollte die Anzahl der Einträge durch Filter oder eine passende Auswahl auf unter 5.000 Logbucheinträge begrenzt werden.
+      Zu große Dateien können zu langen Ladenzeiten führen oder den Browser zum Absturz bringen.
+      Daher sollte die Anzahl der Einträge durch Filter oder eine passende Auswahl auf unter 5.000
+      Logbucheinträge begrenzt werden.
     </p>
     <h3>
       Extras
@@ -293,7 +338,8 @@
       Dialogeinstellungen zurücksetzen
     </h4>
     <p>
-      Alle Dialoge, die mit der <code>Diesen Dialog nicht wieder anzeigen</code> Option ausgeschaltet wurden, werden wieder aktiviert.
+      Alle Dialoge, die mit der <code>Diesen Dialog nicht wieder anzeigen</code> Option
+      ausgeschaltet wurden, werden wieder aktiviert.
     </p>
     <h3>
       Hilfe
@@ -320,28 +366,34 @@
       Suchfilter
     </h2>
     <p>
-      Alle Suchfilter können parallel benutzt werden. Die Begriffe können dabei mit einer und- sowie einer oder-Bedingung verknüpft werden.
+      Alle Suchfilter können parallel benutzt werden. Die Begriffe können dabei mit einer und-
+      sowie einer oder-Bedingung verknüpft werden.
     </p>
     <p>
-      Wenn die Datei <code>runways.xml</code> des <em>MakeRunways</em> Utility nicht geladen wurde, werden einige Suchfelder ausgeblendet.
+      Wenn die Datei <code>runways.xml</code> des <em>MakeRunways</em> Utility nicht geladen wurde,
+      werden einige Suchfelder ausgeblendet.
     </p>
     <p>
       <img title="Suchfilter" alt="Suchfilter" src="images/searchbar.png" />
     </p>
     <p>
-      <span class="c1">Bild oben:</span> Suchfilter, die angezeigt werden, wenn <code>runways.xml</code> gefunden wurde.
+      <span class="c1">Bild oben:</span> Suchfilter, die angezeigt werden, wenn
+      <code>runways.xml</code> gefunden wurde.
     </p>
     <p>
-      <img alt="Suchleiste ohne runways.xml" title="Suchleiste ohne runways.xml" src="images/searchbarsmall.png" />
+      <img alt="Suchleiste ohne runways.xml" title="Suchleiste ohne runways.xml" src=
+      "images/searchbarsmall.png" />
     </p>
     <p>
-      <span class="c1">Bild oben:</span> Die reduzierte Suchleiste, wenn <code>runways.xml</code> nicht gefunden wurde.
+      <span class="c1">Bild oben:</span> Die reduzierte Suchleiste, wenn <code>runways.xml</code>
+      nicht gefunden wurde.
     </p>
     <h3>
       Tooltip-Hilfe
     </h3>
     <p>
-      Über die Etiketten <code>Start:</code> und <code>Ziel:</code> ist eine Tooltip-Kurzhilfe verfügbar.
+      Über die Etiketten <code>Start:</code> und <code>Ziel:</code> ist eine Tooltip-Kurzhilfe
+      verfügbar.
     </p>
     <p>
       <img title="Suchtipps" alt="Suchtipps" src="images/searchtips.png" />
@@ -353,10 +405,12 @@
       Die Standardsuche sucht alle Begriffe im Logbuch, die mit den eingegeben Zeichen beginnen.
     </p>
     <p>
-      Der Platzhalter <code>*</code> steht für beliebigen Text. Sobald ein <code>*</code> im Suchbegriff enthalten ist, wird die Standardsuche nicht mehr benutzt.
+      Der Platzhalter <code>*</code> steht für beliebigen Text. Sobald ein <code>*</code> im
+      Suchbegriff enthalten ist, wird die Standardsuche nicht mehr benutzt.
     </p>
     <p>
-      Wenn das erste Zeichen in einem Suchfeld ein <code>-</code> ist, wird die Suche negiert (suche alle Einträge außer den passenden).
+      Wenn das erste Zeichen in einem Suchfeld ein <code>-</code> ist, wird die Suche negiert
+      (suche alle Einträge außer den passenden).
     </p>
     <h3>
       Bedingungen
@@ -367,10 +421,12 @@
     <div class="tabbed15">
       <ul>
         <li>
-          <span><code>Alle Bedingungen</code>:</span> Alle Suchfilter müssen passen, damit ein Eintrag in der Ansicht erscheint (und-Verknüpfung).
+          <span><code>Alle Bedingungen</code>:</span> Alle Suchfilter müssen passen, damit ein
+          Eintrag in der Ansicht erscheint (und-Verknüpfung).
         </li>
         <li>
-          <span><code>Einige</code> <code>Bedingungen</code>:</span> Mindestens ein Suchfilter muss übereinstimmen, damit ein Eintrag in der Ansicht erscheint (oder-Verknüpfung).
+          <span><code>Einige</code> <code>Bedingungen</code>:</span> Mindestens ein Suchfilter muss
+          übereinstimmen, damit ein Eintrag in der Ansicht erscheint (oder-Verknüpfung).
         </li>
       </ul>
     </div>
@@ -388,23 +444,30 @@
         <code>*DD</code> in <code>Start: ICAO</code><code>-Code</code> findet KRDD.
       </li>
       <li>
-        <code>*</code><code>DD*</code> in <code>Start: ICAO</code><code>-Code</code> findet EDDF, KRDD, LDDU.
+        <code>*</code><code>DD*</code> in <code>Start: ICAO</code><code>-Code</code> findet EDDF,
+        KRDD, LDDU.
       </li>
       <li>
-        <code>ED</code> in <code>Start: ICAO</code><code>-Code</code> und <code>ED</code> in <code>Ziel: ICAO</code><code>-Code</code> in Verbindung mit der Bedingung <code>Alle Bedingungen</code> findet alle Flüge innerhalb Deutschlands.
+        <code>ED</code> in <code>Start: ICAO</code><code>-Code</code> und <code>ED</code> in
+        <code>Ziel: ICAO</code><code>-Code</code> in Verbindung mit der Bedingung <code>Alle
+        Bedingungen</code> findet alle Flüge innerhalb Deutschlands.
       </li>
       <li>
-        <code>ED</code> in <code>Start: ICAO</code><code>-Code</code> und <code>ED</code> in <code>Ziel: ICAO</code><code>-Code</code> in Verbindung mit der Bedingung <code>Einige Bedingungen</code> findet alle Flüge, die Deutschland als Start oder Ziel haben.
+        <code>ED</code> in <code>Start: ICAO</code><code>-Code</code> und <code>ED</code> in
+        <code>Ziel: ICAO</code><code>-Code</code> in Verbindung mit der Bedingung <code>Einige
+        Bedingungen</code> findet alle Flüge, die Deutschland als Start oder Ziel haben.
       </li>
       <li>
-        <code>-*Beech*</code> in <code>Flugzeugbeschreibung</code> findet alle Flüge, die nicht mit einem Beechcraft Flugzeug durchgeführt wurden.
+        <code>-*Beech*</code> in <code>Flugzeugbeschreibung</code> findet alle Flüge, die nicht mit
+        einem Beechcraft Flugzeug durchgeführt wurden.
       </li>
     </ul>
     <p>
       <img alt="Komplexe Suche" title="Komplexe Suche" src="images/complexsearch.png" />
     </p>
     <p>
-      <span class="c1">Bild oben:</span> Suche für alle Flüge mit der Beech Duke, die in Reichelsheim gestartet sind und kein Ziel in Deutschland haben.
+      <span class="c1">Bild oben:</span> Suche für alle Flüge mit der Beech Duke, die in
+      Reichelsheim gestartet sind und kein Ziel in Deutschland haben.
     </p>
     <h2>
       Tabellenansicht
@@ -415,10 +478,13 @@
     <div class="tabbed12">
       <ul>
         <li>
-          <span class="c1">Normale Ansicht:</span> Diese wird nach dem Start des Programmes dargestellt und zeigt alle Spalten des Logbuches an.
+          <span class="c1">Normale Ansicht:</span> Diese wird nach dem Start des Programmes
+          dargestellt und zeigt alle Spalten des Logbuches an.
         </li>
         <li>
-          <span class="c1">Gruppierungsansicht:</span> Wenn um eine Spalte gruppiert wird, werden für die restlichen Spalten Summen der jeweiligen Werte dargestellt. Einige Spalten werden in der Gruppierungsansicht nicht angezeigt und unpassende Suchfilter werden deaktiviert.
+          <span class="c1">Gruppierungsansicht:</span> Wenn um eine Spalte gruppiert wird, werden
+          für die restlichen Spalten Summen der jeweiligen Werte dargestellt. Einige Spalten werden
+          in der Gruppierungsansicht nicht angezeigt und unpassende Suchfilter werden deaktiviert.
         </li>
       </ul>
     </div>
@@ -426,7 +492,8 @@
       <img alt="Gruppierte Ansicht" title="Gruppierte Ansicht" src="images/grouped.png" />
     </p>
     <p>
-      <span class="c1">Bild oben:</span> Die Ansicht ist nach Flugzeugbeschreibung gruppiert und absteigend nach Anzahl der der Flüge sortiert, um das meist geflogene Flugzeug zu finden.
+      <span class="c1">Bild oben:</span> Die Ansicht ist nach Flugzeugbeschreibung gruppiert und
+      absteigend nach Anzahl der der Flüge sortiert, um das meist geflogene Flugzeug zu finden.
     </p>
     <h3>
       Kopfzeile
@@ -451,13 +518,15 @@
       </ul>
     </div>
     <p>
-      Das Programm merkt sich die Spaltenbreiten und -positionen, bis <code>Ansicht zurücksetzen</code> ausgeführt wird.
+      Das Programm merkt sich die Spaltenbreiten und -positionen, bis <code>Ansicht
+      zurücksetzen</code> ausgeführt wird.
     </p>
     <p>
       <img alt="Kopfzeile" title="Kopfzeile" src="images/header.png" />
     </p>
     <p>
-      <span class="c1">Bild oben:</span> Die Spalten zwischen Start-Flugplatz und Start-Land wurden auf Minimalgröße reduziert. Sie werden somit vom HTML-Export ausgeschlossen.
+      <span class="c1">Bild oben:</span> Die Spalten zwischen Start-Flugplatz und Start-Land wurden
+      auf Minimalgröße reduziert. Sie werden somit vom HTML-Export ausgeschlossen.
     </p>
     <h3>
       Spalten
@@ -468,13 +537,16 @@
     <div class="tabbed17">
       <ul>
         <li>
-          <span><code>Logbucheintrag</code>:</span> Nummer des Logbucheintrages. Gibt die zeitliche Reihenfolge wieder, wann der Flug stattfand. Die größte Nummer ist der letzte Flug.
+          <span><code>Logbucheintrag</code>:</span> Nummer des Logbucheintrages. Gibt die zeitliche
+          Reihenfolge wieder, wann der Flug stattfand. Die größte Nummer ist der letzte Flug.
         </li>
         <li>
-          <span><code>Startzeit</code>:</span> Datum und Zeit des Fluges, die im Flugsimulator eingestellt waren. Ein Tooltip zeigt ein detailliertes Datum an.
+          <span><code>Startzeit</code>:</span> Datum und Zeit des Fluges, die im Flugsimulator
+          eingestellt waren. Ein Tooltip zeigt ein detailliertes Datum an.
         </li>
         <li>
-          <span><code>Start ICAO</code>:</span> Drei- oder vierstelliger ICAO-Code des Startflugplatzes. Ein Tooltip zeigt Informationen zum Flugplatz an*.
+          <span><code>Start ICAO</code>:</span> Drei- oder vierstelliger ICAO-Code des
+          Startflugplatzes. Ein Tooltip zeigt Informationen zum Flugplatz an*.
         </li>
         <li>
           <span><code>Start-Flugplatz</code>*</span>
@@ -489,7 +561,8 @@
           <span><code>Start-Land</code>*</span>
         </li>
         <li>
-          <span><code>Ziel ICAO</code>:</span> Drei- oder vierstelliger ICAO-Code des Zielflugplatzes. Ein Tooltip zeigt Informationen zum Flugplatz an*.
+          <span><code>Ziel ICAO</code>:</span> Drei- oder vierstelliger ICAO-Code des
+          Zielflugplatzes. Ein Tooltip zeigt Informationen zum Flugplatz an*.
         </li>
         <li>
           <span><code>Ziel-Flugplatz</code>*</span>
@@ -504,10 +577,14 @@
           <span><code>Ziel-Land</code>*</span>
         </li>
         <li>
-          <span><code>Entfernung</code>*:</span> Kürzeste Entfernung zwischen Start- und Zielflugplatz in nautischen Meilen. Ein Tooltip zeigt die Entfernung in Kilometern. Dies ist nicht die tatsächlich geflogene Entfernung, sondern die Luftlinienentfernung zwischen Start und Ziel.
+          <span><code>Entfernung</code>*:</span> Kürzeste Entfernung zwischen Start- und
+          Zielflugplatz in nautischen Meilen. Ein Tooltip zeigt die Entfernung in Kilometern. Dies
+          ist nicht die tatsächlich geflogene Entfernung, sondern die Luftlinienentfernung zwischen
+          Start und Ziel.
         </li>
         <li>
-          <span><code>Flugbeschreibung</code>:</span> Kommentar zum Flug, der im Simulator gesetzt werden kann.
+          <span><code>Flugbeschreibung</code>:</span> Kommentar zum Flug, der im Simulator gesetzt
+          werden kann.
         </li>
         <li>
           <span><code>Flugdauer</code>:</span> Dauer des Fluges in Stunden und Minuten.
@@ -516,19 +593,24 @@
           <span><code>Nachtflug</code>:</span> Der Nachtanteil in Stunden und Minuten.
         </li>
         <li>
-          <span><code>Instrumentenflug</code>:</span> Der Instumentenfluganteil (oder IFR-Anteil) aufgrund geringer Sichtweite oder Wolken in Stunden und Minuten.
+          <span><code>Instrumentenflug</code>:</span> Der Instumentenfluganteil (oder IFR-Anteil)
+          aufgrund geringer Sichtweite oder Wolken in Stunden und Minuten.
         </li>
         <li>
-          <span><code>Flugzeugregistrierung</code>:</span> Registrierungscode des Flugzeuges, wie z.B. <code>D-IESG</code>.
+          <span><code>Flugzeugregistrierung</code>:</span> Registrierungscode des Flugzeuges, wie
+          z.B. <code>D-IESG</code>.
         </li>
         <li>
-          <span><code>Flugzeugbeschreibung</code>:</span> Beschreibung des Flugzeuges, wie z.B. <code>Be</code><code>ech Duke</code>.
+          <span><code>Flugzeugbeschreibung</code>:</span> Beschreibung des Flugzeuges, wie z.B.
+          <code>Be</code><code>ech Duke</code>.
         </li>
         <li>
-          <span><code>Flugzeugtyp</code>:</span> Typ des Flugzeuges, wie Helikopter oder Starrflügel.
+          <span><code>Flugzeugtyp</code>:</span> Typ des Flugzeuges, wie Helikopter oder
+          Starrflügel.
         </li>
         <li>
-          <span><code>Flugzeuginformationen</code>:</span> Sonstige Informationen zum Flugzeug. Momentan wird nur erfasst, ob das Flugzeug mehrmotorig ist oder nicht.
+          <span><code>Flugzeuginformationen</code>:</span> Sonstige Informationen zum Flugzeug.
+          Momentan wird nur erfasst, ob das Flugzeug mehrmotorig ist oder nicht.
         </li>
         <li>
           <code>Besuchte Flugplätze/Landungen</code>: Zwischenziele und Anzahl der Landungen.
@@ -536,13 +618,15 @@
       </ul>
     </div>
     <p>
-      * Diese Spalten stehen nur zur Verfügung, wenn die Datei <code>runways.xml</code> des <em>MakeRunways</em> Utility geladen wurde.
+      * Diese Spalten stehen nur zur Verfügung, wenn die Datei <code>runways.xml</code> des
+      <em>MakeRunways</em> Utility geladen wurde.
     </p>
     <h3>
       Statuszeile
     </h3>
     <p>
-      Die Statuszeile zeigt die Anzahl der Einträge sowie die Anzahl der sichtbaren und ausgewählten Einträge in der Tabellenansicht an.
+      Die Statuszeile zeigt die Anzahl der Einträge sowie die Anzahl der sichtbaren und
+      ausgewählten Einträge in der Tabellenansicht an.
     </p>
     <p>
       <img alt="Statuszeile" title="Statuszeile" src="images/statusbar.png" />
@@ -551,10 +635,13 @@
       Kontextmenü
     </h3>
     <p>
-      Bestimmte Einträge im Kontextmenü der Tabellenansicht stehen nicht immer zu Verfügung. So kann z.B. keine Gruppierung zur Flugdauer erstellt werden, da kein sinnvolles Ergebnis zu erwarten wäre.
+      Bestimmte Einträge im Kontextmenü der Tabellenansicht stehen nicht immer zu Verfügung. So
+      kann z.B. keine Gruppierung zur Flugdauer erstellt werden, da kein sinnvolles Ergebnis zu
+      erwarten wäre.
     </p>
     <p>
-      <img alt="Kontextmenü der Tabellenansicht" title="Kontextmenü der Tabellenansicht" src="images/tableviewcontext.png" />
+      <img alt="Kontextmenü der Tabellenansicht" title="Kontextmenü der Tabellenansicht" src=
+      "images/tableviewcontext.png" />
     </p>
     <h4>
       Ansicht zurücksetzen, Suchfilter zurücksetzen und Alle Einträge anzeigen
@@ -566,28 +653,34 @@
       Filtere nach Einträgen, die den Text enthalten oder nicht enthalten
     </h4>
     <p>
-      Nimmt den Text des Feldes unter dem Mauszeiger und setzt die Suchfilter für eine inklusive oder exklusive Suche.
+      Nimmt den Text des Feldes unter dem Mauszeiger und setzt die Suchfilter für eine inklusive
+      oder exklusive Suche.
     </p>
     <h4>
       Gruppiere nach Spalte oder Gruppierung auflösen
     </h4>
     <p>
-      Erlaubt die Gruppierung um eine Spalte. Alle gleichen Werte dieser Spalte werden zusammengefasst und die Summen für andere Spalten angezeigt.
+      Erlaubt die Gruppierung um eine Spalte. Alle gleichen Werte dieser Spalte werden
+      zusammengefasst und die Summen für andere Spalten angezeigt.
     </p>
     <p>
-      So kann z.B. eine Gruppierung über die Flugzeugbeschreibung, die Anzahl der Flüge und die Gesamtflugzeit für jeden Flugzeugtyp angezeigt werden.
+      So kann z.B. eine Gruppierung über die Flugzeugbeschreibung, die Anzahl der Flüge und die
+      Gesamtflugzeit für jeden Flugzeugtyp angezeigt werden.
     </p>
     <p>
-      Um zur normalen Ansicht zurückzukehren, den Menüpunkt <code>Gruppierung auflösen</code> auswählen.
+      Um zur normalen Ansicht zurückzukehren, den Menüpunkt <code>Gruppierung auflösen</code>
+      auswählen.
     </p>
     <h2>
       Gesamtstatistik
     </h2>
     <p>
-      Diese zeigt Informationen zum gesamten Logbuch an. Der Inhalt aus dieser Ansicht kann als formatierter Text kopiert und dann in Dokumente oder Webseiten eingefügt werden.
+      Diese zeigt Informationen zum gesamten Logbuch an. Der Inhalt aus dieser Ansicht kann als
+      formatierter Text kopiert und dann in Dokumente oder Webseiten eingefügt werden.
     </p>
     <p>
-      Die Gesamtstatistik ist ein sogenanntes Dock-Fenster, das im Hauptfenster an verschiedenen Stellen angedockt oder auch herausgelöst werden kann.
+      Die Gesamtstatistik ist ein sogenanntes Dock-Fenster, das im Hauptfenster an verschiedenen
+      Stellen angedockt oder auch herausgelöst werden kann.
     </p>
     <p>
       <img alt="Gesamtstatistik" title="Gesamtstatistik" src="images/statistics.png" />
@@ -596,16 +689,22 @@
       Lizenz
     </h2>
     <p>
-      Dieses Programm ist Freie Software: Sie können es unter den Bedingungen der GNU General Public License, wie von der Free Software Foundation, Version 3 der Lizenz oder (nach Ihrer Wahl) jeder neueren veröffentlichten Version, weiterverbreiten und/oder modifizieren.
+      Dieses Programm ist Freie Software: Sie können es unter den Bedingungen der GNU General
+      Public License, wie von der Free Software Foundation, Version 3 der Lizenz oder (nach Ihrer
+      Wahl) jeder neueren veröffentlichten Version, weiterverbreiten und/oder modifizieren.
     </p>
     <p>
-      Dieses Programm wird in der Hoffnung, dass es nützlich sein wird, aber OHNE JEDE GEWÄHRLEISTUNG, bereitgestellt; sogar ohne die implizite Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
+      Dieses Programm wird in der Hoffnung, dass es nützlich sein wird, aber OHNE JEDE
+      GEWÄHRLEISTUNG, bereitgestellt; sogar ohne die implizite Gewährleistung der MARKTFÄHIGKEIT
+      oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
     </p>
     <p>
       Siehe die GNU General Public License für weitere Details.
     </p>
     <p>
-      Sie sollten eine Kopie der GNU General Public License zusammen mit diesem Programm erhalten haben. Wenn nicht, siehe <a href="http://www.gnu.org/licenses">http://www.gnu.org/licenses</a>.
+      Sie sollten eine Kopie der GNU General Public License zusammen mit diesem Programm erhalten
+      haben. Wenn nicht, siehe <a href=
+      "http://www.gnu.org/licenses">http://www.gnu.org/licenses</a>.
     </p>
     <p>
       <img alt="GPL V3" title="GPL V3" class="c2" src="images/gpl-v3-logo.svg" />
