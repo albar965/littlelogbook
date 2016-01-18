@@ -108,7 +108,7 @@ void HelpHandler::help()
     url = QUrl::fromLocalFile(defaultHelpFile);
   else
     QMessageBox::warning(parentWidget, QApplication::applicationName(), QString(
-                           tr("Help file <i>%1</i> not found")).arg(defaultHelpFile));
+                           tr("Help file <i>%1</i> not found")).arg(QDir::toNativeSeparators(defaultHelpFile)));
 
   qDebug() << "Help file" << url;
 

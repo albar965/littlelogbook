@@ -221,9 +221,9 @@ void PathDialog::initTab(QLineEdit *logbookEdit,
     }
 
     if(fi.exists() && fi.isReadable() && fi.isFile())
-      logbookEdit->setText(fi.absoluteFilePath());
+      logbookEdit->setText(QDir::toNativeSeparators(fi.absoluteFilePath()));
     else
-      logbookEdit->setText(logbook);
+      logbookEdit->setText(QDir::toNativeSeparators(logbook));
     updateIcon(logbookEdit->text(), logbookLabel);
 
     QString runways;
@@ -239,9 +239,9 @@ void PathDialog::initTab(QLineEdit *logbookEdit,
     }
 
     if(fi.exists() && fi.isReadable() && fi.isFile())
-      runwaysEdit->setText(fi.absoluteFilePath());
+      runwaysEdit->setText(QDir::toNativeSeparators(fi.absoluteFilePath()));
     else
-      runwaysEdit->setText(runways);
+      runwaysEdit->setText(QDir::toNativeSeparators(runways));
     updateIcon(runwaysEdit->text(), runwaysLabel);
   }
 }

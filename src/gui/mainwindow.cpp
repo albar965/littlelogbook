@@ -928,7 +928,7 @@ bool MainWindow::loadAirports(SimulatorType type)
   {
     QString file = pathSettings.getRunwaysFile(type);
     ui->statusBar->showMessage(QString(tr("Loading airports from \"%1\" (%2).")).
-                               arg(file).
+                               arg(QDir::toNativeSeparators(file)).
                                arg(PathSettings::getSimulatorName(type)));
     apLoader.loadAirports(file);
   }
@@ -1004,7 +1004,7 @@ bool MainWindow::loadLogbookDatabase(SimulatorType type)
   {
     QString file = pathSettings.getLogbookFile(type);
     ui->statusBar->showMessage(QString(tr("Loading Logbook entries from \"%1\" (%2).")).
-                               arg(file).
+                               arg(QDir::toNativeSeparators(file)).
                                arg(PathSettings::getSimulatorName(type)));
 
     importer.loadLogbook(file, type, filter, false /* append */);

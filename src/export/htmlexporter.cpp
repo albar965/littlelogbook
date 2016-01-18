@@ -30,6 +30,7 @@
 #include <algorithm>
 #include <QUrl>
 #include <QFile>
+#include <QDir>
 #include <QApplication>
 #include <QDateTime>
 #include <QXmlStreamReader>
@@ -70,9 +71,9 @@ bool HtmlExporter::askOverwriteDialog(const QString& basename, int totalPages)
     if(QFile::exists(fn))
     {
       if(existingFiles.isEmpty())
-        existingFiles.push_back("<i>" + fn + "</i>");
+        existingFiles.push_back("<i>" + QDir::toNativeSeparators(fn) + "</i>");
       else
-        existingFiles.push_back("<br/><i>" + fn + "</i>");
+        existingFiles.push_back("<br/><i>" + QDir::toNativeSeparators(fn) + "</i>");
     }
   }
   if(existingFiles.size() == 9 && totalPages > 9)
