@@ -163,7 +163,7 @@ void PathDialog::logbookButtonClicked(QLineEdit *edit, QLabel *iconLabel, Simula
                                         SETTINGS_LOGBOOK_DIALOG[type],
                                         edit->text());
   if(!text.isEmpty())
-    edit->setText(text);
+    edit->setText(QDir::toNativeSeparators(text));
   updateIcon(edit->text(), iconLabel);
 }
 
@@ -174,7 +174,7 @@ void PathDialog::runwaysButtonClicked(QLineEdit *edit, QLabel *iconLabel, Simula
                                         SETTINGS_RUNWAYS_DIALOG[type],
                                         edit->text());
   if(!text.isEmpty())
-    edit->setText(text);
+    edit->setText(QDir::toNativeSeparators(text));
   updateIcon(edit->text(), iconLabel);
 }
 
