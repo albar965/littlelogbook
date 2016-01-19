@@ -47,23 +47,23 @@ const char *SETTINGS_FILTER_START_DEST_SAME = "Filter/StartAndDestSame";
 const char *SETTINGS_FILTER_MIN_FLIGH_TIME = "Filter/MinFlightTime";
 
 const char *SETTINGS_EXPORT_OPEN = "File/OpenAfterExport";
-const char *SETTINGS_EXPORT_HTML_PAGE_SIZE = "MainWindow/ExportHtmlPageSize";
 const char *SETTINGS_EXPORT_FILE_DIALOG = "MainWindow/Export";
 
 const char *EXPORT_HTML_CSS_FILE = ":/littlelogbook/resources/css/export.css";
 const char *EXPORT_HTML_CODEC = "UTF-8";
 const char *EXPORT_KML_CODEC = "UTF-8";
 
-const char *SETTINGS_EXPORT_KML_LINE_COLOR = "ExportKml/LineColor";
-const char *SETTINGS_EXPORT_KML_LINE_WIDTH = "ExportKml/LineWidth";
-const char *SETTINGS_EXPORT_KML_START_ICON = "ExportKml/StartIcon";
-const char *SETTINGS_EXPORT_KML_DEST_ICON = "ExportKml/DestIcon";
-const char *SETTINGS_EXPORT_KML_START_ICON_SCALE = "ExportKml/StartIconScale";
-const char *SETTINGS_EXPORT_KML_DEST_ICON_SCALE = "ExportKml/DestIconScale";
-const char *SETTINGS_EXPORT_KML_START_X_HOTSPOT = "ExportKml/StartIconXHotspot";
-const char *SETTINGS_EXPORT_KML_START_Y_HOTSPOT = "ExportKml/StartIconYHotspot";
-const char *SETTINGS_EXPORT_KML_DEST_X_HOTSPOT = "ExportKml/DestIconXHotspot";
-const char *SETTINGS_EXPORT_KML_DEST_Y_HOTSPOT = "ExportKml/DestIconYHotspot";
+const char *SETTINGS_EXPORT_HTML_PAGE_SIZE = "Export/HtmlPageSize";
+const char *SETTINGS_EXPORT_KML_LINE_COLOR = "Export/KmlLineColor";
+const char *SETTINGS_EXPORT_KML_LINE_WIDTH = "Export/KmlLineWidth";
+const char *SETTINGS_EXPORT_KML_START_ICON = "Export/KmlStartIcon";
+const char *SETTINGS_EXPORT_KML_DEST_ICON = "Export/KmlDestIcon";
+const char *SETTINGS_EXPORT_KML_START_ICON_SCALE = "Export/KmlStartIconScale";
+const char *SETTINGS_EXPORT_KML_DEST_ICON_SCALE = "Export/KmlDestIconScale";
+const char *SETTINGS_EXPORT_KML_START_X_HOTSPOT = "Export/KmlStartIconXHotspot";
+const char *SETTINGS_EXPORT_KML_START_Y_HOTSPOT = "Export/KmlStartIconYHotspot";
+const char *SETTINGS_EXPORT_KML_DEST_X_HOTSPOT = "Export/KmlDestIconXHotspot";
+const char *SETTINGS_EXPORT_KML_DEST_Y_HOTSPOT = "Export/KmlDestIconYHotspot";
 
 const char *LOGBOOK_FILENAME = "Logbook.BIN";
 const char *RUNWAYS_FILENAME = "runways.xml";
