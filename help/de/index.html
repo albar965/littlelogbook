@@ -3,11 +3,12 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta name="generator" content="HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="language" content="DE" />
-    <meta name="generator" content="HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
     <meta name="author" content="Alexander Barthel" />
-    <meta name="date" content="2016-01-18T22:35:00+01:00" />
+    <meta name="date" content="2016-01-19T22:07:00+01:00" />
+    <meta content="Little Logbook Hilfe" name="description" />
     <title>
       Little Logbook Hilfe
     </title>
@@ -65,8 +66,8 @@
     }
     p {
     margin-left: 1.5em;
-    margin-top: 0.2em;
-    margin-bottom: 0.2em;
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
     }
     code {
     font-size: 14px;
@@ -115,12 +116,7 @@
     width: 12em;
     display: inline-block;
     }
-    /*]]>*/
-    </style>
-    <meta content="Alexander Barthel" name="author" />
-    <meta content="Little Logbook Hilfe" name="description" />
-    <style type="text/css" xml:space="preserve">
-/*<![CDATA[*/
+
     body.c3 { color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);}
     img.gplimg {width: 166px; height: 82px;}
     span.bold {font-weight: bold;}
@@ -162,7 +158,7 @@
       <span class="bold">Das Archiv sollte nicht in <code>c:\Programme\</code> oder in
       <code>c:\Programme (x86)\</code> installiert werden, da dazu unter manchen Windows Versionen
       Administratorrechte nötig sind. Da Windows Kontrolle über diese Ordner behält, können weitere
-      Probleme auftreten, wie gelöschte oder ersetzte Dateien.</span>
+      Probleme auftreten, wie durch das System gelöschte oder ersetzte Dateien.</span>
     </p>
     <p>
       Das Zip-Archiv in einen beliebigen Ordner, wie z.B. <code>c:\Meine Programme\Little
@@ -179,28 +175,27 @@
     <p>
       Das Programm ermittelt beim ersten Start automatisch die installierten Simulatoren, die
       dazugehörigen Logbuchdateien und eventuell vorhandene Dateien des <em>MakeRunways
-      Utility</em>. Anschließend wird der Dialog <code>Pfade und Dateien</code> geöffnet, der
-      für jeden gefunden Simulator einen Tab darstellt.
+      Utility</em>. Anschließend wird der Dialog <code>Pfade und Dateien</code> geöffnet, der für
+      jeden gefunden Simulator einen Tab darstellt.
     </p>
     <p>
-      Im diesem Dialog werden die gefundenen Dateien angezeigt und können
-      bei Bedarf geändert werden. Dateien, deren Pfad korrekt ist und die lesbar sind, werden mit einem grünen Haken
+      Im diesem Dialog werden die gefundenen Dateien angezeigt und können bei Bedarf geändert
+      werden. Dateien, deren Pfad korrekt ist und die lesbar sind, werden mit einem grünen Haken
       <img class="textimg" alt="Datei OK" title="Datei OK" src="images/check.png" /> angezeigt,
       nicht existierende oder nicht lesbare Dateien mit einem Ausrufezeichen <img class="textimg"
       alt="Datei OK" title="Datei OK" src="images/exclamation.png" />.
-      </p>
-      <p>
-       Der Dateiinhalt wird erst beim Laden überprüft. Daher sollten auch nur korrekte Logbuch- und Runways-Dateien
-      angegeben werden.
-      </p>
-      <p>
-Bei Bestätigung des Dialoges werden alle Dateien mit gültigem
-      Pfad in die interne Datenbank von <em>Little Logbook</em> geladen.
-      Ungültige Pfade werden ignoriert.
     </p>
     <p>
-      Mindestens eine <code>Logbook.BIN</code>-Logbuchdatei sollte angegeben werden um
-      <em>Little Logbook</em> nutzen zu können. Alle weiteren Dateien sind optional.
+      Der Dateiinhalt wird erst beim Laden überprüft. Daher sollten auch nur korrekte Logbuch- und
+      Runways-Dateien angegeben werden.
+    </p>
+    <p>
+      Bei Bestätigung des Dialoges werden alle Dateien mit gültigem Pfad in die interne Datenbank
+      von <em>Little Logbook</em> geladen. Ungültige Pfade werden ignoriert.
+    </p>
+    <p>
+      Mindestens eine <code>Logbook.BIN</code>-Logbuchdatei sollte angegeben werden, um <em>Little
+      Logbook</em> nutzen zu können. Alle weiteren Dateien sind optional.
     </p>
     <p>
       <img alt="Pfade und Dateien" title="Pfade und Dateien" src="images/paths.png" />
@@ -208,15 +203,16 @@ Bei Bestätigung des Dialoges werden alle Dateien mit gültigem
     <p>
       <span class="bold">Bild oben:</span> Der Dialog <code>Pfade und Dateien</code> zeigt eine
       gültige <code>Logbook.BIN</code>- und eine gültige <code>runways.xml</code>-Datei an.
-      Letztere ist optional und ermöglicht die Darstellung zusätzlicher Flugplatzinformationen.
-      Nur ein installierter Simulator wurde erkannt.
+      Letztere ist optional und ermöglicht die Darstellung zusätzlicher Flugplatzinformationen. Nur
+      ein installierter Simulator wurde erkannt.
     </p>
     <p>
       Das Programm merkt sich die zuletzt ausgewählten Pfade. Werden Änderungen beim Programmstart
-      festgestellt, lädt <em>Little Logbook</em> die jeweiligen Dateien neu in die interne Datenbank.
-      </p>
-      <p>
-Wird ein Dateipfad oder eine Datei gelöscht, verbleiben die Logbucheinträge in der internen
+      festgestellt, lädt <em>Little Logbook</em> die jeweiligen Dateien neu in die interne
+      Datenbank.
+    </p>
+    <p>
+      Wird ein Dateipfad oder eine Datei gelöscht, verbleiben die Logbucheinträge in der internen
       Datenbank, bis diese mit dem Menüpunkt <code>Logbuchdatenbank zurücksetzen</code> entfernt
       werden.
     </p>
@@ -356,9 +352,9 @@ Wird ein Dateipfad oder eine Datei gelöscht, verbleiben die Logbucheinträge in
     </h3>
     <p>
       Entweder alle oder nur die ausgewählten Logbucheinträge in der Tabellenansicht können
-      exportiert werden. Wenn die angezeigten Logbucheinträge durch eine Suche eingeschränkt
-      sind, wird auch nur dieses Suchergebnis durch die Menüpunkte <code>Alle Einträge als ... Exportieren
-      ...</code> gespeichert.
+      exportiert werden. Wenn die angezeigten Logbucheinträge durch eine Suche eingeschränkt sind,
+      wird auch nur dieses Suchergebnis durch die Menüpunkte <code>Alle Einträge als ...
+      Exportieren ...</code> gespeichert.
     </p>
     <h4>
       Datei nach Export öffnen
@@ -400,10 +396,10 @@ Wird ein Dateipfad oder eine Datei gelöscht, verbleiben die Logbucheinträge in
       Möglichkeit, das exportierte Dokument im begrenzten Maße zu gestalten.
     </p>
     <p>
-      Der HTML-Export erstellt ab 500 Logbucheinträgen eine neue Datei, wobei
-      alle exportierten Dateien untereinander verlinkt werden (sogenanntes Paging). Die Anzahl der maximalen
-      Einträge kann in der <em>Little Logbook</em> Konfigurationsdatei eingestellt werden.
-      Mehr dazu im Anhang dieses Dokumentes.
+      Der HTML-Export erstellt ab 500 Logbucheinträgen eine neue Datei, wobei alle exportierten
+      Dateien untereinander verlinkt werden (sogenanntes Paging). Die Anzahl der maximalen Einträge
+      kann in der <em>Little Logbook</em> Konfigurationsdatei eingestellt werden. Mehr dazu im
+      Anhang dieses Dokumentes.
     </p>
     <h4>
       Alle Einträge als KML exportieren ...
@@ -412,10 +408,10 @@ Wird ein Dateipfad oder eine Datei gelöscht, verbleiben die Logbucheinträge in
       Ausgewählte Einträge als KML exportieren ...
     </h4>
     <p>
-      Benötigt eine gültige <code>runways.xml</code>-Datei. Exportiert in eine
-      <em>Google Earth</em> KML-Datei. Diese Datei ermöglicht die Darstellung der Logbucheinträge
-      in einer Karte. Wenn nicht alle Einträge aufgrund unvollständiger Informationen
-      exportiert werden können, wird dies nach dem Export angezeigt.
+      Diese Exportfunktion benötigt eine gültige <code>runways.xml</code>-Datei und speichert in
+      eine <em>Google Earth</em> KML-Datei. Diese Datei ermöglicht die Darstellung der
+      Logbucheinträge in einer Karte. Wenn nicht alle Einträge aufgrund unvollständiger
+      Informationen exportiert werden können, wird dies nach dem Export angezeigt.
     </p>
     <p>
       Folgende Daten werden pro Logbucheintrag exportiert:
@@ -426,7 +422,7 @@ Wird ein Dateipfad oder eine Datei gelöscht, verbleiben die Logbucheinträge in
       <li>Roter Marker für das Ziel inklusive Flugplatzinformationen.
       </li>
       <li>Gelbe Linie, welche die Luftlinienverbindung zwischen Start- und Zielflugplatz anzeigt.
-      Das Linienobjekt enthält Fluginformationen, wie Entfernung, Flugzeit und mehr.
+      Das Linienobjekt enthält Fluginformationen, wie Entfernung und Flugzeit.
       </li>
     </ul>
     <p>
@@ -457,7 +453,7 @@ Wird ein Dateipfad oder eine Datei gelöscht, verbleiben die Logbucheinträge in
     </h4>
     <p>
       Wenn diese Option eingeschaltet ist, werden beim Import der Logbuchdateien unvollständige
-      Einträge ausgelassen. Logbucheinträge werden durch folgende Kriterien       ignoriert:
+      Einträge ausgelassen. Logbucheinträge werden durch folgende Kriterien ignoriert:
     </p>
     <ul>
       <li>Flugzeit unter fünf Minuten
@@ -551,9 +547,10 @@ Wird ein Dateipfad oder eine Datei gelöscht, verbleiben die Logbucheinträge in
       Simulator Auswahl
     </h3>
     <p>
-      Mit dem Kombinationsfeld <code>Alle Simulatoren</code> werden die Logbucheinträge auf den jeweils ausgewählten
-      Simulator begrenzt. Dies geschieht unabhängig von der Suche und der Einstellung <code>Einige Bedingungen</code>
-      oder <code>Alle Bedingungen</code>.
+      Mit dem Kombinationsfeld <code>Alle Simulatoren</code> werden die in der Tabellenansicht
+      angezeigten Logbucheinträge und die Gesamtstatistik auf den jeweils ausgewählten Simulator
+      begrenzt. Dies geschieht unabhängig von der Suche und der Einstellung im Kombinationsfeld
+      <code>Einige Bedingungen</code> oder <code>Alle Bedingungen</code>.
     </p>
     <h3>
       Muster
@@ -573,8 +570,8 @@ Wird ein Dateipfad oder eine Datei gelöscht, verbleiben die Logbucheinträge in
       Bedingungen
     </h3>
     <p>
-      In diesem Kombinationsfeld wird festgelegt, wie die Suchfilter verknüpft werden. Die Einstellungen
-      dieses Feldes haben keinen Einfluss auf die Auswahl des Simulators.
+      In diesem Kombinationsfeld wird festgelegt, wie die Suchfilter verknüpft werden. Die
+      Einstellungen dieses Feldes haben keinen Einfluss auf die Auswahl des Simulators.
     </p>
     <div class="tabbed15">
       <ul>
@@ -810,8 +807,8 @@ Wird ein Dateipfad oder eine Datei gelöscht, verbleiben die Logbucheinträge in
       Kopieren
     </h4>
     <p>
-      Kopiert die ausgewählten Tabellenzeilen im CSV-Format in die Zwischenablage. Dabei werden die
-      Einstellungen der Tabellenansicht, Spaltenreihenfolge und -sichtbarkeit, wie beim HTML-Export
+      Kopiert die ausgewählten Tabellenzeilen im CSV-Format in die Zwischenablage. Dabei werden wie
+      beim HTML-Export die Einstellungen der Tabellenansicht, Spaltenreihenfolge und -sichtbarkeit
       berücksichtigt.
     </p>
     <h4>
@@ -854,7 +851,8 @@ Wird ein Dateipfad oder eine Datei gelöscht, verbleiben die Logbucheinträge in
     </h2>
     <p>
       Diese zeigt Informationen zum gesamten Logbuch an. Der Inhalt aus dieser Ansicht kann als
-      formatierter Text kopiert und dann in Dokumente oder Webseiten eingefügt werden.
+      formatierter Text kopiert und dann in Dokumente oder Webseiten eingefügt werden. Der Inhalt
+      dieses Fensters wird durch die Simulatorauswahl beeinflusst.
     </p>
     <p>
       Die Gesamtstatistik ist ein sogenanntes Dock-Fenster, das im Hauptfenster an verschiedenen
@@ -869,77 +867,7 @@ Wird ein Dateipfad oder eine Datei gelöscht, verbleiben die Logbucheinträge in
     <p>
       Die Konfiguration von <em>Little Logbook</em> wird in der Datei
       <code>C:/Users/BENUTZERNAME/AppData/Roaming/ABarthel/little_logbook.ini</code> gespeichert.
-      Die hier beschriebenen Einstellungen sind erfahrenen Benutzern vorbehalten und zu speziell,
-      um sie in einen Dialog zu verarbeiten.
-    </p>
-
-
-
-    <h3>
-      Exportoptionen:
-    </h3>
-<code>[Export]</code>
-</pre>
-    <p>
-      Gruppe für Exporteinstellungen. Für mehr Informationen zu KML Optionen in der
-      <a href="https://developers.google.com/kml/documentation/kmlreference">Referenzdokumentation</a> nachschlagen.
-    </p>
-
-    <pre xml:space="preserve">
-<code>HtmlPageSize         = 500</code>
-</pre>
-    <p>
-      Maximale Anzahl der Logbucheinträge pro Seite beim HTML Export.
-    </p>
-    <pre xml:space="preserve">
-<code>KmlDestIcon          = http://maps.google.com/mapfiles/kml/paddle/red-blank.png</code>
-</pre>
-    <p>
-      Icon für den Zielflughafen
-    </p>
-    <pre xml:space="preserve">
-<code>KmlDestIconScale     = 1.5</code>
-</pre>
-    <p>
-      Icongröße
-    </p>
-    <pre xml:space="preserve">
-<code>KmlDestIconXHotspot  = 32
-KmlDestIconYHotspot  = 1</code>
-</pre>
-    <p>
-      Hotspot in Pixel für das Icon
-    </p>
-    <pre xml:space="preserve">
-<code>KmlLineColor         = ff00ffff</code>
-</pre>
-    <p>
-      Farbe der Linie
-    </p>
-    <pre xml:space="preserve">
-<code>KmlLineWidth         = 2</code>
-</pre>
-    <p>
-      Breite der Linie in Pixel
-    </p>
-    <pre xml:space="preserve">
-<code>KmlStartIcon         = http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</code>
-</pre>
-    <p>
-      Iconadresse für den Startflughafen
-    </p>
-    <pre xml:space="preserve">
-<code>KmlStartIconScale    = 1.5</code>
-</pre>
-    <p>
-      Größe des Icons
-    </p>
-    <pre xml:space="preserve">
-<code>KmlStartIconXHotspot = 32
-KmlStartIconYHotspot = 1</code>
-</pre>
-    <p>
-      Hotspot in Pixel für das Icon
+      Die hier beschriebenen Einstellungen sind erfahrenen Benutzern vorbehalten.
     </p>
     <h3>
       Einstellungen für den Logbuchfilter:
@@ -989,6 +917,73 @@ KmlStartIconYHotspot = 1</code>
 </pre>
     <p>
       Ignorieren, wenn Start <span class="bold">oder</span> Ziel leer sind
+    </p>
+    <h3>
+      Exportoptionen:
+    </h3>
+    <pre xml:space="preserve">
+<code>[Export]</code>
+</pre>
+    <p>
+      Gruppe für Exporteinstellungen. Für mehr Informationen zu KML Optionen in der <a href=
+      "https://developers.google.com/kml/documentation/kmlreference">Referenzdokumentation</a>
+      nachschlagen.
+    </p>
+    <pre xml:space="preserve">
+<code>HtmlPageSize         = 500</code>
+</pre>
+    <p>
+      Maximale Anzahl der Logbucheinträge pro Seite beim HTML Export.
+    </p>
+    <pre xml:space="preserve">
+<code>KmlDestIcon          = http://maps.google.com/mapfiles/kml/paddle/red-blank.png</code>
+</pre>
+    <p>
+      Icon für den Zielflughafen beim KML Export
+    </p>
+    <pre xml:space="preserve">
+<code>KmlDestIconScale     = 1.5</code>
+</pre>
+    <p>
+      Icongröße
+    </p>
+    <pre xml:space="preserve">
+<code>KmlDestIconXHotspot  = 32
+KmlDestIconYHotspot  = 1</code>
+</pre>
+    <p>
+      Hotspot in Pixel für das Icon
+    </p>
+    <pre xml:space="preserve">
+<code>KmlLineColor         = ff00ffff</code>
+</pre>
+    <p>
+      Farbe der Linie
+    </p>
+    <pre xml:space="preserve">
+<code>KmlLineWidth         = 2</code>
+</pre>
+    <p>
+      Breite der Linie in Pixel
+    </p>
+    <pre xml:space="preserve">
+<code>KmlStartIcon         = http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</code>
+</pre>
+    <p>
+      Iconadresse für den Startflughafen beim KML Export
+    </p>
+    <pre xml:space="preserve">
+<code>KmlStartIconScale    = 1.5</code>
+</pre>
+    <p>
+      Größe des Icons
+    </p>
+    <pre xml:space="preserve">
+<code>KmlStartIconXHotspot = 32
+KmlStartIconYHotspot = 1</code>
+</pre>
+    <p>
+      Hotspot in Pixel für das Icon
     </p>
     <h2>
       Lizenz
