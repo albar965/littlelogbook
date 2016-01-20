@@ -1,5 +1,4 @@
-Version 1.5.0.beta
-* Untested
+Version 1.5.0
 
 Export
 * Added Google Earth KML export (can be configured in the little_logbook.ini if needed).
